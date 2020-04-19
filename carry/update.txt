@@ -1,0 +1,202 @@
+update emp_master_tbl set reporting_mgr='1278' where emp_id='1277';
+
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1257';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1299';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1335';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1339';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1342';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1343';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1398';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1421';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1428';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1485';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1489';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1490';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1501';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1502';
+update emp_master_tbl set reporting_mgr='1307' where emp_id='1504';
+
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1052';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1266';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1305';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1379';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1391';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1401';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1402';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1404';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1405';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1458';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1459';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1479';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1481';
+update emp_master_tbl set reporting_mgr='1277' where emp_id='1500';
+
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1260';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1261';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1267';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1275';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1293';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1306';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1316';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1317';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1322';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1340';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1369';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1387';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1407';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1468';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1301';
+update emp_master_tbl set reporting_mgr='1244' where emp_id='1359';
+
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1252';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1264';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1289';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1291';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1302';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1312';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1314';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1333';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1336';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1338';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1349';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1358';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1363';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1365';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1372';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1373';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1374';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1392';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1394';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1408';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1439';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1440';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1448';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1450';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1453';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1461';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1467';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1480';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1486';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1495';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1498';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1503';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1505';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1506';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1507';
+update emp_master_tbl set reporting_mgr='1280' where emp_id='1510';
+
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1232';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1269';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1274';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1332';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1354';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1362';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1370';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1412';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1452';
+update emp_master_tbl set reporting_mgr='1178' where emp_id='1455';
+
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1216';
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1255';
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1367';
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1413';
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1470';
+update emp_master_tbl set reporting_mgr='1149' where emp_id='1491';
+
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1149';
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1178';
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1244';
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1280';
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1307';
+update emp_master_tbl set reporting_mgr='1132' where emp_id='1308';
+
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1132';
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1176';
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1278';
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1328';
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1329';
+update emp_master_tbl set reporting_mgr='1001' where emp_id='1499';
+
+update emp_master_tbl set reporting_mgr='1413' where emp_id='1300';
+update emp_master_tbl set reporting_mgr='1413' where emp_id='1384';
+update emp_master_tbl set reporting_mgr='1413' where emp_id='1390';
+update emp_master_tbl set reporting_mgr='1413' where emp_id='1445';
+update emp_master_tbl set reporting_mgr='1413' where emp_id='1496';
+
+update emp_master_tbl set reporting_mgr='1176' where emp_id='1441';
+
+update emp_master_tbl set reporting_mgr='1261' where emp_id='1426';
+update emp_master_tbl set reporting_mgr='1261' where emp_id='1437';
+update emp_master_tbl set reporting_mgr='1261' where emp_id='1449';
+update emp_master_tbl set reporting_mgr='1261' where emp_id='1473';
+
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1256';
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1283';
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1303';
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1395';
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1434';
+update emp_master_tbl set reporting_mgr='1216' where emp_id='1464';
+
+update emp_master_tbl set reporting_mgr='1316' where emp_id='1271';
+update emp_master_tbl set reporting_mgr='1316' where emp_id='1327';
+update emp_master_tbl set reporting_mgr='1316' where emp_id='1427';
+update emp_master_tbl set reporting_mgr='1316' where emp_id='1460';
+update emp_master_tbl set reporting_mgr='1316' where emp_id='1463';
+
+update emp_master_tbl set reporting_mgr='1408' where emp_id='1341';
+update emp_master_tbl set reporting_mgr='1408' where emp_id='1393';
+update emp_master_tbl set reporting_mgr='1408' where emp_id='1400';
+update emp_master_tbl set reporting_mgr='1408' where emp_id='1484';
+update emp_master_tbl set reporting_mgr='1408' where emp_id='1488';
+
+update emp_master_tbl set reporting_mgr='1367' where emp_id='1292';
+update emp_master_tbl set reporting_mgr='1367' where emp_id='1425';
+update emp_master_tbl set reporting_mgr='1367' where emp_id='1471';
+
+update emp_master_tbl set reporting_mgr='1329' where emp_id='1259';
+
+update emp_master_tbl set reporting_mgr='1257' where emp_id='1337';
+
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1294';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1297';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1298';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1432';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1446';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1447';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1451';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1462';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1466';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1478';
+update emp_master_tbl set reporting_mgr='1317' where emp_id='1494';
+
+update emp_master_tbl set reporting_mgr='1293' where emp_id='1422';
+update emp_master_tbl set reporting_mgr='1293' where emp_id='1436';
+update emp_master_tbl set reporting_mgr='1293' where emp_id='1465';
+update emp_master_tbl set reporting_mgr='1293' where emp_id='1487';
+update emp_master_tbl set reporting_mgr='1293' where emp_id='1497';
+
+update emp_master_tbl set reporting_mgr='1267' where emp_id='1346';
+update emp_master_tbl set reporting_mgr='1267' where emp_id='1430';
+update emp_master_tbl set reporting_mgr='1267' where emp_id='1438';
+update emp_master_tbl set reporting_mgr='1267' where emp_id='1469';
+update emp_master_tbl set reporting_mgr='1267' where emp_id='1493';
+
+update emp_master_tbl set reporting_mgr='1505' where emp_id='1508';
+update emp_master_tbl set reporting_mgr='1505' where emp_id='1509';
+
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1254';
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1331';
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1351';
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1382';
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1403';
+update emp_master_tbl set reporting_mgr='1269' where emp_id='1474';
+
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1344';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1348';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1396';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1397';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1424';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1429';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1431';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1483';
+update emp_master_tbl set reporting_mgr='1312' where emp_id='1492';
