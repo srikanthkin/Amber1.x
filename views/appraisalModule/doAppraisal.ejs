@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Appraisal System</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+
+                .navbar .navbar-reverse
+                {
+                        display: inline-block;
+                        float: none;
+                        vertical-align: top;
+                        width: auto;
+                }
+
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr {
+                        border: none;
+                        height: 1px;
+                        color: #333;
+                        background-color: #333;
+                   }
+
+                ul.topnav
+                {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                overflow: hidden;
+                                background-color: #333;
+                }
+
+                ul.topnav li
+                {
+                        float: left;
+                }
+
+                ul.topnav li a
+                {
+                        display: block;
+                        color: white;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                }
+
+                ul.topnav li a:hover:not(.active)
+                {
+                        background-color: #111;
+                }
+
+                ul.topnav li a.active
+                {
+                        background-color: #4CAF50;
+                }
+
+                ul.topnav li.right
+                {
+                        float: right;
+                }
+
+                @media screen and (max-width: 600px)
+                {
+                        ul.topnav li.right,
+                        ul.topnav li {float: none;}
+                }
+
+                .picker__select--year {
+                    width: 24.5%;
+                    height: 30%;
+                }
+                .picker__select--month {
+                    width: 35%;
+                    height: 30%;
+                }
+
+             </style>
+
+
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+function changeHashAgain()
+{
+window.location.href += "1";
+}
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li class="active">
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="main-panel">
+ <div class="container-fluid">
+ 	<% include ../common/userBar %>
+                <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav" style="color:#669999">
+					<li><a href="/appraisalModule/viewAppraisal/viewAppraisal">View Previous Appraisals</a></li>
+					<li><a href="/appraisalModule/doAppraisal/doAppraisal"><span style="color:#ff6600">Do Self Appraisal</span></a></li>
+					<li><a href="/appraisalModule/approveAppraisal/approveAppraisal">Approve Appraisals</a></li>
+					<% if(emp_access == 'A1'){ %>
+					<li><a href="/appraisalModule/viewAppraisalData/viewAppraisalData">View Appraisal Data</a></li>
+					<li><a href="/appRenovated/createAppData/createAppData">View KPI</a></li>
+					<% } %>
+					<li><a href="/appraisalModule/appraisalFAQDetails/appraisalFAQDetails">FAQ</a></li>
+					</ul>
+			        </nav>
+                            </div>
+<br>
+				 <div class="content">
+                                <hr/>
+                                <h4 class="title" style="margin-left:30px;">Self Appraisal     </h4>
+                                <hr/>
+
+<div class="container"  style="width:80%;">
+
+<% if (index!=0) { %>
+  
+
+
+<h4> Click on the links below to do the self appraisal for the respective months </h4>
+
+     
+ <h4>
+  
+  <% for(var i=0;i<index;i++) { %>
+ 
+    <h5><u><a href="/appraisalModule/appraisal/appraisal?id=<%= monthArrays[i]%>-<%= yearArrays[i]%>" id ="<%= monthArrays[i]%>-<%= yearArrays[i]%>"><%= monthArrays[i] %>-<%= yearArrays[i]%></a></u></h5>
+         <% }; %> </h5>
+     <% } else {%>
+     <h4> You have completed submission of your appraisals for the last 3 months</h4>
+
+     
+ </h4>
+    <% } %>
+
+
+ 				</div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		<% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+
+</html>

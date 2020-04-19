@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+           <title>Employee Details</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+             <style>
+
+                	.card .header2row
+                	{
+                        	padding: 15px 15px 0;
+                	}
+	
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}			
+
+			hr 
+			{
+    				border: none;
+    				height: 1px;
+    				color: #333; 
+    				background-color: #333; 
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+
+
+                        .checkmark
+                        {
+                              display:inline-block;
+                              width: 22px;
+                              height:22px;
+                              transform: rotate(45deg);
+                              transform: rotate(45deg);
+                              transform: rotate(45deg);
+                        }
+
+                        .checkmark_circle
+                        {
+                              position: absolute;
+                              width:22px;
+                              height:22px;
+                              background-color: green;
+                              border-radius:11px;
+                              left:0;
+                              top:0;
+                        }
+
+                        .checkmark_stem
+                        {
+                             position: absolute;
+                             width:3px;
+                             height:9px;
+                             background-color:#fff;
+                             left:11px;
+                             top:6px;
+                        }
+
+                        .checkmark_kick
+                        {
+                             position: absolute;
+                             width:3px;
+                             height:3px;
+                             background-color:#fff;
+                             left:8px;
+                             top:12px;
+                        }
+
+                        .checkmark1
+                        {
+                              display:inline-block;
+                              width: 22px;
+                              height:22px;
+                              transform: rotate(45deg);
+                              transform: rotate(45deg);
+                              transform: rotate(45deg);
+                        }
+
+                        .checkmark_circle1
+                        {
+                              position: absolute;
+                              width:22px;
+                              height:22px;
+                              background-color: red;
+                              border-radius:11px;
+                              left:0;
+                              top:0;
+                        }
+
+                        .checkmark_stem1
+                        {
+                             position: absolute;
+                             width:3px;
+                             height:9px;
+                             background-color:#fff;
+                             left:11px;
+                             top:6px;
+                        }
+
+                        .checkmark_kick1
+                        {
+                             position: absolute;
+                             width:3px;
+                             height:3px;
+                             background-color:#fff;
+                             left:8px;
+                             top:12px;
+                        }
+
+                        ul.topnav
+                        {
+                                        list-style-type: none;
+                                        margin: 0;
+                                        padding: 0;
+                                        overflow: hidden;
+                                        background-color: #333;
+                        }
+
+                        ul.topnav li
+                        {
+                                float: left;
+                        }
+
+                        ul.topnav li a
+                        {
+                                display: block;
+                                color: white;
+                                text-align: center;
+                                padding: 14px 16px;
+                                text-decoration: none;
+                        }
+
+                        ul.topnav li a:hover:not(.active)
+                        {
+                                background-color: #111;
+                        }
+
+                        ul.topnav li a.active
+                        {
+                                background-color: #4CAF50;
+                        }
+
+                        ul.topnav li.right
+                        {
+                                float: right;
+                        }
+
+                        @media screen and (max-width: 600px)
+                        {
+                                ul.topnav li.right,
+                                ul.topnav li {float: none;}
+                        }
+    	     </style>
+
+             <script>
+                
+		function changeHashOnLoad()
+                {
+                        window.location.href += "#";
+                        setTimeout("changeHashAgain()", "50");
+                }
+                function changeHashAgain()
+                {
+                        window.location.href += "1";
+                }
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                        if (window.location.hash != storedHash)
+                {
+                        window.location.hash = storedHash;
+                }
+                }, 50);
+
+             </script>
+
+	     <script type="text/javascript">
+
+		function resetform()
+		{
+			document.getElementById("myForm").reset();
+		}
+	     </script>
+
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+       <div class="container-fluid">
+	<% include ../common/userBar %>
+	<br>
+          <div class="content">
+       	    <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+				<nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav" style="color:#669999">
+					<% if(emp_access == 'A1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeDetails">Add Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsModify">Modify Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsView"><span style="color:#ff6600">View Employee's Details</span></a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeApprovalDetails">Verify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeSavedDetails">Verify Migrated Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/migApprovalDetails">Verify Migrated Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access != 'A1' && emp_access != 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod">Modify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access == 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod">Modify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewFin">View Employee's Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalModFin">Update Employee's Bank Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+					</ul>
+				</nav>
+				</div>
+				<div class="content">
+				<hr/>
+				<h4 class="title">Search Employee Details     <i class="material-icons right">zoom_in</i>
+				<hr/>
+                        	<form name="myForm" id="myForm" action="/employeeModule/employeeDetails/viewempdet" method="post">
+                                <label for="empid" style="color:#404040;margin-left: 50px">Employee Name <span style="color:red;font-size: 10pt">*</span></label>
+                                <select class="form-control" style ="margin-left: 50px;width:340px;text-transform: uppercase" id="emp_id" name="emp_id" required placeholder="Enter the Employee Id"/>
+						
+						<option value="" disabled selected>Employee Name </option>
+						<% for (i = 0; i < emp_id_count; i++)  {%>
+						<option value="<%= employee[i].emp_id %>"> <%= employee[i].emp_id %> - <%=empname[i].emp_name %></option>
+						<% }; %>
+				</select>
+                        <br>
+                        <table>
+                        <tr>
+                                <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" value="Search"></td>
+                                <td><input type="button" class="btn btn-info btn-fill" style="margin-left:70%;padding:1px 16px;height:40px;width:100px" onclick="return resetform()" value="Clear"></td>
+                        </tr>
+                        </table>
+
+                        <br>
+
+				<hr/>
+				<h4 class="title">Professional Details     <i class="material-icons right">work</i>
+				<% if(cflag =="Y") {%>
+                                <span style="margin-left: 750px" class="checkmark" title="Verified">
+                                <div class="checkmark_circle"></div>
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                                </span>
+				<%}%>
+				</h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- empid %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Employee Name</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- empName %></div>
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="email">Email</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px"><%- email %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empAccess">Employee Access</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- empAccess %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="jDate">Joining Date  (YYYY-MM-DD) </label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- jDate %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="desig">Designation</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- desig %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empClass">Employee Classification</label>
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- empClass %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="salary">Gross Salary Per Month</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- salary %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empAccess">Salary Currency</label>
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- salary_curr %> - <%- salary_curr_desc %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="pid">Project Id</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- pid %></div>
+                                            </div>
+                                        </div>
+                                 </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="rptMan">Reporting Manager</label>
+                                                <% if(rptMan !="") {%>
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- rptMan %> - <%- rptMan_desc %></div>
+                                                <% } else {%>
+
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- rptMan %></div>
+                                                <%}%>
+                                            </div>
+                                        </div>
+
+				     <div class="col-md-5">
+                                        <label style="color:#404040;margin-left: 50px" for="probPeriod">Probation Period</label>
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- probPeriod %></div>
+                                     </div>
+                                 </div>
+
+				<hr>
+                                <h4 class="title">Experience Details     <i class="material-icons right">work</i>
+				<%if(cflag=="Y") {%>
+                                <span style="margin-left: 700px" class="checkmark" title="Verified">
+                                <div class="checkmark_circle"></div>
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                                </span>
+				<%}%>
+				</h4>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                          <div class="form-group">
+                                        		<label style="color:#404040;margin-left: 50px" for="preem">Previous Experience</label>
+                                                	<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preem %></div>
+                                        	</div>
+                                 	  </div>
+
+                                    <div class="col-md-5">
+                                          <div class="form-group">
+						<table>
+                                                <tr>
+						<label style="color:#404040;margin-left: 50px" for="preExp">Previous Experience In (Years And Months)</label>
+						<td><div class="form-control" readonly style ="margin-left: 50px;width:141px;text-transform: uppercase"><%- preExpyear %></div></td>
+                                                <td><div class="form-control" readonly style ="margin-left: 50px;width:149px;text-transform: uppercase"><%- preExpmonth %></div></td>
+                                                </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                  </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="preEmp">Last Employment In Chronological Order</label>
+						<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preEmp %></div>
+                                            </div>
+                                     </div>
+
+                                     <div class="col-md-5">
+                                            <div class="form-group">
+                                                        <label style="color:#404040;margin-left: 50px">Previous Employer Two</label>
+							<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preEmp2 %></div>
+                                           </div>
+                                     </div>
+                                </div>
+
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <label style="color:#404040;margin-left: 50px">Previous Employer Three</label>
+							<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preEmp3 %></div>
+                                                </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <label style="color:#404040;margin-left: 50px">Previous Employer Four</label>
+							<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preEmp4 %></div>
+                                                </div>
+                                         </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <label style="color:#404040;margin-left: 50px">Previous Employer Five</label>
+							<div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- preEmp5 %></div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                            	<div class="content">
+				<hr/>
+				<h4 class="title">Personal Details     <i class="material-icons right">perm_identity</i>
+                                <% if(enFlg == "Y") {%>
+                                <span style="margin-left: 750px" class="checkmark" title="Verified">
+                                <div class="checkmark_circle"></div>
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                                </span>
+                                <% } %>
+                                <% if(enFlg == "N") {%>
+                                <span style="margin-left: 750px" class="checkmark1" title="Record Does not Exist or Awaiting Verification">
+                                <div class="checkmark_circle1"></div>
+                                <div class="checkmark_stem1"></div>
+                                <div class="checkmark_kick1"></div>
+                                </span>
+                                <% } %>
+				</h4>
+				<hr/>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                        <label style="color:#404040;margin-left: 50px" for="gender">Gender</label>
+                                                <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- gender %></div>
+                                        </div>
+
+                                            <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="dob">Date of Birth  (YYYY-MM-DD) </label>
+                                                <div class="datepicker">
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- dob %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="bgroup">Blood Group</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- bgroup %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="shirt">T-Shirt Size</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- shirt %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="commAdd">Address for Communication</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:770px;text-transform: uppercase"><%- commAdd %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="state">State</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- state %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="city">City</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- city %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group">
+                                                        <label style="color:#404040;margin-left: 50px" for="pincode">Pincode</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- pincode %></div>
+                                                </div>
+                                        </div>
+                                </div>
+
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="resAdd">Permanent Address</label>&nbsp;&nbsp;&nbsp;
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:770px;text-transform: uppercase"><%- resAdd %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="state1">State</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- state1 %></div>
+                                                </select>
+                                                </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="city1">City</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- city1 %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="pincode1">Pincode</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- pincode1 %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="mobNum">Mobile Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- mobNum %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="telNum">Telephone Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- telNum %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="econNum">Emergency Contact Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- econNum %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="econNum">Emergency Contact Person</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- emerPer %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="fathersName">Fathers Name</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- fathersName %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="mothersName">Mothers Name</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- mothersName %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="maritialstatus">Marital Status</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- maritalstatus %></div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                 </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="spouseName">Spouse Name</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- spouseName %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="panNum">Pan Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- panNum %></div>
+                                            </div>
+                                        </div>
+                                 </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="passNum">Passport Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- passNum %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="aadharNum">Aadhaar Card Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- aadhaarNum %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="dlNum">Driving License Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- dlNum %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="uan" style="color:#404040;margin-left: 50px">UAN Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- uan %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <hr/>
+                                <h4 class="title">Bank Details     <i class="material-icons right">business</i>
+                                <% if(enFlg == "Y") {%>
+                                <span style="margin-left: 750px" class="checkmark" title="Verified">
+                                <div class="checkmark_circle"></div>
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                                </span>
+                                <% } %>
+                                <% if(enFlg == "N") {%>
+                                <span style="margin-left: 750px" class="checkmark1" title="Record Does not Exist or Awaiting Verification">
+                                <div class="checkmark_circle1"></div>
+                                <div class="checkmark_stem1"></div>
+                                <div class="checkmark_kick1"></div>
+                                </span>
+                                <% } %>
+
+				</h4>
+                                <hr/>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nameinBank" style="color:#404040;margin-left: 50px">Name As per Bank</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- nameinBank %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="bankName" style="color:#404040;margin-left: 50px">Bank Name</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- bankName %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="bankName" style="color:#404040;margin-left: 50px">Branch Name</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- branchName %></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="acctNum" style="color:#404040;margin-left: 50px">Account Number</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- acctNum %></div>
+                                            </div>
+                                        </div>
+                                </div>
+
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="ifscCode" style="color:#404040;margin-left: 50px">IFSC Code</label>
+                                                        <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%- ifscCode %></div>
+                                            </div>
+                                        </div>
+                                </div>
+			    	<div class="clearfix"></div>
+				<br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+     </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+</html>

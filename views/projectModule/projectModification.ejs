@@ -1,0 +1,3557 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+
+        <title>Project Details</title>
+
+
+             <style>
+			
+   		        .card .header2row
+                        {
+                               padding: 15px 15px 0;
+                        }
+
+			
+                        .navbar .navbar-reverse
+                        {
+                                display: inline-block;
+                                float: none;
+                                vertical-align: top;
+                        }
+
+                        .navbar .navbar-collapse
+                        {
+                                text-align: center;
+                        }
+
+                          table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+
+                        hr 
+			{
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			.picker__select--year 
+			{
+                            width: 24.5%;
+                            height: 30%;
+                        }
+	
+                        .picker__select--month 
+			{
+                            width: 35%;
+                            height: 30%;
+                        }
+                        
+			textarea 
+			{
+                            resize: none;
+                        }
+                        .no-space-break{
+                            white-space:nowrap;
+                          }
+
+
+             </style>
+
+
+	<script>
+
+		function changeHashOnLoad()
+		{
+		window.location.href += "#";
+		setTimeout("changeHashAgain()", "50");
+		}
+
+
+		function changeHashAgain()
+		{
+		window.location.href += "1";
+
+		}
+
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+		if (window.location.hash != storedHash)
+		{
+		window.location.hash = storedHash;
+		}
+		}, 50);
+
+	</script>
+
+	<script>
+	
+        $(document).ready( function() {
+
+
+
+
+});
+
+
+	
+	$(document).ready( function() {
+
+	var paymenttype = document.getElementById("paymenttype").value;
+	if(document.getElementById("paymenttype").value == "TNM")
+	{
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+	}
+
+        if(document.getElementById("paymenttype").value == "FP")
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+        }
+        if((document.getElementById("paymenttype").value == "SUB") || (document.getElementById("paymenttype").value == "ATS"))
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+        }
+
+        if(document.getElementById("paymenttype").value == "FL") 
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'block';
+        }
+
+
+
+	<% for(i=0;i<milestone_count;i++) {%>
+	{
+	
+        	var tempTr = $('<tr id="tr_' + <%=i%> +'"><td><input type="text" id="milname_' + <%=i%> + '" name="milname_' + <%=i%> + '" style="width:400px;" maxlength="50"  value="<%=milestone[i].milestone_name%>" class="form-control" /></td><td><input type="text" id="milDate_' + <%=i%> + '" name="milDate_' + <%=i%> + '" value=<%= milestone[i].milestone_exp_date.getFullYear() %>-<%= milestone[i].milestone_exp_date.getMonth()+1 %>-<%= milestone[i].milestone_exp_date.getDate() %>   class="form-control" /></td><td><input type="text" id="caper_' + <%=i%> + '" name="caper_' + <%=i%> + '" maxlength="5" value=<%=milestone[i].capture_per%> onBlur="javascript:return milperccentage(this,'+ <%=i%> +');"  class="form-control" /></td><td><input type="text" id="diramt_' + <%=i%> + '" name="diramt_' + <%=i%> + '" value=<%=milestone[i].direct_amount%> class="form-control" /></td><td><span class="glyphicon glyphicon-minus addBtnRemove" id="addBtn_' + <%=i%> + '"></span></td></tr>').on('click', function () {
+          // $(th<%=i%>s).closest('tr').remove();
+           
+	    $(document.body).on('click', '.addBtnRemove', function (e) 
+	    {
+               		$(this).closest('tr').remove();
+            });
+        });
+
+        $("#tableAddRow").append(tempTr)
+                var today = new Date();
+                $('#milDate_'+<%=i%>).pickadate(
+                {
+                selectMonths: true,
+                selectYears: 100,
+                format: 'yyyy-mm-dd',
+                formatSubmit: 'yyyy-mm-dd',
+                closeOnSelect: true,
+                closeOnClear: true
+
+		});
+
+        var str = "caper_" +<%=i%>;
+        var str1 = "diramt_" +<%=i%>;
+        document.getElementById(str1).readOnly=true;
+}
+
+	$('#millength').val(<%=milestone_count%>);
+	<% }; %>
+	return true;
+	 });
+
+               $(document).ready(function()
+                {
+
+	
+			$('#salrate').val(<%=salary_rate%>);
+                        $('#salrate').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("salrate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Conversion Rate with 2 Decimals"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+			
+			var salrate = document.getElementById("salrate").value;
+			if(salrate !="")
+			{
+				document.getElementById("salrate").removeAttribute("readonly");
+			}
+			else
+			{
+				document.getElementById("salrate").setAttribute("readonly", true);
+			}
+
+                });
+
+             $(document).ready(function()
+                {
+			$('#travelrate').val(<%=travel_rate%>);
+                        $('#travelrate').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("travelrate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Conversion Rate with 2 Decimals"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+			var travelrate = document.getElementById("travelrate").value;
+			if(travelrate != "")
+		       {
+				document.getElementById("travelrate").removeAttribute("readonly");
+			}
+			else
+			{
+				document.getElementById("travelrate").setAttribute("readonly", true);
+			}
+
+
+
+                });
+
+          $(document).ready(function()
+                {
+			$('#otherrate').val(<%=other_rate%>);
+                        $('#otherrate').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("otherrate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Conversion Rate with 2 Decimals"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+			var otherrate = document.getElementById("otherrate").value;
+                        if(otherrate != "")
+                        {
+				document.getElementById("otherrate").removeAttribute("readonly");
+                        }
+                        else
+                        {
+				document.getElementById("otherrate").setAttribute("readonly", true);
+                        }
+
+
+
+                });
+
+                $(document).ready(function()
+                {
+			$('#perrate').val(<%=perdiem_rate%>);
+                        $('#perrate').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("perrate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Conversion Rate with 2 Decimals"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                        var perrate = document.getElementById("perrate").value;
+                        if(perrate != "")
+                        {
+				document.getElementById("perrate").removeAttribute("readonly");
+                        }
+                        else
+                        {
+				document.getElementById("perrate").setAttribute("readonly", true);
+                        }
+
+                });
+
+
+
+
+	function formatDate(date) 
+	{
+	  	var day = date.getDate();
+	  	var monthIndex = date.getMonth();
+	  	var year = date.getFullYear();
+  		return year + '/' + monthIndex + '/' + day;
+
+	}
+
+	</script>
+
+
+	     <script>
+
+			$(window).load(function()
+			{
+				$('#projclosuredate').pickadate(
+				{
+				selectMonths: true,
+				selectYears: 100,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				closeOnSelect: true,
+				closeOnClear: true
+				});
+			});
+			$(document).ready(function() {
+			$("#my-icon6").click(function(){
+			$( '#projclosuredate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+
+
+			$(window).load(function()
+			{
+				$('#clientclosuredate').pickadate(
+				{
+				selectMonths: true,
+				selectYears: 100,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				closeOnSelect: true,
+				closeOnClear: true
+				});
+			});
+			$(document).ready(function() {
+			$("#my-icon4").click(function(){
+			$( '#clientclosuredate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+
+
+			$(window).load(function()
+			{
+				$('#projcdate').pickadate(
+				{
+				selectMonths: true,
+				selectYears: 100,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				closeOnSelect: true,
+				closeOnClear: true
+				});
+			});
+
+			$(document).ready(function() {
+			$("#my-icon5").click(function(){
+			$( '#projcdate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+
+
+            $(document).ready(function()
+                {
+                        $('#clientaddr1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#clientaddr2').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#countryId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#cityId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#rmks').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#pincode').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#perloc').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+function form1Validations()
+{
+
+	var projectid = document.getElementById("projectid").value;
+
+	if(projectid == "")
+	{
+		document.getElementById("projectid").focus();
+		$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: "Please Select the Project Id first"
+		},{
+		type: 'info',
+		timer: 500
+		});
+		return false;
+	}
+}
+
+function salconvertedamount()
+{
+        var salarycurr = document.getElementById("salarycurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var salrate = document.getElementById("salrate").value;
+        var salary = document.getElementById("salary").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("salary").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(salary == "")
+        {
+                document.getElementById("salary").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter salary "
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+        if((salarycurr!="") && (projcur!="") && (salrate!=""))
+        {
+                var salcon = parseFloat(salary) * parseFloat(salrate);
+                document.getElementById("salconamt").value=salcon;
+
+        }
+
+        if((salarycurr == projcur) && (salary !=""))
+        {
+                document.getElementById("salconamt").value=salary;
+        }
+
+        if(salary == "0.00")
+        {
+                document.getElementById("salarycurr").value=projcur;
+                document.getElementById("salconamt").value=salary;
+                document.getElementById("salrate").value="";
+                document.getElementById("salrate").readOnly=true;
+        }
+}
+
+function salaryrate()
+{
+
+        var salarycurr = document.getElementById("salarycurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var salary = document.getElementById("salary").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("salarycurr").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(salarycurr !="")
+        {
+                if(salarycurr != projcur)
+                {
+			document.getElementById("salrate").removeAttribute("readonly");
+                        document.getElementById("salrate").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Please enter Rate to convert salary amount into project currency"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        this.value = '';
+                        return false;
+
+                }
+                else
+                {
+			document.getElementById("salrate").setAttribute("readonly", true);
+                        document.getElementById("salrate").value="";
+                        if(salary !="" )
+                        {
+                                document.getElementById("salconamt").value=salary;
+
+                        }
+                }
+        }
+
+
+}
+
+function perconvertedamount()
+{
+        var perdiemamtcurr = document.getElementById("perdiemamtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var perrate = document.getElementById("perrate").value;
+        var perdium = document.getElementById("perdium").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("perdium").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(perdium == "")
+        {
+                document.getElementById("perdium").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter perdium "
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+        if((perdiemamtcurr!="") && (projcur!="") && (perrate!=""))
+        {
+                var percon = parseFloat(perdium) * parseFloat(perrate);
+                document.getElementById("perconamt").value=percon;
+
+        }
+
+        if((perdiemamtcurr == projcur) && (perdium !=""))
+        {
+                document.getElementById("perconamt").value=perdium;
+        }
+
+        if(perdium == "0.00")
+        {
+                document.getElementById("perdiemamtcurr").value=projcur;
+                document.getElementById("perconamt").value=perdium;
+                document.getElementById("perrate").value="";
+                document.getElementById("perrate").readOnly=true;
+        }
+
+}
+
+function traconvertedamount()
+{
+        var travelamtcurr = document.getElementById("travelamtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var travelrate = document.getElementById("travelrate").value;
+        var travel = document.getElementById("travel").value;
+
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("travel").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(travel == "")
+        {
+                document.getElementById("travel").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter travel "
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+        if((travelamtcurr!="") && (projcur!="") && (travelrate!=""))
+        {
+                var tracon = parseFloat(travel) * parseFloat(travelrate);
+                document.getElementById("traconamt").value=tracon;
+
+        }
+
+        if((travelamtcurr == projcur) && (travel !=""))
+        {
+                document.getElementById("traconamt").value=travel;
+        }
+
+        if(travel == "0.00")
+        {
+                document.getElementById("travelamtcurr").value=projcur;
+                document.getElementById("traconamt").value=travel;
+                document.getElementById("travelrate").value="";
+                document.getElementById("travelrate").readOnly=true;
+        }
+}
+
+function travelratecon()
+{
+
+        var travelamtcurr = document.getElementById("travelamtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var traconamt = document.getElementById("traconamt").value;
+        var travel = document.getElementById("travel").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("travelamtcurr").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(travelamtcurr !="")
+        {
+                if(travelamtcurr != projcur)
+                {
+			document.getElementById("travelrate").removeAttribute("readonly");
+                        document.getElementById("travelrate").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Please enter Rate to convert salary amount into project currency"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        this.value = '';
+                        return false;
+
+
+                }
+                else
+                {
+			document.getElementById("travelrate").setAttribute("readonly", true);
+                        document.getElementById("travelrate").value="";
+                        if(travel !="")
+                        {
+                                document.getElementById("traconamt").value=travel;
+
+                        }
+                }
+
+        }
+
+}
+
+
+function othconvertedamount()
+{
+        var otheramtcurr = document.getElementById("otheramtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var otherrate = document.getElementById("otherrate").value;
+        var other = document.getElementById("other").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("other").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(other == "")
+        {
+                document.getElementById("other").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter other Amount "
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+        if((otheramtcurr!="") && (projcur!="") && (otherrate!=""))
+        {
+                var othcon = parseFloat(other) * parseFloat(otherrate);
+                document.getElementById("othconamt").value=othcon;
+
+        }
+
+        if((otheramtcurr == projcur) && (other !=""))
+        {
+                document.getElementById("othconamt").value=other;
+        }
+
+        if(other == "0.00")
+        {
+                document.getElementById("otheramtcurr").value=projcur;
+                document.getElementById("othconamt").value=other;
+                document.getElementById("otherrate").value="";
+                document.getElementById("otherrate").readOnly=true;
+        }
+
+
+
+
+}
+
+function otherratecon()
+{
+
+        var otheramtcurr = document.getElementById("otheramtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var othconamt = document.getElementById("othconamt").value;
+        var other = document.getElementById("other").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("otheramtcurr").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(otheramtcurr !="")
+        {
+                if(otheramtcurr != projcur)
+                {
+			document.getElementById("otherrate").removeAttribute("readonly");
+                        document.getElementById("otherrate").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Please enter Rate to convert other amount into project currency"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        this.value = '';
+                        return false;
+
+                }
+                else
+                {
+			document.getElementById("otherrate").setAttribute("readonly", true);
+                        document.getElementById("otherrate").value="";
+                        if(other !="")
+                        {
+                                document.getElementById("othconamt").value=other;
+
+                        }
+                }
+
+        }
+
+
+}
+
+
+function perratecon()
+{
+
+        var perdiemamtcurr = document.getElementById("perdiemamtcurr").value;
+        var projcur = document.getElementById("projcur").value;
+        var perdium = document.getElementById("perdium").value;
+
+        if(projcur == "")
+        {
+                document.getElementById("projcur").focus();
+                document.getElementById("perdiemamtcurr").value="";
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter project currency first"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                this.value = '';
+                return false;
+        }
+
+        if(perdiemamtcurr !="")
+        {
+                if(perdiemamtcurr != projcur)
+                {
+			document.getElementById("perrate").removeAttribute("readonly");
+                        document.getElementById("perrate").readonly=false;
+                        document.getElementById("perrate").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Please enter Rate to convert perdiem amount into project currency"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        this.value = '';
+                        return false;
+
+                }
+                else
+                {
+			document.getElementById("perrate").setAttribute("readonly", true);
+                        document.getElementById("perrate").value="";
+                        if(perdium !="" )
+                        {
+                                document.getElementById("perconamt").value=perdium;
+
+                        }
+
+                }
+        }
+}
+
+
+
+function resetform1()
+{
+	document.getElementById("mod").reset();
+}
+
+
+function subscription(obj)
+{
+	var Projbud = document.getElementById("Projbud").value;
+	var subper = document.getElementById("subper").value;
+	
+	if(Projbud == "")
+	{
+                document.getElementById("Projbud").focus();
+		demo.initChartist();
+		$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: "Please enter the project Budget first"
+		},{
+		type: 'info',
+		timer: 500
+		});
+                return false;
+	}
+
+	if (isNaN(subper) || subper < 0 || subper > 100 )
+        {
+                document.getElementById("subper").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Invalid , Enter a valid percentage"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                return false;
+        }
+	
+	var totalbud = (Projbud * subper)/ 100;
+	document.getElementById("subamt").value = totalbud;
+	return true;
+}
+
+
+function budgetcalc(obj)
+{
+        var Projbud = document.getElementById("Projbud").value;
+        var targmar = document.getElementById("targmar").value;
+        var Totalbud = document.getElementById("Totalbud").value;
+        if(Projbud == "")
+        {
+                document.getElementById("Projbud").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter the project Budget first"
+                },{
+                type: 'info',
+                timer: 500
+                });
+                return false;
+        }
+
+        if (isNaN(targmar) || targmar < 0 || targmar > 100 )
+        {
+                document.getElementById("targmar").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Invalid , Enter a Valid Target margin"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                return false;
+        }
+        if (isNaN(Projbud) || Projbud < 0 )
+        {
+                document.getElementById("Projbud").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Invalid , Enter a Valid Project Budget"
+                },{
+                type: 'danger',
+                timer: 500
+                });
+                return false;
+        }
+
+        var factor = (targmar/100);
+        var expbud =(Projbud * factor)
+
+        var expbud1 = Projbud - expbud;
+	expbud1 = expbud1.toFixed(2);
+        document.getElementById("Totalbud").value = expbud1;
+	return true;
+}
+
+
+function milperccentage(obj,obj1)
+{
+	var Projbud = document.getElementById("Projbud").value;
+
+	if(Projbud == "")
+	{
+		document.getElementById("Projbud").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter the project Budget"
+                },{
+                type: 'info',
+                timer: 500
+                });
+                return false;
+	}
+
+	var str = "caper_" +obj1;
+	var str1 = "diramt_" +obj1;
+	var percent = document.getElementById(str).value;
+	var milamt = (Projbud * percent)/100;
+	milamt = milamt.toFixed(2);	
+	document.getElementById(str1).value=milamt;
+	document.getElementById(str1).readOnly=true;
+	if(percent == "0") 
+	{
+		document.getElementById(str1).readOnly=false;
+
+	}
+
+}
+
+function milperc(obj,obj1)
+{
+        var Projbud = document.getElementById("Projbud").value;
+
+        if(Projbud == "")
+        {
+                document.getElementById("Projbud").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter the project Budget"
+                },{
+                type: 'info',
+                timer: 500
+                });
+                return false;
+        }
+
+        var str = "caper_" +obj1;
+        var str1 = "diramt_" +obj1;
+        var percent = document.getElementById(str).value;
+        var diramount = document.getElementById(str1).value;
+        var milamt = (diramount/Projbud) * 100
+	milamt = milamt.toFixed(2);
+        document.getElementById(str).value=milamt;
+
+}
+
+
+function resetform()
+{
+        document.getElementById("milstonedetails").style.display = 'none';
+        document.getElementById("fixedpricelicdetails").style.display = 'none';
+	document.getElementById("cid").value="";
+	document.getElementById("Totalbud").value="";
+	document.getElementById("salary").value="";
+	document.getElementById("perdium").value="";
+	document.getElementById("travel").value="";
+	document.getElementById("other").value="";
+	document.getElementById("targmar").value="";
+	document.getElementById("projsdate").value="";
+	document.getElementById("projcdate").value="";
+	document.getElementById("paymenttype").value="";
+	document.getElementById("Projbud").value="";
+	document.getElementById("classid").value="";
+	document.getElementById("perloc").value="";
+	document.getElementById("projcur").value="";
+	document.getElementById("salarycurr").value="";
+	document.getElementById("perdiemamtcurr").value="";
+	document.getElementById("travelamtcurr").value="";
+	document.getElementById("otheramtcurr").value="";
+	document.getElementById("projectsize").value="";
+	document.getElementById("clientaddr1").value="";
+	document.getElementById("projmgr").value="";
+	document.getElementById("clientaddr2").value="";
+	document.getElementById("delmgr").value="";
+	document.getElementById("countryId").value="";
+	document.getElementById("cityId").value="";
+	document.getElementById("ponumber").value="";
+	document.getElementById("pincode").value="";
+	document.getElementById("perdiumamt").value="";
+	document.getElementById("perprocurr").value="";
+	document.getElementById("cityId").value="";
+        document.getElementById("myForm").reset();
+}
+
+
+function projectdis(obj)
+{
+
+	var paymenttype = document.getElementById("paymenttype").value;
+	if(document.getElementById("paymenttype").value == "TNM")
+	{
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+	}
+
+        if(document.getElementById("paymenttype").value == "FP")
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+        }
+        if((document.getElementById("paymenttype").value == "SUB") || (document.getElementById("paymenttype").value == "ATS"))
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'none';
+        }
+
+        if(document.getElementById("paymenttype").value == "FL") 
+        {
+		document.getElementById('milstonedetails').style.display = 'block';
+		document.getElementById('fixedpricelicdetails').style.display = 'block';
+        }
+
+return true;
+
+}
+
+function clousure(obj)
+{
+
+	var closureflg = document.getElementById("closureflg").value;
+	var projclosuredate = document.getElementById("projclosuredate").value;
+
+	if((closureflg == "Y") && (projclosuredate == ""))
+	{
+		document.getElementById("projclosuredate").focus();
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please enter closure date"
+                },{
+                type: 'info',
+                timer: 500
+                });
+                return false;
+	}
+
+}
+function projsize(obj)
+{
+	var paymenttype = document.getElementById("paymenttype").value;
+	var projectsize = document.getElementById("projectsize").value;
+
+	if(paymenttype == "")
+	{
+		document.getElementById("paymenttype").focus();	
+                demo.initChartist();
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message: "Please select payment type first"
+                },{
+                type: 'info',
+                timer: 500
+                });
+		return false;
+	}
+
+	if(paymenttype == "TNM")
+	{
+		document.getElementById("Noofppl").value = projectsize;
+	}
+
+
+}
+
+function changebudget (obj)
+{
+	document.getElementById("Projbud").removeAttribute("readonly");
+	document.getElementById("targmar").removeAttribute("readonly");
+	
+} 
+
+function newclassid(obj)
+{
+	var classid = document.getElementById("classid").value;
+
+return true;
+
+}
+			function formValidations()
+			{
+
+		 		var enddate = document.getElementById("projcdate").value;
+				var Projbud = document.getElementById("Projbud").value; 
+
+				var Totalbud = document.getElementById("Totalbud").value;
+				var salary = document.getElementById("salary").value;
+				var perdium = document.getElementById("perdium").value;
+				var travel = document.getElementById("travel").value;
+				var other = document.getElementById("other").value;
+				var targmar = document.getElementById("targmar").value;
+				var projsdate = document.getElementById("projsdate").value;
+				var projcdate = document.getElementById("projcdate").value;
+				var paymenttype = document.getElementById("paymenttype").value;
+				var Projbud = document.getElementById("Projbud").value;
+				var targmar = document.getElementById("targmar").value;
+				var classid = document.getElementById("classid").value;
+				var perloc = document.getElementById("perloc").value;
+				var projcur = document.getElementById("projcur").value;
+                                var salarycurr = document.getElementById("salarycurr").value;
+                                var perdiemamtcurr = document.getElementById("perdiemamtcurr").value;
+                                var travelamtcurr = document.getElementById("travelamtcurr").value;
+                                var otheramtcurr = document.getElementById("otheramtcurr").value;
+				var clientaddr1 = document.getElementById("clientaddr1").value;
+				var clientaddr2 = document.getElementById("clientaddr2").value;
+				var countryId = document.getElementById("countryId").value;
+				var cityId = document.getElementById("cityId").value;
+				var ponumber = document.getElementById("ponumber").value;
+				var pincode = document.getElementById("pincode").value;
+				var perprocurr = document.getElementById("perprocurr").value;
+				var totper=0;
+				var totamt=0;
+				var maramt=0;
+				var totamt1=0;
+				var counter=0;
+				var salarycon=0;
+				var perdiumcon=0;
+				var travelcon=0;
+				var othercon=0; 
+				var perdiumamt = document.getElementById("perdiumamt").value;
+				var paidflg = document.getElementById("paidflg").value;
+				var alloc = document.getElementById("alloc").value;
+                                var salrate = 1;
+                                var perrate = 1;
+                                var travelrate = 1;
+                                var otherrate = 1;
+                                salrate = document.getElementById("salrate").value;
+                                perrate = document.getElementById("perrate").value;
+                                travelrate = document.getElementById("travelrate").value;
+                                otherrate = document.getElementById("otherrate").value;
+
+
+                                var cid = document.getElementById("cid").value;
+                                if (cid == "")
+                                {
+                                        document.getElementById("cid").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Customer Id"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+
+                                var delmgr = document.getElementById("delmgr").value;
+                                if (delmgr == "")
+                                {
+                                        document.getElementById("delmgr").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Delivery Manager for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var paymenttype = document.getElementById("paymenttype").value;
+                                if (paymenttype == "")
+                                {
+                                        document.getElementById("paymenttype").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Payment Type for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var classid = document.getElementById("classid").value;
+                                if (classid == "")
+                                {
+                                        document.getElementById("classid").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Customer Class for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var projectsize = document.getElementById("projectsize").value;
+                                if(projectsize == "")
+                                {
+                                        document.getElementById("projectsize").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Project Team Size for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var projmgr = document.getElementById("projmgr").value;
+                                if(projmgr == "")
+                                {
+                                        document.getElementById("projmgr").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Project Manager for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var projtype = document.getElementById("projtype").value;
+                                if(projtype == "")
+                                {
+                                        document.getElementById("projtype").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Project Type for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var projcur = document.getElementById("projcur").value;
+                                if (projcur == "")
+                                {
+                                        document.getElementById("projcur").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Project Currency for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var projsdate = document.getElementById("projsdate").value;
+                                if (projsdate == "")
+                                {
+                                        document.getElementById("projsdate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select Start Date for Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var projcdate = document.getElementById("projcdate").value;
+                                if (projcdate == "")
+                                {
+                                        document.getElementById("projcdate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select End Date for Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                if(projsdate >= projcdate)
+                                {
+                                        document.getElementById("projsdate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Project start date cannot be greater or equal to end date"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                if(projcdate <= projsdate)
+                                {
+                                        document.getElementById("projcdate").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Project End date cannot be less or equal to Start date"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var closureflg = document.getElementById("closureflg").value;
+                                if (closureflg == "")
+                                {
+                                        document.getElementById("closureflg").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Closure Flag for Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+				else
+				{
+
+					var closureflg = document.getElementById("closureflg").value;
+					var projclosuredate = document.getElementById("projclosuredate").value;
+
+					if((closureflg == "Y") && (projclosuredate == ""))
+					{
+						document.getElementById("projclosuredate").focus();
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Please choose the Closure date for the project"
+						},{
+						type: 'info',
+						timer: 500
+						});
+						return false;
+					}
+
+				}
+
+                                
+                                var ponumber = document.getElementById("ponumber").value;
+                                if (ponumber == "")
+                                {
+                                        document.getElementById("ponumber").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the PO Number for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z0-9/-\s]+$/.test(ponumber))
+                                        {
+                                                document.getElementById("ponumber").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter valid ponumber"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("ponumber").value="";
+                                                return false;
+                                        }
+                                }
+
+                                var clientaddr1 = document.getElementById("clientaddr1").value;
+                                if(clientaddr1 == "")
+                                {
+
+                                                document.getElementById("clientaddr1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Fill the Address Line 1"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z0-9#,.:-\s]+$/.test(document.getElementById("clientaddr1").value))
+                                        {
+                                                document.getElementById("clientaddr1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Valid Address Line 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientaddr1").value="";
+                                                return false;
+                                        }
+                                }
+
+
+                                if(clientaddr2 !="")
+                                {
+                                        if (!/^[a-zA-Z0-9#,.:-\s]+$/.test(document.getElementById("clientaddr2").value))
+                                        {
+                                                document.getElementById("clientaddr2").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Valid Address Line 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientaddr2").value="";
+                                                return false;
+                                        }
+
+                                }
+
+                                var countryId = document.getElementById("countryId").value;
+                                if(countryId == "")
+                                {
+                                                document.getElementById("countryId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Country Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("countryId").value))
+                                        {
+                                                document.getElementById("countryId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Country Name"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("countryId").value="";
+                                                return false;
+                                        }
+
+                                }
+
+
+                                var cityId = document.getElementById("cityId").value;
+                                if(cityId == "")
+                                {
+                                                document.getElementById("cityId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the City Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("cityId").value))
+                                        {
+                                                document.getElementById("cityId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid City Name"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("cityId").value="";
+                                                return false;
+                                        }
+
+                                }
+
+                                var pincode = document.getElementById("pincode").value;
+                                if(pincode == "")
+                                {
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Pincode/Zip Code"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z0-9\s]+$/.test(document.getElementById("pincode").value))
+                                        {
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pincode/Zip Code"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("pincode").value="";
+                                                return false;
+                                        }
+                                }
+
+                                var perloc = document.getElementById("perloc").value;
+                                if(perloc == "")
+                                {
+                                                document.getElementById("perloc").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Project Location"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("perloc").value))
+                                        {
+                                                document.getElementById("perloc").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Project Location"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("perloc").value="";
+                                                return false;
+                                        }
+
+                                }
+
+                                var perdiumamt = document.getElementById("perdiumamt").value;
+                                if(perdiumamt == "")
+                                {
+                                                document.getElementById("perdiumamt").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Perdiem Amount per day"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if((isNaN(perdiumamt)) || (perdiumamt < 0) )
+                                        {
+                                                document.getElementById("perdiumamt").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Valid Perdium Amount"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+                                var perprocurr = document.getElementById("perprocurr").value;
+                                if(perprocurr == "")
+                                {
+                                                document.getElementById("perprocurr").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Select Perdiem Currency for the Project"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+
+                                var Projbud = document.getElementById("Projbud").value;
+                                if(Projbud == "")
+                                {
+                                                document.getElementById("Projbud").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Project Budget"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if ((isNaN(Projbud)) || (Projbud <= 0) )
+                                        {
+                                                document.getElementById("Projbud").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the valid Project Budget"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+                                var targmar = document.getElementById("targmar").value;
+                                if(targmar == "")
+                                {
+                                        document.getElementById("targmar").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the target margin percentage for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if((targmar <= 0))
+                                        {
+
+                                                document.getElementById("targmar").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Target margin percentage for the Project must greater than Zero"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+                                var salary = document.getElementById("salary").value;
+                                if (salary == "")
+                                {
+                                        document.getElementById("salary").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the Salary Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if(salary < 0)
+                                        {
+                                                document.getElementById("salary").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Salary Component for the Project greater than Zero"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+                                var salarycurr = document.getElementById("salarycurr").value;
+
+                                if (salarycurr == "")
+                                {
+                                        document.getElementById("salarycurr").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Salary Currency Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var perdium = document.getElementById("perdium").value;
+                                if (perdium == "")
+                                {
+                                        document.getElementById("perdium").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the Perdiem Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if(perdium < 0)
+                                        {
+                                                document.getElementById("perdium").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Perdiem Component for the Project greater than Zero"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+
+                                var perdiemamtcurr = document.getElementById("perdiemamtcurr").value;
+                                if (perdiemamtcurr == "")
+                                {
+                                        document.getElementById("perdiemamtcurr").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Perdiem Currency Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                var travel = document.getElementById("travel").value;
+                                if (travel == "")
+                                {
+                                        document.getElementById("travel").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the Travel Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if(travel < 0)
+                                        {
+                                                document.getElementById("travel").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Travel Component for the Project greater than Zero"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+
+                                var travelamtcurr = document.getElementById("travelamtcurr").value;
+                                if (travelamtcurr == "")
+                                {
+                                        document.getElementById("travelamtcurr").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Travel Currency Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                var other = document.getElementById("other").value;
+                                if (other == "")
+                                {
+                                        document.getElementById("other").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the other Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if(other < 0)
+                                        {
+                                                document.getElementById("other").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter the Other Component for the Project greater than Zero"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+                                var otheramtcurr = document.getElementById("otheramtcurr").value;
+                                if (otheramtcurr == "")
+                                {
+                                        document.getElementById("otheramtcurr").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Select the Other Currency Component for the Project"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                if(document.getElementById("paymenttype").value == "FL")
+                                {
+                                        var module = document.getElementById("module").value;
+                                        var nousers = document.getElementById("nousers").value;
+                                        var nobranch = document.getElementById("nobranch").value;
+
+                                        if(module == "")
+                                        {
+                                                document.getElementById("module").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter module Included data for the Project"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                        }
+                                        else
+                                        {
+                                                if (!/^[a-zA-Z0-9,\s]+$/.test(document.getElementById("module").value))
+                                                {
+                                                        document.getElementById("module").focus();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid, Enter a valid Module Data"
+                                                        },{
+                                                        type: 'danger',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+
+                                        if(nousers == "")
+                                        {
+                                                document.getElementById("nousers").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the number of users"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                        else
+                                        {
+                                                if (isNaN(nousers) || nousers <= 0 )
+                                                {
+                                                        document.getElementById("nousers").focus();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , Enter the valid Number of users"
+                                                        },{
+                                                        type: 'danger',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+
+                                        if(nobranch == "")
+                                        {
+                                                document.getElementById("nobranch").focus();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the number of branches"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                        else
+                                        {
+                                                if (isNaN(nobranch) || nobranch <= 0 )
+                                                {
+                                                        document.getElementById("nobranch").focus();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , Enter the valid Number of Branch"
+                                                        },{
+                                                        type: 'danger',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+                                }
+
+                                if(perprocurr != perdiemamtcurr)
+                                {
+                                        document.getElementById("perprocurr").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Currency of Perdiem in budget component and Perdiem currency cannot be different"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                if((salarycurr != projcur) && (salrate == ""))
+                                {
+                                        document.getElementById("salrate").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please Enter the salary convertion rate "
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                               }
+
+                                if((perdiemamtcurr != projcur) && (perrate == ""))
+                                {
+                                        document.getElementById("perrate").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please Enter the perdiem convertion rate "
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                               }
+
+                                if((travelamtcurr != projcur) && (travelrate == ""))
+                                {
+                                        document.getElementById("travelrate").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please Enter the travel convertion rate "
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                               }
+
+                                if((otheramtcurr != projcur) && (otherrate == ""))
+                                {
+                                        document.getElementById("otherrate").focus();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please Enter the travel convertion rate "
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                               }
+
+
+
+
+
+                                if(salarycurr == projcur)
+                                {
+                                        salarycon = parseFloat(salary);
+                                }
+                                else
+                                {
+                                        salarycon = parseFloat(salary) * parseFloat(salrate);
+                                }
+
+                                if(perdiemamtcurr == projcur)
+                                {
+                                        perdiumcon = parseFloat(perdium);
+                                }
+                                else
+                                {
+                                        perdiumcon = parseFloat(perdium) * parseFloat(perrate);
+
+                                }
+                                if(travelamtcurr == projcur)
+                                {
+                                        travelcon = parseFloat(travel);
+                                }
+                                else
+                                {
+
+                                        travelcon = parseFloat(travel) * parseFloat(travelrate);
+                                }
+
+                                if(otheramtcurr == projcur)
+                                {
+                                        othercon = parseFloat(other);
+                                }
+                                else
+                                {
+                                        othercon = parseFloat(other) * parseFloat(otherrate);
+                                }
+
+
+                                var expenditure = parseFloat(salarycon) + parseFloat(perdiumcon) + parseFloat(travelcon) + parseFloat(othercon);
+                                var expdiff = parseFloat(expenditure) - parseFloat(Totalbud);
+                                if(expenditure > Totalbud)
+                                {
+                                        alert("Components of budget exceeds total budget by: " + projcur + " " + expdiff);
+                                        document.getElementById("salary").focus();
+                                        return false;
+                                }
+
+                                if(expenditure != Totalbud)
+                                {
+                                        alert("Components of budget should be same as total budget. There is a difference of " + projcur + " " + expdiff);
+                                        document.getElementById("salary").focus();
+                                        return false;
+                                }
+
+
+				var closureflg = document.getElementById("closureflg").value;
+				var projclosuredate = document.getElementById("projclosuredate").value;
+				
+				if((closureflg == "Y") && (alloc > 0))
+				{
+					alert("Employees under Project not deallocated. Project cannot be closed");
+					document.getElementById("closureflg").value="N";
+					document.getElementById("projclosuredate").value="";
+					document.getElementById("closureflg").focus();
+					return false;
+				}
+
+				if((paidflg == "Y") && (closureflg == "Y"))
+				{
+					alert("All milestones for the project not Paid. Cannot close the project");
+					document.getElementById("closureflg").value="N";
+					document.getElementById("projclosuredate").value="";
+					document.getElementById("closureflg").focus();
+					return false;
+				}
+
+				var oTable = document.getElementById('tableAddRow');
+				var rowLength = oTable.rows.length;
+				var newLength = parseFloat(rowLength)-1;
+				var mil = document.getElementById('millength').value;
+				var array = ""; 
+				for (i=0;i<mil;i++)
+				{
+					if(document.getElementById("milname_" + i))
+					{
+						var milname = document.getElementById("milname_" + i).value;
+						var caper = document.getElementById("caper_" + i).value;
+						var diramt = document.getElementById("diramt_" + i).value;
+						var milDate = document.getElementById("milDate_" + i).value;	
+						if ((isNaN(caper)) || (caper <= 0) || (caper > 100)) 
+						{
+							alert("Enter a Valid capture percentage");
+							document.getElementById("caper_" + i).focus();
+							return false;
+						}
+						if (isNaN(diramt) ) 
+						{
+							alert("Enter a Valid amount");
+							document.getElementById("diramt_" + i).focus();
+							return false;
+						}
+						var milDate1 = moment(milDate,"YYYY-MM-DD").format("YYYY-MM-DD");
+                                                if (milDate1 > projcdate)
+                                                {
+                                                        alert("Please Enter a Milestone date that is lesser than project end date " + projcdate);
+                                                        document.getElementById("milDate_" + i).focus();
+                                                        return false;
+                                                }
+                                                if(milDate1 < projsdate)
+                                                {
+                                                        alert("Please Enter a Milestone date that is greater than project start date " +projsdate);
+                                                        document.getElementById("milDate_" + i).focus();
+                                                        return false;
+                                                }
+
+						if((milname!="") || (caper!="") || (diramt!=""))
+						{
+							counter = parseFloat(counter) +1;		
+						}
+						 totper = parseFloat(totper) + parseFloat(caper);
+						 totamt = parseFloat(totamt) + parseFloat(diramt);
+					}
+				}
+			
+	
+				document.getElementById('millengtharr').value=array;
+				var oTable1 = document.getElementById('tableAddRow1');
+				var rowLength1 = oTable1.rows.length;
+				var newLength1 = parseFloat(rowLength1)-1;
+				for (i=0;i<newLength1;i++)
+				{
+
+					var maramt = document.getElementById("markamtdir_" + i).value;
+					totamt1 = parseFloat(totamt1) + parseFloat(maramt);
+				}
+					totamt2 = parseFloat(totamt) + parseFloat(totamt1);
+				
+				if((parseFloat(totamt2) !=  parseFloat(Projbud)))
+				{
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Milestones amount is not equal to the project budget"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+					return false;
+				}
+
+                                if(document.getElementById("paymenttype").value != "TNM")
+                                {
+
+					if(totamt2 != Projbud)
+					{
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Invalid , Milestone amount and project budget are not equal"
+						},{
+						type: 'danger',
+						timer: 500
+						});
+						return false;
+					}
+				}
+				return true; 
+			}
+			
+			$(document).on("click","#link",function(){
+ 			var con = confirm("Are you sure, you want to delete this Milestone Details");
+			if(con != true)
+			{
+				return false;
+			}
+			else
+			{
+				 return true;
+			}
+			});
+
+
+                $(document).ready(function()
+                {
+                        $('#Projbud').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("Projbud").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Project Budget"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                });
+
+
+                $(document).ready(function()
+                {
+                        $('#salary').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("salary").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Salary"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                });
+
+
+                $(document).ready(function()
+                {
+                        $('#perdium').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("perdium").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Perdiem"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                });
+
+
+                $(document).ready(function()
+                {
+                        $('#travel').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("travel").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Travel"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                });
+
+
+                $(document).ready(function()
+                {
+                        $('#other').change(function(e)
+                        {
+                                var regex = /^\d+(\.\d{0,10})?$/g;
+                                if (!regex.test(this.value))
+                                {
+                                        document.getElementById("other").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Invalid , Enter a valid value for Other"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        this.value = '';
+                                        return false;
+                                }
+                                else
+                                {
+                                        this.value = parseFloat(this.value).toFixed(2);
+                                }
+                        });
+                });
+
+		
+	    </script>
+
+
+
+
+</head>
+<body onload="changeHashOnLoad()">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+
+ 	<div class="sidebar-wrapper">
+	<% include ../common/logo %>
+
+           <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                         <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <li class="active">
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                <%}%>
+                </li>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1" ){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" ){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% if( emp_access== 'A1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+               </li>
+            </ul>
+
+    	</div>
+    </div>
+    <div class="main-panel">
+            <div class="container-fluid">
+		<% include ../common/userBar %>
+		<br>
+		<div class="content">
+            		<div class="container-fluid">
+                		<div class="row">
+                    	<div class="col">
+                        	<div class="card">
+                            	<div class="header2row">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav"  style="color:#669999">
+                                <li><a href="/projectModule/projectDetails/customercreation">Customer Details</a></li>
+				<li><a href="/projectModule/projectDetails/customermodification">Customer Details Modification</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDetails">Add Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocuments">Project Documents</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocumentsView">Project Documents View</a></li>
+                                <li><a href="/projectModule/projectDetails/projectModification"><span style="color:#ff9933">Modify Project Details</span></a></li>
+                                <li><a href="/projectModule/projectDetails/projectCopy">Copy Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/milestoneMarking">Milestone Marking</a></li>
+                                <li><a href="/projectModule/projectDetails/projectAllocation">Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewAllocation">View Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewEmpallocation">View Employee Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/ModifydelAllocation">Modify Allocation</a></li>
+                                <li ><a href="/projectModule/projectDetails/projDealloc">Project De-Allocation</a></li>
+				<li><a href="/projectModule/childproject/childproject">Add Child Project</a></li>
+				<li><a href="/projectModule/productdetails/productdetails">Add Product Details</a></li>
+				<li><a href="/projectModule/projectDetails/recallmilestonemrak">Recall Milestone</a></li>
+				<li><a href="/projectModule/projectFAQDetails/projectFAQDetails">FAQ</a></li>
+  				</ul>
+				</nav>
+                            </div>
+				<hr>
+				<h4 class="title" style="margin-left:20px;">Search Project Details     <i class="material-icons right">search</i></h4>
+				<hr>
+                                <form name="mod" id="mod" action="/projectModule/projectDetails/ModProjDetails" method="post" >
+                                <label for="projectid" style="color:#404040;margin-left: 50px">Project Id <span style="color:red;font-size: 10pt">*</span></label>
+                                <select class="form-control" style ="margin-left: 50px;width:348px" id="projectid" name="projectid" placeholder="Project Id"/>
+
+
+                                                <option value="">Project Id</option>
+                                                <% for (i = 0; i < projectid_count; i++)  {%>
+                                                <option value="<%= projectid[i].project_id %>"> <%=projectid[i].project_id %></option>
+                                                <% }; %>
+
+                                </select>
+                        <br>
+                        <table>
+                        <tr>
+                                <td><input type="submit" onclick="return form1Validations()" class="btn btn-info btn-fill" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" value="Search"></td>
+                                <td><input type="button" class="btn btn-info btn-fill" onclick="resetform1();" style="margin-left:70%;padding:1px 16px;height:40px;width:100px" value="Clear"></td>
+                        </tr>
+                        </table>
+                        </form>
+
+                            <div class="content">
+                                <form name="myForm" action="/projectModule/projectDetails/projectModDetails" method="post" onsubmit="return formValidations()">
+				<hr>
+				<h4 class="title">Project Details     <i class="material-icons right">work</i></h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cid" style="color:#404040;margin-left: 50px">Customer Id<span style="color:red;font-size:15px">*</span></label>
+ 						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cid" readonly  name="cid" required>
+							<% if (cid != "") {%>
+                                                        <option value="<%=cid%>"> <%=cid%> - <%=customer_name%></option>
+                                                        <% } else { %>
+							<option value="" selected disabled>Customer ID</option>
+							<% } %>
+
+
+
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="delmgr" style="color:#404040;margin-left: 50px">Delivery Manager<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="delmgr" readonly  name="delmgr" required style="width:259px;height:40px">
+						      <% if (delivery_mgr != "") {%>
+                                                        <option value="<%=delivery_mgr%>"> <%=delivery_mgr%> - <%=delprojname%></option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Delivery Manager</option>
+                                                        <% } %>
+
+ 
+								</select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                      </div>
+
+			             <div class="row">
+                                      					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="paymenttype" style="color:#404040;margin-left: 50px">Payment Type<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="paymenttype" readonly  name="paymenttype" onChange="javascript:return projectdis(this);"  required style="width:259px;height:40px">
+
+							<% if (payment_type != "") {%>
+                                                        <option value="<%=payment_type%>"> <%=payment_type%> - <%=comm_paymentdesc%></option>
+                                                        <% } else { %>
+							<option value="" selected disabled>Payment Type</option>
+							<% } %>
+
+                                                </select>
+                                            </div>
+                                        </div>
+					  <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="classid" style="color:#404040;margin-left: 50px">Customer Class<span style="color:red;font-size:15px">*</span></label>
+						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="classid" readonly name="classid"   onChange="javascript:return newclassid(this);" required >
+
+                                                        <% if (customer_class != "") {%>
+                                                        <option value="<%=customer_class%>"> <%=customer_class%> - <%=comm_customerdesc%></option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Customer Class</option>
+                                                        <% } %>
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+<div id="classiddetails" style="display:none;">
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cusclassid" style="color:#404040;margin-left: 50px">Customer Class Id<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cusclassid" maxlength="3" name="cusclassid"  class="form-control" placeholder="Customer Class Id">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Cusclassdesc" style="color:#404040;margin-left: 50px">Customer Class Description<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Cusclassdesc" name="Cusclassdesc"  class="form-control" placeholder="Customer Class Description">
+                                            </div>
+                                        </div>
+                                 </div>
+       </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projectsize" style="color:#404040;margin-left: 50px">Project Team Size<span style="color:red;font-size:15px">*</span></label>
+						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projectsize"  readonly name="projectsize" required onChange="javascript:return projsize(this);"  style="width:259px;height:40px;text-transform:uppercase">
+
+                                                        <% if (team_size != "") {%>
+                                                        <option value="<%=team_size%>" selected><%=team_size%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Team Size</option>
+                                                        <% } %>
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="small-font" for="projmgr" style="color:#404040;margin-left: 50px">Project Manager<span style="color:red;font-size:15px">*</span></label>
+						 <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projmgr" name="projmgr" required  style="width:259px;height:40px;text-transform:uppercase">
+
+                                                        <% if (project_mgr != "") {%>
+                                                        <option value="<%=project_mgr%>"> <%=project_mgr%> - <%=proj_name%></option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Manager</option>
+                                                        <% } %>
+                                                                  <% for (i = 0; i < empid_count; i++)  {%>
+                                                                  <% if(project_mgr !=employee[i].emp_id) { %>
+                                                                  <option value="<%=employee[i].emp_id%>"> <%=employee[i].emp_id %> - <%=empname[i].emp_name%></option>
+
+                                                                              <% } %>
+                                                                              <% }; %>
+
+                                                                </select>
+
+                                            </div>
+                                        </div>
+                                 </div>
+
+					 <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projtype" style="color:#404040;margin-left: 50px">Project Type<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projtype"  name="projtype" required readonly style="width:259px;height:40px">
+
+                                                      <% if (project_type != "") {%>
+                                                        <option value="<%=project_type%>"> <%=project_type%> - <%=comm_code_desc%></option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Type</option>
+                                                        <% } %>
+								</select>
+
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projcur" style="color:#404040;margin-left: 50px">Project Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projcur"  name="projcur" readonly required style="width:259px;height:40px">
+						    <% if (project_curr != "") {%>
+                                                        <option value="<%=project_curr%>"> <%=project_curr%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Currency</option>
+                                                        <% } %>
+								</select>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                 </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+						<table>
+                                            <tr>    <label for="projsdate" style="color:#404040;margin-left: 50px">Start Date(YYYY-MM-DD)<span style="color:red;font-size:15px">*</span></label>
+                                                <td><input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projsdate" name="projsdate" required readonly value="<%=start_date %>" class="form-control" placeholder="Start Date"></td>
+						 <td>    <span id="my-icon7" class="glyphicon glyphicon-calendar"></span></td>
+						</tr>
+					</table>
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+					<table>
+                                               <tr> <label for="projcdate" style="color:#404040;margin-left: 50px">End Date(YYYY-MM-DD)<span style="color:red;font-size:15px">*</span></label>
+                                               <td> <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projcdate" name="projcdate" required value="<%=end_date %>" onChange="javascript:return changebudget(this);"  class="form-control" placeholder="End Date"></td>
+						 <td>    <span id="my-icon5" class="glyphicon glyphicon-calendar"></span></td>
+					          </tr>
+                                        </table>
+                                            </div>
+                                        </div>
+                                 </div>
+
+                                <div class="row">
+                              
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                        <table>
+                                               <tr> <label for="clientclosuredate" style="color:#404040;margin-left: 50px">Client Closure Date(YYYY-MM-DD)</label>
+                                               <td> <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="clientclosuredate" name="clientclosuredate" value="<%=client_closure_date%>"  class="form-control" placeholder="Client Closure Date(YYYY-MM-DD)"></td>
+                                        <td>    <span id="my-icon4" class="glyphicon glyphicon-calendar"></span></td>
+                                                  </tr>
+                                        </table>
+                                            </div>
+                                        </div>
+					</div>
+
+ 
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+						<table>
+                                            <tr>    <label for="closureflg" style="color:#404040;margin-left: 50px">Closure Flag<span style="color:red;font-size:15px">*</span></label>
+					                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="closureflg"  name="closureflg" value="<%=closure_flg%>"  onChange="javascript:return clousure(this);"  required style="width:259px;height:40px">
+                                                        <option value="Y" >YES</option>
+                                                        <option value="N" selected >NO</option>
+                                                </select>
+	
+					</tr>
+					</table>
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+					<table>
+                                               <tr> <label for="projclosuredate" style="color:#404040;margin-left: 50px">Closure Date(YYYY-MM-DD)<span style="color:red;font-size:15px">*</span></label>
+                                               <td> <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projclosuredate" name="projclosuredate" value="<%=closure_date%>"  class="form-control" placeholder="Closure Date(YYYY-MM-DD)"></td>
+					<td>    <span id="my-icon6" class="glyphicon glyphicon-calendar"></span></td>
+					          </tr>
+                                        </table>
+                                            </div>
+                                        </div>
+                                 </div>
+
+
+					 <div class="row">
+
+				    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="ponumber" class="control-label" style="color:#404040;margin-left: 50px">Po Number<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="ponumber" name="ponumber" required value="<%=po_number%>" maxlength="15" class="form-control" placeholder="Po Number">
+                                            </div>
+                                        </div>
+
+								</div>
+								 
+                                       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+                                                <textarea id="rmks" name="rmks" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="100"  class="form-control" placeholder="Remarks"><%=remarks%></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                 <hr/>
+                                <h4 class="title">Billing Details <i class="material-icons right">chrome_reader_mode</i></h4>
+                                <hr/>
+                                     <div class="row">
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="clientaddr1" class="control-label" style="color:#404040;margin-left: 50px">Address Line 1<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr1" name="clientaddr1" maxlength="50" value="<%=bill_addrline1%>" required class="form-control" placeholder="Address Line 1">
+                                            </div>
+                                        </div>
+
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="clientaddr2" class="control-label" style="color:#404040;margin-left: 50px"> Address Line 2</label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr2" name="clientaddr2" maxlength="50" value="<%=bill_addrline2%>"  class="form-control" placeholder="Address Line 2">
+                                            </div>
+                                        </div>
+                                        </div>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="countryId" class="control-label" style="color:#404040;margin-left: 50px"> Country Name<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="countryId" name="countryId" required value="<%=bill_country%>" maxlength="30" class="form-control" placeholder="Country Name">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                 <label for="cityId" class="control-label" style="color:#404040;margin-left: 50px"> City Name<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="cityId" name="cityId" required maxlength="30" value="<%=bill_city%>" class="form-control" placeholder="City Name">
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="pincode" class="control-label" style="color:#404040;margin-left: 50px">Pin Code/Zip Code</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="pincode" name="pincode"  maxlength="15" value="<%=bill_pin_code%>" class="form-control" placeholder="Pin Code/Zip Code">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                 <hr/>
+                                <h4 class="title">Perdiem Details     <i class="material-icons right">euro_symbol</i></h4>
+                                <hr/>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perloc" style="color:#404040;margin-left: 50px">Project Location<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perloc" required  name="perloc"   class="form-control" readonly value="<%=project_loc%>" maxlength="20" placeholder="Project Location">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdiumamt" style="color:#404040;margin-left: 50px">Perdiem Amount Per day<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perdiumamt" required maxlength="16"  name="perdiumamt" readonly  maxlength="16" value="<%=perdium_amount_per_day%>"  class="form-control" placeholder="Perdiem Amount Per day">
+                                            </div>
+                                        </div>
+                                </div>
+
+                                        <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perprocurr" style="color:#404040;margin-left: 50px">Perdiem Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perprocurr" name="perprocurr" required readonly  style="width:259px;height:40px">
+
+                                                    <% if (perdium_curr_per_day != "") {%>
+                                                        <option value="<%=perdium_curr_per_day%>"> <%=perdium_curr_per_day%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Currency</option>
+                                                        <% } %>
+
+                                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+
+       
+                                 <hr/>
+                                <h4 class="title">Project Budget Details     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Projbud" style="color:#404040;margin-left: 50px">Project Budget<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Projbud" name="Projbud" maxlength="16"  value="<%=project_budget %>" readonly onBlur="javascript:return budgetcalc(this);" required class="form-control" placeholder="Project Budget">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="targmar" style="color:#404040;margin-left: 50px">Target Margin Percentage<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="targmar" name="targmar" value="<%=target_margin %>" readonly maxlength="5" onBlur="javascript:return budgetcalc(this);" required class="form-control" placeholder="Target Margin Percentage">
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Totalbud" style="color:#404040;margin-left: 50px">Total Budget<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Totalbud"  name="Totalbud" required value="<%=tot_budget %>" readonly  class="form-control" placeholder="Total Budget">
+                                            </div>
+                                        </div>
+                                </div>
+                        <hr/>
+
+
+
+                              <h4 class="title">Components Of Budget     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+				<table>
+				<tr>
+				<td>
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salary" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Salary<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="salary" name="salary" maxlength="16" class="form-control"  value="<%=salary%>" onBlur="javascript:return salconvertedamount(this);"  placeholder="Salary">
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label  for="salarycurr" class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 50px">Salary Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="salarycurr" name="salarycurr" onChange="javascript:return salaryrate(this);" required >
+							<% if (salarycurr != "") {%>
+								<option value="<%=salarycurr%>"> <%=salarycurr%> </option>
+                                                          <% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+							<% if(salarycurr != comm_code_pcr[i].comm_code_id) { %>
+                                                  <option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+										<% } %>
+										<% } %>
+								<% } else { %>
+                                                        <option value="" selected disabled>Salary Currency</option>
+								<% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+								<option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+                                                                                <% } %>
+                                                                              <% } %>
+                                                                </select>
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salrate"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="salrate" name="salrate" maxlength="16" onBlur="javascript:return salconvertedamount(this);"   class="form-control" placeholder="Rate">
+
+                                            </div>
+                                        </div>
+				</td>
+
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salconamt"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="salconamt" name="salconamt" maxlength="16" readonly value="<%=salary_converted_amt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+				</td>
+
+
+
+                                        </div>
+				</tr>
+				</table>
+
+                                <table>
+				<tr>
+				<td>    
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdium" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Perdiem<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="perdium" name="perdium" maxlength="16"  class="form-control" value="<%=perdium%>"  onBlur="javascript:return perconvertedamount(this);"  placeholder="Perdiem">
+                                            </div>
+                                        </div>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdiemamtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Perdiem Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="perdiemamtcurr" name="perdiemamtcurr" required onBlur="javascript:return perratecon(this);"  style="width:259px;height:40px">
+							<% if (perdiumcurr != "") {%>
+							<option value="<%=perdiumcurr%>"> <%=perdiumcurr%> </option>
+                                                          <% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+							<% if(perdiumcurr != comm_code_pcr[i].comm_code_id) { %>
+                                                  <option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+										<% } %>
+										<% } %>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Perdiem Currency</option>
+								<% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+								<option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+                                                                              <% } %>
+                                                                              <% } %>
+                                                                </select>
+                                            </div>
+                                        </div>
+				</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perrate"  class="no-space-break col-md-2 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="perrate" name="perrate" maxlength="16" value="<%=perdiem_rate%>" onBlur="javascript:return perconvertedamount(this);"  class="form-control" placeholder="Rate">
+                                            </div>
+                                        </div>
+                                        </td>
+
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perconamt"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="perconamt" name="perconamt" maxlength="16"  readonly value="<%=perdiem_converted_amt%>"  class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+                                </div>
+				</tr>
+				</table>
+			
+
+
+				<table>
+				<tr>
+				<td>
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travel" class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 50px">Travel<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="travel" name="travel" maxlength="16"  class="form-control" value="<%=travel%>" onBlur="javascript:return traconvertedamount(this);"  placeholder="Travel">
+                                            </div>
+                                        </div>
+				</td>
+
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travelamtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Travel Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="travelamtcurr" name="travelamtcurr" required onChange="javascript:return travelratecon(this);"  style="width:259px;height:40px">
+
+							 <% if (travelcurr != "") {%>
+                                                        <option value="<%=travelcurr%>"> <%=travelcurr%> </option>
+                                                          <% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+								<% if(travelcurr != comm_code_pcr[i].comm_code_id) { %>
+                                                  <option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+										<% } %>
+										<% } %>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Travel Currency</option>
+							<% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+							<option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+                                                                              <% } %>
+                                                                              <% } %>
+
+                                                                </select>
+
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travelrate"  class="no-space-break col-md-5 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="travelrate" name="travelrate" maxlength="16" value="<%=travel_rate%>" onBlur="javascript:return traconvertedamount(this);"  class="form-control" placeholder="Rate">
+                                            </div>
+                                        </div>
+					</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="traconamt"  class="no-space-break col-md-8 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="traconamt" name="traconamt" maxlength="16" readonly value="<%=travel_converted_amt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+				</div>
+				</tr>
+				</table>				
+
+                               <table>
+				<tr>
+				<td>     
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="other" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Others<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="other" name="other" maxlength="16"    class="form-control" value="<%=other_exp%>" onBlur="javascript:return othconvertedamount(this);"  placeholder="Others">
+					</div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="otheramtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Others Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="otheramtcurr" name="otheramtcurr" required onChange="javascript:return otherratecon(this);"  style="width:259px;height:40px">
+                                                    <% if (other_expcurr != "") {%>
+                                                        <option value="<%=other_expcurr%>"> <%=other_expcurr%> </option>
+                                                          <% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+							<% if(other_expcurr != comm_code_pcr[i].comm_code_id) { %>
+                                                  <option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+										<% } %>
+										<% } %>
+									<% } else { %>
+									<option value="" selected disabled>Others Currency</option>
+									<% for (i = 0; i < comm_code_pcr_count; i++)  {%>
+									<option value="<%= comm_code_pcr[i].comm_code_id %>"> <%=comm_code_pcr[i].comm_code_id %> </option>
+                                                                              <% } %>
+                                                                              <% } %>
+
+                                                                </select>
+                                            </div>
+                                        </div>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="otherrate"  class="no-space-break col-md-5 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="otherrate" name="otherrate" maxlength="16" value="<%=other_rate%>" class="form-control" onBlur="javascript:return othconvertedamount(this);"  placeholder="Rate">
+                                            </div>
+                                        </div>
+				</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="othconamt"  class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="othconamt" name="othconamt" maxlength="16" readonly value="<%=other_converted_amt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+                                </div>
+				</tr>
+				</table>
+
+        
+
+
+<div id="fixedpricelicdetails" style="display:none;">
+			<hr/>
+                                <h4 class="title"> License details  <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="module" style="color:#404040;margin-left: 50px">Modules Included</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="module" name="module" value="<%=fl_modules_included %>" readonly  class="form-control" placeholder="Modules Included">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nousers" style="color:#404040;margin-left: 50px">Number of users</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="nousers" name="nousers" value="<%=fl_num_users %>" readonly  class="form-control" placeholder="Number of users">
+                                            </div>
+                                        </div>
+                                </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nobranch" style="color:#404040;margin-left: 50px">Number of branches</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="nobranch" name="nobranch"  value="<%=fl_num_of_branches %>" readonly  class="form-control" placeholder="Number of branches">
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+
+</div>
+
+
+<div id="milstonedetails" style="display:none;">
+                                 <hr/>
+                                <h4 class="title">Milestone Details     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+                                    <div class="row">
+                                     <div class="col-md">
+                                      <table class="table table-bordered table-hover" id="tableAddRow">
+                                      <thead>
+                                      <tr>
+                                      <th>Milstone Name</th>
+                                      <th>Expected Date</th>
+                                      <th>Capture Percentage</th>
+                                      <th>Direct Amount</th>
+                                      <th style="width:10px"><span class="glyphicon glyphicon-plus addBtn" id="addBtn_0"></span></th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      </tbody>
+                                      </table>
+                                      </div>
+                                      </div>
+
+                                 <hr/>
+                                <h4 class="title">Marked Milestone Details     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+                                    <div class="row">
+                                     <div class="col-md">
+				      <% if(emp_access == "L1" ){%>
+                                      <table class="table table-bordered table-hover" id="tableAddRow1">
+                                      <thead>
+                                      <tr>
+                                      <th>Milstone Name</th>
+                                      <th>Expected &nbsp;&nbsp;&nbsp;&nbsp;Date</th>
+                                      <th>Capture Percentage</th>
+                                      <th>Direct &nbsp; Amount</th>
+				      <th> Delete Milstone </th>	
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+					<% for (i = 0; i < milestonemark_count; i++)  {%>
+					<tr>
+					<td width="80"><label for="markname" id="markname_' + <%=i%> + '"><%=milestonemark[i].milestone_name%></label>
+                                      </td>	
+					 <td width="20"><label for="markexpdate" id="markexpdate_' + <%=i%> + '"> <%= milestonemark[i].milestone_exp_date.getFullYear() %>-<%= milestonemark[i].milestone_exp_date.getMonth()+1 %>-<%= milestonemark[i].milestone_exp_date.getDate() %> </label>
+                                      </td>
+					<td width="50"><input  type="text" style="background-color: transparent;border: 0px solid;height: 20px;width: 40px;color: #969696" for="markcapper" id="markcapper_' + <%=i%> + '" value="<%=milestonemark[i].capture_per%>" readonly >
+                                      </td>
+
+					<td width="20"><input  type="text" style="background-color: transparent;border: 0px solid;color: #969696"  for="markdiramt" id="markamtdir_<%=i%>" value="<%=milestonemark[i].direct_amount%>" readonly>
+					</td>
+
+					<td width="50"> <a href="/projectModule/deleteMilestone/milestoneDelete?id=<%=i %>" id="link"><i class="fa fa-trash-o"></i></a> 
+                                      	</td>
+					</tr>
+					<%}%>
+                                      </tbody>
+                                      </table>
+				      <%} else {%>
+                                      <table class="table table-bordered table-hover" id="tableAddRow1">
+				      <thead>
+                                      <tr>
+                                      <th>Milstone Name</th>
+                                      <th>Expected &nbsp;&nbsp;&nbsp;&nbsp;Date</th>
+                                      <th>Capture Percentage</th>
+                                      <th>Direct &nbsp; Amount</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                        <% for (i = 0; i < milestonemark_count; i++)  {%>
+                                        <tr>
+                                        <td width="80"><label for="markname" id="markname_' + <%=i%> + '"><%=milestonemark[i].milestone_name%></label>
+                                      </td>
+                                         <td width="20"><label for="markexpdate" id="markexpdate_' + <%=i%> + '"> <%= milestonemark[i].milestone_exp_date.getFullYear() %>-<%= milestonemark[i].milestone_exp_date.getMonth()+1 %>-<%= milestonemark[i].milestone_exp_date.getDate() %> </label>
+                                      </td>
+                                        <td width="50"><input  type="text" style="background-color: transparent;border: 0px solid;height: 20px;width: 40px;color: #969696" for="markcapper" id="markcapper_' + <%=i%> + '" value="<%=milestonemark[i].capture_per%>" readonly >
+                                      </td>
+
+                                        <td width="20"><input  type="text" style="background-color: transparent;border: 0px solid;color: #969696"  for="markdiramt" id="markamtdir_<%=i%>" value="<%=milestonemark[i].direct_amount%>" readonly>
+                                        </td>
+                                        <%}%>
+                                        </tr>
+                                      </tbody>
+                                      </table>
+                                        <%}%>
+                                      </div>
+                                      </div>
+
+                                      </div>
+
+
+                                                <input type="hidden"  id="millength" name="millength" >
+                                                <input type="hidden"  id="millengtharr" name="millengtharr" >
+                                                <input type="hidden"  id="proid" name="proid" value="<%=project_id%>" >
+                                                <input type="hidden"  id="paidflg" name="paidflg" value="<%=ErrFlg%>" >
+                                                <input type="hidden"  id="alloc" name="alloc" value="<%=alloccount%>" >
+						
+
+                                
+                                    <table>
+                                    <tr>
+                                    <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:45%;padding:1px 16px;height:40px;width:100px" value="Modify" onclick="return formValidations()"></td>
+                                    <td><input type="button" class="btn btn-info btn-fill" style="margin-left:65%;padding:1px 16px;height:40px;width:100px" value="Clear" onclick="resetform()"></td>
+                                    </tr>
+                                    </table>
+    
+				<div class="clearfix"></div>
+                                </form>
+				<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+	 <% include ../common/footer %>
+</div>
+
+
+</body>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.addBtn').on('click', function () {
+        //var trID;
+        //trID = $(this).closest('tr'); // table row ID
+        addTableRow();
+    })
+     $('.addBtnRemove').click(function () {
+        $(this).closest('tr').remove();
+    })
+    var i = <%=milestone_count%>;
+   var j=i+1;
+    function addTableRow()
+    {
+        var tempTr = $('<tr id="tr_' + i +'"><td><input type="text" id="milname_' + i + '" name="milname_' + i + '" style="width:400px;" maxlength="50" class="form-control" /></td><td><input type="text" id="milDate_' + i + '" name="milDate_' + i + '" class="form-control" /></td> <td><input type="text" id="caper_' + i + '" name="caper_' + i + '" onBlur="javascript:return milperccentage(this,'+ i +');"  class="form-control" /></td><td><input type="text" id="diramt_' + i + '" name="diramt_' + i + '" onBlur="javascript:return milperc(this,'+ i +');"  class="form-control" /></td><td><span class="glyphicon glyphicon-minus addBtnRemove" id="addBtn_' + i + '"></span></td></tr>').on('click', function () {
+          // $(this).closest('tr').remove();
+           $(document.body).on('click', '.addBtnRemove', function (e) {
+               $(this).closest('tr').remove();
+            });
+        });
+        $("#tableAddRow").append(tempTr)
+                var today = new Date();
+                $('#milDate_'+i).pickadate(
+                {
+                selectMonths: true,
+                selectYears: 100,
+                format: 'yyyy-mm-dd',
+                formatSubmit: 'yyyy-mm-dd',
+                closeOnSelect: true,
+		closeOnClear: true
+                });
+
+        i++;
+        j++;
+	$('#millength').val(i);
+    }
+});
+
+</script>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<!--	<script src="/js/bootstrap.min.js" type="text/javascript"></script> -->
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+
+
+</html>

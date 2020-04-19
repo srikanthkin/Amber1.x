@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+
+  
+<head>
+	   <meta charset="utf-8" />
+	   <link rel="icon" type="image/png" href="/images/full_logo_transparent.png">
+	   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	   <title>Request Details</title>
+           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	   <meta name="viewport" content="width=device-width" />
+	    <!-- To use it for Materialise CSS forms -->
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
+	    <!-- Bootstrap core CSS     -->
+	    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+	    <!-- Animation library for notifications   -->
+	    <link href="/css/animate.min.css" rel="stylesheet"/>
+
+	    <!--  Light Bootstrap Table core CSS    -->
+	    <link href="/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+	    <!--  CSS for Demo Purpose, don't include it in your project     -->
+	    <link href="/css/demo.css" rel="stylesheet" />
+
+
+    	     <!--     Fonts and icons     -->
+             <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.js"></script>
+    	     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+             <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+             <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700'rel='stylesheet' type='text/css'>
+             <link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="/css/neoStyle.css" rel="stylesheet" />
+
+    	     <style>
+            body        
+          {
+                          background-image: url("/images/loginbg.jpg");
+                      }
+      
+      .navbar .navbar-reverse 
+      {
+          display: inline-block;
+          float: none;
+          vertical-align: top;
+      }
+
+      .navbar .navbar-collapse 
+      {
+          text-align: center;
+      }
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+      hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+
+
+           </style>
+		<script>
+		function changeHashOnLoad()
+		{
+		window.location.href += "#";
+		setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+		window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+		if (window.location.hash != storedHash)
+		{
+		window.location.hash = storedHash;
+		}
+		}, 50);
+		</script>
+    
+
+     
+         <script type="text/javascript">
+
+         $(document).ready(function() {
+            
+            $(".confirm").attr('disabled',true);
+            $("#costChk").hide();
+            $("#costChkSucc").hide();
+            $("#chkbudget").click(function() {
+                 var cost=$( "#free_text_1" ).val();
+                 var project_id=$( "#project_id" ).val();
+                var approver_id=$("#approver_id").val();
+                 if(cost=="")
+                 {
+                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the cost"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+ 
+                 }
+                else{  
+            
+         
+            $.ajax
+         ({
+             type:'post',
+             url:'/travelModule/approveReq/checkbudget',
+
+             data:{
+                cost:cost,
+                project_id:project_id,
+                approver_id:approver_id
+                
+             },
+             success:function(response,data)
+             {
+                console.log("response",response);
+               
+                if(cost>response.key)
+                {
+                  $("#costChk").show();
+				          $("#costChkSucc").hide();
+						  $("#available_budget").val(response.key);
+						  
+                 }
+                 else if(cost<=response.key)
+                 {
+					 $("#costChk").hide();
+                  $("#costChkSucc").show();
+                 }
+                   $("#free_text_1").val(cost);   
+                 } 
+               
+               
+             });
+       }
+       $(".confirm").attr('disabled',false);
+     
+      });      
+        
+     
+            
+ 
+});
+
+            
+             
+            
+        </script>
+	     <script type="text/javascript">
+
+		function approveform()
+		{
+			
+			document.getElementById("empid").value="";
+			document.getElementById("empName").value="";
+			document.getElementById("req_id").value="";
+			document.getElementById("project_id").value="";
+			
+			document.getElementById("from_location").value="";
+			document.getElementById("to_location").value="";
+			document.getElementById("from_date").value="";
+			document.getElementById("to_date").value="";
+			document.getElementById("remarks").value="";
+			
+			return false;
+		}
+
+		function reload()
+		{
+			location.reload();
+		}
+
+	     </script>
+		 <% if (to_date=="") { %>
+                              <script>
+                //alert("hi");
+                $(document).ready(function(){
+                                   jQuery('#tentDate').hide();    
+                  });
+                               </script>
+                               <% } %>
+							   
+			 <% if (remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+			    $(document).ready(function(){
+                 $("#rmks").hide();
+				   });
+                               </script>
+                               <% } %>
+
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" data-color="black" data-image="/images/loginbg.jpg">
+
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="#" class="portalNameLink">
+		<span class="portalName">NEO</span>
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1"){%>
+                <li>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                </li>
+
+                <%} else {%>
+                <li>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if((emp_access == "L1")||(emp_access == "L2")){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDetails">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Details</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="appraisalModule/appraisal/appraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1" ){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" ){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == 'L1' || emp_access == 'L2' || emp_access == 'L3'){ %>
+                <li class="active">
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                </li>
+                <%}%>
+				 <% if(emp_access == 'F1'){ %>
+                <li class="active">
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if( emp_access== 'A1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+                  
+		<% if(emp_access != 'A1'){ %>
+                <li>
+                    <a href="<a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+               </li>
+               <%}else{%>
+                <li>
+ 			<a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    	</a>
+               </li>
+               <%}%>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+
+       <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed" style="height:55px;background-color:transparent;border-color: transparent;border-radius: 3px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+        
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+           
+                
+                        <a class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent;">
+                <img src="/images/profile/<%= emp_id%>.jpg" alt="logo"  style="border-radius: 30px;" width="60" height="60">&nbsp&nbsp<span style="text-transform:uppercase"><%= emp_name%></span>
+                <span class="fa fa-angle-down"></span>
+                            </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                           <li><a href="/logoutModule/logout/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        </ul>
+                        </li>   
+                      
+                    </ul>
+                </div>
+            </div>
+	</nav>
+            
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header">
+                            <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access == 'L1' || emp_access == 'L2' || emp_access == 'L3'){ %> 
+                    <li><a id="reload" href="/travelModule/travel/travel">Initiate Travel Request</a></li>
+                    <li><a href="/travelModule/travel/travelempDetails">My Request</span></a></li>
+                  <% } %>  
+           <% if(emp_access == 'L1'||emp_access == 'L2'){ %> 
+            <li><a href="/travelModule/travel/travelDetail"><span style="color:#ff6600">Approve/Reject<span></a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/travel/travelHrReqQueue">Approve/Reject</span></a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+                </nav>
+                      
+                            </div>
+				
+
+                    <div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center" style="padding-top: 20px;">
+             
+         
+             <div><%= success%> </div> 
+          
+           </div>
+       </div>
+
+       <div class="content">
+              
+                        <form name="myForm" id="Approve" action="/travelModule/approveReq/approve" method="post">
+                     <hr/>     
+                               <h4 class="title">Approve/Reject</h4>
+                     <hr/>
+				
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 35px;"  for="req_id">Request Id</label>
+						<input type="text" class="form-control" style ="margin-left: 35px;width:348px" readonly="true" id="req_id" name="req_id" value="<%-req_id%>"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id</label>
+						
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empid" name="empid" value="<%-empid%>" />
+                                            
+											</div>
+										</div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empname">Employee Name</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empname" name="empname" value="<%-empname%>" />
+                                           </div>  
+                                        </div>
+										
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="project_id">Project Id</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="project_id" name="project_id" value="<%-project_id%>" />
+                                            
+                                        </div>
+                                    </div>
+									</div>
+                                
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="from_location">From Location</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="from_location" name="from_location" value="<%-from_location%>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="to_location">To Location</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="to_location" name="to_location" value="<%-to_location%>" />
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="from_date">From Date</label>
+						
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="from_date" name="from_date" value= "<%-from_date.toDateString()%>" />
+                                            </div>
+                                        </div>
+										
+										 <% if(to_date != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="tentDate">
+                                                <label style="color:#404040;margin-left: 50px" for="to_date">To Date</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="to_date" name="to_date" value="<%-to_date.toDateString()%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+                                 </div>
+
+                                <div class="row">
+								
+								 <div class="col-md-5">
+                                            <div class="form-group" id="remarks">
+                                                <label style="color:#404040;margin-left: 50px" for="approver_id">Approver</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true"  id="approver_id" name="approver_id" value="<%-mgrName%>" />
+                                            </div>
+                                        </div>
+								<% if(remarks != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label style="color:#404040;margin-left: 50px" for="remarks">Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="remarks" name="remarks" value= "<%-remarks%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+										
+									</div>
+									 <div class="row">
+								
+								
+								<% if(emp_access == 'L1'||emp_access == 'L2'){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label style="color:#404040;margin-left: 50px" for="app_remarks">Approver Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px"  id="app_remarks" name="app_remarks" value= "" />
+                                            </div>
+                                        </div>
+										 <% } %>
+										
+									</div>
+									<div class="row">
+								
+								
+								<% if(emp_access == 'F1'){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label style="color:#404040;margin-left: 50px" for="approver_remarks">Approver Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="approver_remarks" name="approver_remarks" value= "<%-approver_remarks%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+										
+									</div>
+									
+									<div class="row">
+                                        
+                                         <% if(emp_access == 'F1'){ %> 
+										               <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="free_text_1">Cost</label>
+						                <input type="text" class="form-control" style ="margin-left: 50px;width:235px" id="free_text_1" name="free_text_1" placeholder="Enter the Cost" value="" />
+												 <p style="color:red;font-size: 15px;padding-left: 55px;">
+                               <span>*</span> please check the project budget
+                            </p>
+							
+                                            </div>
+                                            
+                                        </div>
+
+                                         <div class="col-md-1">
+                                          <div class="form-group">
+                                                   <input type="submit" name="chkbudget" id="chkbudget" style="margin-left:-189%;padding:1px 9px;height:40px;width:100px;margin-top: 24px;" class="btn btn-info btn-fill" style="float: center;" value="checkbudget" >
+                                              </div> 
+                                          
+                                              </div> 
+                                              
+                                              
+
+
+										 <% } %> 
+                     <div class="col-md-5">
+                                            <div class="form-group">
+                                               
+            <input type="hidden" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empaccess" name="empaccess" value= "<%-emp_access%>" />
+                                            </div>
+                                        </div>
+									</div>
+									<div class="row">
+										 <div class="col-md-1" id="costChk" style="display: block;width: 297px;left: -93px;bottom: -36px;color: green;">
+                                          <div class="form-group">
+                                          <p style="margin-left: 143px; width: 265px; margin-top:-45px;">Project budget has been overshooted</p>
+										   
+										   <label style="color:#404040;margin-left: 140px ;width: 265px;" for="available_budget">Available balance(in INR)</label>
+										   <td><input type="text" name="available_budget" id="available_budget" readonly="true" style="margin-left:52%;padding:1px 16px;height:40px;width:100px" class="form-control" style="float: center;" value="" ></td>
+										   <td><input type="submit" name="test" id="test"  style="margin-left:96%;padding:1px 16px;height:40px;width:100px;margin-top: -61px;" class="btn btn-info btn-fill" style="float: center;" value="Forward" ></td>
+                                          </div> 
+                                              </div> 
+                                              <div class="col-md-1" id="costChkSucc" style="display: block;width: 297px;left: -93px;bottom: -36px;color: green;">
+                                          <div class="form-group">
+                                          <p style="margin-left: 153px; width: 345px; margin-top:-45px;">Project budget doesn't overshoot.kindly proceed</p>
+                                          </div> 
+                                              </div> 
+									</div>
+										
+										
+							 <table>
+                                       <tr>
+                                       <% if(emp_access == 'L1'||emp_access == 'L2'){ %> 
+	                            		<td><input type="submit" style="margin-left:65%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" name="test" id="test" value="Approve" ></td>
+                                        
+	                            		<td><input type="submit" name="test" id="test" style="margin-left:65%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Reject" onclick="return formValidations();></td>
+                                        <% } %>
+                                         <% if(emp_access == 'F1'){ %> 
+										
+
+                                        <td><input type="submit" name="test" id="test" class="confirm" style="margin-left:50%;padding:1px 16px;height:40px;width:100px; margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Confirm" ></td>
+
+										<td><input type="submit" name="test" id="test" style="margin-left:65%;padding:1px 16px;height:40px;width:100px ;margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Cancel" ></td>
+                                    
+	                            		   <% } %> 
+                                     </tr>
+                                    </table>			
+                              <div class="clearfix"></div>
+				    <br>
+                                </form>
+                            
+			
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy; 2017 <a href="http://nurture.co.in/">Nurture Software Solutions Pvt Ltd</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <!-- <script src="/js/jquery-1.10.2.js" type="text/javascript"></script> -->
+        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!--  Checkbox, Radio & Switch Plugins -->
+        <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+        <!--  Charts Plugin -->
+        <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+        <script src="/js/light-bootstrap-dashboard.js"></script>
+
+        <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+        <script src="/js/demo.js"></script>
+ <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+               
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

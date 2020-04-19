@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+           <title>Project Module</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+
+                 /* visited link */
+		
+		a
+		{
+			color: black;
+		}
+
+                a:visited {
+                    color: black;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: black;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active 
+		{
+                    color: black;
+                }
+
+	</style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li class="active">
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+  <div class="main-panel">
+     <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+      <div class="content">
+      	<div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" style="color:#669999">
+                                <li><a href="/markModule/markDetails/markDetails">Milestone Marking</a></li>
+                                <li><a href="/markModule/markDetails/recallmilestone">Recall Milestone</a></li>
+                                <li><a href="/markModule/markDetails/markFAQDetails"><span style="color:#ff9933">FAQ</span></a></li>
+			</ul>
+		     </nav>
+		  </div>
+
+	<div class="content">
+        <hr/>
+			<h4 class="title">Project Module FAQ's</h4>
+        <hr/>
+        
+	<br>
+	<p>Here are some of our most commonly asked questions. </p>	
+	<br>
+   
+
+  <div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#a">
+                                <h4 class="panel-title">
+                                Q1. Why should we create a customer ID?
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="a" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                        <p>The customer id is mandatory as it becomes the unique id of the customer.</p>
+
+                </div>
+        </div>
+  </div>
+
+
+ <div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#b">
+                                <h4 class="panel-title">
+                                Q2. What can we give in customer ID field?
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="b" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                        <p>It is an alpha numeric code. Maximum of 4 characters are allowed..</p>
+
+                </div>
+        </div>
+  </div>
+
+
+
+
+
+  <div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#c">
+                                <h4 class="panel-title">
+                                Q3. How is the project ID created?
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="c" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+ <p>Project Id is a combination of customer class + customer Id + project type + running sequence as entered while creation of project.</br>
+                        Example:- EV-PNB-CORM-1
+                        </p>
+
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#d">
+                                <h4 class="panel-title">
+                                Q4. Why are we giving billing address details while creating project?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="d" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Address given here will be autopopulated in invoice module. Invoices will then be generated  to the given address.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+
+ <div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#e">
+                                <h4 class="panel-title">
+                                Q5. What currency should we follow for Budget details?
+
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="e" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Please use the project currency for completing the same.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#f">
+                                <h4 class="panel-title">
+                                Q6. What are the components of budget?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+       <div id="f" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Components of budget are the break up amounts of the total budget.</br>
+                  Example: Components such as  - Salary,Perdiem,Travel and Others.
+                 </p>
+
+                </div>
+        </div>
+  </div>
+
+
+ <div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#g">
+                                <h4 class="panel-title">
+                                Q7. What is convertion rate?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="g" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>As part of budgeting in Project Module, projects across currencies (countries) needs to be converted to INR.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#h">
+                                <h4 class="panel-title">
+                                Q8. When can a project be closed?
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="h" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Project is closed, when all milestones are raised/paid  and  all employees are de-allocated.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#i">
+                                <h4 class="panel-title">
+                                Q9. How to allocate employees to a particular project?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="i" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+
+                <p>a) Before allocation of employees, make sure the respective project is created in add project details.</br>
+           b) Click on project module available in the employee dashboard.</br>
+           c) Click on Project Allocation tab.</br>
+           d) In project allocation , select the employees (or single employee) to be allocated from the employee drop down provided.</br>
+           e) Select project ID, reporting manager, percentage allocation, employee location and allocation start date and end date.(Allocation start date and end date must be between project start and end date)</br>
+           f) Click submit the employees will be allocated to the selected project ID.</br>
+           g) Modification and view of allocation details can be done in modify allocation/view allocation tabs respectively.</br>
+        </p>
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#j">
+                                <h4 class="panel-title">
+                                Q10. Can allocation percentage be less than 100?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="j" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Only single employee allocation can be less than 100. For bulk allocation, percentage will be only 100%.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#k">
+                                <h4 class="panel-title">
+                                Q11. How are salary and perdium components calculated?
+
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+       <div id="k" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                <p>Perdium component will be calculated only for onsite location and salary for both onsite and offshore location.
+                The calculation is based on number of days between allocation start date and allocation end date for the allocated employee.</br>
+                </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#l">
+                                <h4 class="panel-title">
+                                Q12. Can allocation be modified?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="l" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Yes! Allocation details can be modified under Modify Allocation tab.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#m">
+                                <h4 class="panel-title">
+                                Q13. What is Project Allocation View and Employee Allocation View?
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="m" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Allocation view can be done in two ways.</br>
+          a) Project Allocation View: The allocation details of all the employees will be displayed under a particular project.</br>
+          b) Employee Allocation View : The allocation details of a particular employee across multiple projects will be displayed.</br>
+        </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#n">
+                                <h4 class="panel-title">
+                                Q14. Can an employee be allocated in modify allocation?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="n" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Yes! New employee can be added to an existing allocation, in modify mode..</br> </p>
+
+                </div>
+        </div>
+  </div>
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#o">
+                                <h4 class="panel-title">
+                                Q15. Individual de-allocation of an employee is possible?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="o" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>Yes! Employee can be de-allocated from the project in modify allocation tab by clicking on dealloc checkbox.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+<div>
+        <div class="panel">
+                <div class="panel-heading" style="background-color: lightgrey;">
+                        <div class="submenuhead" >
+                                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#p">
+                                <h4 class="panel-title">
+                                Q16. What is Project De-allocation?
+
+                                </h4>
+                                </a>
+                        </div>
+                </div>
+        </div>
+
+       <div id="p" class="panel-collapse collapse">
+               <div class="panel-body" style="margin-top: -20px;">
+                 <p>A project as a whole can be de-allocated. All the employees under that project will be de-allocated.</br> </p>
+
+                </div>
+        </div>
+  </div>
+
+
+
+
+
+			  </div>
+		       </div>
+		   </div>
+		</div>
+	     </div>
+	  </div>
+	  </div>
+	   <% include ../common/footer %>
+</div>
+
+
+</body>
+	<!--   Core JS Files   -->
+	<script src="/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+	<!--  Charts Plugin -->
+	<script src="/js/chartist.min.js"></script>
+	<!--  Notifications Plugin    -->
+	<script src="/js/bootstrap-notify.js"></script>
+	<!--  Google Maps Plugin    -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="/js/light-bootstrap-dashboard.js"></script>
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="/js/demo.js"></script>
+
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+
+</html>

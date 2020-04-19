@@ -1,0 +1,38 @@
+/* Multiselect
+----------------------------------*/
+
+.ui-multiselect { border: solid 1px; font-size: 0.8em; }
+.ui-multiselect ul { -moz-user-select: none; }
+.ui-multiselect li { margin: 0; padding: 0; cursor: default;border: 0;  line-height: 20px; height: 20px; font-size: 11px; list-style: none;background-color:#fff!important;}
+.ui-multiselect li a { color: #999; text-decoration: none; padding: 0; display: block; float: left; cursor: pointer;}
+.ui-multiselect li.ui-draggable-dragging { padding-left: 10px; }
+
+.ui-multiselect div.selected {border: 1px solid #d9d9d9 !important;width: 108% !important;     height: 450px!important;position: relative; padding: 0; margin: 0; border: 0; float:left; }
+.ui-multiselect ul.selected { position: relative; padding: 0; overflow: auto; overflow-x: hidden;   height: 403px!important;  background: #fff; margin: 0; list-style: none; border: 0; position: relative; width: 100%; }
+.ui-multiselect ul.selected li { }
+
+.ui-multiselect div.available {border: 1px solid #d9d9d9 !important;width: 108% !important;    height: 450px!important; position: relative; padding: 0; margin: 0; border: 0; float:left; border-left: 1px solid; }
+.ui-multiselect ul.available { position: relative; padding: 0; overflow: auto; overflow-x: hidden;    height: 403px!important;  background: #fff; margin: 0; list-style: none; border: 0; width: 100%; }
+.ui-multiselect ul.available li { padding-left: 10px; }
+ 
+.ui-multiselect .ui-state-default {font-size: 1rem !important;color: #9e9e9e !important;font-family: "Roboto", sans-serif;font-weight: 300;background: #fff !important; border: none; margin-bottom: 1px; position: relative; padding-left: 10px;}
+.ui-multiselect .ui-state-hover { border: none; }
+.ui-multiselect .ui-widget-header {background: #3f51b5 !important ; border: none; font-size: 17px; margin-bottom: 1px;   height: 44px;}
+ 
+.ui-multiselect .add-all { float: right; padding: 7px;}
+.ui-multiselect .remove-all { float: right; padding: 7px;}
+.ui-multiselect .search { float: left; padding: 4px;}
+.ui-multiselect .count { float: left; padding: 7px;}
+
+.ui-multiselect li span.ui-icon-arrowthick-2-n-s {display: none !important; position: absolute; left: 2px; }
+.ui-multiselect li a.action { position: absolute; right: 2px; top: 2px; }
+ 
+.ui-multiselect input.search { height: 26px; padding: 1px; opacity: 0.5; margin: 8px; width: 200px;     background-color: #e0e0e0; color:#444;}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin), url("../fonts/roboto/Roboto-Thin.eot");
+  src: url("../fonts/roboto/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("../fonts/roboto/Roboto-Thin.woff") format("woff"), url("../fonts/roboto/Roboto-Thin.ttf") format("truetype");
+  font-weight: 200;
+}
+

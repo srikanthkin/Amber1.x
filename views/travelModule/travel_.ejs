@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title>Travel Request</title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+ <!-- To use it for Materialise CSS forms -->
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Bootstrap core CSS     -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    
+	  <!--  Date picker    -->
+            
+       
+            <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.js"></script>
+            <script type="text/javascript" src="http://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.js"></script>
+            <script type="text/javascript" src="http://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.date.js"></script>
+            <script type="text/javascript" src="http://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.time.js"></script>
+            <link rel="stylesheet" type="text/css" href="http://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/classic.css">
+            <link rel="stylesheet" type="text/css" href="http://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/classic.date.css">
+            <link rel="stylesheet" type="text/css" href="http://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/classic.time.css">
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="/css/demo.css" rel="stylesheet" />
+   
+
+            
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>   
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700'rel='stylesheet' type='text/css'>
+    <link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	  <script src="/js/jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>
+
+   
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		body        
+		     	{
+                      		background-image: url("/images/loginbg.jpg");
+                     	}
+			
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+				.select2-container--open .select2-dropdown--above {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+	  width: 348px;
+		left:-50px;
+}		  
+.select2-container--open .select2-dropdown--below {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 348px;
+    left:-50px;
+} 
+
+
+    	     </style>
+			 <style>
+
+			 .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+			
+			 </style>
+        <script>
+        function changeHashOnLoad()
+        {
+            window.location.href += "#";
+            setTimeout("changeHashAgain()", "50");
+        }
+        function changeHashAgain()
+        {
+            window.location.href += "1";
+        }
+        var storedHash = window.location.hash;
+        window.setInterval(function ()
+        {
+            if (window.location.hash != storedHash)
+        {
+            window.location.hash = storedHash;
+        }
+        }, 50);
+
+        </script>
+			
+        <script type="text/javascript">
+
+        function matchStart(params, data) {
+  // If there are no search terms, return all of the data
+         if ($.trim(params.term) === '') {
+          return data;
+          }
+         else
+         {
+          data: proj_id
+         }
+         return null;
+         }
+
+      $(document).ready(function() {
+        var proj_id=pid;
+        proj_id=proj_id.value
+        $("#pid").select2({
+          matcher: matchStart,
+           });
+         });
+  
+    </script>
+
+
+	     <script type="text/javascript">
+       
+       var array ="<%= newArray %>";
+			 console.log("array",array);
+       var projectList = <%- JSON.stringify(newArray) %>;
+       console.log("projectList",projectList);
+
+			$(window).load(function()
+			{
+         var danishdays = [];
+         //var danishdays1 = [];
+         var leavearray ;
+      var startDate =[]; 
+      var endDate =[];
+      var datesEnabled="";
+       var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+
+
+				$('#travelDate').pickadate(
+				{
+				selectMonths: true,
+				selectYears: 4,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				closeOnSelect: true,
+        disable:totalEnabled
+				});
+            
+            
+			});
+
+			$(document).ready(function() {
+			$("#my-icon").click(function(){
+			$( '#travelDate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+           
+		   $(window).load(function()
+			{
+
+        var danishdays = [];
+        var leavearray ;
+        var startDate =[]; 
+        var endDate =[];
+        var datesEnabled="";
+        var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+				$('#tenDate').pickadate(
+				{
+				selectMonths: true,
+				selectYears: 4,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				closeOnSelect: true,
+        disable:totalEnabled
+				});
+			});
+
+			$(document).ready(function() {
+			$("#my-icon1").click(function(){
+			$( '#tenDate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+		   
+
+                    var d = new Date();
+                    currentDate = d.toDateString();
+                    //alert(d.toDateString());
+
+                        
+			function formValidations()
+			{
+				var pid = document.getElementById("pid").value;
+                                if(pid == "")
+                                {
+                                                //alert("Allot the Project Id for the employee");
+                                                document.getElementById("pid").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Allot the Project Id for the employee"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				
+				       
+
+                   
+                    
+
+                    
+				var travelDate = document.getElementById("travelDate").value;
+                                if(travelDate == "")
+                                {
+                                              //alert("Enter the Travel Date");
+                                              document.getElementById("travelDate").focus();
+                                             demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Travel Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+                       var travelDate = document.getElementById("travelDate").value;
+                    // if(travelDate < currentDate)    
+                    // {
+                    //              alert("Travel Date cannot be greater than today's date");
+                    //                           document.getElementById("travelDate").focus();
+                    //                           return false;
+                    // }  
+          
+                 var radioButton=document.getElementById("chkYes").checked;
+                
+                  //alert(radioButton);
+                  if(radioButton == true)
+                
+				         {
+                  //alert("hello");
+                 var tenDate = document.getElementById("tenDate").value;
+                                if(tenDate == "")
+                                {
+                                              //alert("Enter the  Tentative Date");
+                                              document.getElementById("tenDate").focus();
+                                              demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the  Tentative Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+                    //             if(tenDate < currentDate)    
+                    // {
+                    //              alert("Tentative Date cannot be greater than today's date");
+                    //                           document.getElementById("tenDate").focus();
+                    //                           return false;
+                    // }  
+				 			 
+				if( travelDate > tenDate){
+                                   //alert("Travel date is greater than tentative date");
+                                   demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Travel date is greater than tentative return date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                         }
+					
+            			 }
+
+				var fromLoc = document.getElementById("fromLoc").value;
+                                if(fromLoc == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("fromLoc").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the From location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				var toLoc = document.getElementById("toLoc").value;
+                                if(toLoc == "")
+                                {
+                                               // alert("Select The To Location");
+                                                document.getElementById("toLoc").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the To location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+                //var toLocation = document.getElementById("toLoc").value;
+                //var fromLocation = document.getElementById("fromLoc").value;
+                              if(toLoc == fromLoc)
+                                {
+                                              // alert("both to and from loc are same");
+                                               // document.getElementById("toLoc").focus();
+                                               // demo.initChartist();
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Both  From and To location can't be same"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+
+
+               var regex = new RegExp("[0-9]+$");
+
+                if(regex.test(fromLoc))
+                                {
+                                            // alert("Please enter only alphabets");
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Only characters are allowed in From Location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+                   return false;
+              }      
+
+               
+                if(regex.test(toLoc))
+                                {
+                                
+                         //  alert("Please enter only alphabets");
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Only characters are allowed in To Location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+                
+  
+				var rmks = document.getElementById("rmks").value;
+                                if(rmks == "")
+                                {
+                                               // alert("Select The To Location");
+                                                document.getElementById("rmks").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				return true; 
+			}
+                        
+			
+			function resetform()
+			{
+
+				document.getElementById("myForm").reset();
+
+    
+      
+       
+            if ($("#chkYes").is(":checked")) {
+                $("#dvPassport").show();
+        $("#dvPassport1").show();
+            } else {
+        $("#dvPassport1").hide();
+                $("#dvPassport").show();
+            }
+     
+    
+    
+  
+
+			}
+
+	    </script>
+		<!--start Added by nandhini for travel date-->
+		<script>
+		 $(function () {
+			
+        $("input[name='probPeriod']").click(function () {
+            if ($("#chkYes").is(":checked")) {
+                $("#dvPassport").show();
+				$("#dvPassport1").show();
+            } else {
+				$("#dvPassport1").hide();
+                $("#dvPassport").show();
+            }
+            var selt=$( "#pid" ).val();
+        var emp_id=$("#emp_id").val();
+        //alert(selt);
+        // var $anchor = $('#travelApproverLink');
+       
+        // $anchor.attr('href' , '/travelModule/travel/travel?id='+emp_id  + "&project_id=" + selt);
+
+        
+         //$('#travelApproverLink').attr("href", "/travelModule/travel/fetchMgrName?id="+emp_id  + "&project_id=" + selt);
+         //window.location.href = "/travelModule/travel/travel?id="+emp_id  + "&project_id=" + selt;    
+          
+
+         $.ajax
+         ({
+             type:'post',
+             url:'/travelModule/travel/fetchMgrName',
+
+             data:{
+                empId:emp_id,
+                projectId:selt
+             },
+             success:function(response,data)
+             {
+                console.log("response",response);
+                $('#gstno').val(response.key);
+                  $('#toLoc').val("");
+                 if ($("#chkYes").is(":checked")) 
+                 {
+                  $('#toLoc').val("");
+                  $('#fromLoc').val(response.anotherkey);
+                 }
+                 else 
+                 {
+                  $('#fromLoc').val("");
+                  $('#toLoc').val(response.anotherkey);
+                 }
+                $('#project_id').val(selt);
+                
+             }
+         });
+         });
+    });
+		
+		</script>
+<script type="text/javascript">
+ $(document).ready(function() {
+      function matchStart(params, data) {
+        console.log("data",data);
+  // If there are no search terms, return all of the data
+         if ($.trim(params.term) === '') {
+          return data;
+          }
+          
+    
+                                if (data.text.indexOf(params.term) > -1) {
+                                 var modifiedData = $.extend({}, data, true);
+                                 modifiedData.text;
+
+      
+                          return modifiedData;
+                            }
+
+                                return null;
+
+     };
+
+
+        $("#pid").select2({
+          matcher: matchStart        
+           });
+
+         });
+
+
+  
+    </script>
+
+     
+		<!--End-Added by nandhini for travel date-->
+		         
+				 <!--Start Added by nandhini for  Remarks-->
+                                   <% if (emp_access==="L1"||emp_access==="A2") { %>
+                              <script>
+                             
+                              
+							  //alert("hi");
+							  $(document).ready(function(){
+                                   jQuery('#approval').hide();    
+								  });
+                               </script>
+                               <% } %>
+		 <!--End Added by nandhini for  Remarks-->
+
+      
+
+		
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+	<!--	<img src="/images/full_logo_transparent.png" alt="logo" width="100" height="80" />-->
+                <a href="#" class="simple-text" style="font-size: 25px;font-weight: 900;">
+                   Nurture&nbsp<span style="color: #ff9933">Portal</span>
+                </a>
+            </div>
+
+             <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed" style="height:55px;background-color: transparent;border-color: transparent">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+        
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+            <li class="">
+                
+                        <a class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent;">
+                <img src="/images/profile/<%= emp_id%>.jpg" alt="logo"  style="border-radius: 30px;" width="60" height="60">&nbsp&nbsp<span style="text-transform:uppercase"><%= emp_name%></span>
+                <span class="fa fa-angle-down"></span>
+                            </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                           <li><a href="/logoutModule/logout/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        </ul>
+                        </li>   
+                        </li>
+                    </ul>
+                </div>
+            </div>
+	</nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel"><span style="color:#ff6600">Initiate Travel Request</span></a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq">View Request</a></li>
+                    
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue">View Approval Queue</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">View Approval Queue</a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+				</nav>
+                            </div>
+					 <div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center"  style="padding-top: 20px;">
+             
+         
+             <div><%= error%> </div> 
+          
+           </div>
+       </div> 
+                            
+							
+                            <div class="content">
+    
+   <!-- <div class="container"  style="width:80 -->
+             <form name="formSubmitOnProjectChange" id="formSubmitOnProjectChange" action="/travelModule/travel/formSubmitOnProjectChange" method="post">
+             <input type="passedPid" id="passedPid" name="passedPid" hidden="true">
+             </form>
+
+
+<script type="text/javascript">
+  
+function submitFormWithPid(){
+
+$('#passedPid').val($('#pid').val());
+//alert($('#passedPid').val())
+document.getElementById("formSubmitOnProjectChange").submit();
+
+
+}
+
+
+</script>
+
+
+            <form name="myForm" id="myForm" action="/travelModule/travel/travelReq" method="post">
+				<hr/>
+				<h4 class="title">Initiate Travel Request	<i class="material-icons">flight</i></h4>
+				
+				<hr/>
+                               
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Project Id <span style="color:red;font-size: 10pt">*</span></label>
+						                                     <select class="form-control" id="pid" name="pid" style ="margin-left: 50px;width:348px !important" onchange="submitFormWithPid();">
+                                                        
+                                                        <% for (i = 0; i < projectListAlloc.length; i++) {
+                                                            if(defProjectId==projectListAlloc[i].project_id)
+                                                            { %>
+                                                              <option  value="<%= projectListAlloc[i].project_id %>" selected><%= projectListAlloc[i].project_id %></option>
+                                                            <%}
+                                                            else{
+                                                            %>
+                                                              <option  value="<%= projectListAlloc[i].project_id %>" ><%= projectListAlloc[i].project_id %>
+                                                              </option>
+                                                        <% }}; %>
+                                            </select>
+                                            </div>
+                                        </div>
+					
+					
+                                    </div>
+                                   
+                                
+								<div class="row">
+								
+								<div class="col-md-5">
+                                        	<!--<label style="color:#404040;margin-left: 64px" for="probPeriod">Probation Period <span style="color:red;font-size: 10pt">*</span></label> <br> -->
+                                        	<input style ="margin-left: 64px;" type="radio" name="probPeriod" id="chkYes" value="N" checked="checked"/> Round-trip Journey&nbsp;&nbsp;
+                                        	<input style ="margin-left: 64px;" type="radio" name="probPeriod" id="chkNo" value="Y">Single-trip Journey
+                                        </div>
+								</div>
+						
+                      <div class="row">						
+					    <div class="col-md-5">
+                                            <div class="form-group" id="dvPassport">
+                                            <div class="datepicker">
+                                            <table>
+                                                <tr><label style="color:#404040;margin-left: 50px">Travel Date<span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="date" class="form-control" style ="margin-left: 50px;width:348px;background-color: #FFFFFF;" placeholder="Travel Date" id="travelDate" name="travelDate"></td>
+                                                <td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                                </div>
+                                            </div>
+                                        </div>
+ 
+                                    
+                                        <div class="col-md-5" >
+                                             <div class="form-group" id="dvPassport1">
+                                            <div class="datepicker">
+                                            <table>
+                                                <tr><label style="color:#404040;margin-left: 50px">Tentative Return Date<span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="date" class="form-control" style ="margin-left: 50px;width:348px;background-color: #FFFFFF;" placeholder="Tentative Return Date" id="tenDate" name="tenDate"></td>
+                                                <td><span id="my-icon1" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                       
+                                </div>
+								
+								<div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">From Location<span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="fromLoc" name="fromLoc" class="form-control" value="<%=project_loc%>" placeholder="Travelling From">
+                                            </div>
+                                        </div>
+					
+					                        <div class="col-md-5">
+                                           <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">To Location<span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="toLoc" name="toLoc" class="form-control" placeholder="Travelling To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+		                                        
+										
+				                      <div class="row" >
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="rmks" name="rmks" value="" class="form-control" placeholder="Remarks">
+						
+                                            </div>
+                                        </div>
+                                        </div>
+				
+				                   <div class="row" id="approval">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">To be approved by</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="gstno" name="gstno" value="<%= Manager_name%>" disabled="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        
+                                 </div>
+
+                                 <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                            
+                                                <input type="hidden" style="margin-left: 50px;width:348px;text-transform:uppercase" id="emp_id" name="emp_id" value="<%= emp_id%>" disabled="true" class="form-control" Visibility="false" placeholder="">
+                                            </div>
+                                        </div>
+                                        
+                                 </div>
+
+                                  <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                            
+                                                <input type="hidden" style="margin-left: 50px;width:348px;text-transform:uppercase" id="project_id" name="project_id" value="<%= project_id%>" disabled="true" class="form-control" Visibility="false" placeholder="">
+                                            </div>
+                                        </div>
+                                        
+                                 </div>
+
+                     
+                                        
+				    <br>
+				    <table>
+                        <tr>
+							<td><input type="button" style="margin-left:45%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+							<td><input type="submit" name="test" id="test" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+						</tr>
+                     </table>
+                                    <div class="clearfix"></div>
+				    <br>
+                                </form>
+
+
+ 
+<!--</div> -->
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	<footer class="footer" style="background-color: transparent;border-color: transparent">	
+            <div class="container-fluid">
+		<p class="copyright pull-right" style="color:white;">
+                    &copy; 2017 <a href="http://www.nurture.co.in" target="_blank"><span style="color: orange">Nurture Software Solutions Pvt Ltd</span></a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <!--  <script src="/js/jquery-1.10.2.js" type="text/javascript"></script>  -->
+  <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+  <!--  Charts Plugin -->
+  <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="/js/light-bootstrap-dashboard.js"></script>
+
+ 
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="/js/demo.js"></script>
+
+
+
+
+
+          
+  
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

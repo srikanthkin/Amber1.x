@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+	<title>Reimbursement FAQ</title>
+
+	
+
+	<style>
+		
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+		 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+
+               
+	</style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="sidebar-wrapper">
+             <% include ../common/logo%>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li class="active">
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+<div class="main-panel">
+<div class="container-fluid">
+   <% include ../common/userBar %>
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header">
+		     <nav class="navbar navbar-inverse">
+			<ul class="nav navbar-nav" style="color:#669999">
+            <% if(emp_access == 'L1'||emp_access == 'L2'||emp_access == 'L3'){ %>
+                     <li><a href="/reimbursementModule/initiateRem/initiateRem">Initiate Reimbursement</a></li>
+                     <li><a href="/reimbursementModule/viewClaimReq/viewClaimReq">View All Claims</a></li>
+                     <li><a href="/reimbursementModule/viewClaimApprQueue/viewClaimApprQueue">Approve/Reject</a></li>
+            <li><a href="/reimbursementModule/reimburseFAQDetails/reimburseFAQDetails"><span style="color:#ff6600">FAQ</span></a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">Approve/Reject</a></li>
+           <% } %>
+  				</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+      <hr>
+			<h4 class="title">Reimbursement FAQs</h4>
+        <hr/>
+        
+<br>
+	<p>Here are just some of our most commonly asked questions. </p>	
+<br>
+   
+   <div>
+
+   
+    <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#a">
+         <h4 class="panel-title">
+          Q1. How do I initiate claim request?
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="a" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>You can claim your bills entering bill details in the "Initate Reimbursement" tab.Kindly attach the soft copy if applicable.
+		</p>
+
+      </div>
+    </div>
+	
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#b">
+         <h4 class="panel-title">
+        
+         Q2. How long does it take to process a claim?       
+        
+      </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="b" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Once the request is initated it will be approved by your respective reporting manager.After complete verification of your original documents(not softcopy) by Finance manager, payment will be done. 
+		</p>
+
+      </div>
+    </div>
+	
+	<div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#c">
+         <h4 class="panel-title">
+         Q3.To whom should I submit my original documents?      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="c" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>
+        	You should submit your original documents like accomodation bills and other expenses to Finance Manager.
+        </p>
+
+      </div>
+    </div>
+	<div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#d">
+         <h4 class="panel-title">
+         Q4.What is the time limit within which I should submit the original documents?      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="d" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>
+      On the date of manager's approval within 7 days you should submit the document or your request will be autorejected.
+        </p>
+
+      </div>
+    </div>
+
+      <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#e">
+         <h4 class="panel-title">
+         Q5.Once the request is autorejected, is it possible for me to initate other request for the same bill details      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="e" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>
+         Yes,you are allowed to initate another request with different reimbursement ID for same bill details, incase if the request is autorejected.
+        </p>
+
+      </div>
+    </div>
+    <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#f">
+         <h4 class="panel-title">
+         Q6.Can I claim bill amount in all the currencies?      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="f" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>No,you can claim bill amount only in Indian Currency(₹).</p>
+      </div>
+    </div>
+
+	<div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#g">
+         <h4 class="panel-title">
+         Q7.May I know which website to pass an eye over for exchange rate?      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="g" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Kindly, visit "www.xe.com/currencyconverter" link for the exchange rate.</p>
+
+      </div>
+    </div>
+     
+
+
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#h">
+         <h4 class="panel-title">
+         Q8.Is scanned proof mandatory for all type of claims ?      
+          </h4>         
+        </a>
+         </div>
+    </div>
+    </div>
+    <div id="h" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>No,It is mandatory for only for Hotel bills and Travel expenditures.
+		</p>
+
+      </div>
+    </div>
+	
+	
+	
+				
+		         </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+     </div>   
+
+    </div>
+    
+
+
+<% include ../common/footer %>
+</body>
+
+	<!--   Core JS Files   -->
+	
+
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+            <title>Invoice Management</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+		<style>
+
+			.card .header2row
+			{
+				padding: 15px 15px 0;
+			}
+
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+			hr 
+			{
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+
+                        .table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        .table
+                        {
+                                border-spacing: 0px;
+                        }
+
+
+                        .glyphicon-zoom-in
+                        {
+                                font-size: 25px;
+                        }
+
+                        .inner-addon
+                        {
+                                position: relative;
+                        }
+
+                        .inner-addon .glyphicon
+                        {
+                                position: absolute;
+                                padding: 10px;
+                                pointer-events: none;
+                        }
+
+                        .left-addon .glyphicon
+                        {
+                                left:  0px;
+                        }
+
+                        .right-addon .glyphicon
+                        {
+                                right: 0px;
+                        }
+
+                        .left-addon input
+                        {
+                                padding-left:  30px;
+                        }
+
+                        .right-addon input
+                        {
+                                padding-right: 30px;
+                        }
+
+                        *
+                        {
+                                box-sizing: border-box;
+                        }
+
+                        #example
+                        {
+                          border-collapse: collapse;
+                          width: 100%;
+                          border: 2px solid #ddd;
+                          font-size: 13px;
+                        }
+
+
+                        #example th
+                        {
+                                text-align: left;
+                                padding: 16px;
+                                background-color:grey;
+                                color:white;
+                        }
+
+                        #example td
+                        {
+                                text-align: left;
+                                padding: 16px;
+                        }
+
+                        #example tr
+                        {
+                                border-bottom: 1px solid #ddd;
+                        }
+
+                        #example tr.header, #example tr:hover
+                        {
+                                background-color: grey;
+                        }
+
+                        td
+                        {
+                                background-color:white;
+                                cursor: pointer;
+                        }
+
+                        th
+                        {
+                                background-color:#112553;
+                                cursor: pointer;
+                        }
+
+                        .btn
+                        {
+                                cursor: pointer;
+                        }
+
+
+                        .picker__select--year
+                        {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+
+                        .picker__select--month
+                        {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+			tr.highlighted td 
+			{
+    				background: #FFFACD;
+			}
+
+             </style>
+
+	     <script>
+
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+		{
+			window.location.hash = storedHash;
+		}
+		}, 50);
+
+	    </script>
+
+	    <script type="text/javascript">
+
+               $(window).load(function()
+               {
+                        $('#paymentDate').pickadate(
+                        {
+                        selectMonths: true,
+                        selectYears: 100,
+			closeOnSelect: true,
+			closeOnClear: true,
+                        format: 'yyyy-mm-dd',
+                        formatSubmit: 'yyyy-mm-dd'
+                        });
+                });
+
+                $(document).ready(function() {
+                $("#my-icon").click(function(){
+                $( '#paymentDate' ).pickadate("open"),
+                event.stopPropagation(),
+                event.preventDefault()
+                });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#remarks').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+
+
+                function goBack()
+                {
+                        window.location.href='/invoiceModule/invoiceDetails/chooseinvoiceDetails';
+                }
+
+                function clear()
+                {
+                        document.getElementById("paymentDate").value="";
+                        document.getElementById("remarks").value="";
+                        document.getElementById("myInput").value="";
+                }
+
+		function formValidations()
+		{
+				document.getElementById('hide').style.display='block';
+				
+				$('#example tr').click(function(e) 
+				{
+    					$('#example tr').removeClass('highlighted');
+    					$(this).toggleClass('highlighted');   
+				});
+	
+				var PayStatus = document.getElementById('PayStatus').value;
+				var paymentDate = document.getElementById('paymentDate').value;
+				var remarks = document.getElementById('remarks').value;
+
+				
+                                if(PayStatus == "")
+                                {
+                                        document.getElementById("PayStatus").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please select the Payment Status"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+				if(paymentDate == "")
+				{
+					document.getElementById("paymentDate").focus();
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please enter the Payment Date"
+					},{
+					type: 'info',
+					timer: 500
+					});
+					return false;
+				}
+
+				if(remarks == "")
+				{
+					document.getElementById("remarks").focus();
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please enter the Remarks"
+					},{
+					type: 'info',
+					timer: 500
+					});
+					return false;
+				}
+
+		}		
+
+
+	    </script>
+
+            <script>
+
+                $(document).ready(function()
+                {
+                    $('#example').DataTable(
+                    {
+                        "pagingType": "full_numbers"
+                    });
+                } );
+
+            </script>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li class="active">
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+                <div class="content">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                		<div class="content">
+				<form name="myForm" id="myForm" action="/invoiceModule/invoiceDetails/markPay" method="post">
+				<hr/>
+				<h4 class="title" style ="margin-left: 350px;">Milestone Pay Receiveable      <i class="material-icons right">note</i></h4>
+				<hr/>
+                                <br>
+                                <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                                <th width="180" style="color:white">PROJECT ID</th>
+                                                <th width="260" style="color:white">MILESTONE NAME</th>
+                                                <th width="12" style="color:white">PERCENTAGE</th>
+                                                <th width="150" style="color:white">MILESTONE AMOUNT</th>
+                                                <th width="100" style="color:white">INVOICE RAISED ON</th>
+                                                <th width="100" style="color:white">MARK AS PAID&nbsp;?</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+					<% if(parse_count != 0) {%>
+					<% for(i=0; i<parse_count; i++) {%>
+                                        <tr>
+                                                <td><input type="text" readonly id="pid" name="pid" value="<%= parse[i].project_id %>" class="form-control" style ="width:160px"></td>
+
+                                                <td><textarea rows="2" cols="30" style="resize: none" readonly id="milestoneName" name="milestoneName" class="form-control" style ="width:240px"><%= parse[i].milestone_name %></textarea></td>
+                                                <td><div><%= parse[i].milestone_per %>&nbsp;%</div></td>
+                                                <td><div><%= parse[i].milestone_amt %><br/><%= parse[i].project_curr %></div></td>
+                                                <td><div><%= parse[i].invoice_date.getFullYear() %>/<%= parse[i].invoice_date.getMonth()+1 %>/<%= parse[i].invoice_date.getDate() %></div></td>
+						<input type="hidden" id="dummy_pid" name="dummy_pid" value="<%= i %>">
+                                                <td><button class="btn btn-info btn-fill" onclick="return formValidations()" type="submit" id="button" name="button" value="<%= i %>">Mark</td>
+                                        </tr>
+                                       	<%}%> 
+					<% } else { %>
+                                        <tr>
+                                                <td width="180"><div>No Records Found</div></td>
+                                                <td width="160"><div>No Records Found</div></td>
+                                                <td width="160"><div>No Records Found</div></td>
+                                                <td width="160"><div>No Records Found</div></td>
+                                                <td width="160"><div>No Records Found</div></td>
+                                                <td width="160"><div>No Records Found</div></td>
+                                        </tr>
+                                       	<%}%> 
+                                        </tbody>
+                                </table>
+					<br>
+					<br>
+					<% if(parse_count != 0) {%>
+					<div id="hide" style="display:none">
+					<hr>
+					<h5 class="title">Additional information      <i class="material-icons right">add</i></h5>
+					<hr>
+
+				    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 10px">Payment Status <span style="color:red;font-size: 10pt">*</span></label>
+                                            <select class="form-control" id="PayStatus" name="PayStatus" style ="margin-left: 10px;width:348px">
+                                                        <option value="" disabled selected>Select The Payment Status</option>
+                                                        <option value="P">Paid</option>
+                                                        <option value="R">Reject</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+				     	<div class="col-md-5">
+				           <div class="form-group">
+					     <label for="paymentDate" style="color:#404040;margin-left: 10px">Closure Date <span style="color:red;font-size: 10pt">*</span></label>
+					     <table>
+					       <tr>
+						  <td><input type="text" class="form-control" style ="margin-left: 10px;width:348px" placeholder="Closure Date" id="paymentDate" name="paymentDate"></td>
+					          <td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+					       </tr>
+					     </table>
+				           </div>
+				        </div>
+				    </div>
+
+                                <div style="overflow-x:auto;">
+                                           <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label for="remarks" style="color:#404040;margin-left: -5px">Closure Remarks <span style="color:red;font-size: 10pt">*</span></label>
+                                                <textarea rows="2" maxlength="150" style ="margin-left: -5px;width:348px;resize: none" cols="30" name="remarks" id="remarks"></textarea>
+                                            </div>
+                                         </div>
+				    <% } %>
+                                </div>
+				<hr/>
+				<br>
+ 				<input type="button" onclick="goBack();" class="btn btn-info btn-fill" style="margin-left: 20px;width:100px" value="Back">
+				<br>
+				<br>
+                                </div>
+				<br>
+                                </form>
+				<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<% include ../common/footer %>
+    </div>
+</body>
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+   <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+</html>

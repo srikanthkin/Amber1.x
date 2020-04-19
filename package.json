@@ -1,0 +1,53 @@
+{
+  "name": "reportgenerate",
+  "version": "1.0.0",
+  "description": "tracking the project",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "archiver": "^2.0.0",
+    "array-difference": "0.0.1",
+    "bcryptjs": "^2.4.0",
+    "body-parser": "1.15.2",
+    "connect-flash": "0.1.1",
+    "cookie-parser": "1.4.1",
+    "cron": "^1.2.1",
+    "crypto": "0.0.3",
+    "dotenv": "4.0.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-handlebars": "3.0.0",
+    "express-messages": "1.0.1",
+    "express-session": "1.14.2",
+    "express-validator": "3.1.1",
+    "generate-password": "^1.3.0",
+    "http": "0.0.0",
+    "ip": "1.1.5",
+    "ipware": "^1.0.0",
+    "material-ui-chip-input": "^0.14.0",
+    "mathjs": "^3.14.2",
+    "moment": "2.17.1",
+    "multer": "^1.3.0",
+    "node-array": "0.0.7",
+    "node-cron": "^1.2.1",
+    "nodemailer": "^0.7.1",
+    "passport": "0.3.2",
+    "passport-http": "0.3.0",
+    "passport-local": "1.0.0",
+    "password-generator": "^2.1.0",
+    "pg": "6.1.2",
+    "querystring": "0.2.0",
+    "request": "^2.81.0",
+    "request-ip": "^2.0.2",
+    "request-promise": "4.1.1",
+    "round-to": "^2.0.0",
+    "winston": "2.3.1"
+  },
+  "author": "nurture",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

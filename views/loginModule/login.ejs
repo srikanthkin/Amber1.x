@@ -1,0 +1,168 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/images/full_logo_transparent.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Amber</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <script src="https://use.fontawesome.com/dcaabc0206.js"></script>
+    <script src="/js/bootstrap-notify.js"></script>
+    <link href="/css/demo.css" rel="stylesheet" />
+    <link href="/css/styles_login.css" rel="stylesheet" />
+
+             <script>
+
+                function changeHashOnLoad()
+                {
+                       window.location.href += "#";
+                       setTimeout("changeHashAgain()", "50");
+                }
+
+                function changeHashAgain()
+                {
+                       window.location.href += "1";
+                }
+
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                    if (window.location.hash != storedHash)
+                    {
+                       window.location.hash = storedHash;
+                    }
+                }, 50);
+		
+
+             </script>
+
+	    <style>
+
+		.newwrap
+		{
+			word-wrap: break-word;
+			width: 11em;
+		}
+
+	    </style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+        <div class="col-sm-7 zeroPad">
+                <img class="h100pc" src="/images/login_page.png" />
+        </div>
+<!-- <div class="container" style="padding-top:10px;"> -->
+        
+<div class="col-sm-5">
+        <div class="loginForm">
+    <!-- <h1 style = "color: white;font-size: 50px"><span class="fa fa-eercast"></span> Amber </h1> -->
+    <img src="/images/amber.png" alt="logo" height="100" /> 
+    <% if(error=="IP") {%>
+	<script type="text/javascript">
+               if (window.confirm('Session already exists, Do you wish to close the previous session ?')){
+		  document.location.href = "/loginModule/login/multiSession";
+		}
+        </script>
+
+       <%}%>
+
+        <% if(error!="LOGGED" && error!="IP") { %> <div class="row flashrow">
+             <div class="col s11 a disappear errdisplay center">
+                <div class="loginError"> 
+                        <% if(error!="") { %>   
+                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp;&nbsp;
+                 <%}%>
+                 <%= error %>
+                 
+                </div> 
+             </div>
+           </div>
+       <%}%>
+    <!-- LOGIN FORM -->
+    <form id="loginform" action="/loginModule/login/logincheck" method="post">
+        <div class="form-group" style = "color: white;font-size: 20px" >
+            <label><span style="font-family:verdana;">User Id</span></label>
+            <input type="text" class="form-control width80pc"  autofocus="autofocus" name="username">
+        </div>
+        <div class="form-group" style = "color: white;font-size: 20px">
+            <label><span style="font-family:verdana;">Password</span></label>
+            <input type="password" class="form-control width80pc"  name="password">
+        </div>
+        <div class="width80pc" >
+        <button type="submit" class="btn btn-warning btn-lg"><span style="font-family:verdana;">Login</span></button>
+        </div>
+    </form>
+        <% if(error=="LOGGED") {%> 
+        <script type="text/javascript">
+        if (window.confirm('User alredy logged in. Reset session???')) {
+	document.location.href = "/loginModule/login/resetSession";
+        
+        }
+	</script>
+       <%}%>
+        
+	<nav>
+	<a href="/changePassword/changePassword/changePassword"><span style="font-family:verdana;">Reset Password?</span></a> 
+	<br>
+	<a href="/changePassword/changePassword/forgotPassword"><span style="font-family:verdana;">Forgot Password?</span></a> 
+	<br>
+	<a href="/captureModule/captureDetail/index"><span style="font-family:verdana;">Sign Up?</span></a> 
+	<br>
+    </nav>
+
+    <div class="width80pc noticeBoard">
+            <span class="noticeHead"> Notice </span><br><br>
+            <div class="blink_mee">
+            <!--<span>Visit <a href="https://nurturesoftware.greythr.com/login.do" target="_blank"><span style="color:greenyellow">GreytHr Portal<span></a>&nbsp;&nbsp;for submission of Investment proof.<br>
+	Last date for submission is <b>January 16, 2018</b>.</span>-->
+	<span style="color:yellow;font-family:verdana;"> Upload your documents in E-Docket in order to access <u>Leave Module</u> and <u>Travel Module</u>.</span>
+	<br>
+	<!--<img style="margin-left:-20px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqBRuRcPeTyvjND97OZi711HiFI_hBIK8mQYebIg1r1Os9mYeROg" height="110" width="343">-->
+    </div>
+    </div>
+</div>
+    
+   
+</div>
+<!-- </div> -->
+</body>
+    <script src="/js/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!--  Checkbox, Radio & Switch Plugins -->
+        <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+        <!--  Charts Plugin -->
+        <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+        <script src="/js/light-bootstrap-dashboard.js"></script>
+
+	<script src="/js/demo.js"></script>
+         <% if(success_msg!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+  
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success_msg %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+</html>

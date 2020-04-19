@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Common Code Module</title>
+		
+	<style>
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+       
+		.select2-container 
+		{
+			box-sizing: border-box;
+			display: inline-block;
+			margin: 0;
+			width: 348;
+			margin-left: 50px;
+			position: relative;
+			vertical-align: middle;
+
+		}		
+
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+		 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+	</style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar"  style ="background-color: transparent;color: #006666">
+           <div class="sidebar-wrapper">
+             <% include ../common/logo %>            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+
+	<div class="main-panel">
+   	<div class="content">
+ 	<% include ../common/userBar %>
+      	<div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" data-color="#FFFFFF">
+			 <% if(emp_access == 'A1'){ %>
+                                <li><a href="/commoncodeModule/commonDetails/commonDetails">Add Common Code</a></li>
+                                <li><a href="/commoncodeModule/commonDetails/commonDetailsCopy">Copy Common Code</a></li>
+                                <li><a href="/commoncodeModule/commonDetails/commonDetailsModify">Modify Common Code</a></li>
+                                <li><a href="/commoncodeModule/commonDetails/commonDetailsView">View Common Code</a></li>
+                                <li><a href="/commoncodeModule/commonDetails/commonDetailsDelete">Delete Common Code</a></li>
+                                <li><a href="/commoncodeModule/commonDetails/commoncodeFAQDetails"><span style="color:#ff6600">FAQ</span></a></li>
+                         <%}%>
+			</ul>
+		     </nav>
+		  </div>
+
+		  
+	<div class="content">
+        <hr/>
+			<h4 class="title">Common Code Module FAQ's</h4>
+        <hr/>
+        
+	<br>
+	<p>Here are some most commonly asked questions. </p>	
+	<br>
+   
+	   <div>
+	    <div class="panel">
+	    <div class="panel-heading" style="background-color: lightgrey;">
+	     	 <div class="submenuhead" >
+		<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#a">
+		 <h4 class="panel-title">
+		  Q1. How can I add a new code in common code module? 
+		 </h4>
+		</a>
+	       </div>
+		</div>
+	    </div>
+	    <div id="a" class="panel-collapse collapse">
+	      <div class="panel-body" style="margin-top: -20px;">
+		<p>New code can be added to common code module by visiting the add code section in common code module.</p>
+	      </div>
+	    </div>
+		</div>
+		<div>
+		 <div class="panel">
+	    <div class="panel-heading" style="background-color: lightgrey;">
+	     	 <div class="submenuhead" >
+		<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#b">
+ 		<h4 class="panel-title">
+		 Q2. What is the difference between Copy Code and Modify Code ? 
+		  </h4>
+		</a>
+	      </div>
+		</div>
+	    </div>
+	    <div id="b" class="panel-collapse collapse">
+	      <div class="panel-body" style="margin-top: -20px;">
+		<p>In copy code user can copy only the code id whereas in modify code only common code description can be modified.</p>
+
+	      </div>
+	    </div>
+		</div>
+		<div>
+		 <div class="panel">
+	    <div class="panel-heading" style="background-color: lightgrey;">
+	      <div class="submenuhead" >
+		<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#c">
+ 			<h4 class="panel-title">
+		 	Q3. Does deleting a common code affects the system ? 
+			</h4>
+		  
+		</a>
+		</div>
+	      </div>
+	    </div>
+	    <div id="c" class="panel-collapse collapse">
+	      <div class="panel-body" style="margin-top: -20px;">
+		<p>Code created or the existing code will have dependency in the system which may be used across the system , deleting the code from common code module will affect the system.</p>
+	      </div>
+	    </div>
+		</div>
+			  </div>
+		       </div>
+		   </div>
+		</div>
+	     </div>
+	  </div>
+<% include ../common/footer %>
+</div>
+
+</body>
+	
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+
+</html>

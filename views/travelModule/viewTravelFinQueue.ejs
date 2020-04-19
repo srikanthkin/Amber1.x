@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Travel</title>
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+				.select2-container--open .select2-dropdown--above {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+	  width: 348px;
+		left:-50px;
+}		  
+.select2-container--open .select2-dropdown--below {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 348px;
+    left:-50px;
+} 
+
+
+    	     </style>
+			 <style>
+
+			 .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+			
+			 </style>
+       
+        
+			
+       
+
+<script>
+$(function () {
+
+    $( '#table' ).searchable({
+
+        striped: true,
+        oddRow: { 'background-color': '#f5f5f5' },
+        evenRow: { 'background-color': '#fff' },
+        searchType: 'fuzzy'
+    });
+    });
+</script>
+		
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+                <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel">Initiate Travel Request</a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq">View Request</a></li>
+                  
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue">View Approval Queue</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue"><span style="color:#ff6600">View Approval Queue</span></a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+				</nav>
+                            </div>
+<div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center" style="padding-top: 52PX;">
+             
+         
+             <div><%= success%> </div> 
+          
+           </div>
+       </div>
+                            
+							
+                            <div class="content">
+    
+   <!-- <div class="container"  style="width:80 -->
+           
+                        
+                <div class="">
+                    <div class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="content">
+                            <form name="myForm" id="myForm" action="/travelModule/viewTravelFinQueue/viewTravelFinQueueApplyStatus" method="post">
+                            <hr/>
+                            <h4 class="title" style ="margin-left: 350px;">View Travel Approval Queue</h4>
+                            <hr/>
+                            <br>
+                            <div class="searchBar" style="width:60%">
+                                <span>Filter: </span><br>
+                                <span style="width:40%">
+                                <span>Request Status : </span>
+                            </span>
+                            <span style="width:50%">
+                                <select class="" id="travelHrStatus" name="travelHrStatus" >
+                                    <% for (i = 0; i < cocd_appQueueStatus_count; i++)  {
+                                        if(cocd_appQueueStatus[i].comm_code_id == travelHrStatus){%>
+                                            <option value="<%= cocd_appQueueStatus[i].comm_code_id %>" selected> <%=cocd_appQueueStatus[i].comm_code_desc %> </option>
+                                        <%}else{%>
+                                            <option value="<%= cocd_appQueueStatus[i].comm_code_id %>"> <%=cocd_appQueueStatus[i].comm_code_desc %> </option>
+                                        <%}
+                                    }; %>
+                                </select>
+                                
+                            </span>
+                            <input type="submit" id="aaapplyFilter" class="btn btn-info btn-fill" style="margin-left:1%;padding:1px 16px;height:28px;width:100px" value="Apply">
+                            
+                            </div>
+                            
+                            
+                            <br>
+                                            <div style="overflow-x:auto;">
+                                            <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                                    <tr>
+                                                            <th width="7%" class="tableHeader">REQ ID</th>
+                                                            <th width="15%" class="tableHeader">PROJECT ID</th>
+                                                            <th width="13%" class="tableHeader">EMPLOYEE</th>
+                                                            <th width="19%" class="tableHeader">FROM</th>
+                                                            <th width="19%" class="tableHeader">TO</th>
+                                                            <th width="17%" class="tableHeader">STATUS</th>
+                                                            <th width="10%" class="tableHeader">ACTIONS</th>
+                                                            
+                                                    </tr>
+                                </thead>
+                                <tbody>
+                                                    <% if(totalRecordCount != 0) {%>
+                                                    <% for(i=0; i<totalRecordCount; i++) {%>
+                                                            <% if(travelReqMainList[i].budgetovershoot_flg == "N" || travelReqMainList[i].budgetovershoot_flg == "") {%>
+															
+                                                                <tr>
+                                                            <%} else {%>
+                                                                <tr style="color:red">
+                                                            <%}%>
+                                                    
+                                                            <td><div>
+                                                                    <% if(travelReqMainList[i].request_status == "APM"
+																	||travelReqMainList[i].request_status == "MOD") {%>
+                                                                        <a href="/travelModule/approveReq/reqAprvd?id=<%=travelReqMainList[i].req_id%> : <%=travelReqMainList[i].project_id%>:<%=travelReqMainList[i].emp_name%>:<%=travelReqMainList[i].budgetovershoot_flg%>">
+                                                                    <% }else if(travelReqMainList[i].request_status == "APF" || travelReqMainList[i].request_status == "RJF" || travelReqMainList[i].request_status == "APD" ||travelReqMainList[i].request_status == "FWD"||travelReqMainList[i].request_status == "CAF"){ %>
+                                                                        <a href="/travelModule/reqDetails/reqAprvd?id=<%=travelReqMainList[i].req_id%> : <%=travelReqMainList[i].project_id%>:<%=travelReqMainList[i].emp_name%>:<%=travelReqMainList[i].budgetovershoot_flg%>:<%=travelReqMainList[i].request_status%>">
+                                                                    
+																	 <% } else if(travelReqMainList[i].request_status == "CPF" ){ %>
+                                                                        <a href="/travelModule/approveReq/canReq?id=<%=travelReqMainList[i].req_id%> : <%=travelReqMainList[i].project_id%>:<%=travelReqMainList[i].emp_name%>:<%=travelReqMainList[i].budgetovershoot_flg%>:<%=travelReqMainList[i].request_status%>">
+                                                                    <% } %>
+                                                                    
+                                                                    <%= travelReqMainList[i].req_id %>
+                                                                    </a>
+                                                                
+                                                            
+                                                            </div></td>
+                                                            <td><div><%= travelReqMainList[i].project_id %></div></td>
+                                                            <td><div><%= travelReqMainList[i].emp_name %>(<%= travelReqMainList[i].emp_id %>)</div></td>
+                                                            <td><div><%= travelReqMainList[i].from_location %> -- <%= travelReqMainList[i].from_date.toDateString() %></div></td>
+                                                            <% if(travelReqMainList[i].to_date) {%>                                                                   
+                                                                <td><div><%= travelReqMainList[i].to_location %> -- <%= travelReqMainList[i].to_date.toDateString() %></div></td>
+                                                                <%  }
+                                                                else{ %>
+                                                                    <td><div>NA</div></td>
+                                                                <%}%>
+                                                            
+                                                            <td><div><%= travelReqMainList[i].comm_code_desc %></div></td>
+                                                            <td>
+                                                                NA
+                                                            </td>
+                                                            
+                                                    </tr>
+                                                    <% } %>
+
+                                                   
+                                                   
+                                                    <% } else { %>
+                                                    <tr>
+                                                            <td colspan="7"><div>No Records Found</div></td>
+                                                           
+                                                            
+                                                    </tr>
+                                                    <%}%>
+                                </tbody>
+                                            </table>
+                                            </div>
+                            <br>
+                            <br>
+                           
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+ 
+<!--</div> -->
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+	 <% include ../common/footer %>
+</div>
+<script>
+        $(function () {
+           
+       $("input[id='applyFilter']").click(function () {
+          
+           
+       var travelStatus=$("#travelStatus").val();
+      
+        $.ajax
+        ({
+            type:'get',
+            url:'/travelModule/viewTravelReq/viewTravelReqApplyStatus',
+
+            data:{
+                travelStatus:travelStatus
+            },
+            success:function(response,data)
+            {
+               console.log("response",response);
+            }
+        });
+        });
+   });
+       
+       </script>
+
+
+</body>
+
+   
+          
+  
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

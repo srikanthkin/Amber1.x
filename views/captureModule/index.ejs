@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    	<title>Nurture Portal</title>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+
+
+
+	<script>
+
+                function changeHashOnLoad()
+                {
+                        window.location.href += "#";
+                        setTimeout("changeHashAgain()", "50");
+                }
+                function changeHashAgain()
+                {
+                        window.location.href += "1";
+                }
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                        if (window.location.hash != storedHash)
+                {
+                        window.location.hash = storedHash;
+                }
+                }, 50);
+
+	</script>
+
+		<script type="text/javascript">
+
+                        function formValidations()
+                        {
+                                var empid = document.getElementById("empid").value;
+                                if(empid != "")
+                                {
+                                        var empid = document.getElementById("empid").value;
+                                        if(empid.length < 4)
+                                        {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter a Valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                        var validsen = /^\d{1,4}?$/;
+                                        if (validsen.test(empid)==false)
+                                        {
+                                                //alert("Enter a Valid Employee Id");
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter a Valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+                                else
+                                {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                }
+				return true;
+			}
+
+
+
+		function resetform()
+		{
+			document.getElementById("myForm").reset();
+		}
+
+			
+	</script>
+
+
+
+</head>
+<body style="background-color: #008080 !important;">
+ <div class="form-gap" style="padding-top: 70px;"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="text-center">
+                  <h3><i class="fa fa-user fa-3x glyphColor"></i></h3>
+                  <h1 class="text-center">Register</h1>
+                  <p>New User to <b>Amber</b> can register here.</p>
+                  <div class="panel-body">
+
+	    	<form id="myForm" action="/captureModule/captureDetail/nextPage" method="post">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" id="empid" name="empid" maxlength="4" class="form-control" placeholder="Employee Id">
+                     </div>
+                      </div>
+                        <table>
+			<tr>
+                                                <td><input type="submit" name="test" id="test" style="margin-left:30%;padding:1px 16px;height:40px;width:110px" class="btn btn-info btn-fill" style="float: center;" value="Fill Details" onclick="return formValidations();"></td>
+                                                <td><input type="button" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+                        </tr>
+                        </table>
+			<br>
+			<a href="/changePassword/changePassword/loginpage"><span class="glyphicon glyphicon-arrow-left backLink"> Back</a>
+
+    	     	</form>
+    	</div>
+</div>
+</body>
+
+    <script src="/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+    <script src="/js/chartist.min.js"></script>
+    <script src="/js/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+    <script src="/js/demo.js"></script>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+
+    <% if(success!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= success %></b>"
+      },{
+         type: 'info',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+
+</html>

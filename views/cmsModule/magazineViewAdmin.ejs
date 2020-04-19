@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>E-Docket</title>
+
+	<style>
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+	</style>
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style="background-color: transparent;color: #006666">
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+        <div class="sidebar-wrapper">
+            <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li class="active">
+                    <a href="/cmsModule/cms/cms">
+			<i class="fa fa-file-text" aria-hidden="true"></i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
+<div class="main-panel">
+<div class="container-fluid">
+        <% include ../common/userBar %>
+<br>
+
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" style="color:#669999">
+			<li><a href="/cmsModule/cms/cmsUploadAdmin">Upload Documents</a></li>
+                        <li><a href="/cmsModule/cms/cmsApprAdmin">Approval Pending</a></li>
+                        <li><a href="/cmsModule/cms/cmsViewAdmin">View Documents</a></li>
+			<% if(emp_access == "A1"){%>
+				<li><a href="/cmsModule/cms/policyUploadAdmin">Upload Policy Docs</a></li>
+			<% } %>
+			<li><a href="/cmsModule/cms/policyViewAdmin">View Policy Docs</a></li>	
+			<% if(emp_access == "A1"){%>
+                                <li><a href="/cmsModule/cms/magazineUploadAdmin">Upload Magazines</a></li>
+                        <% } %>
+			<li><a href="/cmsModule/cms/magazineViewAdmin"><span style="color:#ff6600">View Magazines</span></a></li>
+			<li><a href="/cmsModule/cmsFAQDetails/cmsFAQDetails">FAQ</a></li>
+			</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+			<hr/>
+				<h4 class="title">Magazines      <i class="fa fa-newspaper-o" aria-hidden="true"></i></h4>
+			<hr/>
+
+			<% if(totLen != 0) { j=0; %>
+			  <% for (i = 0; i < totYear ; i++) {%>
+			   <% if( i % 2 == 0) { %>
+			    <div class="row">
+			   <% } %>
+				<div class="col-lg-6 col-md-6">
+					<div class="panel">
+					   <div class="submenuhead" >
+						    <div class="panel-heading" style="background-color:#fffb81;">
+							    <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="#<%=i%>">
+								<h4 class="panel-title" style="font-weight:600;font-size:18px">
+									<%=magzYear[i]%>
+								</h4>
+							    </a>
+						    </div>
+					   </div>
+					</div>
+					<div id="<%=i%>" class="panel-collapse collapse">
+					   <div class="submenucontent">
+						    <div class="panel-body" style="margin-top: -20px;font-weight:500;font-size:16px">
+							<% for(k=0;k<magzTot[i];k++) {%>
+							 <a href="/cmsModule/cms/magazineViewFilesAdmin?yr=<%=magzYear[i]%>&magdoc=<%=magzDoc[j]%>" target="_blank"><%=magzQtr[j]%></a>
+							&nbsp;&nbsp;&nbsp;
+							<% j = j + 1; } %>
+					    	    </div>
+					   </div>
+					</div>
+				</div>
+			   <% if( i % 2 != 0) { %>
+			    </div>
+			   <% } %>
+
+			  <% } %>
+			<% } else { %>
+				<label style="color:#404040;">No records found </label>
+				<br/>
+			<% } %>
+				<div class="clearfix"></div>
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+    </div>
+	</div>
+        <% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

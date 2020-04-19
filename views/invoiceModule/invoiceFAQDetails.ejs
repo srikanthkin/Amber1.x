@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+           <title>Invoice Management</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+
+                 /* visited link */
+		
+		a
+		{
+			color: black;
+		}
+
+                a:visited {
+                    color: black;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: black;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active 
+		{
+                    color: black;
+                }
+
+	</style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li class="active">
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+
+  <div class="main-panel">
+     <div class="container-fluid">
+                <br>
+      <div class="content">
+      	<div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+
+	<div class="content">
+        <hr/>
+			<h4 class="title">Invoice Module FAQs</h4>
+        <hr/>
+        
+	<br>
+	<p>Here are some of our most commonly asked questions. </p>	
+	<br>
+   
+           <div>
+            <div class="panel">
+            <div class="panel-heading" style="background-color: lightgrey;">
+                  <div class="submenuhead" >
+                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#a">
+                <h4 class="panel-title">
+                  Q1. How is Milestone Due Captured ?
+                  </h4>
+                </a>
+                </div>
+                </div>
+            </div>
+            <div id="a" class="panel-collapse collapse">
+              <div class="panel-body" style="margin-top: -20px;">
+                <p>Milestone Due is captured once the project along with the milestone is created by respective L1/L2 level employee.<br>
+                Which is further divided on comparision with calendar date i.e
+                
+                I.   Previous Milestone
+                II.  Current Milestone
+                III. Upcoming Milestone
+                
+		</p>
+              </div>
+
+            </div>
+                </div>
+                <div>
+                 <div class="panel">
+            <div class="panel-heading" style="background-color: lightgrey;">
+                <div class="submenuhead" >
+                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#b">
+                <h4 class="panel-title">
+                 Q2. What if Milestone Date is due can the finance team still raise the Invoice?
+
+                </h4>
+
+                </a>
+                </div>
+              </div>
+            </div>
+            <div id="b" class="panel-collapse collapse">
+              <div class="panel-body" style="margin-top: -20px;">
+             <p>No , Untill or unless the delivery manager marks the milestone for that project as confirmed, Finance team cannot raise the invoice to the client.</p>
+              </div>
+            </div>
+                </div>
+                <div>
+                 <div class="panel">
+            <div class="panel-heading" style="background-color: lightgrey;">
+                  <div class="submenuhead" >
+                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#c">
+                <h4 class="panel-title">
+                 Q3. How will the Finance Team get to know whether milestone of a particular project has been confirmed ?
+                  </h4>
+
+                </a>
+                </div>
+              </div>
+            </div>
+            <div id="c" class="panel-collapse collapse">
+              <div class="panel-body" style="margin-top: -20px;">
+                <p>When the Milestone of a particular project has been marked finance team gets the notification through E-mail.</p>
+              </div>
+            </div>
+                </div>
+
+
+                <div>
+                 <div class="panel">
+            <div class="panel-heading" style="background-color: lightgrey;">
+                  <div class="submenuhead" >
+                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#e">
+                 <h4 class="panel-title">
+                 Q4.  Will I get notified when the date of the milestone is approaching?
+                   </h4>
+                        </a>
+                </div>
+                </div>
+
+            </div>
+            <div id="e" class="panel-collapse collapse">
+              <div class="panel-body" style="margin-top: -20px;">
+                <p>Yes , You will be notified by mail on the date of the milestone completion. The mail would be delivered to Project Manager and Finance Team for further processing </p>
+              </div>
+            </div>
+                </div>
+
+                <div>
+                 <div class="panel">
+            <div class="panel-heading" style="background-color: lightgrey;">
+                  <div class="submenuhead" >
+                <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#f">
+                <h4 class="panel-title">
+                 Q6. Finance team has lost the report of raised milestone , should they have to raise the milestone again to get the report?
+                  </a>
+                </h4>
+                </div>
+                </div>
+
+            </div>
+            <div id="f" class="panel-collapse collapse">
+              <div class="panel-body" style="margin-top: -20px;">
+                <p>No, report can be generated again through re-generate report option untill the milestone is either marked as Paid/Rejected.</p>
+
+              </div>
+            </div>
+                </div>
+
+			  </div>
+		       </div>
+		   </div>
+		</div>
+	     </div>
+	  </div>
+	  </div>
+	  </div>
+	   <% include ../common/footer %>
+</div>
+
+
+</body>
+</html>

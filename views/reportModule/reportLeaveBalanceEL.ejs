@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+            <title>Report Module</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	    <script src="/js/exportToxlxs.js" type="text/javascript" charset="utf-8"></script>
+	    <!-- Compiled and minified CSS -->
+  	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  	    <!-- Compiled and minified JavaScript -->
+  	    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+          
+          
+		<style>
+
+
+                        .card .header2row
+                        {
+                                padding: 15px 15px 0;
+                        }
+
+                        .navbar .navbar-reverse
+                        {
+                                display: inline-block;
+                                float: none;
+                                vertical-align: top;
+                        }
+
+                        .navbar .navbar-collapse
+                        {
+                                text-align: center;
+                        }
+
+                        hr
+                        {
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+                        .glyphicon
+                        {
+                                font-size: 25px;
+                        }
+
+                        .inner-addon
+                        {
+                                position: relative;
+                        }
+
+                        .inner-addon .glyphicon
+                        {
+                                position: absolute;
+                                padding: 10px;
+                                pointer-events: none;
+                        }
+                        .left-addon .glyphicon
+                        {
+                                left:  0px;
+                        }
+
+                        .right-addon .glyphicon
+                        {
+                                right: 0px;
+                        }
+
+                        .left-addon input
+                        {
+                                padding-left:  30px;
+                        }
+
+                        .right-addon input
+                        {
+                                padding-right: 30px;
+                        }
+
+                        *
+                        {
+                                box-sizing: border-box;
+                        }
+
+                        #example
+                        {
+                          border-collapse: collapse;
+                          width: 100%;
+                          border: 2px solid #ddd;
+                          font-size: 13px;
+                        }
+
+
+                        #example th
+                        {
+                                text-align: left;
+                                padding: 16px;
+                                background-color:grey;
+                                color:white;
+                        }
+                        #example td
+                        {
+                                text-align: left;
+                                padding: 16px;
+                        }
+
+
+                        #example tr
+                        {
+                                border-bottom: 1px solid #ddd;
+                        }
+
+                        #example tr.header, #example tr:hover
+                        {
+                                background-color: grey;
+                        }
+
+                        td
+                        {
+                                background-color:white;
+                                cursor: pointer;
+                        }
+
+                        th
+                        {
+                                background-color:#112553;
+                                cursor: pointer;
+                        }
+
+                        .btn
+                        {
+                                cursor: pointer;
+                        }
+
+			.test
+			{
+   				background-color: lightgrey;
+    				width: 300px;
+    				border: 25px solid green;
+    				padding: 25px;
+    				margin: 25px;
+
+			}
+
+
+             </style>
+
+	     <script>
+
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+		{
+			window.location.hash = storedHash;
+		}
+		}, 50);
+
+	    </script>
+
+            <script>
+
+                $(document).ready(function()
+                {
+                    $('#example').DataTable(
+                    {
+                        "pagingType": "full_numbers"
+                    });
+                } );
+
+            </script>
+
+             <script type="text/javascript">
+
+                function goBack()
+                {
+                        window.location.href='/reportModule/reportDetails/reportBulkChoose';
+                }
+
+            </script>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+<div class="main-panel">
+       <div class="container-fluid">
+           <% include ../common/userBar %>
+            <br>
+         <div class="content">
+           <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                            <div class="content">
+				<hr/>
+				<h4 class="title">Download Bulk of Employee's Earned Leave Balance</h4>
+				<hr/>
+				<form name="myForm" id="myForm" action="#">
+				<br>
+ 				<div class="row" style="margin-left:80px;width: 840px;">
+        			<div class="col s12 m6">
+          			<div class="card blue-grey darken-1">
+            			<div class="card-content white-text">
+              			<span class="card-title" style="color:black"><strong>Employee's Earned Leave Balance</strong></span>
+              			<p>It contains employee's earned leave balance.</p>
+            			</div>
+            			<div class="card-action">
+  				       <button id="btnExport6" class="btn btn-info btn-fill" name="button1">Export as Xls</button>
+				       &nbsp;
+  				       <button id="back" class="btn btn-info btn-fill" type="button" name="back" onclick="goBack();">Back</button>
+           			</div>
+          			</div>
+        			</div>
+				</div>
+  				<div style="display:none">
+				 <br />
+				  <br />
+				  <div id="table_wrapper">
+				    <table border="1" cellspacing="0" bordercolor="#222" id="list">
+				      <tbody>
+					<tr class="header">
+					  <th>Leave Type</th>
+					  <th>Employee Id</th>
+					  <th>Employee Name</th>
+					  <th>Total Available Leave Balance (As on Date)</th>
+					  <th>Quaterly Balance (As on Date)</th>
+					</tr>
+
+					 <% if(data_count != 0) {%>
+					  <% for(i=0; i<data_count; i++) {%>
+					<tr>
+					  <td><div><%= data[i].leave_type %></div></td>
+					  <td><div><%= data[i].emp_id %></div></td>
+					  <td><div><%= data[i].emp_name %></div></td>
+					  <td><div><%= data[i].total %></div></td>
+					  <td><div><%= data[i].quaterly_leave %></div></td>
+					</tr>
+					<%}%>
+					<%}%>
+				      </tbody>
+				    </table>
+				  </div>
+				  </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <% include ../common/footer %>
+</div>
+
+</body>
+</html>

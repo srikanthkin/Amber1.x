@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>E-Docket</title>
+
+	<style>
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+		 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+	</style>
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style="background-color: transparent;color: #006666">
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+        <div class="sidebar-wrapper">
+	    <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li class="active">
+                    <a href="/cmsModule/cms/cms">
+			<i class="fa fa-file-text" aria-hidden="true"></i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
+<div class="main-panel">
+<div class="container-fluid">
+	<% include ../common/userBar %>
+	</div>
+<br>
+
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" style="color:#669999">
+			<li><a href="/cmsModule/cms/cmsUploadEmployee">Upload Documents</a></li>
+			<li><a href="/cmsModule/cms/cmsViewStatusEmployee">View Status</a></li>
+			<li><a href="/cmsModule/cms/cmsViewEmployee"><span style="color:#ff6600">View Documents</span></a></li>
+			<li><a href="/cmsModule/cms/policyViewEmployee">View Policy Docs</a></li>
+			<li><a href="/cmsModule/cms/magazineViewEmployee">View Magazines</a></li>
+			<li><a href="/cmsModule/cmsFAQDetails/cmsFAQDetails">FAQ</a></li>
+			</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+			<hr/>
+				<h4 class="title">View Documents      <i class="fa fa-file" aria-hidden="true"></i></h4>
+			<hr/>
+				<% if(govLen != 0 || eduLen != 0 || medLen != 0 || expLen != 0 || phLen != 0 || resLen != 0 || othrLen != 0 || hrLen != 0 || cerLen != 0 || bgLen != 0) {%>
+				   <div class="row">
+				     <% if(govLen != 0 || eduLen != 0 || medLen != 0 || expLen != 0 || phLen != 0) {%>
+					<div class="col-sm-6" >
+                                        <% if(govLen != 0) {%>
+                                          <label style="color:#404040;"><u>Government Documents</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < govLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=govDocs[i]%>&empId=<%=eid%>" target="_blank"><%=govDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=govDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+
+                                        <% if(eduLen != 0) {%>
+                                          <label style="color:#404040;"><u>Educational Documents</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < eduLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+						<a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=eduDocs[i]%>&empId=<%=eid%>" target="_blank"><%=eduDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=eduDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+
+                                        <% if(medLen != 0) {%>
+                                          <label style="color:#404040;"><u>Medical Document</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < medLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+						<a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=medDocs[i]%>&empId=<%=eid%>" target="_blank"><%=medDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=medDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+					<% if(expLen != 0) {%>
+                                          <label style="color:#404040;"><u>Experience Documents</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < expLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=expDocs[i]%>&empId=<%=eid%>" target="_blank"><%=expDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=expDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+
+                                        <% if(phLen != 0) {%>
+                                          <label style="color:#404040;"><u>Photo</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < phLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=phDocs[i]%>&empId=<%=eid%>" target="_blank"><%=phDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=phDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+				    </div>
+				    <% } %>
+
+				    <% if(resLen != 0 || othrLen != 0 || hrLen != 0 || cerLen != 0 || bgLen != 0) {%>
+				    <div class="col-sm-6" >
+					<% if(resLen != 0) {%>
+                                          <label style="color:#404040;"><u>Resume</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < resLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=resDocs[i]%>&empId=<%=eid%>" target="_blank"><%=resDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=resDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+		
+					<% if(cerLen != 0) {%>
+                                          <label style="color:#404040;"><u>Certificates</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < cerLen; i++)  {%>
+                                                <li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=cerDocs[i]%>&empId=<%=eid%>" target="_blank"><%=cerDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=cerDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                                </span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+					
+					<% if(othrLen != 0) {%>
+                                          <label style="color:#404040;"><u>Other Documents</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < othrLen; i++)  {%>
+                                                <li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=othrDocs[i]%>&empId=<%=eid%>" target="_blank"><%=othrDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=othrDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                                </span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>					
+
+					<% if(bgLen != 0) {%>
+                                          <label style="color:#404040;"><u>Background Verification Document</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < bgLen; i++)  {%>
+                                                <li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=bgDocs[i]%>&empId=<%=eid%>" target="_blank"><%=bgDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=bgDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                                </span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+
+					<% if(hrLen != 0) {%>
+                                          <label style="color:#404040;"><u>HR Upload Documents</u></label>
+                                          <ol>
+                                              <% for (i = 0; i < hrLen; i++)  {%>
+						<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+                                                <a href="/cmsModule/cms/cmsViewFilesEmployee?id=<%=hrDocs[i]%>&empId=<%=eid%>" target="_blank"><%=hrDocs[i]%></a>
+						<a href="/cmsModule/cms/cmsMailDoc?id=<%=hrDocs[i]%>&empId=<%=eid%>" title="Send Mail"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+						</span></li>
+                                              <% }; %>
+                                          </ol>
+                                          <br/>
+                                        <% } %>
+				    </div>
+				   <% } %>	
+				 </div>
+
+                                <% } else { %>
+                                        <label style="color:#404040;">No records found </label>
+					<br/>
+                                <% } %>
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+	<% include ../common/footer %>
+    </div>
+</div>
+
+</body>
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

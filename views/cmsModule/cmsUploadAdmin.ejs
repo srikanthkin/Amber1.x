@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<% include ../common/header %>
+	<% include ../common/scripts %>
+	<% include ../common/styles %>
+	<title>E-Docket</title>
+	
+	<style>
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+                 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr
+                {
+                        border: none;
+                        height: 1px;
+                        color: #333;
+                        background-color: #333;
+                }
+        </style>
+
+	
+	<script>
+	function ValidationEvent()
+	{
+		// Storing Field Values In Variables
+		var empId       = document.getElementById("empId").value;
+		if(empId == "")
+                {
+                        //alert("Select the Employee");
+			demo.initChartist();
+			$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: "Select the Employee"
+			},{
+			type: 'danger',
+			timer: 500
+			});
+
+                        document.getElementById("empId").focus();
+                        return false;
+                }
+		var docCat      = document.getElementById("docCat").value;
+		if(docCat == "")
+		{
+			//alert("Select the Document Category");
+			demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Select the Document Category"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+			document.getElementById("docCat").focus();
+			return false;
+		}
+
+		if(docCat == "1" || docCat == "2" || docCat == "10")
+		{
+			var docType     = document.getElementById("docType").value;
+			if(docType == "")
+			{
+				//alert("Select the Document Type");
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Select the Document Category"
+				},{
+				type: 'danger',
+				timer: 500
+				});
+				document.getElementById("docType").focus();
+				return false;
+			}
+			if(docCat == "2")
+                        {
+                                if(docType == "12")
+                                {
+                                        var docTypeText     = document.getElementById("docTypeText").value;
+                                        if(docTypeText == "")
+                                        {
+                                                //alert("Enter the Document Description");
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Select the Document Category"
+						},{
+						type: 'danger',
+						timer: 500
+						});
+                                                document.getElementById("docTypeText").focus();
+                                                return false;
+                                        }
+					else if(/^([a-zA-Z0-9 - .]+)$/.test(docTypeText)==false)
+					{
+						//alert("Special characters are not allowed in Document Description");
+						demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Special characters are not allowed in Document Description"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+						document.getElementById("docTypeText").value = "";
+                                                document.getElementById("docTypeText").focus();
+                                                return false;
+					}
+                                }
+                        }
+
+		}
+		if(docCat == "7" || docCat == "8" || docCat == "4")
+                {
+			var docCatText = document.getElementById("docCatText").value;
+			if(docCatText == "")
+			{
+				if(docCat == "4")
+				{
+					//alert("Enter the Company Name");
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Enter the Company Name"
+					},{
+					type: 'danger',
+					timer: 500
+					});
+				}
+				else
+				{
+					//alert("Enter the Document Description");
+					demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the Document Description"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+				}
+				document.getElementById("docCatText").focus();
+				return false;
+			}
+			else if(/^([a-zA-Z0-9 - .]+)$/.test(docCatText)==false)
+			{
+				if(docCat == "4")
+                                {
+					//alert("Special characters are not allowed in Company Name");
+					demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Special characters are not allowed in Company Name"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+				}
+				else
+				{
+					//alert("Special characters are not allowed in Document Description");
+					demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Special characters are not allowed in Document Description"
+                                        },{
+                                        type: 'danger',
+                                        timer: 500
+                                        });
+				}
+				document.getElementById("docCatText").value = "";
+				document.getElementById("docCatText").focus();
+				return false;
+			}
+		}
+		var filename    = document.getElementById("uploadDoc").value;
+		if(filename == "")
+		{
+			//alert("Select the File");
+			demo.initChartist();
+			$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: "Select the File"
+			},{
+			type: 'danger',
+			timer: 500
+			});
+			document.getElementById("uploadDoc").focus();
+			return false;
+		}
+		else if(filename != "")
+		{
+			if(docCat == "5")
+                        {
+                                var exten = filename.slice(-4);
+                                if(exten != ".jpg" && exten != ".JPG" && exten != "jpeg" && exten != "JPEG")
+                                {
+                                        //alert("Please upload only JPG or JPEG extension file for Photo");
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please upload only JPG or JPEG extension file for Photo"
+					},{
+					type: 'danger',
+					timer: 500
+					});
+                                        document.getElementById("uploadDoc").focus();
+                                        return false;
+                                }
+                                var fileUpload = document.getElementById("uploadDoc");
+                                if (typeof (fileUpload.files) != "undefined")
+                                {
+                                        var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
+                                        if(size > 50 || size < 20)
+                                        {
+						//alert("Photo Size should be between 20 KB and 50 KB");
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Photo Size should be between 20 KB and 50 KB"
+						},{
+						type: 'danger',
+						timer: 500
+						});
+                                                document.getElementById("uploadDoc").focus();
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                        alert("This browser does not support HTML5.");
+                                }
+                        }
+			else if(docCat == "6")
+                        {
+                                var exten = filename.slice(-4);
+                                if(exten != ".doc" && exten != ".DOC" && exten != "docx" && exten != "DOCX")
+                                {
+                                        //alert("Please upload only document file for resume");
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please upload only document file for resume"
+					},{
+					type: 'danger',
+					timer: 500
+					});
+                                        document.getElementById("uploadDoc").focus();
+                                        return false;
+                                }
+                                var fileUpload = document.getElementById("uploadDoc");
+                                if (typeof (fileUpload.files) != "undefined")
+                                {
+                                        var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
+                                        if(size > 1024)
+                                        {
+                                                //alert("Document Size should be less than 1 MB");
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Document Size should be less than 1 MB"
+						},{
+						type: 'danger',
+						timer: 500
+						});	
+                                                document.getElementById("uploadDoc").focus();
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                        alert("This browser does not support HTML5.");
+                                }
+                        }
+			else
+                        {
+                                var exten = filename.slice(-3);
+                                if(exten != "pdf" && exten != "PDF")
+                                {
+                                       // alert("Please upload only pdf files");
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please upload only pdf files"
+					},{
+					type: 'danger',
+					timer: 500
+					});
+                                        document.getElementById("uploadDoc").focus();
+                                        return false;
+                                }
+                                var fileUpload = document.getElementById("uploadDoc");
+                                if (typeof (fileUpload.files) != "undefined")
+                                {
+                                        var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
+                                        if(size > 1024)
+                                        {
+                                                //alert("Document Size should be less than 1 MB");
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Document Size should be less than 1 MB"
+						},{
+						type: 'danger',
+						timer: 500
+						});	
+                                                document.getElementById("uploadDoc").focus();
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                        alert("This browser does not support HTML5.");
+                                }
+                        }
+		}
+		return true;
+	}
+
+
+	var GL = ["PassPort","Pan Card","Voter Id","Driving License","Aadhar"];
+	var GV = ["1","2","3","4","5"];
+	var EL = ["SSLC","Pre University","Semester1","Semester2","Semester3","Semester4","Semester5","Semester6","Semester7","Semester8","Degree","Others"];
+	var EV = ["1","2","3","4","5","6","7","8","9","10","11","12"];
+	var HL = ["Offer Letter","Bond","Appointment Letter","Confirmation Letter","Onsite Deployment Docket","Revision Letter","Compensation Letter","Exit Interview Letter","Relieving Letter"];
+        var HV = ["1","2","3","4","5","6","7","8","9"];
+
+	function changeCat(firstList) 
+	{
+		var newSel = document.getElementById("docType");
+		//if you want to remove this default option use newSel.innerHTML=""
+		newSel.innerHTML="<option value=\"\">Select the Document Type</option>"; // to reset the second list everytime
+		var opt;
+
+		//test according to the selected value
+		switch (firstList.options[firstList.selectedIndex].value) 
+		{
+			case "1":
+				document.getElementById('docType').style.display = 'block';
+				document.getElementById('docTypeLabel').style.display = 'block';
+				document.getElementById('docTypeDiv').style.display = 'block';
+				document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatDesc').style.display = 'none';
+                                document.getElementById('docCatText').style.display = 'none';
+                                document.getElementById('docCatText').value = "";
+				document.getElementById('docCatLabel').style.display = 'none';
+                                document.getElementById('docExpLabel').style.display = 'none';
+	
+				for (var i=0; len=GL.length, i<len; i++) 
+				{
+					opt = document.createElement("option");
+					opt.value = GV[i];
+					opt.text = GL[i];
+					newSel.appendChild(opt);
+				}
+			break;
+
+			case "2":
+				document.getElementById('docType').style.display = 'block';
+				document.getElementById('docTypeLabel').style.display = 'block';
+				document.getElementById('docTypeDiv').style.display = 'block';
+				document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatDesc').style.display = 'none';
+                                document.getElementById('docCatText').style.display = 'none';
+                                document.getElementById('docCatText').value = "";
+				document.getElementById('docCatLabel').style.display = 'none';
+                                document.getElementById('docExpLabel').style.display = 'none';
+
+				for (var i=0; len=EL.length, i<len; i++) 
+				{
+					opt = document.createElement("option");
+					opt.value = EV[i];
+					opt.text = EL[i];
+					newSel.appendChild(opt);
+				}
+			break;
+			
+			case "4":
+                                document.getElementById('docType').style.display = 'none';
+                                document.getElementById('docTypeLabel').style.display = 'none';
+                                document.getElementById('docTypeDiv').style.display = 'none';
+                                document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+                                document.getElementById('docCatText').value = "";
+                                document.getElementById('docCatDesc').style.display = 'block';
+                                document.getElementById('docCatText').style.display = 'block';
+                                document.getElementById('docCatLabel').style.display = 'none';
+                                document.getElementById('docExpLabel').style.display = 'block';
+                        break;
+			
+			case "7":
+				document.getElementById('docType').style.display = 'none';
+                                document.getElementById('docTypeLabel').style.display = 'none';
+                                document.getElementById('docTypeDiv').style.display = 'none';
+                                document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatText').value = "";	
+				document.getElementById('docCatDesc').style.display = 'block';
+				document.getElementById('docCatText').style.display = 'block';
+				document.getElementById('docCatLabel').style.display = 'block';
+                                document.getElementById('docExpLabel').style.display = 'none';
+			break;
+
+			case "8":
+                                document.getElementById('docType').style.display = 'none';
+                                document.getElementById('docTypeLabel').style.display = 'none';
+                                document.getElementById('docTypeDiv').style.display = 'none';
+                                document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatText').value = "";
+                                document.getElementById('docCatDesc').style.display = 'block';
+                                document.getElementById('docCatText').style.display = 'block';
+				document.getElementById('docCatLabel').style.display = 'block';
+                                document.getElementById('docExpLabel').style.display = 'none';
+                        break;
+
+			case "10":
+                                document.getElementById('docType').style.display = 'block';
+                                document.getElementById('docTypeLabel').style.display = 'block';
+                                document.getElementById('docTypeDiv').style.display = 'block';
+                                document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatDesc').style.display = 'none';
+                                document.getElementById('docCatText').style.display = 'none';
+                                document.getElementById('docCatText').value = "";
+				document.getElementById('docCatLabel').style.display = 'none';
+				document.getElementById('docExpLabel').style.display = 'none';
+
+                                for (var i=0; len=HL.length, i<len; i++)
+                                {
+                                        opt = document.createElement("option");
+                                        opt.value = HV[i];
+                                        opt.text = HL[i];
+                                        newSel.appendChild(opt);
+                                }
+                        break;
+
+			default:
+				document.getElementById('docType').style.display = 'none';
+				document.getElementById('docTypeLabel').style.display = 'none';
+				document.getElementById('docTypeDiv').style.display = 'none';
+				document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+				document.getElementById('docCatDesc').style.display = 'none';
+                                document.getElementById('docCatText').style.display = 'none';
+                                document.getElementById('docCatText').value = "";
+				document.getElementById('docCatLabel').style.display = 'none';
+				document.getElementById('docExpLabel').style.display = 'none';
+			break;
+		}
+	}
+
+	function changeDocText()
+        {
+                var docCat      = document.getElementById("docCat").value;
+                if(docCat == "2")
+                {
+
+                        var docType     = document.getElementById("docType").value;
+                        if(docType == "12")
+                        {
+                                document.getElementById('docTypeDesc').style.display = 'block';
+                        }
+                        else
+                        {
+                                document.getElementById('docTypeText').value = "";
+                                document.getElementById('docTypeDesc').style.display = 'none';
+                        }
+                }
+                else
+                {
+                        document.getElementById('docTypeText').value = "";
+                        document.getElementById('docTypeDesc').style.display = 'none';
+                }
+        }
+
+	function resetform()
+	{
+		document.getElementById("uploadForm").reset();
+		document.getElementById('docTypeDiv').style.display = 'none';
+                document.getElementById('docType').style.display = 'none';
+                document.getElementById('docTypeText').value = "";
+                document.getElementById('docTypeDesc').style.display = 'none';
+                document.getElementById('docCatDesc').style.display = 'none';
+                document.getElementById('docCatText').style.display = 'none';
+                document.getElementById('docCatText').value = "";
+                document.getElementById('docCatLabel').style.display = 'none';
+                document.getElementById('docExpLabel').style.display = 'none';
+	}
+	function onloadHide()
+	{
+		document.getElementById("uploadForm").reset();
+                document.getElementById('docTypeDiv').style.display = 'none';
+                document.getElementById('docType').style.display = 'none';
+		document.getElementById('docTypeText').value = "";
+                document.getElementById('docTypeDesc').style.display = 'none';
+		document.getElementById('docCatDesc').style.display = 'none';
+		document.getElementById('docCatText').style.display = 'none';		
+		document.getElementById('docCatText').value = "";
+		document.getElementById('docCatLabel').style.display = 'none';
+		document.getElementById('docExpLabel').style.display = 'none';
+	}
+</script>
+
+</head>
+<body onload="changeHashOnLoad();onloadHide();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+      
+        <div class="sidebar-wrapper">
+	    <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li class="active">
+                    <a href="/cmsModule/cms/cms">
+			<i class="fa fa-file-text" aria-hidden="true"></i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+
+            </ul>
+
+	</div>
+    </div>
+
+
+
+<div class="main-panel">
+<div class="container-fluid">
+   <% include ../common/userBar %>
+<br>
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse" style="color:#008080">
+                        <ul class="nav navbar-nav" style="color:#669999">
+			<li><a href="/cmsModule/cms/cmsUploadAdmin"><span style="color:#ff6600">Upload Documents</span></a></li>
+			<li><a href="/cmsModule/cms/cmsApprAdmin">Approval Pending</a></li>
+			<li><a href="/cmsModule/cms/cmsViewAdmin">View Documents</a></li>
+			<% if(emp_access == "A1"){%>
+				<li><a href="/cmsModule/cms/policyUploadAdmin">Upload Policy Docs</a></li>
+			<% } %>
+			<li><a href="/cmsModule/cms/policyViewAdmin">View Policy Docs</a></li>
+			<% if(emp_access == "A1"){%>
+                                <li><a href="/cmsModule/cms/magazineUploadAdmin">Upload Magazines</a></li>
+                        <% } %>
+			<li><a href="/cmsModule/cms/magazineViewAdmin">View Magazines</a></li>
+			<li><a href="/cmsModule/cmsFAQDetails/cmsFAQDetails">FAQ</a></li>
+			</ul>
+		     </nav>
+		  </div>
+		  <br>
+		  <div class="content">
+			<form name="uploadForm" id="uploadForm" action="/cmsModule/cms/cmsUploadPostAdmin" method="post" enctype="multipart/form-data">
+			<hr/>
+				<h4 class="title">Upload Documents     <i class="fa fa-upload" aria-hidden="true"></i></h4>
+			<hr/>
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label style="color:#404040;">Employee <span style="color:red;font-size: 10pt">*</span></label>
+                                         <select class="form-control" id="empId" name="empId" >
+                                                <option value="">Select the Employee</option>
+						<% for (i = 0; i < emp_id_count; i++)  {%>
+                                                <option value="<%=employee[i].emp_id%>"> <%=employee[i].emp_name%> - <%=employee[i].emp_id%></option>
+                                                <% }; %>
+                                         </select>
+                                      </div>
+                                   </div>
+                                </div>
+	
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label style="color:#404040;">Document Category <span style="color:red;font-size: 10pt">*</span></label>
+					 <select class="form-control" id="docCat" name="docCat"  onchange="changeCat(this);" >
+						<option value="">Select the Document Category</option>
+                                                <option value="1">Govt. Documents</option>
+                                                <option value="2">Educational</option>
+                                                <option value="3">Medical </option>
+                                                <option value="4">Experience</option>
+                                                <option value="5">Photo</option>
+                                                <option value="6">Resume</option>
+						<option value="7">Certification</option>
+						<option value="8">Others</option>
+						<option value="9">Background</option>
+						<option value="10">HR Uploads</option>
+					 </select>
+                                      </div>
+                                   </div>
+				   <div class="col-md-5" id="docCatDesc">
+                                            <div class="form-group">
+                                                <div id="docCatLabel">
+							<label style="color:#404040;">Document Description<span style="color:red;font-size:10pt">*</span></label>
+						</div>
+						<div id="docExpLabel">
+                                                        <label style="color:#404040;">Company Name<span style="color:red;font-size:10pt">*</span></label>
+                                                </div>
+                                                <input type="text" id="docCatText" name="docCatText" style="text-transform: uppercase;" class="form-control" maxlength="20" >
+                                            </div>
+                                   </div>
+				</div>
+				<div id="docTypeDiv">
+				   <div class="row">
+				      <div class="col-md-5">
+					 <div class="form-group">
+					    <label style="color:#404040;" id="docTypeLabel">Document Type <span style="color:red;font-size:10pt">*</span></label>
+						<select id="docType" name="docType" class="form-control" onchange="changeDocText();" >
+							<option value="">Select the Document Type</option>
+						</select>
+					</div>
+				      </div>
+
+				      <div class="col-md-5" id="docTypeDesc">
+                                            <div class="form-group">
+                                                <label style="color:#404040;">Document Description<span style="color:red;font-size:10pt">*</span></label>
+                                                <input type="text" id="docTypeText" name="docTypeText" style="text-transform: uppercase;" class="form-control" maxlength="20" >
+                                            </div>
+                                      </div>
+
+				   </div>
+				</div>
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+				      	<label for="uploadDoc" style="color:#404040;">Upload Document <span style="color:red;font-size: 10pt">*</span></label>
+					<input type="file" id="uploadDoc" name="uploadDoc" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg">
+				      </div>
+                                   </div>
+                                </div>
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+					<input type="button" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="resetform()">
+					<input type="submit" name="btnUplAdm" id="btnUplAdm" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return ValidationEvent()">
+                                      </div>
+                                   </div>
+                                </div>
+                                <div class="clearfix"></div>
+			</form>	
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+
+    </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+
+</html>

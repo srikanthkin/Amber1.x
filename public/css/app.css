@@ -1,0 +1,5777 @@
+.headerbg
+{
+  background:#29b6f6;
+  height: 60px;
+}
+.clickon
+{
+   color:#3f51b5;
+}
+body{
+  font-weight: 300;
+}
+
+.icon_block p {
+  font-weight: 100;
+}
+
+.waves-effect {
+background-color: #3f51b5 !important;
+color: #fff;
+}
+.tape{
+  text-align: center;
+  color: #fff;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.skin{
+  background-image: url(580.png);
+  background-repeat: round;
+}
+
+#upper_left {
+  background-image: url(/images/scissor.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -10%;
+  width: 25%;
+  height: 25%;
+  background-size: contain;
+display: none;
+}
+#upper_right {
+  background-image: url(/images/searcher.png);
+  background-repeat: no-repeat;  
+  position: absolute;
+  top: 30%;
+  right: 0%;
+  width: 82px;
+  height: 25%;
+  background-size: contain;
+
+}
+#lower_left {
+  background-image: url(/images/reports.png);
+  background-repeat: no-repeat;  
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  width: 25%;
+  height: 25%; 
+  background-size: contain;
+}
+#lower_right {
+  background-image: url(/images/pencil.png);
+  background-repeat: no-repeat;  
+  bottom: 0%;
+  right: 0%;
+  position: absolute;
+  width: 90px;
+  height: 30%; 
+  background-size: contain;
+}
+.wish{
+  
+    font-weight: 300;
+    font-size: 30px;
+        
+}
+.widgeticons{
+  display: inline;
+  font-size: 90px;
+  padding: 10px;
+}
+.menuitems{
+    display: inline;
+    font-size: 17px;
+    padding-left: 15px;
+    vertical-align: super;
+}
+.darkbluecolor{
+color: #bebfc0;
+}
+
+.lightbluecolor{
+  color: #039be5;
+  background-color: #039be5 !important;
+
+}
+.radiopad{
+  padding-top:  25px !important;
+  padding-bottom: 30px !important;
+  font-weight: 300;
+}
+
+.btn:hover, .btn-large:hover{
+  color: #fff!important;
+}
+
+.btn, .btn-large{
+    color: #039be5 !important;
+
+}
+.lightbluebutton{
+  background-color: #29b6f6 !important;
+  color: #fff !important;
+  font-weight: normal;
+}
+.font_normal
+{
+  font-weight: normal;
+}
+#wave {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: -webkit-linear-gradient(left, #29b6f6 60% , #0c90cc)
+}
+#wave:after {
+        content: "";
+        display: block;
+        position: absolute;
+        border-radius: 100% 50%;
+        width: 300px;
+    height: 70px;
+    background-color: #fff;
+    left: 0;
+    top: 27px;
+}
+#backg{
+  background-image: url("/images/loginbg.jpg");
+  background-repeat: round;
+}
+
+.signout{
+   text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+
+}
+
+.listinghead tr>th{
+      text-transform: uppercase;
+        font-weight: normal!important;
+    font-size: 1rem !important;
+}
+.red-col
+{
+  
+font-size: 1rem !important;
+color: red;
+  
+}
+ .box-container {
+  height: auto !important;
+}
+
+.box-item {
+  width: 250px!important;
+  margin-left: 9px;
+  
+}
+.card.larges {
+  height: 507px;
+}
+
+#pswd_info h5 {
+    margin:0 0 10px 0;
+    padding:0;
+       font-weight: 300;
+    color: #9e9e9e;
+}
+#pswd_info::before {
+    content: "\25c0";
+    position:absolute;
+    top:60px;
+        left: -6.6%;
+    font-size:36px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+#menu ul li.selected {
+   background: #fff;
+   color:#444;
+}
+#menu ul {
+   margin: 0;
+   padding: 25px 0 0 20px;
+   list-style: none;
+   line-height: normal;
+}
+#menu li {
+   display: block;
+   float: left;
+   background: #f6f6f7;
+}
+#menu a {
+   display: block;
+   float: left;
+   margin-right: 17px;
+   padding: 5px 8px;
+   text-decoration: none;
+   font-weight:300;
+   color: #444;
+}
+#menu a:hover {
+   background: #fff;
+   color:#444;
+}
+#menu a:active {
+   background: #fff;
+   color:#eee;
+}
+
+.input-field label:not(.label-icon).active1{
+       font-size: 1rem!important;
+    -webkit-transform: translateY(-140%);
+    transform: translateY(-140%);
+    font-weight: normal!important;
+	color: #3f51b5;
+	
+}
+
+.errdisplay {
+    color: #ec2b2b;
+}
+
+.sucdisplay{
+  color: #218821;
+}
+.current_page_item{
+  background: #fff;
+  color:#444;
+}
+.signoutdiv{
+  float: right;
+}
+
+.capitalize  {
+    text-transform: capitalize;
+}
+ #myBar div>div>svg
+ {
+   font-weight: bold;
+    }
+.tab_wrap{
+  
+  width: 100%;
+    margin-top: -1%;
+  height:auto!important;
+}
+/* TABS */
+.tabs {
+ width: 99%;
+    overflow: hidden;
+    background: #F9F9F9;
+    margin-top: 1%;
+    margin-left: 0.7%;
+}
+.tabs ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;    
+}
+.tabs li a {
+  width:50%;  
+  color: #444444;
+  display: block;
+  float: left;
+  font-weight:bold; 
+  padding: 13px;
+  text-align: center;
+  text-decoration: none;
+  border:none;
+  border-left:1px solid #d9d9d9;
+  border-bottom:1px solid #d9d9d9;
+    border-top:1px solid #d9d9d9; 
+}
+.tabs li a:hover {
+  color: #7d7d7d; 
+  
+}
+.tabs li:first-child a {
+  border-left:none;
+}
+.tabs li a.active {
+  background:#FFFFFF;
+  border:none;
+  border-left:1px solid #d9d9d9;
+  border-bottom:1px solid #FFFFFF;  
+}
+.tabs li:first-child a.active {
+  border:none;
+  border-bottom:1px solid #FFFFFF;  
+}
+.tabs li:last-child a.active {
+  border:none;
+  border-left:1px solid #d9d9d9;  
+  border-bottom:1px solid #FFFFFF;  
+}
+/* tab_content */
+.tab_content {
+  background:#FFF;
+  padding:0;
+  display:none; 
+}
+.tab_content.active{
+  display:block;  
+}
+.tab_content ul {
+  margin:0px;
+  padding:0px;
+  list-style:none;  
+}
+.tab_content li {
+  display:block;
+  overflow: hidden; 
+  border-bottom:1px solid #d6dde0;  
+}
+.tab_content li:last-child {
+  border-bottom:none;
+}
+.tab_content li a {
+  display:block;
+  list-style:none;
+  overflow: hidden; 
+  padding:10px;     
+  text-decoration:none;
+  color:#444444;
+}
+.tab_content li a:hover {
+  color:#000000;
+  background:#F5F5F5; 
+}
+.tab_content li small {
+  color:#AAAAAA;
+  font-size:11px;
+  font-style:italic;
+}
+.tab_content li a:hover small {
+  color:#AAAAAA;
+}
+
+  #bar div>div>svg{
+      font-weight: bold;
+    }
+
+.slick-prev:before,
+    .slick-next:before {
+        color: #444  !important;
+    }
+
+    .wave-bkcolor
+{
+background-color: #f5f6f7 !important;
+}
+.wave-color
+{
+color: rgba(68, 68, 68, 0.68) !important;
+}
+.img-color
+{
+color: rgba(68, 68, 68, 0.68)  !important;
+}
+
+
+.btn-hover:hover {
+ 
+  background-color:white !important;
+  
+}
+
+#menu1 a:active {
+    background: #fff !important;
+  border:0 !important;
+    
+}
+#menu1 ul li.selected {
+    background: #fff !important;
+  border:0 !important;
+    
+}
+
+
+.dataTables_filter
+{
+  display:none !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+ display:none !important; 
+}
+
+table {
+  overflow-x: scroll !important;
+  
+}
+
+.picker__table,newcol
+{
+display:table !important;
+}
+
+#borrowerBarChart div>div>svg{
+      font-weight: bold;
+    }
+    #depositorBarChart div>div>svg{
+      font-weight: bold;
+    }
+
+    .pageHeading {
+      text-transform: uppercase; 
+      color: #3f51b5!important;
+    }
+
+     .pulse {
+  overflow: initial;
+  background-color: #29b6f6 !important;
+}
+
+.pulse::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #29b6f6 !important;
+  border-radius: inherit;
+  transition: opacity .3s, -webkit-transform .3s;
+  transition: opacity .3s, transform .3s;
+  transition: opacity .3s, transform .3s, -webkit-transform .3s;
+  -webkit-animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+          animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  z-index: -1;
+}
+
+@-webkit-keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+}
+
+
+.upload-button {
+   padding: 4px;
+   border: 1px solid black;
+   border-radius: 5px;
+   display: block;
+   float: left;
+   margin-left: 45%;
+margin-top: 5%;
+}
+
+.profile-pic {
+   max-width: 200px;
+   max-height: 200px;
+   display: block;
+}
+
+.file-upload {
+   display: none;
+}
+
+
+
+i.left {
+  float: left;
+  margin-right:15px;
+
+}
+/*added*/
+i.leftedit {
+  float: left;
+margin-left:36px;
+}
+.side-nav .userView .circle {
+  height: 100px;
+  width: 100px;
+}
+
+img.circle{
+width:152px;
+height:152px;
+}
+/*end*/
+
+
+.dis_top
+  {
+  height: 7rem !important;
+  }
+
+
+.materialPicker{
+ width: 18rem;
+}
+
+.Number{
+ border: none;
+ text-align: center;
+ font-size: 6.1rem;
+ width: 8.4rem;
+}
+
+.pickerButton{
+   width:100%;
+}
+
+.first{
+ float:left;
+}
+.second{
+   float:right;
+}
+
+
+@media  screen and (max-width: 2560px) {
+
+
+/* maintain params view */
+.paramID
+{
+  margin-left:3% !important;
+}
+
+.param_btn
+{
+  
+  margin-left: -5% !important;
+  text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+  
+}
+
+
+  .reportlink {
+    width: 60% !important;
+    margin-top: -1% !important;
+    margin-left: 3% !important;
+}
+
+/* maintain params */
+
+.parambtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 9%;
+  
+}
+
+.param_edit
+{
+  margin-left: -10%;
+}
+
+.nowrap
+{
+
+white-space: nowrap;
+}
+
+.param_reportbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+  
+}
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+  margin-left:-30% !important;
+}
+
+
+/* generation queue */
+  .filtr
+  {
+  margin-top: 2% !important;
+    position: relative;
+    top: -22px;
+  margin-left: 74%!important;
+   
+  }
+  
+  .gentab {
+     margin-left: 3%!important; 
+     margin-top: 0%!important; 
+     width: 94%!important; 
+}
+
+
+    .disttab {
+    margin-left: 3%!important;
+    margin-top: 3%!important;
+    width: 94%!important;
+} 
+
+
+  
+  .reportfilter {
+    margin-left: -12.5%!important;
+    font-weight: 300 !important;
+}
+
+.reportfilter_top {
+    margin-top: 3%;
+}
+
+
+
+  .response  {
+
+    margin-left: 4%!important;
+width: 100%;
+  }
+
+.newclose{
+      margin-left: 96%!important;
+    margin-top: 1%!important;
+}
+.viewalignment{
+          margin-left: 1%!important;
+    margin-top: 0%!important;
+}
+
+.removemodal
+{
+ margin-left: 39%!important;
+    margin-top: -4%!important;
+}
+.newview
+{
+       width: 56%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 22%!important;
+}
+.newtop
+{
+         margin-top: 2%!important;
+}
+.newid {
+      
+       margin-top: -2.5%!important;
+    margin-left: 46%!important;
+}
+.newtopalign
+{
+            margin-left: 8%!important;
+    width: 50%!important;
+    margin-top: 4%!important;
+   
+}
+.dropalign{
+       margin-left: -8%!important;
+    width: 50%!important;
+    margin-top: 3%!important;
+}
+.viewuserexpiry{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 0%!important;
+    color: #3b4caa!important;
+}
+    .viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 1%!important;
+   color: #3b4caa!important;
+}
+.viewleft{
+          color: #3b4caa!important;
+          margin-left: 0%!important;
+}
+.newswitch{
+    margin-left: 8%!important;
+    margin-top: 1%!important;
+    width: 100%!important;
+}
+.tablealt  {
+         margin-left: 8%!important;
+    margin-top: 0%!important;
+    width: 86%!important;
+  }
+    .editmodal
+{    
+      width: 25%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 22%!important;
+  }
+  .newview
+{
+          width: 25%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 22%!important;
+}
+
+.aleft{
+      margin-left: 9.5%!important;
+}
+.filteralign
+{
+      margin-left: 86%!important;
+    margin-top: -2%!important;
+        width: 35%!important;
+}
+.useridfilter
+{
+      margin-left: -5.5%!important;
+}
+/*
+.btn-floating.btn-large
+{  
+    margin-top: 0.5%!important;
+    margin-left: -3%!important;
+}*/
+.side-nav {
+    position: fixed;
+    width: 280px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+	overflow-x: hidden;
+}
+.pickbutton
+{
+     width: 98%!important;
+}
+.picktouch
+{
+   margin-left: 25%!important;
+
+}
+.pickheading
+{   
+        margin-top: -2%!important;
+    width: 100%!important;
+    margin-left: -2%!important;
+}
+.pickfont
+{
+      font-size: 22px!important;
+}
+.filteralign1
+{
+       margin-left: 89%!important;
+    margin-top: -3%!important;
+        width: 35%!important;
+}
+.reportnamealign
+{
+         margin-top: 1%!important;
+}
+.reportnamefilter
+{
+  margin-left: -5.5%!important;
+}
+/*login*/
+
+.editleft{
+      margin-left: 9%!important;
+}
+.text_left
+{
+	margin-left : 3%!important;
+}
+.lognlog
+{
+	margin-top: 4% !important;
+}
+/*footer*/
+
+.yearf
+
+{
+white-space: nowrap ;
+   margin-left: -10% !important;
+}
+
+.compf
+{
+
+white-space: nowrap;
+   margin-left: 17% !important;
+
+}
+/*dashboard*/
+.posleft
+{
+	margin-left: -36px !important;
+}
+
+
+.tablepos {
+    width: 85%;
+    margin-left: 7%;
+    left: auto;
+    right: auto;
+    padding-bottom: 35px;
+    margin-top: 3%;
+}
+
+
+.newpos {
+    margin-left: 94% !important;
+    margin-top: 2% !important;
+}
+
+.closebtn {
+    margin-left: 94% !important;
+    margin-top: 2% !important;
+}
+
+.smpletab {
+    width: 85%;
+    margin-left: 7%;
+    left: auto;
+    right: auto;
+    padding-bottom: 35px;
+    margin-top: 3%;
+}
+/*change passcode */
+
+
+.changepas {
+  width: 150% !important;
+  margin-top: -2% !important;
+  margin-left: 15% !important;
+}
+
+ .recentcard
+   {
+   
+    padding-left: 0px !important;
+	width: 58.3333333333% !important;
+    margin-top: 0% !important;
+   }
+   
+.chartcard
+   {
+   
+    width: 50% !important;
+    margin-top: 0% !important;
+	padding-left: 0px !important;
+   }
+
+.reportpickheading
+{    
+  margin-top: -2%!important;
+    margin-left: 1%!important;
+}
+  .reportpickheading1
+  {
+       margin-top: 1%!important;
+    margin-left: 1%!important;
+  }
+.reportwidth
+{
+      width: 50%!important;
+    margin-top: 1%!important;
+    margin-left: 6%!important;
+    padding-left: 0%!important;
+    float:none!important;
+}
+.reportleft  
+{
+  margin-left: -4.5%!important;
+}
+.reportbtn
+{
+     margin-left: 5.5%!important;
+    margin-top: 2%!important;
+    width: 22%!important;
+    padding-bottom: 3%!important;
+  }
+      .reportwidthdrop
+{
+     width:55%!important;
+    margin-top: 1%!important;
+    margin-left: 1%!important;
+}
+.reportbtn1
+{
+       margin-left: -10%!important;
+    margin-top: 43.5!important;
+    width: 40%!important;
+    padding-bottom: 3%!important;
+  }
+
+ .profilepicedit
+  {
+       margin-top: -8%!important;
+    margin-left: 38%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+         padding: 4px!important;
+    margin-left: 44%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {   
+    margin-left: 47%!important;
+    margin-top: 10%!important;
+
+  }
+  .profilelabel
+  {
+        margin-left:33%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -12%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 1%!important;
+    width: 76%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: 0.5%!important;
+  }
+  .profilebtnedit
+  {
+       margin-top: -2%!important;
+    margin-left: 33%!important;
+  }
+  .sizeerroredit
+  {
+       margin-left: 393px!important;
+    margin-bottom: 82px!important;
+  }
+  .editlinkageedit
+  {  
+        width: 781px!important;
+    margin-top: 2%!important;
+    margin-left: 8%!important;
+  }
+  .availablecardedit
+  {
+       margin-top: -58%!important;
+  }
+  .chooseedit
+  {
+       width: 170%!important;
+    margin-left: -2%!important;
+    margin-top: 9%!important;
+  }
+
+  .selectmoduleedit
+  {
+       margin-left: 43.5%!important;
+    margin-top: -3%!important;
+    width: 100%!important;
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 17%!important;
+    margin-top: -1.5%!important;
+  }
+  .submitedit
+  {
+   margin-left: 80%!important;
+    margin-top: -2%!important;
+ }
+ .savechangesedit
+ {
+       margin-left:31%!important;
+    width: 100%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+       margin-left: 42%!important;
+    margin-top: -2.8%!important;
+ }
+ .roledesedit
+ {
+      margin-left: -5%!important;
+ }
+ .roledesedit1
+ {   
+  margin-top: -2%!important;
+    margin-left: 7.5%!important;
+ }
+
+.viewleft1 {
+  color: #3b4caa!important;
+    margin-left: 5.5%!important;
+}
+.newtop1 {
+        margin-top: -2%!important;
+    margin-left: 0%!important;
+}
+.tablealt1 {
+     margin-left: 4%!important;
+    margin-top: -2%!important;
+    width: 91%!important;
+}
+.viewalignment1 {
+     margin-left: -2%!important;
+    margin-top: 9%!important;
+}
+.buttons1 {
+       margin-left: 4%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 1%!important;
+}
+
+.removedes
+{
+     margin-top: -3%!important;
+}
+.floatbtn {
+      width: 75px !important;
+    height: 70px !important;
+    margin-top: 0.5%!important;
+    margin-left: -3%!important
+}
+.floaticon {
+  margin-top: 6px !important;
+    margin-left: 3px !important;
+    font-size: 235%!important;
+}
+.aleft1
+{
+     margin-left: -5%!important;
+}
+.newbtn
+{
+      margin-top: 0%!important;
+    padding-bottom: 2%!important;
+    margin-left: 0%!important;
+}
+  .mastercard
+  {
+	  margin-top: 0% !important;
+  }
+   
+   .passcode{
+	   
+	position: absolute !important;
+    top: 44% !important;
+    right: -52% !important;
+	padding: 2%;
+   }
+  .responsive
+  {
+       width: 60%;
+  }
+.frmschedule{
+	margin-top:-3px !important;
+	margin-left:0px !important;
+}
+
+.fromdate{
+	margin-top:-35px !important;
+	margin-left:0px !important;
+}
+.enddate{
+	margin-top:-28px !important;
+}
+.endschedate{
+	margin-top:0px !important;
+	
+}
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.newreportsview
+{
+         width: 48%!important;
+    margin-left: 9%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.reportmodule{
+	margin-top:9px !important;
+}
+.applicableformats{
+	    margin-left: -102%;
+    margin-top: -26px;
+}
+.pdfformat{
+margin-left: -491px !important;
+    margin-bottom: 36px !important;
+}
+.reportseditmodal{
+	width: 43%!important;
+    top: 3%!important;
+    margin-left: 14px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+	    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    color: #3b4caa!important;
+    margin-left: 19%;
+    margin-top: -47px;
+}
+.pdfformatview{
+       margin-left: -29px !important;
+    margin-bottom: 14px !important;
+    margin-top: -73px !important;
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left: 3%!important;
+}
+.reporttable{
+	
+            margin-left: 11%!important;
+    margin-top: 1%!important;
+    width: 97%!important;
+  }
+  .param{
+	  margin-left:-4% !important;
+	  }
+
+.eodeditreports{
+margin-top: 20px !important;
+margin-left:0% !important;
+}
+ .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+      
+  }
+   .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+     margin-top: -1%!important;
+    margin-left: 2%!important;
+
+}
+.editsystembtn1
+{  
+      margin-top: -1%!important;
+    margin-left: 2%!important;
+    width: 68%!important;
+}
+.viewsystembtn
+{
+     margin-left: -43%!important;
+    margin-top: -1%!important;
+}
+.editparametername
+{
+        margin-top: 5%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.editparametername1 {
+            margin-top: 9%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.savebtn
+{
+     margin-top: 6%!important;
+    padding-bottom: -3%!important;
+    margin-left: 48%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -6%!important;
+}
+.alarmbtn
+{
+      width: 47px !important;
+    height: 45px !important;
+    margin-top: -14%!important;
+    margin-left: -3%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+         margin-left: 5%!important;
+    width: 42%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+       margin-left: 76% !important;
+    width: 44% !important;
+    margin-top: -2%!important;
+}
+.schdtab
+{
+	margin-top: 8% !important ;
+}
+
+.viewsched
+{
+	margin-left: 7% !important;
+}
+.eitwsched
+{
+	margin-left: 3% !important;
+}
+
+.myreportalign
+{
+	margin-left: -10%;
+	font-weight: 300;
+}
+.myreportbtn
+{
+	margin-left: 7% !important;
+    width: 88% !important;
+margin-top: 0%!important;
+}
+
+.myreport_edit{
+margin-top: -6% !important;
+}
+
+.myreportdes_edit{
+margin-left: -5%;
+  margin-top: -15%;
+}
+
+.myreportvalue_edit{
+
+  margin-top: -15%;
+}
+.yesedit
+  {
+   margin-left: 7%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+   margin-left: 23%!important;
+    margin-top: -7%!important;
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 4%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 1%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+   color: #3b4caa!important;
+    margin-left: 1%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 68%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 33%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+  
+    .logcard
+  {
+	  
+	  margin-top: -18px;
+	     height:auto;
+		 
+  }
+
+
+}
+
+
+@media  screen and (max-width: 1440px) {
+.yesedit
+  {
+   margin-left: 7%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+   margin-left: 23%!important;
+    margin-top: -7%!important;
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 4%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: 1%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+   color: #3b4caa!important;
+    margin-left: 1%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 68%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 33%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }		    
+ /*maintain params view*/
+
+.paramID {
+    margin-left: 5% !important;
+}
+
+.reportlink {
+    width: 90% !important;
+  width: 90% !important;
+    margin-left: 5% !important;
+}
+.param_btn {
+    margin-left: -3% !important;
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+}
+  /*maintain params*/
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 0% !important;
+}
+
+  .response  {
+
+    margin-left: 4%!important;
+ width: 100%;
+  }
+  .newclose{
+    margin-left: 95%!important;
+   margin-top: 1%!important;
+}
+.viewalignment{
+          margin-left: 1%!important;
+    margin-top: -4%!important;
+
+}
+.viewalignment1{
+        margin-left: 0%!important;
+    margin-top: 9%!important;
+}
+
+.removemodal
+{
+  margin-left: 29%!important;
+    margin-top: -8%!important;
+}
+.removemodal1
+{
+    margin-left: 38%!important;
+    margin-top: 0%!important;
+}
+.newview
+{
+       width: 56%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 22%!important;
+}
+.newtop
+{
+         margin-top: 2%!important;
+}
+.newtop1
+{
+      margin-top: -4%!important;
+    margin-left: 3%!important;
+}
+.newid {
+      
+       margin-top: -4.5%!important;
+    margin-left: 46%!important;
+}
+.newtopalign
+{
+            margin-left: 8%!important;
+    width: 50%!important;
+    margin-top: 4%!important;
+   
+}
+.dropalign{
+       margin-left: -8%!important;
+    width: 50%!important;
+    margin-top: 3%!important;
+}
+.viewuserexpiry{
+       font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -5%!important;
+    color: #3b4caa!important;
+}
+.viewleft{
+       color: #3b4caa!important;
+    margin-left: -5%!important;
+}
+.viewleft1{
+            color: #3b4caa!important;
+    margin-left: 1%!important;
+}
+    .viewleftdrop{
+       font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -5%!important;
+    color: #3b4caa!important;
+}
+.newswitch{
+    margin-left: 8%!important;
+    margin-top: 1%!important;
+    width: 100%!important;
+}
+.tablealt  {
+           margin-left: 7%!important;
+    margin-top: -2%!important;
+    width: 81%!important;
+  }
+  .tablealt1  {
+         margin-left: 7%!important;
+    margin-top: -5%!important;
+    width: 85%!important;
+  }
+   .tablealt2  {
+          margin-left: 7%!important;
+    margin-top: 2%!important;
+    width: 81%!important;
+  }
+    .editmodal
+{    
+        width: 47%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 27%!important;
+  }
+  .newview
+{
+        width: 47%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 28%!important;
+}
+/*
+.btn-floating.btn-large
+{
+      
+     
+    margin-top: -0.5%!important;
+    margin-left: -2%!important;
+}*/
+.buttons  {
+       margin-left: 7.5%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 0%!important;
+  }
+  .buttons1  {
+       margin-left: 7%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 1%!important;
+  }
+  .filteralign
+{
+        margin-left: 74%!important;
+    margin-top: -3%!important;
+        width: 35%!important;
+}
+.side-nav {
+    position: fixed;
+    width:  299px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.pickbutton
+{
+     width: 98%!important;
+}
+.picktouch
+{
+   margin-left: -6%!important;
+
+}
+.pickheading
+{   
+   margin-top: -1%!important;
+    width: 100%!important;
+    margin-left: 3%!important;
+}
+.pickfont
+{
+      font-size: 22px!important;
+}
+.filteralign1
+{
+   margin-left: 74%!important;
+    margin-top: -5%!important;
+        width: 35%!important;
+}
+.reportnamealign
+{
+         margin-top: 1.9%!important;
+}
+.reportnamefilter
+{
+  margin-left: -9.5%!important;
+}
+.reportpickheading
+{
+      margin-top: -7%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+      width: 50%!important;
+    margin-top: 1%!important;
+    margin-left: 6%!important;
+    padding-left: 0%!important;
+    float:none!important;
+}
+.reportleft  
+{
+  margin-left: -9%!important;
+}
+.reportbtn
+{  
+      margin-left: 5%!important;
+    margin-top: 1%!important;
+    width: 25%!important;
+    padding-bottom: 3%!important;
+  }
+      .reportwidthdrop
+{
+     width:55%!important;
+    margin-top: 1%!important;
+    margin-left: 1%!important;
+}
+.reportbtn1
+{
+  margin-left: -3%!important;
+    margin-top: 9.5!important;
+    width: 40%!important;
+    padding-bottom: 3%!important;
+  }
+
+ .profilepicedit
+  {
+       margin-top: -8%!important;
+    margin-left: 38%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+         padding: 4px!important;
+    margin-left: 44%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {   
+        margin-left: 48%!important;
+    margin-top: 10%!important;
+  }
+  .profilelabel
+  {
+        margin-left:33%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -12%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 1%!important;
+    width: 76%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -8.5%!important;
+  }
+  .profilebtnedit
+  {
+       margin-top: -2%!important;
+    margin-left: 33%!important;
+  }
+  .sizeerroredit
+  {
+       margin-left: 393px!important;
+    margin-bottom: 82px!important;
+  }
+  .lognlog
+{
+	margin-top: 5.5% !important;
+}
+
+.poslog
+{
+	margin-top: 0%!important;
+}
+
+  .editlinkageedit
+  {  
+        width: 486px!important;
+    margin-top: 2%!important;
+        margin-left: 2%!important;
+  }
+  .availablecardedit
+  {
+        margin-top: -93%!important;
+  }
+  .chooseedit
+  {
+      width: 103%!important;
+    margin-left: -2%!important;
+    margin-top: 9%!important;
+  }
+
+  .selectmoduleedit
+  {
+       margin-left: 42%!important;
+    margin-top: -6%!important;
+    width: 100%!important;
+  }
+  .selectmoduleedit1
+  {
+       margin-left: 16%!important;
+    margin-top: -3.5%!important;
+  }
+  .submitedit
+  {
+       margin-left: 82%!important;
+    margin-top: -5%!important;
+ }
+ .savechangesedit
+ {
+        margin-left: 27%!important;
+    width: 100%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+   margin-left: 48%!important;
+    margin-top: -4.2%!important;
+ }
+ .roledesedit
+ {
+      margin-left: -10%!important;
+ }
+ .roledesedit1
+ {   
+     margin-left: 5%!important;
+    margin-top: -2.2%!important;
+ }
+ .filteralignreport
+{
+      margin-left: 73%!important;
+    margin-top: 1%!important;
+        width: 35%!important;
+}
+
+.removedes
+{
+     margin-top: -3%!important;
+}
+.floatbtn {
+      width: 49px !important;
+    height: 46px !important;
+     margin-top: -1%!important;
+    margin-left: 0%!important;
+}
+.floaticon {
+     margin-top: -3px !important;
+    margin-left: 2px !important;
+    font-size: 160%!important;
+}
+.aleft1
+{
+     margin-left: -10%!important;
+}
+.newbtn
+{
+      margin-top: 0%!important;
+    padding-bottom: 2%!important;
+    margin-left: 0%!important;
+}
+.frmschedule{
+	    margin-left: -105% !important;
+    margin-top: 50px !important;
+    margin-bottom: 12px
+}
+.endschedate{
+	       margin-top: -29px !important;
+    margin-left: 32px;
+}
+.fromdate{
+	    margin-top: 20px !important;
+        margin-left: -96% !important;
+}
+.enddate{
+	    margin-top: -61px !important;
+    margin-left: 5%;
+}
+
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+
+
+.add_schedule_distribute_dropdown{
+	margin-top:15px !important
+}
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.eodeditreports{
+	
+	margin-top:12px !important;
+}
+
+.schedulerlabel
+{
+     margin-left: -3%!important;
+}
+.schedulerlabel1
+{
+  margin-left: 9%!important;
+}
+  .schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -8%!important;
+    width: 105%!important;
+    padding-bottom: 0%!important;
+}
+  .tablealt2 {
+         margin-left: 7%!important;
+    margin-top: 2%!important;
+    width: 86%!important;
+}
+.schedulestoplabel
+{
+ margin-top: -2%!important;
+    margin-left: 0%!important;
+    width: 104%!important;
+}
+.newreportsview
+{
+	width: 42%!important;
+    margin-left: 11%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.reportmodule{
+	margin-top:-6px !important;
+}
+.applicableformats{
+	    margin-left: -5% ;
+    margin-top: -24px;
+}
+
+.pdfformat{
+margin-left: -169px !important;
+    margin-bottom: 26px !important
+}
+.applicableformatsview{
+	 font-size: 1.1rem!important;
+    font-weight: normal!important;
+   
+        color: #3b4caa!important;
+	 margin-left: -2%;
+    margin-top: -26px;
+}
+.pdfformatview{
+    margin-left: -182px !important;
+    margin-bottom: 30px !important;
+}
+.reportseditmodal{
+	    width: 43%!important;
+    top: 6%!important;
+    margin-left: 24% !important;
+    height: auto!important;
+    max-height: 82%!important;
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left:-16%!important;
+}
+.param{
+	margin-left:-12% !important;
+}
+.reporttable{
+	margin-left: 6%!important;
+    margin-top: -1%!important;
+    width: 97%!important;
+  }
+ .schedulesubmitbtn{
+
+   margin-top: -1%!important;
+    margin-top: -2%!important;
+    margin-left: -1%!important;
+	 
+  }
+   .reportseditlabel
+  {
+   margin-left: -5%!important;
+  }
+  .reportstableedit {
+    margin-left: 3%!important;
+    margin-top: -2%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+      margin-top: -3%!important;
+    margin-left: 1%!important;
+}
+.editsystembtn1
+{  
+   margin-top: -1%!important;
+    margin-left: 1%!important;
+    width: 68%!important;
+
+}
+.viewsystembtn
+{
+       margin-left: -43%!important;
+    margin-top: -1.1%!important;
+
+}
+.editparametername
+{
+        margin-top: 5%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.editparametername1 {
+            margin-top: 9%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.savebtn
+{
+        margin-top: 1%!important;
+    padding-bottom: -3%!important;
+    margin-left: 4%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -6%!important;
+}
+.alarmbtn
+{
+      width: 47px !important;
+    height: 45px !important;
+    margin-top: -14%!important;
+    margin-left: -3%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+         margin-left: 5%!important;
+    width: 42%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+       margin-left: 76% !important;
+    width: 44% !important;
+    margin-top: -2%!important;
+}
+.schdtab {
+    margin-top: 0% !important;
+}
+
+.viewsched
+{
+	margin-left: 7% !important;
+}
+.logcard {
+    height: auto;
+}
+
+}
+
+
+
+@media  screen and (max-width: 1024px) {
+  /*generation queue view*/
+
+.paramID {
+    margin-left: 7% !important;
+}
+.reportlink {
+    width: 90% !important;
+  width: 90% !important;
+    margin-left: 6% !important;
+}
+.param_btn {
+    margin-left: -1% !important;
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+}
+  /*maintain params*/
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 0% !important;
+}
+
+  /*generation queue*/
+
+.tabs ul {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 100% !important;
+}
+  .response  {
+
+    margin-left: 0%!important;
+width: 100%;
+  }
+  .editmodal
+{    
+      width: 47%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 30%!important;
+  }
+.newview
+{
+         width: 47%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+    margin-left: 11%!important;
+}
+.newclose{
+      margin-left: 93%!important;
+    margin-top: 1%!important;
+}
+.viewalignment{
+          margin-left: 1%!important;
+    margin-top: 0%!important;
+}
+
+.removemodal
+{
+       margin-left: 23%!important;
+    margin-top: -11%!important;
+}
+.viewleft{
+          color: #3b4caa!important;
+          margin-left: -3%!important;
+}
+.newtop
+{
+         margin-top: 0%!important;
+}
+.newid {
+      
+         margin-top: -6%!important;
+    margin-left: 46%!important;
+
+}
+.newtopalign
+{
+            margin-left: 8%!important;
+    width: 50%!important;
+    margin-top: 4%!important;
+   
+}
+.dropalign{
+       margin-left: -8%!important;
+    width: 50%!important;
+    margin-top: 3%!important;
+}
+.viewuserexpiry{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -3%!important;
+     color: #3b4caa!important;
+}
+    .viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -3%!important;
+    color: #3b4caa!important;
+}
+.newswitch{
+    margin-left: 8%!important;
+    margin-top: 1%!important;
+    width: 100%!important;
+}
+.tablealt  {
+         margin-left: 7%!important;
+    margin-top: -3%!important;
+    width: 86%!important;
+  }
+  /*
+  .btn-floating.btn-large
+{
+        margin-top: -1%!important;
+    margin-left: 0%!important;
+}*/
+.filteralign
+{
+         margin-left: 74%!important;
+    margin-top: -5%!important;
+        width: 35%!important;
+}
+.side-nav {
+    position: fixed;
+    width:  280px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.pickbutton {
+width: 117%!important;
+}
+.picktouch
+{
+                margin-left: -29%!important;
+
+}
+.pickheading
+{   
+       margin-top: 2%!important;
+    width: 100%!important;
+    margin-left: -3%!important;
+}
+.pickfont
+{
+      font-size: 22px!important;
+}
+.filteralign1
+{
+      margin-left: 78%!important;
+    margin-top: -7%!important;
+        width: 35%!important;
+}
+.reportnamealign
+{
+         margin-top: 2.5%!important;
+}
+.reportnamefilter
+{
+  margin-left: -14%!important;
+}
+.reportpickheading
+{
+      margin-top: -7%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+  width: 50%!important;
+    margin-top: 1%!important;
+    margin-left: 6%!important;
+    padding-left: 0%!important;
+    float: none!important;
+}
+.reportleft  
+{
+  margin-left: -11.5%!important;
+}
+.reportbtn
+{
+   margin-left: 5%!important;
+    margin-top: 2%!important;
+    width: 30%!important;
+    padding-bottom: 3%!important;
+
+  }
+      .reportwidthdrop
+{
+      width: 55%!important;
+    margin-top: 1%!important;
+    margin-left: 1%!important;
+}
+.reportbtn1
+{
+      margin-left: -1%!important;
+    margin-top: 16.5!important;
+    width: 40%!important;
+    padding-bottom: 3%!important;
+  }
+    .reportwidthdrop
+{
+     width: 55%!important;
+    margin-top: 1%!important;
+    margin-left: 1%!important;
+}
+ .profilepicedit
+  {
+       margin-top: -11%!important;
+    margin-left: 38%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+         padding: 4px!important;
+    margin-left: 44%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {   
+       margin-left: 56%!important;
+    margin-top: 10%!important;
+  }
+  .profilelabel
+  {
+        margin-left:33%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -12%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 1%!important;
+    width: 76%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -2%!important;
+  }
+  .profilebtnedit
+  {
+    margin-top: -3%!important;
+    margin-left: 31%!important;
+
+
+  }
+  .sizeerroredit
+  {
+        margin-left: 261px!important;
+    margin-bottom: 82px!important;
+  }
+  .editlinkageedit
+  {  
+    width: 370px!important;
+    margin-top: 2%!important;
+    margin-left: 1%!important;
+  }
+  .availablecardedit
+  {
+      margin-top: -122%!important;
+  }
+  .chooseedit
+  {
+       width: 77%!important;
+    margin-left: -1%!important;
+    margin-top: 9%!important;
+  }
+
+  .selectmoduleedit
+  {
+       margin-left: 45%!important;
+    margin-top: -10%!important;
+    width: 100%!important;
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 19.2%!important;
+    margin-top: -5.5%!important;
+  }
+  .submitedit
+  {
+        margin-left: 87%!important;
+    margin-top: -7.5%!important;
+ }
+ .savechangesedit
+ {
+       margin-left: 19%!important;
+    width: 100%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+      margin-left: 45%!important;
+    margin-top: -5.5%!important;
+ }
+ .roledesedit
+ {
+  
+    margin-left: -13%!important;
+ }
+  /*login*/
+.lognlog
+{
+	margin-left: -15% !important ;
+	margin-top: 11% !important;
+}
+
+.admnlog {
+    margin-top: 8px !important;
+    margin-left: -51px !important;
+}
+
+.reportlog {
+    margin-top: 9px !important;
+    margin-left: -26px !important;
+}
+
+.lightlog{
+		width: 80% !important;
+        margin-right: 0% !important;
+		margin-top: 2% !important;
+	}
+
+	
+.userlog
+	{
+    margin-left: 9% !important;
+    width: 100% !important;
+	}
+	
+	/*dashboard*/
+	
+	 .scrollon
+  {
+	  overflow-x:auto !important;
+  }
+  .reminder{
+	margin-left: 75%!important;
+   }
+   
+   
+.floatbtn {
+    margin-top: 70px;
+    margin-left: 60px;
+}
+.passcode {
+    position: absolute !important;
+    top: 37% !important;
+    right: -59% !important;
+    padding: 1%;
+	
+}
+
+  
+  
+
+.viewleft1 {
+     color: #3b4caa!important;
+    margin-left: -1%!important;
+}
+.newtop1 {
+      margin-top: -4%!important;
+    margin-left: 2%!important;
+}
+.tablealt1 {
+    margin-left: 6%!important;
+    margin-top: -6%!important;
+    width: 88%!important;
+}
+.viewalignment1 {
+  margin-left: -1%!important;
+    margin-top: 7%!important;
+
+}
+.buttons1 {
+    margin-left: 6%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 1%!important;
+}
+.removedes
+{
+   margin-top: -5%!important;
+}
+.floatbtn {
+   width: 49px !important;
+    height: 46px !important;
+    margin-top: -1%!important;
+    margin-left: 0%!important;
+}
+.floaticon {
+     margin-top: -3px !important;
+    margin-left: 2px !important;
+    font-size: 160%!important;
+}
+.aleft1
+{
+     margin-left: -13%!important;
+}
+.newbtn
+{
+      margin-top: 0%!important;
+    padding-bottom: 2%!important;
+    margin-left: 0%!important;
+}
+.frmschedule{
+	margin-top: 44px !important;
+    margin-left: -110% !important;
+	margin-bottom:12%;
+}
+
+.fromdate{
+	margin-top: 21px !important;
+    margin-left: -92% !important;
+}
+.enddate{
+	margin-top:-64px !important;
+}
+.endschedate{
+	margin-top:-39px !important;
+	
+}
+
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.eodeditreports{
+	
+	margin-top:-12px !important;
+	margin-left:0% !important;
+	width:96%;
+}
+.schedulerlabel
+{
+     margin-left: -3%!important;
+}
+.schedulerlabel1
+{
+  margin-left: 9%!important;
+}
+  .schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -8%!important;
+    width: 105%!important;
+    padding-bottom: 0%!important;
+}
+  .tablealt2 {
+         margin-left: 7%!important;
+    margin-top: 2%!important;
+    width: 86%!important;
+}
+.schedulestoplabel
+{
+ margin-top: -2%!important;
+    margin-left: 0%!important;
+    width: 104%!important;
+}
+.newreportsview
+{
+       width: 42%!important;
+    margin-left: 3%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.reportmodule{
+	margin-top:-11px !important;
+}
+.applicableformats{
+	  margin-left: -102%;
+    margin-top: 11px !important;
+}
+.pdfformat{
+    margin-left: -417px !important;
+    margin-bottom: 53px !important;
+    margin-top: 11px !important;
+}
+.reportseditmodal{
+	width: 37%!important;
+    top: 3%!important;
+    margin-left: 131px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+	font-size: 1.1rem!important;
+    font-weight: normal!important;
+    color: #3b4caa!important;
+    margin-left: 0% !important;
+    margin-top: -35px;
+}
+.pdfformatview{
+margin-bottom: 36px !important;
+    margin-left: -173px !important
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left: -16%!important;
+}
+.reporttable{
+	
+           margin-left: 5%!important;
+    margin-top: -3%!important;
+    width: 97%!important;
+  }
+ .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+      
+  }
+   .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+      margin-top: -3%!important;
+    margin-left: 1%!important;
+}
+.editsystembtn1
+{  
+    margin-top: -3%!important;
+    margin-left: 0%!important;
+    width: 68%!important;
+
+}
+.viewsystembtn
+{
+      margin-left: -36%!important;
+    margin-top: -3.1%!important;
+    width: 50%!important;
+}
+
+.editparametername
+{
+       margin-top: 9%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.editparametername1 {
+            margin-top: 9%!important;
+    width: 148%!important;
+    margin-left: 5%!important;
+}
+.savebtn
+{
+      margin-top: 9%!important;
+    padding-bottom: -3%!important;
+    margin-left: 28%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -6%!important;
+}
+.alarmbtn
+{
+      width: 47px !important;
+    height: 45px !important;
+    margin-top: -14%!important;
+    margin-left: -3%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+         margin-left: 5%!important;
+    width: 42%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+       margin-left: 76% !important;
+    width: 44% !important;
+    margin-top: -2%!important;
+}
+.schdtab {
+    margin-top: 0% !important;
+}
+
+.viewsched
+{
+	margin-left: 0% !important;
+}
+.yesedit
+  {
+   margin-left: 7%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+      margin-left: 27%!important;
+    margin-top: -8.5%!important;
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -4%!important;
+    color: #3b4caa!important;
+
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+        font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -9%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+      color: #3b4caa!important;
+    margin-left: -9%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 68%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 33%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+  .logcard {
+    height: auto;
+}
+
+}
+
+
+@media  screen and (max-width: 768px) {
+  /*generation queue view*/
+.paramID {
+    margin-left: 9% !important;
+}
+.reportlink {
+    width: 90% !important;
+  width: 90% !important;
+    margin-left: 7% !important;
+}
+.param_btn {
+    margin-left: -1% !important;
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+}
+  .viewuserexpiry{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -5%!important;
+      color: #3b4caa!important;
+}
+    .response  {
+
+    margin-left: 4%!important;
+    width: 100%;
+  }
+  .magic  {
+        margin-left: -1%!important;
+        width: 100%;    
+  }
+ .widalign  {
+        width: 25%!important;    
+  }
+   .tablealt  {
+         margin-left: 0%!important;
+    margin-top: -3%!important;
+    width: 98%!important;
+  }
+   .buttons  {
+       margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 0%!important;
+  }
+   .newdata {
+         margin-top: -2%!important;
+    width: 106%!important;
+    margin-left: -3%!important;
+    margin-bottom: -8%!important;
+
+}
+
+.newswitch{
+  margin-left: 19%!important;
+    width: 100%!important;
+}
+.aleft{
+      margin-left: 9%!important;
+}
+.newview
+{
+           width: 55%!important;
+    margin-left: 7%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.newclose{
+         margin-left: 93%!important;
+    margin-top: 1%!important;
+}
+.viewalignment{
+        margin-left: 1%!important;
+    margin-top: -6%!important;
+}
+.newtopalign
+{
+            margin-left: 8%!important;
+    width: 50%!important;
+    margin-top: 4%!important;
+   
+}
+.dropalign{
+       margin-left: -8%!important;
+    width: 50%!important;
+    margin-top: 3%!important;
+}
+    
+    .viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -5%!important;
+      color: #3b4caa!important;
+}
+.viewleft{
+          margin-left: -5%!important;
+            color: #3b4caa!important;
+}
+.editmodal
+{
+       width: 62%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 95%!important;
+    margin-left: 19%!important;
+}
+
+.removemodal
+{
+       margin-left: 34%!important;
+    margin-top: -8%!important;
+}
+.newid {
+   width: 50%!important;
+    margin-top: 2%!important;
+    margin-left: -4%!important;  
+}
+.newtop
+{
+         margin-top: 2%!important;
+    width: 50%!important;
+}
+/*
+.btn-floating.btn-large
+{
+       
+       margin-top: -2%!important;
+   
+    margin-left: -2%!important;
+}*/
+
+.filteralign
+{
+         margin-left: 68%!important;
+    margin-top: -7%!important;
+        width: 35%!important;
+}
+.side-nav {
+    position: fixed;
+    width: 280px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.pickbutton
+{
+      width: 110%!important;
+}
+.picktouch
+{
+             margin-left: -48%!important;
+}
+.pickheading
+{   
+       margin-top: 4%!important;
+    width: 100%!important;
+    margin-left: -3%!important;
+}
+.pickfont
+{
+      font-size: 21px!important;
+}
+.filteralign1
+{
+         margin-left: 73%!important;
+    margin-top: -9%!important;
+        width: 35%!important;
+}
+.reportnamealign
+{
+         margin-top: 3.5%!important;
+}
+.reportnamefilter
+{
+  margin-left: -17.5%!important;
+}
+.reportpickheading
+{
+      margin-top: -10%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+      width: 50%!important;
+    margin-top: 1%!important;
+    margin-left: 6%!important;
+    padding-left: 0%!important;
+    float: none!important;
+}
+.reportleft  
+{
+  margin-left: -15%!important;
+}
+.reportbtn
+{
+      margin-left: 4%!important;
+    margin-top: 2%!important;
+    width: 40%!important;
+    padding-bottom: 3%!important;
+  }
+  .reportbtn1
+{
+      margin-left: -3%!important;
+    margin-top: 12.5!important;
+    width: 40%!important;
+    padding-bottom: 3%!important;
+  }
+      .reportwidthdrop
+{
+     width: 55%!important;
+    margin-top: 1%!important;
+    margin-left: 1%!important;
+}
+ .profilepicedit
+  {
+       margin-top: -11%!important;
+    margin-left: 38%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+         padding: 4px!important;
+    margin-left: 44%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {   
+       margin-left: 57%!important;
+    margin-top: 7.8%!important;
+  }
+  .profilelabel
+  {
+        margin-left:33%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -12%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 1%!important;
+    width: 76%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -2%!important;
+  }
+  .profilebtnedit
+  {
+     margin-top: -3%!important;
+    margin-left: 30%!important;
+
+  }
+  .sizeerroredit
+  {
+       margin-left: 227px!important;
+    margin-bottom: 76px!important;
+  }
+  .editlinkageedit
+  {
+        width: 274px!important;
+         margin-top: 2%!important;
+    margin-left: 1%!important;
+  }
+  .availablecardedit
+  {
+   margin-top: -165%!important;
+  }
+  .chooseedit
+  {
+        width: 55%!important;
+    margin-left: 9%!important;
+    margin-top: 6%!important;
+  }
+
+  .selectmoduleedit
+  {
+        margin-left: 45.5%!important;
+    margin-top: -13%!important;
+    width: 100%!important;
+
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 19.2%!important;
+    margin-top: -5.5%!important;
+  }
+  .submitedit
+  {
+        margin-left: 86%!important;
+    margin-top: -10.5%!important;
+ }
+ .savechangesedit
+ {
+      margin-left: 9%!important;
+    width: 100%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+      margin-left: 46%!important;
+    margin-top: -7%!important;
+ }
+ .roledesedit
+ {
+      margin-left: -12%!important;
+ }
+  .roledesedit1
+ {   
+   margin-left: 1%!important;
+    margin-top: -2.2%!important;
+    width: 48%!important;
+ }
+ /*login*/
+.lognlog
+{
+  margin-left: -15% !important;
+  margin-top: 11% !important;
+}
+
+.admnlog {
+    margin-top: 8px !important;
+    margin-left: -51px !important;
+}
+
+.reportlog {
+    margin-top: 9px !important;
+    margin-left: -26px !important;
+}
+
+.lightlog{
+    width: 80% !important;
+        margin-right: 0% !important;
+    margin-top: 2% !important;
+  }
+
+  
+.userlog
+  {
+    margin-left: 9% !important;
+    width: 100% !important;
+  }
+
+.viewleft1 {
+     color: #3b4caa!important;
+    margin-left: -5%!important;
+}
+.newtop1 {
+      margin-top: -4%!important;
+    margin-left: 2%!important;
+}
+.tablealt1 {
+        margin-left: 0%!important;
+    margin-top: -8%!important;
+    width: 100%!important;
+}
+.viewalignment1 {
+    margin-left: 1%!important;
+    margin-top: 4%!important;
+}
+.buttons1 {
+    margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 100%!important;
+    padding-bottom: 1%!important;
+}
+
+.removedes
+{
+   margin-top: -5%!important;
+}
+.floatbtn {
+      width: 40px !important;
+    height: 39px !important;
+    margin-top: -2%!important;
+    margin-left: -2%!important;
+}
+.floaticon {
+    margin-top: -8px !important;
+    margin-left: 2px !important;
+    font-size: 142%!important;
+}
+.aleft1
+{
+      margin-left: -18%!important;
+}
+.newbtn
+{
+      margin-top: 0%!important;
+    padding-bottom: 2%!important;
+    margin-left: 0%!important;
+}
+
+
+.changeuser {
+    margin-left: -5% !important;
+    width: 100% !important;
+}
+
+.changecrd
+{
+	width:109% !important;
+}
+
+  /*change paswrd*/
+   
+   .passcode {
+    position: absolute !important;
+    top: 46% !important;
+    right: 38px !important;
+    padding: 22px;
+}
+
+.changebtn{
+	width: 105% !important;
+    margin-top: 83% !important;
+    margin-left: 14%;
+	}
+
+	
+	#pswd_info::before {
+   
+    display: none;
+}
+
+.changecrd
+{
+	width:109% !important;
+}
+
+.lightchange{
+		width: 105% !important;
+		margin-left: 14%;
+        
+	}
+	.frmschedule{
+	    margin-top: 10px !important;
+    margin-left: -106% !important;
+}
+
+.fromdate{
+	margin-top: -17px !important;
+    margin-left: -93% !important;
+}
+.enddate{
+	margin-top: -99px !important;
+    margin-left: 108%;
+    width: 45%;
+}
+.endschedate{
+	
+	        margin-top: -71px !important;
+    margin-bottom: -44px !important;
+    margin-left: 124%;
+}
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important;
+}
+
+.add_sch_status_drp{
+	margin-top:6px !important;
+margin-bottom:14px ;
+}
+.eodeditreports{
+	margin-left:-46% !important;
+	margin-top:12px !important;
+}
+.schedulerlabel
+{
+     margin-left: -3%!important;
+}
+.schedulerlabel1
+{
+  margin-left: 9%!important;
+}
+  .schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -8%!important;
+    width: 105%!important;
+    padding-bottom: 0%!important;
+}
+  .tablealt2 {
+        margin-left: 7%!important;
+    margin-top: 2%!important;
+    width: 87%!important;
+}
+.schedulestoplabel
+{
+ margin-top: -2%!important;
+    margin-left: 0%!important;
+    width: 104%!important;
+}
+ .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+      
+  }
+   .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+    margin-top: -5%!important;
+    margin-left: 0%!important;
+    width: 46%!important;
+}
+.editsystembtn1
+{  
+  margin-top: -6%!important;
+    margin-left: 0%!important;
+    width: 68%!important;
+}
+.viewsystembtn
+{
+      margin-left: -26%!important;
+    margin-top: -6.1%!important;
+    width: 44%!important;
+}
+.editparametername
+{
+      margin-top: 11%!important;
+    width: 148%!important;
+    margin-left: -97%!important;
+}
+.editparametername1 {
+          margin-top: 16%!important;
+    width: 199%!important;
+    margin-left: -117%!important;
+}
+.savebtn
+{
+        margin-top: 39%!important;
+    padding-bottom: -3%!important;
+    margin-left: -50%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -6%!important;
+}
+.alarmbtn {
+width: 47px !important;
+height: 45px !important;
+margin-top: 171%!important;
+margin-left: 137%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+        margin-left: 5%!important;
+    width: 90%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+         margin-left: 59% !important;
+    width: 45% !important;
+    margin-top: 10%!important;
+}
+
+.schdtab {
+    margin-top: 0% !important;
+}
+
+.viewsched
+{
+	margin-left: 0% !important;
+}
+
+.myreportbtn
+{
+	margin-left: -1% !important;
+    width: 88% !important;
+
+}
+.yesedit
+  {
+      margin-left: 7%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+       margin-left: 28%!important;
+    margin-top: -8.5%!important;
+  }
+  .schedulestatuslabel {
+        font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -4%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -11%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+       color: #3b4caa!important;
+    margin-left: -11%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: -34%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 33%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+  .logcard {
+    height: auto;
+}
+
+}
+
+
+@media  screen and (max-width: 425px) {
+  .reportlink {
+    width: 91% !important;
+    margin-left: 9% !important;
+}
+.param_btn {
+    margin-left: 7% !important;
+    width: 260% !important;
+}
+.paramID {
+    margin-left: 15% !important;
+}
+  /*generation queue*/
+.parambtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 228%!important;
+    margin-bottom: 9%;
+}
+
+.param_reportbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 98%!important;
+    margin-bottom: 3%;
+}
+
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 9% !important;
+    width: 105%;
+}
+
+.param_reportbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 142%!important;
+    margin-bottom: 3%;
+}
+
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 9% !important;
+    width: 154%;
+}
+  .chartbtn{
+text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 100%!important;
+    margin-bottom: 3%;
+}
+
+  /*generation queue*/
+.tabwid
+{
+  overflow-x: auto !important;
+}
+  
+.distmodal
+{
+  width:100% !important;
+}
+.newreportsview
+{
+         width: 64%!important;
+    margin-left: 3%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.reportmodule{
+	margin-top:9px !important;
+}
+.applicableformats{
+	    margin-left: -102%;
+    margin-top: -26px;
+}
+.pdfformat{
+margin-left: -491px !important;
+    margin-bottom: 36px !important;
+}
+.reportseditmodal{
+	width: 68%!important;
+    top: 3%!important;
+    margin-left: 14px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    color: #3b4caa!important;
+    margin-left: 0%;
+    margin-top: -48px;
+}
+.pdfformatview{
+       margin-left: -170px !important;
+    margin-bottom: 23px !important;
+
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left: -16%!important;
+}
+.reporttable{
+	margin-left: 6%!important;
+    margin-top: -3%!important;
+    width: 97%!important;
+  }
+  .param{
+	  margin-left:-13% !important;
+  }
+
+
+  .response  {
+     margin-left: 0%!important;
+     margin-top: -5%!important;
+     width: 100%;
+  }
+  .out{
+
+           margin-top: -8.5%!important;
+  }
+   .background  {
+          margin-left: -4%!important;
+    margin-top: 0%!important;
+    width: 108%!important;
+    margin-bottom: -7%;
+  }
+  .tablealt  {
+      margin-left: 2%!important;
+    margin-top: -8%!important;
+    width: 100%!important;
+  }
+    .buttons  {
+        margin-left:6%!important;
+    margin-top: -1%!important;
+    width: 76%!important;
+      padding-bottom: 0%!important;
+  }
+    .signout {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 118%!important;
+     margin-bottom: 3%;
+}
+
+  .newdata {
+       margin-top: -10%!important;
+    width: 120%!important;
+    margin-left: -10%!important;
+    margin-bottom: -18%!important;
+
+}
+.newuser {
+       margin-top: -38%!important;
+    width: 150%!important;
+    margin-left: 11%!important;
+    font-size: 81%!important;
+      
+}
+.newid {
+    width: 96%!important;
+    margin-top: 8%!important;
+    margin-left: 0%!important;    
+}
+.aleft{
+      margin-left: 3%!important;
+}
+.newswitch{
+  margin-left: 19%!important;
+    width: 100%!important;
+}
+.newbtn
+{
+     margin-top: -2%!important;
+    padding-bottom: 2%!important;
+    margin-left: 18%!important;
+}
+.newtop
+{
+      margin-top: 0%!important;
+      width: 96%!important; 
+}
+.newview
+{
+       width: 94%!important;
+    margin-left: 3%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.newclose{
+         margin-left: 91%!important;
+    margin-top: 3%!important;
+}
+.viewalignment{
+      margin-left: 1%!important;
+    margin-top: -9%!important;
+}
+.viewleft{
+          margin-left: -8%!important;
+            color: #3b4caa!important;
+}
+.viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -17%!important;
+      color: #3b4caa!important;
+}
+.newtopalign
+{
+         margin-top: 4%!important;
+    width: 100%!important;
+    margin-left: 6%!important;
+}
+.dropalign{
+  margin-left: 6.5%!important;
+}
+.editmodal
+{
+    width: 94%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 95%!important;
+	  margin-left: 3%!important;						  
+
+}
+.savebtn
+{
+       margin-top: 11%!important;
+    padding-bottom: 3%!important;
+    margin-left: 23%!important;
+}
+.editleft{
+      margin-left: 3%!important;
+}
+.viewuserexpiry{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -8%!important;
+      color: #3b4caa!important;
+}
+.removemodal
+{
+       margin-left: 17%!important;
+    margin-top: -12%!important;
+}
+/*
+.btn-floating.btn-large
+{
+   padding: 0;
+    height: 40px!important;
+    width: 10%!important;
+    margin-top: -12%!important;
+    margin-left: -3%!important;
+}
+.btn-floating.btn-large i {
+     line-height: 36px;
+    margin-left: -26%!important;
+    font-size: 20px!important;
+}*/
+.side-nav {
+    position: fixed;
+    width: 232px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.modal .modal-content {
+  padding: 0px!important;
+}
+.pickbutton
+{
+        width: 41%!important;
+    padding-left: 4%!important;
+    padding-right: 11.5%!important;
+    margin-top: 8%!important;
+    margin-left: 29%!important;
+}
+.picktouch
+{
+      margin-left: 5%!important;
+}
+.pickheading
+{
+       margin-top: 13%!important;
+    margin-left: 2%!important;
+}
+.pickfont
+{
+      font-size: 18px!important;
+}
+.reportpickheading
+{
+      margin-top: -15%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+  width: 92%!important;
+      margin-top: 1%!important;
+}
+.reportleft  
+{
+  margin-left: -12%!important;
+}
+.reportbtn
+{
+   margin-left: 3%!important;
+       margin-top: 4%!important;
+    width:80%!important;
+  }
+    .reportwidthdrop
+{
+  width: 90%!important;
+      margin-top: 1%!important;
+          margin-left: 5%!important;
+}
+.reportbtn1
+{
+      margin-left: 3%!important;
+    margin-top: -8.5!important;
+    width: 80%!important;
+    padding-bottom: 3%!important;
+  }
+     .profilepicedit
+  {
+    margin-top: -15%!important;
+    margin-left: 17%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+        padding: 4px!important;
+    margin-left: 24%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {
+        margin-left: 31%!important;
+    margin-top: 4.8%!important;
+  }
+  .profilelabel
+  {
+        margin-left: 21%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -5%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 4%!important;
+    width: 82%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -10%!important;
+  }
+  .profilebtnedit
+  {
+        margin-top: -5%!important;
+    margin-left: 21%!important;
+  }
+  .sizeerroredit
+  {
+   margin-left: 95px!important;
+    margin-bottom: 64px!important;
+  }
+  .editlinkageedit
+  {
+        width: 378px!important;
+    margin-top: 2%!important;
+    margin-left: 1%!important;
+  }
+  .availablecardedit
+  {
+   margin-top: 4%!important;
+       margin-left: 0% !important;
+  }
+  .chooseedit
+  {
+       width: 77%!important;
+    margin-left: -78%!important;
+    margin-top: 16%!important;
+
+  }
+
+  .selectmoduleedit
+  {
+    margin-left: 0.5%!important;
+    margin-top: -3%!important;
+    width: 100%!important;
+
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 19.2%!important;
+    margin-top: -5.5%!important;
+  }
+  .submitedit
+  {
+   margin-left: 83%!important;
+    margin-top: -8.5%!important;
+ }
+ .savechangesedit
+ {
+       margin-left: 0%!important;
+    width: 86%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+       margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+ }
+ .roledesedit
+ {
+       margin-left: -9%!important;
+ }
+ .roledesedit1 {
+    margin-left: 1%!important;
+    margin-top: -2.2%!important;
+    width: 98%!important;
+}
+  /*login*/
+.lightlog{
+		width: 90% !important;
+        margin-right: 0% !important;
+		margin-top: 2% !important;
+	}
+.reportlog {
+    margin-top: -25px !important;
+    margin-left: 55px !important;
+}
+
+.admnlog {
+    margin-top: 57px !important;
+    margin-left: -133px !important;
+}
+	
+	/*dashboard*/
+
+
+table.dataTable thead .sorting_asc
+{
+	    padding-right: 7% !important;
+}
+
+.savwidth
+{
+	margin-left: 68% !important;
+    width: 42% !important;
+}
+
+.floatbtn
+{
+	width: 46px !important;
+    height: 41px !important;
+	margin-top: 180px;
+    margin-left: 10px;
+}
+
+.floaticon
+{
+	margin-top: -7px !important;
+    margin-left: 1px !important;
+}
+.wish {
+    font-weight: 400;
+    font-size: 20px;
+	margin-top: -8%;
+	
+}
+.viewleft1 {
+    color: #3b4caa!important;
+    margin-left: -20%!important;
+   
+}
+.newtop1 {
+    margin-top: -9%!important;
+    margin-left: 3%!important;
+}
+.tablealt1 {
+     margin-left: -2%!important;
+    margin-top: -16%!important;
+    width: 104%!important;
+}
+.viewalignment1 {
+    margin-left: 1%!important;
+    margin-top: 4%!important;
+}
+.removedes
+{
+       margin-top: -9%!important;
+}
+.floatbtn {
+       width: 40px !important;
+    height: 39px !important;
+    margin-top: -11%!important;
+    margin-left: -3%!important;
+}
+.floaticon {
+    margin-top: -8px !important;
+    margin-left: 2px !important;
+    font-size: 142%!important;
+}
+.buttons1 {
+      margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+    padding-bottom: 1%!important;
+}
+
+   .dcard
+   {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+	
+   }
+   
+   /*change paswrd*/
+   
+   .passcode {
+   position: absolute !important;
+    top: 46% !important;
+    right: 1px !important;
+    padding-left: 29px;
+}
+
+.changebtn {
+    width: 99% !important;
+    margin-top: 90% !important;
+    margin-left: 5%;
+}
+
+	
+	#pswd_info::before {
+   
+    display: none;
+}
+
+.changecrd
+{
+	width:109% !important;
+}
+
+.lightchange{
+		width: 99% !important;
+		margin-left: 5%;
+        
+	}
+	
+	.changeuser {
+    margin-left: -5% !important;
+    width: 160% !important;
+}
+.removemodal1 {
+    margin-left: 30%!important;
+    margin-top: 0%!important;
+}
+.frmschedule{
+	margin-top:-3px !important;
+	margin-left:0px !important;
+}
+
+.fromdate{
+	margin-top:-35px !important;
+	margin-left:0px !important;
+}
+.enddate{
+margin-top: -82px !important;
+   margin-left: 0px !important;
+}
+.endschedate{
+   margin-left: 0px !important;
+   margin-top: -58px !important;
+
+}
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.schedulerlabel
+{
+  margin-left: -9%!important;
+}
+.schedulerlabel1
+{
+     margin-left: 2%!important;
+}
+  .schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -12%!important;
+    width: 76%!important;
+    padding-bottom: 0%!important;
+}
+  .tablealt2 {
+    margin-left: 5%!important;
+    margin-top: 2%!important;
+    width: 89%!important;
+}
+.newreportsview
+{
+           width: 60%!important;
+    margin-left: 1%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.eodeditreports{
+margin-top: 12px !important;
+margin-left:0% !important;
+}
+.schedulestoplabel
+{
+     margin-top: -5%!important;
+    margin-left: 7%!important;
+    width: 104%!important;
+}
+ .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+      
+  }
+   .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+      margin-top: -3%!important;
+    margin-left: 1%!important;
+    width: 42%!important;
+}
+.editsystembtn1
+{  
+  margin-top: -6%!important;
+    margin-left: -2%!important;
+    width: 68%!important;
+}
+.viewsystembtn
+{
+      margin-left: -2%!important;
+    margin-top: 0%!important;
+    width: 63%!important;
+}
+.editparametername
+{
+         margin-top: 5%!important;
+    width: 90%!important;
+    margin-left: -2%!important;
+}
+.editparametername1 {
+    margin-top: 10%!important;
+    width: 186%!important;
+    margin-left: -2%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -13%!important;
+}
+.alarmbtn {
+width: 47px !important;
+height: 45px !important;
+margin-top: 404%!important;
+margin-left: 25%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+        margin-left: 5%!important;
+    width: 90%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+          margin-left: 51% !important;
+    width: 49% !important;
+    margin-top: 9%!important;
+}
+
+.schdtab {
+    margin-top: 0% !important;
+}
+
+.viewsched
+{
+	margin-left: 0% !important;
+}
+
+.eitwsched
+{
+	margin-left: 0% !important;
+}
+
+.myreportbtn
+{
+	margin-left: -1% !important;
+    width: 88% !important;
+
+}
+.logoutpopup
+{
+      font-size: 19px;
+    margin-top: 3%!important;
+}
+.proceedyeslogout
+{
+      width: 100%!important;
+}
+
+.slick-next
+{
+	margin-top: -13% !important;
+    margin-right: 22% !important;
+}
+
+.slick-prev
+{
+	margin-top: -13% !important;
+    margin-left: 22% !important;
+}
+.yesedit
+  {
+       margin-left: 22%!important;
+    margin-top: 3%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+      margin-left: 1%!important;
+    margin-top: 3.5%!important;
+
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -8%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -17%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+   color: #3b4caa!important;
+    margin-left:-8%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 19%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 21%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+  
+  .logcard {
+    height: auto;
+}
+}
+
+
+@media  screen and (max-width: 375px) {
+
+
+.paramID {
+    margin-left: 18% !important;
+}
+
+.param_btn {
+    margin-left: 7% !important;
+    width: 218% !important;
+}
+  .param_reportbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 121%!important;
+    margin-bottom: 3%;
+}
+
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 9% !important;
+    width: 130%;
+}
+  .schedulerlabel
+{
+     margin-left: -10%!important;
+}
+.schedulerlabel1
+{
+     margin-left: 2%!important;
+}
+  .schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -15%!important;
+    width: 76%!important;
+    padding-bottom: 0%!important;
+}
+  .tablealt2 {
+    margin-left: 5%!important;
+    margin-top: 2%!important;
+    width: 89%!important;
+}
+.reportmodule{
+	margin-top:9px !important;
+}
+.applicableformats{
+	    margin-left: -102%;
+    margin-top: -26px;
+}
+.pdfformat{
+margin-left: -491px !important;
+    margin-bottom: 36px !important;
+}
+.reportseditmodal{
+	width: 43%!important;
+    top: 3%!important;
+    margin-left: 14px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+	margin-left: 0px;
+    margin-top: -26px;
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    color: #3b4caa!important;
+	 
+  
+}
+.pdfformatview{
+margin-left: -156px !important;
+    margin-bottom: 30px !important
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left: -8%!important;
+}
+.param{
+	margin-left:5% !important;
+}
+.reporttable{
+	margin-left: 7%!important;
+    margin-top: -4%!important;
+    width: 80%!important;
+  }
+  .response  {
+        margin-left: -9%!important;
+    margin-top: -5%!important;
+    width: 100%;
+  }
+  .out{
+
+        margin-top: -10%!important;
+  }
+    .background  {
+        margin-left: -3%!important;
+    margin-top: 0%!important;
+    width: 107%!important;
+        margin-bottom: -9%;
+  }
+  .tablealt  {
+          margin-left: 2%!important;
+    margin-top: -10%!important;
+    width: 100%!important;
+  }
+    .buttons  {
+        margin-left:6%!important;
+    margin-top: -1%!important;
+    width: 76%!important;
+      padding-bottom: 0%!important;
+  }
+   .signout {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 118%!important;
+     margin-bottom: 3%;
+}
+
+  .newdata {
+      margin-top: -11%!important;
+    width: 124%!important;
+    margin-left: -12%!important;
+    margin-bottom: -22%!important;
+}
+.newuser {
+       margin-top: -38%!important;
+    width: 150%!important;
+    margin-left: 11%!important;
+    font-size: 81%!important;
+      
+}
+.newid {
+      
+    width: 96%!important; 
+        margin-top: 7%!important;
+    margin-left: 1%!important;
+}
+.aleft{
+      margin-left: 3%!important;
+}
+.newswitch{
+  margin-left: 12%!important;
+    width: 100%!important;
+}
+.newbtn
+{
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 13%!important;
+}
+.newtop
+{
+      margin-top: 0%!important;
+      width: 96%!important; 
+}
+.newview
+{
+       width: 94%!important;
+    margin-left: 3%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.newreportsview
+{
+       width: 44%!important;
+    margin-left: 3%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.newclose{
+         margin-left: 90%!important;
+    margin-top: 3%!important;
+}
+.viewalignment{
+      margin-left: 1%!important;
+    margin-top: -14%!important;
+}
+.viewleft{
+          margin-left: -9.5%!important;
+            color: #3b4caa!important;
+}
+.viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -19%!important;
+      color: #3b4caa!important;
+}
+.viewuserexpiry{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -9%!important;
+      color: #3b4caa!important;
+}
+.newtopalign
+{
+         margin-top: 4%!important;
+    width: 100%!important;
+    margin-left: 7%!important;
+}
+.dropalign{
+  margin-left: 7.2%!important;
+}
+.editmodal
+{
+    width: 94%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 95%!important;
+	 margin-left: 3%!important;
+ 
+}
+.savebtn
+{
+      margin-top: 8%!important;
+    padding-bottom: 3%!important;
+    margin-left: 15%!important;
+}
+.editleft{
+      margin-left: 3%!important;
+}
+.removemodal
+{
+     margin-left: 14%!important;
+    margin-top: -14%!important;
+}
+/*
+.btn-floating.btn-large
+{
+     padding: 0;
+    height: 36px!important;
+    width: 11%!important;
+    margin-top: -13%!important;
+    margin-left: -2%!important;
+}
+.btn-floating.btn-large i {
+ line-height: 35px;
+    margin-left: -31%!important;
+    font-size: 18px!important;
+} */
+.side-nav {
+    position: fixed;
+    width: 232px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.modal .modal-content {
+  padding: 0px!important;
+}
+.pickbutton
+{
+  width: 45%!important;
+    padding-left: 4%!important;
+    padding-right: 11.5%!important;
+    margin-top: 8%!important;
+    margin-left: 26%!important;
+}
+.picktouch
+{
+      margin-left: 5%!important;
+}
+.pickheading
+{
+   margin-top: 13%!important;
+    margin-left: 2%!important;
+}
+.pickfont
+{
+      font-size: 18px!important;
+}
+.reportpickheading
+{
+  margin-top: -17%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+  width: 90%!important;
+      margin-top: 1%!important;
+}
+.reportleft  
+{
+  margin-left: -14%!important;
+}
+.reportbtn
+{
+   margin-left: 3%!important;
+       margin-top: 4%!important;
+    width:80%!important;
+  }
+  .reportwidthdrop
+{
+  width: 90%!important;
+      margin-top: 1%!important;
+          margin-left: 5%!important;
+}
+.reportbtn1
+{
+     margin-left: 3%!important;
+    margin-top: -8.5!important;
+    width: 80%!important;
+    padding-bottom: 3%!important;
+  }
+   .profilepicedit
+  {
+    margin-top: -15%!important;
+    margin-left: 17%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+        padding: 4px!important;
+    margin-left: 24%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {
+   margin-left: 23%!important;
+    margin-top: 2.8%!important;
+  }
+  .profilelabel
+  {
+        margin-left: 18%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -8%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 4%!important;
+    width: 82%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -12%!important;
+  }
+  .profilebtnedit
+  {
+       margin-top: -5%!important;
+    margin-left: 16%!important;
+  }
+  .sizeerroredit
+  {
+       margin-left: 64px!important;
+    margin-bottom: 55px!important;
+  }
+
+  .editlinkageedit
+  {
+        width: 327px!important;
+    margin-top: 2%!important;
+    margin-left: 1%!important;
+  }
+  .availablecardedit
+  {
+   margin-top: 4%!important;
+       margin-left: 0% !important;
+  }
+  .chooseedit
+  {
+       width: 65%!important;
+    margin-left: -76%!important;
+    margin-top: 15%!important;
+  }
+
+  .selectmoduleedit
+  {
+    margin-left: 0.5%!important;
+    margin-top: -3%!important;
+    width: 100%!important;
+
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 19.2%!important;
+    margin-top: -5.5%!important;
+  }
+  .submitedit
+  {
+        margin-left: 80%!important;
+    margin-top: -10.5%!important;
+ }
+ .savechangesedit
+ {
+       margin-left: 0%!important;
+    width: 86%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+       margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+ }
+ .roledesedit
+ {
+       margin-left: -10%!important;
+
+ }
+ .roledesedit1 {
+    margin-left: 1%!important;
+    margin-top: -2.2%!important;
+    width: 98%!important;
+}
+  /*login*/
+.admnlog {
+    margin-top: 50px !important;
+    margin-left: -119px !important;
+}
+
+.reportlog {
+    margin-top: -23px !important;
+    margin-left: 48px !important;
+}
+.viewleft1 {
+    color: #3b4caa!important;
+    margin-left: -20%!important;
+   
+}
+.newtop1 {
+    margin-top: -9%!important;
+    margin-left: 3%!important;
+}
+.tablealt1 {
+     margin-left: -2%!important;
+    margin-top: -16%!important;
+    width: 104%!important;
+}
+.viewalignment1 {
+    margin-left: 1%!important;
+    margin-top: 4%!important;
+}
+.removedes
+{
+       margin-top: -9%!important;
+}
+.floatbtn {
+      width: 40px !important;
+    height: 39px !important;
+    margin-top: -13%!important;
+    margin-left: -3%!important;
+}
+.floaticon {
+    margin-top: -8px !important;
+    margin-left: 2px !important;
+    font-size: 142%!important;
+}
+.buttons1 {
+      margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+    padding-bottom: 1%!important;
+}
+.changecrd
+{
+	width:100% !important;
+}
+
+/*chaangepaswrd*/
+.lightchange{
+		width: 90% !important;
+		margin-left: 0%;
+		
+	}
+	.changebtn{
+	width: 90% !important;
+    margin-left: 0%;
+	}
+	.changeuser {
+    margin-left: -5% !important;
+    width: 160% !important;
+}
+.removemodal1 {
+    margin-left: 24%!important;
+    margin-top: 0%!important;
+}
+.frmschedule{
+	margin-top:-3px !important;
+	margin-left:0px !important;
+}
+
+.fromdate{
+	margin-top:-35px !important;
+	margin-left:0px !important;
+}
+.enddate{
+margin-top: -75px !important;
+   margin-left: 0px !important;
+}
+.endschedate{
+   margin-top: -48px !important;
+   margin-left: 0px !important;
+   margin-bottom: 34px !important
+
+}
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.eodeditreports{
+	    margin-top: -11px !important;
+    margin-left: 0% !important;
+    width: 95%;
+	
+}
+.schedulestoplabel
+{
+     margin-top: -4%!important;
+       margin-left: 1%!important;
+    width: 104%!important;
+}
+.newreportsview
+{
+     width: 51%!important;
+    margin-left: 2%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+
+}
+.reportmodule{
+	margin-top: 9px ! important;
+    width: 96%;
+}
+.applicableformats{
+	    margin-left: 0px;
+    margin-top: 0px;
+}
+.pdfformat{
+    margin-left: -179px!important;
+    margin-bottom: 42px !important;
+    margin-top: 32px !important;
+}
+.reportseditmodal{
+	width: 50%!important;
+    top: 3%!important;
+    margin-left: 14px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+	    margin-left: 0px;
+    margin-top: -26px;
+}
+.pdfformatview{
+    margin-left: -179px!important;
+    margin-bottom: 42px !important;
+    margin-top: 14px !important;
+}
+.schedhulreport{
+	color: #3b4caa!important;
+          margin-left: -10%!important;
+}
+.param{
+	margin-left:0px !important;
+}
+.reporttable{
+	
+         margin-left: 2%!important;
+    margin-top: -11%!important;
+    width: 97%!important;
+  }
+   .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+      
+  }
+   .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+       margin-top: -3%!important;
+    margin-left: -1%!important;
+    width: 44%!important;
+}
+.viewsystembtn
+{
+     margin-left: -2%!important;
+    margin-top: 0%!important;
+    width: 72%!important;
+}
+.editsystembtn1
+{
+            margin-top: -6%!important;
+    margin-left: -2%!important;
+    width: 77%!important;
+}
+
+.editparametername
+{
+         margin-top: 5%!important;
+    width: 90%!important;
+    margin-left: -2%!important;
+}
+.editparametername1 {
+    margin-top: 10%!important;
+    width: 186%!important;
+    margin-left: -2%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -13%!important;
+}
+.alarmbtn {
+width: 47px !important;
+height: 45px !important;
+margin-top: 435%!important;
+margin-left: -3%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+        margin-left: 5%!important;
+    width: 90%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+        margin-left: 51% !important;
+    width: 49% !important;
+    margin-top: 10%!important;
+}
+.schdtab {
+    margin-top: 0% !important;
+}
+.viewsched
+{
+	margin-left: 0% !important;
+}
+
+.eitwsched
+{
+	margin-left: 3% !important;
+}
+
+.myreportbtn
+{
+	margin-left: -1% !important;
+    width: 88% !important;
+
+}
+.logoutpopup
+{
+      font-size: 19px;
+    margin-top: 3%!important;
+}
+.proceedyeslogout
+{
+      width: 100%!important;
+}
+.yesedit
+  {
+       margin-left: 14%!important;
+    margin-top: 3%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+       margin-left: 7%!important;
+    margin-top: 3.5%!important;
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -10%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -20%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+       color: #3b4caa!important;
+    margin-left: -10%!important
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 15%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 17%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+}
+
+
+
+@media  screen and (max-width: 320px) {
+
+.paramID {
+    margin-left: 21% !important;
+}
+.param_btn {
+    margin-left: 7% !important;
+    width: 181% !important;
+}
+  .param_reportbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 98%!important;
+    margin-bottom: 3%;
+}
+
+
+.param_linkedbtn {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    margin-bottom: 3%;
+    margin-left: 9% !important;
+    width: 106%;
+}
+   .response  {
+     margin-left: 0%!important;
+     margin-top: -5%!important;
+    width: 100%;
+        margin-bottom: -13%;
+  }
+  .background  {
+        margin-left: -4%!important;
+    margin-top: 1%!important;
+    width: 108%!important;
+        margin-bottom: -9%;
+  }
+   .tablealt  {
+         margin-left: 2%!important;
+    margin-top: -11%!important;
+    width: 97%!important;
+  }
+   .buttons  {
+        margin-left:6%!important;
+    margin-top: -1%!important;
+    width: 76%!important;
+      padding-bottom: 0%!important;
+  }
+  .signout {
+    text-transform: none;
+    color: #fff !important;
+    font-size: 15px;
+    width: 118%;
+     margin-bottom: 3%;
+}
+  .out{
+       margin-top: -11%!important;
+  }
+  .newdata {
+       margin-top: -14%!important;
+    width: 132%!important;
+    margin-left: -16%!important;
+    margin-bottom: -28%!important;
+}
+.newuser {
+       margin-top: -38%!important;
+    width: 150%!important;
+    margin-left: 11%!important;
+    font-size: 81%!important;
+      
+}
+.newid {
+      
+    width: 96%!important; 
+        margin-top: 8%!important;
+    margin-left: 0%!important;
+}
+.aleft{
+      margin-left: 3%!important;
+}
+.newswitch{
+  margin-left: 8%!important;
+    width: 100%!important;
+}
+.newbtn
+{
+     margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 7%!important;
+}
+.newtop
+{
+      margin-top: 0%!important;
+      width: 96%!important; 
+}
+.newview
+{
+        width: 94%!important;
+    margin-left: 3%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.newclose{
+         margin-left: 89%!important;
+    margin-top: 3%!important;
+}
+.viewalignment{
+      margin-left: 1%!important;
+    margin-top: -14%!important;
+}
+.viewleft{
+          margin-left: -11%!important;
+              color: #3b4caa!important;
+}
+.viewleftdrop{
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -23%!important;
+        color: #3b4caa!important;
+}
+.viewuserexpiry{
+      color: #3b4caa!important;
+      font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -11%!important;
+}
+.newtopalign
+{
+         margin-top: 4%!important;
+    width: 100%!important;
+    margin-left: 9%!important;
+}
+.dropalign{
+  margin-left: 9%!important;
+}
+.editmodal
+{
+    width: 94%!important;
+    top: 3%!important;
+    height: auto!important;
+    max-height: 95%!important;
+	margin-left: 3%!important;						  
+}
+.savebtn
+{
+      margin-top: 11%!important;
+    margin-left: 7%!important;
+    padding-bottom: 3%!important;
+}
+.editleft{
+      margin-left: 3%!important;
+}
+.removemodal
+{
+      margin-left: 6%!important;
+    margin-top: -15%!important;
+}
+/*
+.btn-floating.btn-large
+{
+      padding: 0;
+       height: 34px!important;
+    width: 11%!important;
+        margin-top: -13%!important;
+    margin-left: -2%!important;
+}
+.btn-floating.btn-large i {
+ line-height: 35px;
+    margin-left: -31%!important;
+    font-size: 18px!important;
+} */
+.side-nav {
+    position: fixed;
+    width: 232px;
+    left: 0;
+    top: 0;
+    margin: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-105%);
+    transform: translateX(-105%);
+}
+.modal .modal-content {
+  padding: 0px!important;
+}
+.pickbutton
+{
+    width: 57%!important;
+    padding-left: 4%!important;
+    padding-right: 11.5%!important;
+    margin-top: 8%!important;
+           margin-left: 22%!important;
+}
+.picktouch
+{
+      margin-left: 5%!important;
+}
+.pickheading
+{
+      margin-top: 17%!important;
+    margin-left: 1%!important;
+}
+.pickfont
+{
+      font-size: 18px!important;
+}
+
+.reportpickheading
+{
+  margin-top: -19%!important;
+}
+  .reportpickheading1
+  {
+    margin-top: 1%!important;
+  }
+.reportwidth
+{
+  width: 90%!important;
+      margin-top: 1%!important;
+}
+.reportleft  
+{
+  margin-left: -16.5%!important;
+}
+.reportbtn
+{
+   margin-left: 3%!important;
+       margin-top: 4%!important;
+    width:80%!important;
+  }
+  .compf {
+    white-space: nowrap;
+    margin-left: 51% !important;
+    padding-right: 0%!important;
+    margin-top: 13%!important;
+}
+.yearf {
+    white-space: nowrap;
+    margin-left: -10% !important;
+    margin-top: 13.5%!important;
+}
+.reportwidthdrop
+{
+  width: 90%!important;
+      margin-top: 1%!important;
+          margin-left: 5%!important;
+}
+.reportbtn1
+{
+        margin-left: 3%!important;
+    margin-top: -8.5!important;
+    width: 80%!important;
+    padding-bottom: 3%!important;
+  }
+  .profilepicedit
+  {
+    margin-top: -15%!important;
+    margin-left: 17%!important;
+    width: 152px!important;
+    height: 152px!important;
+    margin-bottom: 30px!important;
+  }
+  .uploadbtnedit
+  {
+        padding: 4px!important;
+    margin-left: 24%!important;
+    margin-top: 10%!important;
+  }
+  .removebtnedit
+  {
+          margin-left: 10%!important;
+    margin-top: 2%!important;
+  }
+  .profilelabel
+  {
+        margin-left: 12%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .profilelabel1
+  {
+        margin-left: -15%!important;
+    font-size: 12px!important;
+    font-weight: 300!important;
+    font-family: roboto!important;
+  }
+  .displayname
+  {
+        margin-left: 10%!important;
+    margin-top: 4%!important;
+    width: 82%!important;
+  }
+  .displaylabeledit
+  {
+
+    margin-left: -14%!important;
+  }
+  .profilebtnedit
+  {
+    margin-top: -5%!important;
+    margin-left: 10%!important;
+  }
+  .sizeerroredit
+  {
+        margin-left: 44px!important;
+    margin-bottom: 45px!important;
+  }
+
+
+  .editlinkageedit
+  {
+        width: 274px!important;
+         margin-top: 2%!important;
+    margin-left: 1%!important;
+  }
+  .availablecardedit
+  {
+   margin-top: 4%!important;
+       margin-left: 0% !important;
+  }
+  .chooseedit
+  {
+        width: 55%!important;
+    margin-left: -74%!important;
+    margin-top: 15%!important;
+  }
+
+  .selectmoduleedit
+  {
+    margin-left: 0.5%!important;
+    margin-top: -3%!important;
+    width: 100%!important;
+
+  }
+  .selectmoduleedit1
+  {
+        margin-left: 19.2%!important;
+    margin-top: -5.5%!important;
+  }
+  .submitedit
+  {
+       margin-left: 80%!important;
+    margin-top: -11.5%!important;
+ }
+ .savechangesedit
+ {
+       margin-left: 0%!important;
+    width: 86%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+ }
+ .cancelchangesedit
+ {
+       margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+ }
+ .roledesedit
+ {
+      margin-left: -12%!important;
+
+ }
+
+.roledesedit1 {
+    margin-left: 1%!important;
+    margin-top: -2.2%!important;
+    width: 98%!important;
+}
+  /*login*/
+.reportlog {
+    margin-top: -13% !important;
+    margin-left: 22% !important;
+}
+.admnlog {
+    margin-top: 50px !important;
+    margin-left: -105px !important;
+}
+
+/*dashboard*/
+.savwidth
+{
+  margin-left: 72% !important;
+    width: 49% !important;
+}
+
+.viewleft1 {
+    color: #3b4caa!important;
+    margin-left: -20%!important;
+   
+}
+.newtop1 {
+    margin-top: -9%!important;
+    margin-left: 3%!important;
+}
+.tablealt1 {
+    margin-left: -3%!important;
+    margin-top: -16%!important;
+    width: 105%!important;
+}
+.tablealt2 {
+      margin-left: 0%!important;
+    margin-top: 3%!important;
+    width: 100%!important;
+}
+.viewalignment1 {
+    margin-left: 1%!important;
+    margin-top: 4%!important;
+}
+.buttons1 {
+    margin-left: 0%!important;
+    margin-top: -1%!important;
+    width: 86%!important;
+    padding-bottom: 1%!important;
+}
+.schedulerbuttons {
+       margin-left: 6%!important;
+    margin-top: -15%!important;
+    width: 76%!important;
+    padding-bottom: 0%!important;
+}
+.removedes
+{
+      margin-top: -12%!important;
+}
+.floatbtn {
+   width: 40px !important;
+    height: 39px !important;
+    margin-top: -14%!important;
+    margin-left: -3%!important;
+}
+
+.floaticon {
+    margin-top: -8px !important;
+    margin-left: 2px !important;
+    font-size: 142%!important;
+}
+
+/*changepaswrd*/
+.changecrd
+{
+	width:100% !important;
+}
+
+.lightchange{
+		width: 90% !important;
+		margin-left: 0%;
+		
+	}
+	
+		.changebtn{
+	width: 90% !important;
+    margin-left: 0%;
+	margin-top: 100% !important;
+	}
+	
+	.changeuser {
+    margin-left: -5% !important;
+    width: 160% !important;
+}
+
+.changepas {
+    width: 150% !important;
+    margin-top: -2% !important;
+	margin-left: 0% !important;
+    
+}
+.removemodal1 {
+    margin-left: 21%!important;
+    margin-top: 0%!important;
+}
+
+.frmschedule{
+	margin-top:-3px !important;
+	margin-left:0px !important;
+}
+
+.fromdate{
+	margin-top:-35px !important;
+	margin-left:0px !important;
+}
+.enddate{
+   margin-top: -57px !important;
+   margin-left: 0px !important;
+}
+.endschedate{
+   margin-top: -25px !important;
+   margin-bottom: 33px !important;
+   margin-left: 0px!important;
+
+}
+.datepicker2{
+margin-top:35px !important;
+}
+.add_schedule_distribute_dropdown
+{
+	margin-top:15px !important
+}
+
+.add_sch_status_drp{
+	margin-top:15px !important
+}
+.eodeditreports{
+	
+	margin-top:-12px !important;
+	margin-left:0% !important;
+	width:96%;
+}
+.schedulerlabel
+{
+  margin-left: -12%!important;
+}
+.schedulerlabel1
+{
+     margin-left: 2%!important;
+}
+.schedulestoplabel
+{
+  margin-top: -5%!important;
+    margin-left: -6%!important;
+    width: 104%!important;
+}
+.newreportsview
+{
+         width: 44%!important;
+    margin-left: 1%!important;
+    top: 1%!important;
+    height: auto!important;
+    max-height: 80%!important;
+}
+.reportmodule{
+	margin-top:9px !
+}
+.applicableformats{
+	       margin-left: -31px!important;
+    margin-top: -5%!important;
+}
+.pdfformat{
+        margin-left: -176px !important;
+    margin-bottom: 36px !important;
+    margin-top: 12px !important;
+}
+.reportseditmodal{
+	width: 43%!important;
+    top: 3%!important;
+    margin-left: 14px !important;
+    height: auto!important;
+    max-height: 95%!important;
+}
+.applicableformatsview{
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    color: #3b4caa!important;
+    margin-left: -1px;
+    margin-top: -25px;
+}
+.pdfformatview{
+    margin-left: -179px!important;
+    margin-bottom: 42px !important;
+    margin-top: 14px !important;
+}
+.schedhulreport{
+	color: #3b4caa!important;
+    margin-left: -13%!important;
+}
+.param
+{
+	margin-left: 0% !important;
+}
+.reporttable{
+	
+         margin-left: 2%!important;
+    margin-top: -11%!important;
+    width: 97%!important;
+  }
+  .schedulesubmitbtn{
+
+      margin-top: -3%!important;
+    padding-bottom: 2%!important;
+    margin-left: 23%!important;
+
+  }
+  .reportseditlabel
+  {
+   margin-left: -12%!important;
+  }
+  .reportstableedit {
+    margin-left: 0%!important;
+    margin-top: -6%!important;
+    width: 74%!important;
+}
+.editsystembtn
+{
+        margin-top: -3%!important;
+    margin-left: -2%!important;
+    width: 44%!important;
+}
+.editsystembtn1
+{
+           margin-top: -3%!important;
+    margin-left: -2%!important;
+    width: 92%!important;
+}
+.viewsystembtn
+{
+     margin-left: -2%!important;
+    margin-top: 1%!important;
+    width: 86%!important;
+}
+.editparametername
+{
+         margin-top: 5%!important;
+    width: 90%!important;
+    margin-left: -2%!important;
+}
+.editparametername1 {
+    margin-top: 10%!important;
+    width: 186%!important;
+    margin-left: -2%!important;
+}
+.alarmheading
+{
+      margin-top: -9%!important;
+    margin-left: -13%!important;
+}
+.alarmbtn {
+width: 47px !important;
+height: 45px !important;
+margin-top: 469%!important;
+margin-left: -3%!important;
+}
+.alarminsideicon
+{
+      margin-top: -5px !important;
+    margin-left: 1px !important;
+    font-size: 163%!important;
+}
+.alarmlabeledit
+{
+        margin-left: 5%!important;
+    width: 90%!important;
+    margin-top: -1%!important;
+}
+.alarmsavebtn {
+       margin-left: 51% !important;
+    width: 49% !important;
+    margin-top: 5%!important;
+}
+
+.schdtab {
+    margin-top: 0% !important;
+}
+.viewsched
+{
+	margin-left: 0% !important;
+}
+.eitwsched
+{
+	margin-left: 3% !important;
+}
+.myreportbtn
+{
+	margin-left: -1% !important;
+    width: 88% !important;
+
+}
+.logoutpopup
+{
+      font-size: 19px;
+    margin-top: 3%!important;
+}
+.proceedyeslogout
+{
+      width: 100%!important;
+}
+.yesedit
+  {
+      margin-left: 4%!important;
+    margin-top: 0%!important;
+    margin-bottom: 1%!important;
+  }
+  .noedit
+  {
+   margin-left: 4%!important;
+    margin-top: 1%!important;
+  }
+  .schedulestatuslabel {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+       margin-left: -11%!important;
+    color: #3b4caa!important;
+}
+  .newtopalignschedule {
+    margin-left: 0%!important;
+    width: 100%!important;
+    margin-top: 2%!important;
+
+}
+  .viewleftdropschedule {
+    font-size: 1.1rem!important;
+    font-weight: normal!important;
+    margin-left: -24%!important;
+    color: #3b4caa!important;
+}
+  .viewleftschedule {
+   color: #3b4caa!important;
+    margin-left: -12%!important;
+}
+  .savebtn1
+  {
+     margin-top: 14%!important;
+    padding-bottom: -3%!important;
+    margin-left: 10%!important;
+  }  
+   .savebtn2
+  {
+        margin-left: 12%!important;
+    margin-top: 2%!important;
+  }  
+  .parametereditlabel
+  {
+        margin-left: 2%!important;
+  }
+  
+  .logcard {
+    height: auto;
+}
+}

@@ -1,0 +1,295 @@
+            .home_page_top
+            {
+                background: #000;
+                color: #FF6600;
+                border-top: 5px solid #FF6600;
+                border-bottom: 5px solid #FF6600;
+                padding: 5px;
+                position: relative;
+                margin-bottom: 10px;
+           }
+
+           .home_page_top:before
+           {
+                  content: '';
+                  position: absolute;
+                  bottom: -12px;
+                  border-radius: 100%;
+                  left: 0;
+                  right: 0;
+                  margin: auto;
+                  height: 20px;
+                  width: 40%;
+                  background-color: #FF6600;
+          }
+
+          .home_page_top:after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  border-radius: 100%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 20px;
+  width: 40%;
+  background-color: #FF6600;
+}
+
+.content {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.logo_site {
+  left: 5%;
+  top: 200px;
+  width: 200px;
+  height: auto;
+  position: absolute;
+}
+
+.affiche_don {
+  right: 5%;
+  top: 153px;
+  position: absolute;
+  width: 200px;
+  height: 300px;
+}
+
+.link_affiche_don {
+  top: 420px;
+  right: 8%;
+  position: absolute;
+  color: #FF6600;
+}
+
+.link_affiche_don:hover {
+  color: #ffbe00;
+}
+
+h4 {
+  margin-top: -20px;
+  color: #fff;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+svg {
+  margin: 50px;
+}
+
+.coming_soon {
+  height: 300px;
+  margin: 50px;
+}
+
+.coming_soon div {
+  position: absolute;
+  top: calc(50% - 175px);
+  left: calc(50% - 200px);
+}
+
+.circle_1 {
+  -webkit-animation: spin_1 4s infinite alternate;
+  -moz-animation: spin_1 4s infinite alternate;
+  animation: spin_1 4s infinite alternate;
+}
+
+.circle_2 {
+  -webkit-animation: spin_2 4s infinite alternate;
+  animation: spin_2 4s infinite alternate;
+  -moz-animation: spin_2 4s infinite alternate;
+}
+
+.circle_3 {
+  -webkit-animation: spin_3 4s infinite alternate;
+  animation: spin_3 4s infinite alternate;
+  -moz-animation: spin_3 4s infinite alternate;
+}
+
+@keyframes spin_1 {
+  0% {
+    stroke: #ffbe00;
+  }
+  50% {
+    stroke: #FF6600;
+  }
+  100% {
+    stroke: #ffbe00;
+    -webkit-transform: rotate(-240deg);
+    transform: rotate(-240deg);
+  }
+}
+
+@-webkit-keyframes spin_1 {
+  0% {
+    stroke: #ffbe00;
+  }
+  50% {
+    stroke: #FF6600;
+  }
+  100% {
+    stroke: #ffbe00;
+    -webkit-transform: rotate(-240deg);
+    transform: rotate(-240deg);
+  }
+}
+
+@keyframes spin_2 {
+  0% {
+    stroke: #fff;
+  }
+  50% {
+    stroke: #ffbe00;
+  }
+  100% {
+    stroke: #fff;
+    -webkit-transform: rotate(240deg);
+    transform: rotate(240deg);
+  }
+}
+
+@-webkit-keyframes spin_2 {
+  0% {
+    stroke: #fff;
+  }
+  50% {
+    stroke: #ffbe00;
+  }
+  100% {
+    stroke: #fff;
+    -webkit-transform: rotate(240deg);
+    transform: rotate(240deg);
+  }
+}
+
+@keyframes spin_3 {
+  0% {
+    stroke: #FF6600;
+  }
+  50% {
+    stroke: #fff;
+  }
+  100% {
+    stroke: #FF6600;
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+}
+
+@-webkit-keyframes spin_3 {
+  0% {
+    stroke: #FF6600;
+  }
+  50% {
+    stroke: #fff;
+  }
+  100% {
+    stroke: #FF6600;
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+}
+
+.data_time {
+  margin-bottom: 10px;
+}
+
+.data_time span {
+  color: #fff;
+}
+
+.btn_sent {
+  cursor: pointer;
+  color: #fff;
+  background: #FF6600;
+  border: 1px solid #fff;
+  border-radius: 10%;
+}
+
+label {
+  font-size: 20px;
+}
+
+.btn_sent:hover {
+  color: #FF6600;
+  background: #fff;
+  border: 1px solid #FF6600;
+}
+
+.facebook,
+.twitter {
+  float: right;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.facebook:hover,
+.twitter:hover {
+  opacity: 0.9;
+}
+
+.fonction {
+  background: #000;
+  color: #FF6600;
+  padding: 5px;
+  font-family: 'Gruppo', cursive;
+  text-align: center;
+}
+
+.fonction a:hover {
+  color: #FF6600;
+}
+.fonction a {
+  color: #ffbe00;
+}
+
+.fonction div {
+  background: #fff;
+  margin: auto;
+  font-size: 20px;
+  padding: 20px;
+  width: 150px;
+}
+
+footer {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+@media all and (max-width: 800px) {
+  body {
+    font-size: 200%;
+  }
+  .btn_sent {
+    font-size: 90%;
+  }
+  footer {
+    font-size: 60%;
+  }
+  .logo_site {
+    display: none;
+  }
+  .affiche_don {
+    display: none;
+  }
+  .link_affiche_don {
+    display: none;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .affiche_don {
+    right: 15%;
+  .logo_site {
+    left: 15%;
+  }
+  .link_affiche_don {
+    right: 17%;
+  }
+}

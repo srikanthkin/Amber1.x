@@ -1,0 +1,318 @@
+vanthuten reject appraisal
+vanthuten accept appraisal
+vanthuten accept appraisal
+vanthuten accept appraisal
+vanthuten forwardAppraisal
+vanthuten add appraisal
+vanthuten add appraisal
+model user
+vanthuten applyLeave
+vanthuten applyLeave
+vanthuten applyLeave
+vanthuten holidays
+vanthuten messages
+vanthuten messages
+vanthuten messages
+vanthuten messages
+vanthuten send message
+vanthuten messages
+routes login
+vanthuten applyLeave
+vanthuten applyLeave
+travel details
+reimburseQueue
+approve req
+reqAprvd req
+reimbursement
+ rembReq
+reimburseQueue
+reimburseHrReqQueue
+reimburseQueue
+reimburseQueue
+project
+asset
+appraisal
+leaveFAQDetails
+nitin
+info: nurture portal running on 192.168.168.10
+info: nurture portal started on port8080
+Connection Successfully  Established with Postgres
+Hello
+1261
+result user [ anonymous {
+    user_name: 'CHARITH',
+    password: '$2a$10$6537aVuj591kZgObzw8Sb.9depkmBHn1wygBJruOwdGCKgPtMm55q',
+    user_id: '1261',
+    user_type: 'L1',
+    client_ip: '',
+    session_id: '' } ]
+comparing password while login
+checked
+row user 1261
+row password $2a$10$6537aVuj591kZgObzw8Sb.9depkmBHn1wygBJruOwdGCKgPtMm55q
+client ip 
+session_id 
+ipwwhhwhw ::ffff:192.168.169.97
+session::::: wR2WMAzgLxHndmoaVOu8NNOpGtMdMC_m
+pwd checking3
+usercount 192
+within case check
+user_type L1
+after update
+pending_empProf 144
+pending_empProf 144
+invoice due 15
+invoice due 3
+BEFORE travel request CALL in dashboard:::
+inside travel request query in dashboard:::
+row in dashboard::: []
+empResult.rowcount :: INDASHBOARD:: 0
+row []
+claimRowDataPending []
+empResult.rowcount 0
+row []
+claimResulthr.rowcount 0
+claimStatusRowPending []
+claimsettleStatusCount 0
+after update
+approvedDataResult.length 0
+empid::: [ anonymous { emp_id: '0001' },
+  anonymous { emp_id: '0002' },
+  anonymous { emp_id: '0003' },
+  anonymous { emp_id: '0004' },
+  anonymous { emp_id: '0005' },
+  anonymous { emp_id: '0010' },
+  anonymous { emp_id: '1111' },
+  anonymous { emp_id: '1112' },
+  anonymous { emp_id: '1149' },
+  anonymous { emp_id: '1234' },
+  anonymous { emp_id: '1244' },
+  anonymous { emp_id: '1252' },
+  anonymous { emp_id: '1257' },
+  anonymous { emp_id: '1260' },
+  anonymous { emp_id: '1261' },
+  anonymous { emp_id: '1275' },
+  anonymous { emp_id: '1299' },
+  anonymous { emp_id: '1301' },
+  anonymous { emp_id: '1302' },
+  anonymous { emp_id: '1342' },
+  anonymous { emp_id: '1349' },
+  anonymous { emp_id: '1380' },
+  anonymous { emp_id: '1408' },
+  anonymous { emp_id: '1425' },
+  anonymous { emp_id: '1430' },
+  anonymous { emp_id: '1441' },
+  anonymous { emp_id: '1462' },
+  anonymous { emp_id: '1468' },
+  anonymous { emp_id: '1469' },
+  anonymous { emp_id: '2000' },
+  anonymous { emp_id: '2001' },
+  anonymous { emp_id: '2005' },
+  anonymous { emp_id: '2223' },
+  anonymous { emp_id: '2323' },
+  anonymous { emp_id: '3010' },
+  anonymous { emp_id: '3013' },
+  anonymous { emp_id: '3014' },
+  anonymous { emp_id: '3015' },
+  anonymous { emp_id: '3016' },
+  anonymous { emp_id: '3017' },
+  anonymous { emp_id: '3018' },
+  anonymous { emp_id: '3223' },
+  anonymous { emp_id: '4567' },
+  anonymous { emp_id: '5523' },
+  anonymous { emp_id: '5543' },
+  anonymous { emp_id: '5599' },
+  anonymous { emp_id: '6000' },
+  anonymous { emp_id: '6001' },
+  anonymous { emp_id: '6002' },
+  anonymous { emp_id: '6003' },
+  anonymous { emp_id: '6004' },
+  anonymous { emp_id: '6012' },
+  anonymous { emp_id: '6589' },
+  anonymous { emp_id: '6969' },
+  anonymous { emp_id: '7282' },
+  anonymous { emp_id: '7676' },
+  anonymous { emp_id: '7777' },
+  anonymous { emp_id: '7878' },
+  anonymous { emp_id: '8787' },
+  anonymous { emp_id: '8989' },
+  anonymous { emp_id: '9004' },
+  anonymous { emp_id: '9046' },
+  anonymous { emp_id: '9396' },
+  anonymous { emp_id: '9666' },
+  anonymous { emp_id: '9669' },
+  anonymous { emp_id: '9898' } ]
+empid_count::: 66
+empname::: [ anonymous { emp_name: 'TEST ONE' },
+  anonymous { emp_name: 'TEST TWO' },
+  anonymous { emp_name: 'TEST THREE' },
+  anonymous { emp_name: 'TEST FOUR' },
+  anonymous { emp_name: 'TEST FIVE' },
+  anonymous { emp_name: 'REVIEW' },
+  anonymous { emp_name: 'ADMIN' },
+  anonymous { emp_name: 'PRAVEEN' },
+  anonymous { emp_name: 'TARUN PARIHAR' },
+  anonymous { emp_name: 'SANTHOSH KUMAR' },
+  anonymous { emp_name: 'BHARATHI' },
+  anonymous { emp_name: 'MALAY SAMEER' },
+  anonymous { emp_name: 'KEERTHI B' },
+  anonymous { emp_name: 'RANJAN' },
+  anonymous { emp_name: 'CHARITH' },
+  anonymous { emp_name: 'SANTHU' },
+  anonymous { emp_name: 'NITHIN M' },
+  anonymous { emp_name: 'SUNIL GOUD' },
+  anonymous { emp_name: 'PRAVEEN S G' },
+  anonymous { emp_name: 'SRI NANDHINI' },
+  anonymous { emp_name: 'DIVYASHREE' },
+  anonymous { emp_name: 'DINESH' },
+  anonymous { emp_name: 'HARI SHANKAR' },
+  anonymous { emp_name: 'AKSHAY' },
+  anonymous { emp_name: 'SIDLINGU' },
+  anonymous { emp_name: 'VIGISH ' },
+  anonymous { emp_name: 'SIDDANAGOUDA' },
+  anonymous { emp_name: 'SRIKANTH G K' },
+  anonymous { emp_name: 'NUR' },
+  anonymous { emp_name: 'TEST' },
+  anonymous { emp_name: 'DIVYA' },
+  anonymous { emp_name: 'NEW' },
+  anonymous { emp_name: 'PRAVEEN' },
+  anonymous { emp_name: 'DSDSSD' },
+  anonymous { emp_name: 'SRI' },
+  anonymous { emp_name: 'SRII' },
+  anonymous { emp_name: 'SRJ' },
+  anonymous { emp_name: 'WWED' },
+  anonymous { emp_name: 'CCC' },
+  anonymous { emp_name: 'DSDSD' },
+  anonymous { emp_name: 'SDSD' },
+  anonymous { emp_name: 'DSDSD' },
+  anonymous { emp_name: 'EMPLOYEE' },
+  anonymous { emp_name: 'DUMMY' },
+  anonymous { emp_name: 'SDSD' },
+  anonymous { emp_name: 'SDSD' },
+  anonymous { emp_name: 'ADMIN' },
+  anonymous { emp_name: 'LEVEL ONE' },
+  anonymous { emp_name: 'LEVEL TWO' },
+  anonymous { emp_name: 'LEVEL THREE' },
+  anonymous { emp_name: 'EMPLOYEE LEVEL ONE' },
+  anonymous { emp_name: 'SRIKANTH KINI' },
+  anonymous { emp_name: 'DUMMY' },
+  anonymous { emp_name: 'DEXTER' },
+  anonymous { emp_name: 'SRINATH' },
+  anonymous { emp_name: 'SDSDS' },
+  anonymous { emp_name: 'EMPLOYEE' },
+  anonymous { emp_name: 'UYHOUJHL' },
+  anonymous { emp_name: 'PRANJAN' },
+  anonymous { emp_name: 'EMPP' },
+  anonymous { emp_name: 'SDFDF' },
+  anonymous { emp_name: 'NARAYAN' },
+  anonymous { emp_name: 'ASSD' },
+  anonymous { emp_name: 'MAHESH' },
+  anonymous { emp_name: 'SDSD' },
+  anonymous { emp_name: 'EMPPP' } ]
+empname_count::: 66
+cid::: [ anonymous { customer_id: 'ABCJ' },
+  anonymous { customer_id: 'PNB' } ]
+cid_count::: 2
+cname::: [ anonymous { customer_name: 'ABC' },
+  anonymous { customer_name: 'PUNJAB NATIONAL BANK ' } ]
+cidname_count::: 2
+classid::: [ anonymous { comm_code_id: 'DXC' },
+  anonymous { comm_code_id: 'EV' },
+  anonymous { comm_code_id: 'MIT' },
+  anonymous { comm_code_id: 'NUR' } ]
+classid_count::: 4
+classdesc:: [ anonymous { comm_code_desc: 'DXC Technology' },
+  anonymous { comm_code_desc: 'Edge verve' },
+  anonymous { comm_code_desc: 'MillenniumIT Software ' },
+  anonymous { comm_code_desc: 'Nurture Sofware solution' } ]
+classdesc_count::: 4
+classdesc:: [ anonymous { comm_code_id: 'GBP' },
+  anonymous { comm_code_id: 'INR' },
+  anonymous { comm_code_id: 'USD' } ]
+classdesc_count::: 3
+classdesc:: [ anonymous {
+    comm_code_id: 'CORC',
+    comm_code_desc: 'Core Banking Customization' },
+  anonymous {
+    comm_code_id: 'CORI',
+    comm_code_desc: 'Core Banking Implimentation' },
+  anonymous {
+    comm_code_id: 'CORM',
+    comm_code_desc: 'Core Banking Migration' },
+  anonymous { comm_code_id: 'CORS', comm_code_desc: 'Core Banking Support' },
+  anonymous {
+    comm_code_id: 'EBC',
+    comm_code_desc: 'E - Banking Customization' },
+  anonymous {
+    comm_code_id: 'EBI',
+    comm_code_desc: 'E - Banking Implimentation' },
+  anonymous { comm_code_id: 'EBM', comm_code_desc: 'E - Banking Migration' },
+  anonymous { comm_code_id: 'EBS', comm_code_desc: 'E - Banking Support' },
+  anonymous { comm_code_id: 'OTH', comm_code_desc: 'Others' },
+  anonymous { comm_code_id: 'PRO', comm_code_desc: 'Product' },
+  anonymous { comm_code_id: 'UI', comm_code_desc: 'User Interface' } ]
+classdesc_count::: 11
+classdesc:: []
+classdesc_count::: 0
+delname::: [ anonymous { emp_name: 'TEST TWO' },
+  anonymous { emp_name: 'TEST THREE' },
+  anonymous { emp_name: 'TARUN PARIHAR' },
+  anonymous { emp_name: 'SANTHOSH KUMAR' },
+  anonymous { emp_name: 'MALAY SAMEER' },
+  anonymous { emp_name: 'RANJAN' },
+  anonymous { emp_name: 'CHARITH' },
+  anonymous { emp_name: 'NITHIN M' },
+  anonymous { emp_name: 'PRAVEEN S G' },
+  anonymous { emp_name: 'SRI NANDHINI' },
+  anonymous { emp_name: 'DIVYASHREE' },
+  anonymous { emp_name: 'SIDDANAGOUDA' },
+  anonymous { emp_name: 'NUR' },
+  anonymous { emp_name: 'TEST' },
+  anonymous { emp_name: 'PRAVEEN' },
+  anonymous { emp_name: 'SRJ' },
+  anonymous { emp_name: 'WWED' },
+  anonymous { emp_name: 'CCC' },
+  anonymous { emp_name: 'EMPLOYEE' },
+  anonymous { emp_name: 'SDSD' },
+  anonymous { emp_name: 'LEVEL ONE' },
+  anonymous { emp_name: 'LEVEL TWO' },
+  anonymous { emp_name: 'SRINATH' },
+  anonymous { emp_name: 'EMPLOYEE' },
+  anonymous { emp_name: 'PRANJAN' },
+  anonymous { emp_name: 'SDFDF' },
+  anonymous { emp_name: 'ASSD' } ]
+delname_count::: 27
+delid::: [ anonymous { emp_id: '0002' },
+  anonymous { emp_id: '0003' },
+  anonymous { emp_id: '1149' },
+  anonymous { emp_id: '1234' },
+  anonymous { emp_id: '1252' },
+  anonymous { emp_id: '1260' },
+  anonymous { emp_id: '1261' },
+  anonymous { emp_id: '1299' },
+  anonymous { emp_id: '1302' },
+  anonymous { emp_id: '1342' },
+  anonymous { emp_id: '1349' },
+  anonymous { emp_id: '1462' },
+  anonymous { emp_id: '1469' },
+  anonymous { emp_id: '2000' },
+  anonymous { emp_id: '2223' },
+  anonymous { emp_id: '3014' },
+  anonymous { emp_id: '3015' },
+  anonymous { emp_id: '3016' },
+  anonymous { emp_id: '4567' },
+  anonymous { emp_id: '5599' },
+  anonymous { emp_id: '6001' },
+  anonymous { emp_id: '6002' },
+  anonymous { emp_id: '7282' },
+  anonymous { emp_id: '7777' },
+  anonymous { emp_id: '8787' },
+  anonymous { emp_id: '9004' },
+  anonymous { emp_id: '9396' } ]
+delid_count::: 27
+classpayment::: [ anonymous { comm_code_id: 'ATS', comm_code_desc: 'Support' },
+  anonymous { comm_code_id: 'FL', comm_code_desc: 'Fixed License' },
+  anonymous { comm_code_id: 'FP', comm_code_desc: 'Fixed Price' },
+  anonymous { comm_code_id: 'SUB', comm_code_desc: 'Subscription' },
+  anonymous { comm_code_id: 'TNM', comm_code_desc: 'T and M' } ]
+classpayment_count::: 5

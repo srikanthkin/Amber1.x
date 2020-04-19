@@ -1,0 +1,2101 @@
+<!doctype html>
+<html lang="en">
+<head>
+           <title>Employee Details</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+			
+		.navbar .navbar-reverse 
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse 
+		{
+			text-align: center;
+		}			
+
+		table, tr, td 
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table 
+		{
+			border-spacing: 0px;
+		}
+
+		hr 
+		{
+			border: none;
+			height: 1px;
+			color: #333; 
+			background-color: #333; 
+		}
+
+		ul.topnav
+		{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #333;
+		}
+
+		ul.topnav li
+		{
+			float: left;
+		}
+
+		ul.topnav li a
+		{
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		ul.topnav li a:hover:not(.active)
+		{
+			background-color: #111;
+		}
+
+		ul.topnav li a.active
+		{
+			background-color: #4CAF50;
+		}
+
+		ul.topnav li.right
+		{
+			float: right;
+		}
+
+		@media screen and (max-width: 600px)
+		{
+			ul.topnav li.right,
+			ul.topnav li {float: none;}
+		}
+
+		.picker__select--year
+		{
+		    width: 24.5%;
+		    height: 30%;
+		}
+
+		.picker__select--month
+		{
+		    width: 35%;
+		    height: 30%;
+		}
+
+
+    	     </style>
+
+             <script>
+
+			function changeHashOnLoad()
+			{
+			       window.location.href += "#";
+			       setTimeout("changeHashAgain()", "50");
+			}
+
+			function changeHashAgain()
+			{
+			       window.location.href += "1";
+			}
+
+			var storedHash = window.location.hash;
+			window.setInterval(function ()
+			{
+			    if (window.location.hash != storedHash)
+			    {
+			       window.location.hash = storedHash;
+			    }
+			}, 50);
+
+             </script>
+
+             <script>
+
+                $(document).ready(function()
+                {
+			$('#empName').change(function()
+			{
+				$(this).val($(this).val().toUpperCase());
+			});
+                });
+
+
+                $(document).ready(function()
+                {
+			$('#resAdd').change(function()
+			{
+				$(this).val($(this).val().toUpperCase());
+			});
+                });
+
+                $(document).ready(function()
+                {
+                        $('#commAdd').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#city').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+			$('#city1').change(function()
+			{
+				$(this).val($(this).val().toUpperCase());
+			});
+                });
+
+                $(document).ready(function()
+                {
+                        $('#emerPer').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#fathersName').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#mothersName').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#spouseName').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#panNum').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#passNum').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#aadhaarNum').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#dlNum').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#uan').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#nameinBank').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#bankName').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#branchName').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#ifscCode').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+		</script>
+
+		<script type="text/javascript">
+
+                        $(window).load(function()
+                        {
+
+                                var newDate = new Date();
+                                var nyear = newDate.getFullYear();
+                                var year = nyear - 18;
+                                var month = "11";
+                                var day = "31";
+
+                                $('#dob').pickadate(
+                                {
+                                selectMonths: true,
+                                selectYears: 100,
+                                format: 'yyyy-mm-dd',
+                                formatSubmit: 'yyyy-mm-dd',
+                                closeOnSelect: true,
+                                closeOnClear: true,
+                                max: [year,month,day]
+                                });
+                        });
+
+                        $(document).ready(function() {
+                        $("#my-icon").click(function(){
+                        $( '#dob' ).pickadate("open"),
+                        event.stopPropagation(),
+                        event.preventDefault()
+                        });
+                        });
+
+			function test()
+			{
+				var state = document.getElementById("state");
+				var state1 = document.getElementById("state1");
+				var sameAdd = document.getElementById("sameAdd");
+
+				if(sameAdd.checked)
+				{
+					document.getElementById("state1").value = state.value;
+				}
+			}
+
+                        function test1()
+                        {
+				var state = document.getElementById("state");
+                                var state1 = document.getElementById("state1");
+                                var sameAdd = document.getElementById("sameAdd");
+
+                                if(sameAdd.checked)
+                                {
+					document.getElementById("state1").value = state.value;
+                                        document.getElementById("sameAdd").focus();
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Address For Communication should be Same As Permanent Address if checked yes"
+					},{
+					type: 'info',
+					timer: 500
+					});
+					return false;
+                                }
+                        }
+
+                        function copyAdd()
+                        {
+                                  var sameAdd = document.getElementById("sameAdd");
+                                  var commAdd = document.getElementById("commAdd");
+                                  var state = document.getElementById("state");
+                                  var city = document.getElementById("city")
+                                  var pincode = document.getElementById('pincode');
+
+                                  if (sameAdd.checked)
+                                  {
+
+                                        if(document.getElementById("commAdd").value == "")
+                                        {
+                                                document.getElementById("commAdd").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Address for Communication in order to check the Box"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                document.getElementById("sameAdd").checked = false;
+                                                return false;
+                                        }
+
+                                        if(document.getElementById("state").value == "")
+                                        {
+                                                document.getElementById("state").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the State for Address for Communication in order to check the box"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                document.getElementById("sameAdd").checked = false;
+                                                return false;
+
+                                        }
+
+                                        if(document.getElementById("city").value == "")
+                                        {
+                                                document.getElementById("city").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the City for Address for Communication in order to check the box"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                document.getElementById("sameAdd").checked = false;
+                                                return false;
+
+                                        }
+                                        else
+                                        {
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("city").value))
+                                                {
+                                                        document.getElementById("city").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , City Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        document.getElementById("city").value = "";
+                                                        document.getElementById("sameAdd").checked = false;
+                                                        return false;
+                                                }
+                                        }
+
+                                        if(document.getElementById('pincode').value == "")
+                                        {
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Pincode for Address for Communication in order to check the box"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                document.getElementById("sameAdd").checked = false;
+                                                return false;
+
+                                        }
+                                        else
+                                        {
+                                                if(document.getElementById("pincode").value.length < 6)
+                                                {
+                                                        document.getElementById("pincode").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , Enter a valid Pincode for Communicational Address"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        document.getElementById("pincode").value = "";
+                                                        document.getElementById("sameAdd").checked = false;
+                                                        return false;
+                                                }
+
+
+                                                var validsen = /^\d{1,6}?$/;
+                                                if (validsen.test(document.getElementById("pincode").value)==false)
+                                                {
+                                                        document.getElementById("pincode").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , Enter a valid Pincode for your Communicational Address"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        document.getElementById("pincode").value = "";
+                                                        document.getElementById("sameAdd").checked = false;
+                                                        return false;
+                                                }
+
+                                        }
+
+                                        document.getElementById("resAdd").value = commAdd.value;
+                                        document.getElementById("state1").value = state.value;
+                                        document.getElementById("city1").value = city.value;
+                                        document.getElementById("pincode1").value = pincode.value;
+
+                                        document.getElementById("resAdd").readOnly = true;
+                                        document.getElementById("city1").readOnly = true;
+                                        document.getElementById("pincode1").readOnly = true;
+
+                                        document.getElementById("commAdd").readOnly = true;
+                                        document.getElementById("city").readOnly = true;
+                                        document.getElementById("pincode").readOnly = true;
+
+                                  }
+                                  else
+                                  {
+                                        document.getElementById("resAdd").value = ""
+                                        document.getElementById("state1").value = ""
+                                        document.getElementById("city1").value = ""
+                                        document.getElementById("pincode1").value = ""
+
+                                        document.getElementById("resAdd").readOnly = false;
+                                        document.getElementById("city1").readOnly = false;
+                                        document.getElementById("pincode1").readOnly = false;
+
+                                        document.getElementById("commAdd").readOnly = false;
+                                        document.getElementById("city").readOnly = false;
+                                        document.getElementById("pincode").readOnly = false;
+                                  }
+                        }
+
+                        function formValidations()
+                        {
+                                var empid = document.getElementById("empid").value;
+                                if(empid != "")
+                                {
+					var empid = document.getElementById("empid").value;
+					if(empid.length < 4)
+					{
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter a valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+					}
+
+                                        var validsen = /^\d{1,4}?$/;
+                                        if (validsen.test(empid)==false)
+                                        {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter a valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+                                else
+                                {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var empName = document.getElementById("empName").value;
+                                if(empName == "")
+                                {
+                                                document.getElementById("empName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Employee Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("empName").value))
+                                        {
+                                                document.getElementById("empName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Employee Name should contain only letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var dob = document.getElementById("dob").value;
+                                if(dob == "")
+                                {
+                                                document.getElementById("dob").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please select your Date of Birth"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var bgroup = document.getElementById("bgroup").value;
+                                if(bgroup == "")
+                                {
+                                                document.getElementById("bgroup").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please select your Blood Group"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var shirt = document.getElementById("shirt").value;
+                                if(shirt == "")
+                                {
+                                                document.getElementById("shirt").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please select your T-Shirt Size"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var commAdd = document.getElementById("commAdd").value;
+                                if(commAdd == "")
+                                {
+                                                document.getElementById("commAdd").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var state = document.getElementById("state").value;
+                                if(state == "")
+                                {
+                                                document.getElementById("state").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please choose the State for your Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var city = document.getElementById("city").value;
+                                if(city == "")
+                                {
+                                                document.getElementById("city").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the City for your Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("city").value))
+                                        {
+                                                document.getElementById("city").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , City Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var pincode = document.getElementById("pincode").value;
+                                if(pincode == "")
+                                {
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Pincode for your Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+					var pincode = document.getElementById("pincode").value;
+
+					if(pincode.length < 6)
+					{
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pincode for Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+					}
+
+
+                                        var validsen = /^\d{1,6}?$/;
+                                        if (validsen.test(pincode)==false)
+                                        {
+                                                document.getElementById("pincode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pincode for your Communicational Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+
+                                var resAdd = document.getElementById("resAdd").value;
+                                if(resAdd == "")
+                                {
+                                                document.getElementById("resAdd").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var state1 = document.getElementById("state1").value;
+                                if(state1 == "")
+                                {
+                                                document.getElementById("state1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please choose the State for your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var city1 = document.getElementById("city1").value;
+                                if(city1 == "")
+                                {
+                                                document.getElementById("city1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the City for your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("city1").value))
+                                        {
+                                                document.getElementById("city1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , City Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var pincode1 = document.getElementById("pincode1").value;
+                                if(pincode1 == "")
+                                {
+                                                document.getElementById("pincode1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Pincode for your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+					var pincode1 = document.getElementById("pincode1").value;
+					if(pincode1.length < 6)
+					{
+                                                document.getElementById("pincode1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pincode for your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+					}
+
+                                        var validsen = /^\d{1,6}?$/;
+                                        if (validsen.test(pincode1)==false)
+                                        {
+                                                document.getElementById("pincode1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Please enter a valid Pincode for your Permanent Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+                                var mobNum = document.getElementById("mobNum").value;
+                                if(mobNum != "")
+                                {
+                                	var mobNum = document.getElementById("mobNum").value;
+					if(mobNum.length < 10 )
+					{
+
+                                                document.getElementById("mobNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Please enter a valid Mobile Number" 
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+					}
+
+					var mobNum = document.getElementById("mobNum").value;
+                                        var validsen = /^\d{1,10}?$/;
+                                        if (validsen.test(mobNum)==false)
+                                        {
+                                                document.getElementById("mobNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter a valid Mobile Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                                document.getElementById("mobNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Mobile Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var telNum = document.getElementById("telNum").value;
+                                if(telNum != "")
+                                {
+
+					if(telNum.length < 10 )
+					{
+
+                                                document.getElementById("telNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Please enter a valid alternative Contact Number" 
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+					}
+
+                                        var validsen = /^\d{1,10}?$/;
+                                        if (validsen.test(telNum)==false)
+                                        {
+                                                document.getElementById("telNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Please enter a valid alternative Contact Number" 
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                                document.getElementById("telNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your alternative Contact Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var econNum = document.getElementById("econNum").value;
+                                if(econNum != "")
+                                {
+					var econNum = document.getElementById("econNum").value;
+                                        if(econNum.length < 10 )
+                                        {
+
+                                                document.getElementById("econNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Please enter a valid Emergency Contact Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                        }
+
+                                        var validsen = /^\d{1,10}?$/;
+                                        if (validsen.test(econNum)==false)
+                                        {
+                                                document.getElementById("econNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter a valid Emergency Contact Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+					var mobNum = document.getElementById("mobNum").value;
+					if(mobNum != "")
+					{
+						if(econNum == mobNum)
+						{
+							document.getElementById("econNum").focus();
+							demo.initChartist();
+							$.notify({
+							icon: 'fa fa-exclamation-circle',
+							message: "Emergency Contact Number Cannot Be same As Entered Mobile Number"
+							},{
+							type: 'info',
+							timer: 500
+							});
+							return false;
+						}
+					}
+
+                                }
+                                else
+                                {
+                                                document.getElementById("econNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Emergency Contact Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var emerPer = document.getElementById("emerPer").value;
+                                if(emerPer == "")
+                                {
+                                                document.getElementById("emerPer").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Emergency Contact Person"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("emerPer").value))
+                                        {
+                                                document.getElementById("emerPer").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Emergency Contact Person Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var fathersName = document.getElementById("fathersName").value;
+                                if(fathersName == "")
+                                {
+                                                document.getElementById("fathersName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Fathers Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("fathersName").value))
+                                        {
+                                                document.getElementById("fathersName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Fathers Name Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+
+                                var mothersName = document.getElementById("mothersName").value;
+                                if(mothersName == "")
+                                {
+                                                document.getElementById("mothersName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Mothers Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("mothersName").value))
+                                        {
+                                                document.getElementById("mothersName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Mothers Name Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var mar = document.getElementById("maritalstatus").value;
+                                if(mar!=="")
+                                {
+                                        var spouse = document.getElementById("spouseName").value;
+                                        if(mar == "MA")
+                                        {
+                                                if(spouse == "")
+                                                {
+                                                        document.getElementById("spouseName").focus();
+							demo.initChartist();
+							$.notify({
+							icon: 'fa fa-exclamation-circle',
+							message: "Please enter your Spouse Name as you have choosed Marital Status as Married."
+							},{
+							type: 'info',
+							timer: 500
+							});
+                                                        return false;
+                                                }
+                                                else
+                                                {
+                                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("spouseName").value))
+                                                        {
+                                                                document.getElementById("spouseName").focus();
+								demo.initChartist();
+								$.notify({
+								icon: 'fa fa-exclamation-circle',
+								message: "Invalid , Spouse Name Should Contain Only Letters"
+								},{
+								type: 'info',
+								timer: 500
+								});
+                                                                return false;
+                                                        }
+                                                }
+
+
+                                        }
+                                }
+                                else
+                                {
+                                                document.getElementById("maritalstatus").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please choose your Marital Status"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var panNum = document.getElementById("panNum").value;
+                                if(panNum == "")
+                                {
+                                                document.getElementById("panNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Pan Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+
+                                        if (panNum.length < 10)
+                                        {
+                                                document.getElementById("panNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pan Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                        var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+                                        if(!regpan.test(panNum))
+                                        {
+                                                document.getElementById("panNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pan Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                        }
+                                }
+
+                                var passNum = document.getElementById("passNum").value;
+                                if(passNum != "")
+                                {
+                                        if(passNum.match(/[@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\? ]/))
+                                        {
+                                                document.getElementById("passNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Passport Number should not contain any special characters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+                                var aadhaarNum = document.getElementById("aadhaarNum").value;
+                                if(aadhaarNum == "")
+                                {
+                                                document.getElementById("aadhaarNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Aadhaar Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (aadhaarNum.length < 10)
+                                        {
+                                                document.getElementById("aadhaarNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Aadhaar Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+					var aadhaarNum = document.getElementById("aadhaarNum").value;
+                                        var validsen = /^\d{1,12}?$/;
+                                        if (validsen.test(aadhaarNum)==false)
+                                        {
+
+                                                document.getElementById("aadhaarNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Aadhaar Card Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+				
+
+				var dlNum = document.getElementById("dlNum").value;
+				if(dlNum != "")
+				{
+                                        if(dlNum.match(/[@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\? ]/))
+					{
+                                                document.getElementById("dlNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Driving Licence Number should not contain any special characters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+					}
+
+				}				
+
+                                var uan = document.getElementById("uan").value;
+                                if(uan != "")
+                                {
+                                        if(uan.match(/[@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\? ]/))
+                                        {
+                                                document.getElementById("uan").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , UAN Number should not contain any special characters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var nameinBank = document.getElementById("nameinBank").value;
+                                if(nameinBank == "")
+                                {
+                                                document.getElementById("nameinBank").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Name as per Enrolled in Bank"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+				else
+				{
+						if (!/^[a-zA-Z\s]+$/.test(document.getElementById("nameinBank").value))
+						{
+							document.getElementById("nameinBank").focus();
+							demo.initChartist();
+							$.notify({
+							icon: 'fa fa-exclamation-circle',
+							message: "Invalid , Name as per Enrolled in Bank Should Contain Only Letters"
+							},{
+							type: 'info',
+							timer: 500
+							});
+							return false;
+						}
+				}
+
+                                var bankName = document.getElementById("bankName").value;
+                                if(bankName == "")
+                                {
+                                                document.getElementById("bankName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Name of Bank"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("bankName").value))
+                                                {
+                                                        document.getElementById("bankName").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Invalid , Name of the Bank Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                }
+
+                                var branchName = document.getElementById("branchName").value;
+                                if(branchName == "")
+                                {
+                                                document.getElementById("branchName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the Name of the Branch"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var acctNum = document.getElementById("acctNum").value;
+                                if(acctNum == "")
+                                {
+                                                document.getElementById("acctNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter your Account Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+
+					var acctNum = document.getElementById("acctNum").value;
+                                        var validsen = /^\d{1,17}?$/;
+                                        if (validsen.test(acctNum)==false)
+                                        {
+                                                document.getElementById("acctNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter a valid Account Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+                                var ifscCode = document.getElementById("ifscCode").value;
+                                if(ifscCode == "")
+                                {
+                                                document.getElementById("ifscCode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Please enter the IFSC Code of your Branch"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+				else
+				{
+                                        var regpan = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+                                        if(regpan.test(ifscCode))
+                                        {
+                                                document.getElementById("ifscCode").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , IFSC CODE should not contain any special characters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+				}
+                                return true;
+                        }
+
+			function resetform()
+			{
+
+				document.getElementById("myForm").reset();
+			}
+
+
+                        function hideNext()
+                        {
+                                var maritalstatus = document.getElementById("maritalstatus").value;
+
+                                if((maritalstatus == "B")||(maritalstatus == "DI"))
+                                {
+                                        document.getElementById("spouseName").value="";
+                                        document.getElementById("spouseName").setAttribute("readonly", true);
+                                }
+                                else
+                                {
+                                        document.getElementById("spouseName").removeAttribute("readonly");
+                                }
+                        }
+
+                        function econCheck()
+                        {
+                                var mobNum = document.getElementById("mobNum").value;
+                                var econNum = document.getElementById("econNum").value;
+                                if((mobNum != "")&&(econNum != ""))
+                                {
+                                        if(econNum == mobNum)
+                                        {
+                                                document.getElementById("econNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Emergency Contact Number Cannot Be same As Entered Mobile Number"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+                        }
+
+
+		</script>
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+					<% if(emp_access == 'A1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeDetails">Add Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsModify">Modify Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsView">View Employee's Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeApprovalDetails">Verify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeSavedDetails">Verify Migrated Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/migApprovalDetails">Verify Migrated Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access != 'A1' && emp_access != 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod"><span style="color:#ff6600">Modify Personal Details</span></a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access == 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod"><span style="color:#ff6600">Modify Personal Details</span></a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewFin">View Employee's Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalModFin">Update Employee's Bank Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+  				</ul>
+				</nav>
+                                </div>
+                            	<div class="content">
+                                <form name="myForm" id="myForm" action="/employeeModule/employeeDetails/addmodempdetper" method="post" onsubmit="return formValidations()">
+				<hr/>
+				<h4 class="title">Personal Details     <i class="material-icons right">perm_identity</i></h4>
+				<hr/>
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" readonly style ="margin-left: 50px;width:348px" value="<%= empid %>" id="empid" name="empid" class="form-control" placeholder="Employee Id" maxlength="4">
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Employee Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" readonly style ="margin-left: 50px;width:348px" value="<%= empName %>" name="empName" id="empName" name="empName" class="form-control" placeholder="Employee Name" maxlength="100">
+                                            </div>
+                                        </div>
+                                </div>
+                                    
+				<div class="row">
+                    	 		<div class="col-md-5">
+						<label style="color:#404040;margin-left: 50px" for="gender">Gender <span style="color:red;font-size: 10pt">*</span></label><br>
+						<% if(gender == "M"){%>
+						<input style ="margin-left: 50px;" type="radio" name="gender" value="M" checked="checked" /> Male&nbsp;&nbsp;
+						<input style ="margin-left: 50px;" type="radio" name="gender" value="F"> Female
+                                                <%}%>
+						
+						<% if(gender == "F"){%>
+						<input style ="margin-left: 50px;" type="radio" name="gender" value="M"> Male&nbsp;&nbsp;
+						<input style ="margin-left: 50px;" type="radio" name="gender" value="F" checked="checked"/> Female
+
+						<%}%>
+						</div>
+
+                                 <div class="col-md-5">
+                                        <div class="form-group">
+                                            <div class="datepicker">
+					    	<table>
+                                                <tr><label style="color:#404040;margin-left: 50px" for="dob">Date of Birth  (YYYY-MM-DD) <span style="color:red;font-size: 10pt">*</span></label>
+                                             	<td><input type="text" readonly value="<%= dob %>" class="form-control" style ="margin-left: 50px;width:348px" placeholder="DOB" id="dob" name="dob"></td>
+						<td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+					    </tr>
+					    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                   
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="bgroup">Blood Group <span style="color:red;font-size: 10pt">*</span></label>
+                                            <select class="form-control" id="bgroup" name="bgroup" style ="margin-left: 50px;width:348px">
+                                                        <option value="<%= bgroup %>"><%= blood_desc %></option>
+                                                        <% for (i = 0; i < comm_code_blood_count; i++)  {%>
+							<% if(bgroup != comm_code_blood[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_blood[i].comm_code_id %>"> <%= comm_code_blood[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+					     </select>
+					    </div>
+                       </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="city">Shirt Size <span style="color:red;font-size: 10pt">*</span></label>
+                                            <select class="form-control" id="shirt" name="shirt" style ="margin-left: 50px;width:348px">
+                                                        <option value="<%= shirt %>"><%= shirt_desc %></option>
+                                                        <% for (i = 0; i < comm_code_shirt_count; i++)  {%>
+                                                        <% if(shirt != comm_code_shirt[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_shirt[i].comm_code_id %>"> <%= comm_code_shirt[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+					     </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="commAdd">Address for Communication <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= commAdd %>" style ="margin-left: 50px;width:777.5px" name="commAdd" id="commAdd" class="form-control" placeholder="Communicational Address" maxlength="100">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="state">State <span style="color:red;font-size: 10pt">*</span></label>
+                                           	<select class="form-control" id="state" onchange="test();" name="state" style ="margin-left: 50px;width:348px">
+							<option value="<%= state %>"><%= state_desc %></option>
+                                                        <% for (i = 0; i < comm_code_state_count; i++)  {%>
+                                                        <% if(shirt != comm_code_state[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_state[i].comm_code_id %>"> <%= comm_code_state[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+						</select>
+					     </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="city">City <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= city %>" style ="margin-left: 50px;width:348px" name="city" id="city" class="form-control" placeholder="City" maxlength="100">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="pincode">Pincode <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= pincode %>"style ="margin-left: 50px;width:348px" maxlength="6" name="pincode" id="pincode" class="form-control" placeholder="Pincode">
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                        <table>
+                                                        <tr>
+                                                        <td><label style="color:#404040;margin-left: 55px" for="sameAdd">Address for Communication Same as Permanent Address?</label></td>
+                                                        <td><input type="checkbox" onchange="return copyAdd();" value="sameAdd" style ="width:15.5px" name="sameAdd" id="sameAdd" ></td>
+                                                        </tr>
+                                                        </table>
+                                             </div>
+                                        </div>
+                                    </div>
+
+ 
+				<div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="resAdd">Permanent Address <span style="color:red;font-size: 10pt">*</span></label>&nbsp;&nbsp;&nbsp;
+                                                <input type="text" value="<%= resAdd %>" style ="margin-left: 50px;width:777.5px" class="form-control" placeholder="Residential Address" name="resAdd" id="resAdd" maxlength="100">
+                                            </div>
+                                        </div>
+                                </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="state1">State <span style="color:red;font-size: 10pt">*</span></label>
+                                           	<select class="form-control" onchange="test1();" id="state1" name="state1" style ="margin-left: 50px;width:348px">
+							<option value="<%= state1 %>"><%= state_desc1 %></option>
+                                                        <% for (i = 0; i < comm_code_state_count1; i++)  {%>
+                                                        <% if(shirt != comm_code_state1[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_state1[i].comm_code_id %>"> <%= comm_code_state1[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+						</select>
+						</div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="city1">City <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= city1 %>" style ="margin-left: 50px;width:348px" name="city1" id="city1" class="form-control" placeholder="City" maxlength="100">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="pincode1">Pincode <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= pincode1 %>"style ="margin-left: 50px;width:348px" maxlength="6" name="pincode1" id="pincode1" class="form-control" placeholder="Pincode">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="mobNum">Mobile Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= mobNum %>" style ="margin-left: 50px;width:348px" name="mobNum" id="mobNum" class="form-control" placeholder="Mobile Number" maxlength="10">
+                                            </div>
+                                        </div>
+                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="telNum">Alternative Contact Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%=telNum %>" style ="margin-left: 50px;width:348px" maxlength="10" name="telNum" id="telNum" class="form-control" placeholder="Telephone Number">
+                                            </div>
+                                        </div>
+                                       
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="econNum">Emergency Contact Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= econNum %>" style ="margin-left: 50px;width:348px" name="econNum" id="econNum" class="form-control" placeholder="Emergency Contact Number" maxlength="10" onblur="return econCheck();">
+                                            </div>
+                                        </div>
+                                    </div>
+
+ 
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="emerPer">Emergency Contact Person <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= emerPer %>" style ="margin-left: 50px;width:348px" name="emerPer" id="emerPer" class="form-control" placeholder="Emergency Contact Person" maxlength="100">
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="fathersName">Fathers Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= fathersName %>" style ="margin-left: 50px;width:348px" name="fathersName" id="fathersName" class="form-control" placeholder="Fathers name" maxlength="100">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="mothersName">Mothers Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= mothersName %>" style ="margin-left: 50px;width:348px" name="mothersName" id="mothersName" class="form-control" placeholder="Mothers Name" maxlength="100">
+                                            </div>
+                                        </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="maritialstatus">Marital Status <span style="color:red;font-size: 10pt">*</span></label>
+                                                <select class="form-control" id="maritalstatus" name="maritalstatus" style ="margin-left: 50px;width:348px" onchange="return hideNext();">
+						<option value="<%= maritalstatus %>"><%= maritalstatus_desc %></option>
+                                                        <% for (i = 0; i < comm_code_maritalstatus_count; i++)  {%>
+                                                        <% if(maritalstatus != comm_code_maritalstatus[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_maritalstatus[i].comm_code_id %>"> <%= comm_code_maritalstatus[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                </select>
+                                            </div>
+                                     	</div>
+                                     </div>
+                                        
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="spouseName">Spouse Name</label>
+						<% if(maritalstatus=="MI") {%>
+                                                <input type="text" value="<%= spouseName %>" style ="margin-left: 50px;width:348px" id="spouseName" name="spouseName" class="form-control" placeholder="Spouse Name" maxlength="100">
+						<% } else { %>
+                                                <input type="text" readonly value="<%= spouseName %>" style ="margin-left: 50px;width:348px" id="spouseName" name="spouseName" class="form-control" placeholder="Spouse Name" maxlength="100">
+						<% } %>
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="panNum">Pan Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= panNum %>" style ="margin-left: 50px;width:348px" id="panNum" name="panNum" class="form-control" placeholder="Permanent Account Number" maxlength="10">
+
+                                            </div>
+                                        </div>
+                                   </div>
+                                        
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="passNum">Passport Number</label>
+                                                <input type="text" value="<%= passNum %>" style ="margin-left: 50px;width:348px" id="passNum" name="passNum" class="form-control" placeholder="Passport Number" maxlength="15">
+                                            </div>
+                                        </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="aadhaarNum">Aadhaar Card Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= aadhaarNum %>" style ="margin-left: 50px;width:348px" id="aadhaarNum" name="aadhaarNum" class="form-control" placeholder="Aadhar Card Number" maxlength="12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="dlNum">Driving License Number</label>
+                                                <input type="text" value="<%= dlNum %>" style ="margin-left: 50px;width:348px" id="dlNum" name="dlNum" class="form-control" placeholder="Driving License Number" maxlength="30">
+                                            </div>
+                                        </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="uan" style="color:#404040;margin-left: 50px">UAN Number</label>
+                                                <input type="text" value="<%= uan %>" style ="margin-left: 50px;width:348px" id="uan" name="uan" maxlength="16" class="form-control" placeholder="Universal Account Number" maxlength="30">
+                                            </div>
+                                        </div>
+                                 </div>
+                                        
+				<hr/>
+				<h4 class="title">Bank Details     <i class="material-icons right">business</i></h4>
+				<hr/>
+				<div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nameinBank" style="color:#404040;margin-left: 50px">Name As per Bank <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= nameinBank %>" style ="margin-left: 50px;width:348px" id="nameinBank" name="nameinBank" class="form-control" placeholder="Name As Per Bank" maxlength="100">
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="bankName" style="color:#404040;margin-left: 50px">Bank Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= bankName %>" style ="margin-left: 50px;width:348px" id="bankName" name="bankName" maxlength="16" class="form-control" placeholder="Bank Name" maxlength="100">
+                                            </div>
+                                        </div>
+                                </div>
+					
+				<div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="branchName" style="color:#404040;margin-left: 50px">Branch Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= branchName %>" style ="margin-left: 50px;width:348px" id="branchName" name="branchName" class="form-control" placeholder="Branch Name" maxlength="100">
+                                            </div>
+                                        </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="acctNum" style="color:#404040;margin-left: 50px">Account Number <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= acctNum %>" style ="margin-left: 50px;width:348px" id="acctNum" name="acctNum" class="form-control" placeholder="Account Number" maxlength="17">
+                                            </div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="ifscCode" style="color:#404040;margin-left: 50px">IFSC Code <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" value="<%= ifscCode %>" style ="margin-left: 50px;width:348px" id="ifscCode" name="ifscCode" class="form-control" placeholder="IFSC Code" maxlength="15">
+                                            </div>
+                                        </div>
+				</div>
+				    <br>
+				    <br>
+				    <table>
+				    <tr>
+                                    <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:30%;padding:1px 16px;height:40px;width:130px" value="Modify Profile"></td>
+                                    <td><input type="button" class="btn btn-info btn-fill" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" value="Clear" onclick="resetform()"></td>
+				    </tr>
+				    </table>
+                                    <div class="clearfix"></div>
+				    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<% include ../common/footer %>
+</div>
+</body>
+
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+
+     <%}%>
+
+</html>

@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>My Messages</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700'rel='stylesheet' type='text/css'>
+    <link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+function changeHashAgain()
+{
+window.location.href += "1";
+}
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+ 
+<script src="/js/jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$(function () {
+            $("body").on('click keypress', function () {
+                ResetThisSession();
+            });
+        });
+
+
+    var timeInSecondsAfterSessionOut =300; // change this to change session time out (in seconds).
+        var secondTick = 0;
+
+        function ResetThisSession() {
+            secondTick = 0;
+        }
+
+        function StartThisSessionTimer() {
+            secondTick++;
+            var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).toFixed(0); // in minutes
+        timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only
+
+            $("#spanTimeLeft").html(timeLeft);
+
+                 if(timeLeft==5){
+                      //  window.alert("Session will expire if you are inactive")
+                $('#AutoSignoutmodal').modal('show');
+                        }
+
+             if (secondTick > timeInSecondsAfterSessionOut) {
+               clearTimeout(tick);
+                window.location = "/logoutModule/logout/logout";
+                return;
+            }
+            tick = setTimeout("StartThisSessionTimer()", 1000);
+        }
+
+        StartThisSessionTimer();
+</script>
+
+</head>
+
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+            <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+            <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+            <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+            <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+        
+        <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+            <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+        <%}%>
+        
+        <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+        <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+            <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+        <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+            <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+    
+        <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+            <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+        <%}%>
+
+        <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+            <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+        <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+            <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+        <%}%>
+
+        <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+            <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+            <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+        <% } %>
+
+
+        <% if( emp_access== 'F1'){ %>
+        <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+            <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+        </li>
+        <% } %>
+
+        <% if(emp_access != 'A1'){ %>
+        <li>
+           <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+            <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+           <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+            <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+           <%}%>
+                </li>
+        <% } %>
+
+            </ul>
+        </div>
+    </div>
+
+ <div class="main-panel" >
+ <div class="content">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ <div class="container-fluid">
+ <div class="row">
+<div class="card">
+<div class="content container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">My Messages </h2>
+        </div>
+    </div>
+      <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget">
+                <div class="body">
+                    <div id="mailbox-app" class="mailbox">
+                        <div class="row">
+                            <div class="col-sm-2" style="padding-top: 23px;">
+                                <button id="compose-btn" class="btn btn-danger btn-block">Compose</button>
+                                <br>
+                                <ul id="folders-list" class="mailbox-folders" style="font-size: 17px;"><li class="active">
+    <a href="/messages/messages/messages">Inbox</a>
+</li><li class="">
+    <a href="/messages/sentItems/sentItems">Sent Items</a>
+</li></ul>
+                            </div>
+                            <div class="col-sm-9">
+                                <h2 id="folder-title" class="folder-title">Inbox </h2>
+                                <br>
+                                <br>
+
+                                 <div id="mailbox-content" class="mailbox-content"><div id="email-view" class="email-view">
+
+<h4><b><i><%= rowData[0].subject %></b></i></h4>
+<div class="email-details clearfix">
+    <img src="/images/profile/<%= emp_id%>.jpg" alt="<%= my_name %>"   width="40" height="40">
+    <div class="email-details-content">
+        <div class="pull-left">
+            <strong><%= rowData[0].emp_name %></strong>
+            
+                <span class="email">&lt;<%= rowData[0].emp_email %>&gt;</span>
+            
+            <span class="receiver">to <%= my_name %></span>
+        </div>
+        
+        <div class="email-date pull-right">
+            <%= rowData[0].rcre_time.toDateString() %>
+        </div>
+    </div>
+</div>
+<div class="email-body">
+    <p><%= rowData[0].message_content %></p>
+</div>
+
+    
+
+
+</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% include ../common/footer %>
+</div>
+</div>
+
+
+<!-- jquery and friends -->
+<script src="/messagesFiles/jquery-2.0.3.min.js.download"> </script>
+
+
+<!-- jquery plugins -->
+<script src="/messagesFiles/jquery.maskedinput.js.download"></script>
+<script src="/messagesFiles/parsley.js.download"> </script>
+<script src="/messagesFiles/jquery.icheck.js.download"></script>
+<script src="/messagesFiles/select2.js.download"></script>
+
+<!--backbone and friends -->
+<script src="/messagesFiles/underscore-min.js.download"></script>
+<script src="/messagesFiles/backbone.js.download"></script>
+<script src="/messagesFiles/backbone.localStorage-min.js.download"></script>
+
+<!-- bootstrap default plugins -->
+<script src="/messagesFiles/transition.js.download"></script>
+<script src="/messagesFiles/collapse.js.download"></script>
+<script src="/messagesFiles/alert.js.download"></script>
+<script src="/messagesFiles/tooltip.js.download"></script>
+<script src="/messagesFiles/popover.js.download"></script>
+<script src="/messagesFiles/button.js.download"></script>
+<script src="/messagesFiles/dropdown.js.download"></script>
+<script src="/messagesFiles/modal.js.download"></script>
+<script src="/messagesFiles/tab.js.download"> </script>
+
+<!-- bootstrap plugins -->
+<script src="/messagesFiles/wysihtml5-0.3.0_rc2.js.download"></script>
+<script src="/messagesFiles/bootstrap-wysihtml5.js.download"></script>
+<!-- advanced parser rules -->
+<script src="/messagesFiles/advanced.js.download"></script>
+
+<!-- fileupload stuff. see component_fileupload.html -->
+<script src="/messagesFiles/jquery.ui.widget.js.download"></script>
+<script src="/messagesFiles/http_blueimp.github.io_JavaScript-Templates_js_tmpl.js.download"></script>
+<script src="/messagesFiles/http_blueimp.github.io_JavaScript-Load-Image_js_load-image.js.download"></script>
+<script src="/messagesFiles/http_blueimp.github.io_JavaScript-Canvas-to-Blob_js_canvas-to-blob.js.download"></script>
+<script src="/messagesFiles/jquery.iframe-transport.js.download"></script>
+<script src="/messagesFiles/jquery.fileupload.js.download"></script>
+<script src="/messagesFiles/jquery.fileupload-fp.js.download"></script>
+<script src="/messagesFiles/jquery.fileupload-ui.js.download"></script>
+
+
+<!-- page-specifix js-->
+<script src="/messagesFiles/inbox.js.download"></script>
+
+
+<!-- Page Specific Templates -->
+<script type="text/template" id="folder-actions-template">
+   
+</script>
+
+<script type="text/template" id="mail-item-template">
+   
+</script>
+
+<script type="text/template" id="folder-template">
+ 
+</script>
+
+<script type="text/template" id="folders-view-template">
+  
+</script>
+
+
+<script type="text/template" id="email-view-template">
+
+</script>
+<script type="text/template" id="compose-view-template">
+    <form id="email-compose" class="form-horizontal form-email-compose" method="POST"  action="/messages/sendMessages/sendMessages">
+        <div class="control-group">
+        <br>
+        <br>
+                 <label for="empid" style="color:#404040;margin-left: 20px">To</label>
+                                <select class="form-control" style ="margin-left: 20px;width:340px" id="to_user_id" name="to_user_id" required placeholder="Employee Name">
+                        
+                        <option value="">Select Name</option>
+                      <% for (i = 0; i < empData.length; i++)  {%>
+                        <option value="<%= empData[i].emp_id %>"> <%=empData[i].emp_name %></option>
+                        <% }; %>
+                      
+                </select>
+        </div>
+        <br>
+        <div class="control-group">
+                <div class="form-group">
+                                                <label for="subject" style="color:#404040;margin-left: 35px">Subject<span style="color:red;font-size: 10pt"></span></label>
+                                                <input type="text" style ="margin-left: 35px;width:343px" id="subject" maxlength="40" name="subject"  class="form-control" placeholder="Subject">
+                                            </div>
+        </div>
+        <br>
+
+        <div class="control-group">
+                <textarea style="margin-left: 22px" rows="7" cols ="49" class="input-transparent" id="message_content" name= "message_content" maxlength="400"></textarea>
+        </div>
+       <br>
+        <div class="control-group">
+<button style="margin-left: 20px;" type="submit" class="btn btn-info btn-fill">Send</button>
+        
+            
+           
+        </div>
+    </form>
+</script>
+<script id="template-upload" type="text/x-tmpl">
+   
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  
+</script>
+ </div>
+ </div>
+</body>
+
+</html>

@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+		<% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+
+  <title>Reimbursement Request</title>
+
+ 
+   
+
+
+		<style>
+        		
+			
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+                           .entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+                         .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+
+    	     </style>
+    	      <script>
+          $(window).load(function(){
+          $("#test").attr('disabled',true);
+          $("#addAmt").click(function() {
+             $("#test").attr('disabled',false);
+           });
+           });
+           
+          </script>
+
+          <script>
+             $(function()
+{
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls:first'),
+            currentEntry = $(this).parents('.entry:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+      $(this).parents('.entry:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+});
+          </script>
+         <script type="text/javascript">
+       
+       
+<%if(resultList.length!=0) 
+ {%>
+      $(window).load(function()
+      {
+         var danishdays = [];
+         //var danishdays1 = [];
+         var leavearray ;
+      var startDate =[]; 
+      var endDate =[];
+      var datesEnabled="";
+       var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+
+
+        $('#travelDate').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        disable:totalEnabled
+        });
+            
+            
+      });
+<%}%>
+      $(document).ready(function() {
+      $("#my-icon").click(function(){
+      $( '#travelDate' ).pickadate("open"),
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+           
+       </script>  
+       
+         
+
+			
+
+	     <script type="text/javascript">
+			              var d = new Date();
+                    currentDate = d.toDateString();
+                    //alert(d.toDateString());
+
+                        
+			function formValidations()
+			{
+				//***************/
+				
+					
+				var oTable = document.getElementById('tableAddRow');
+				//alert(oTable);
+					var rowLength = oTable.rows.length;
+					//var newLength = parseInt(rowLength)-1;
+					//alert("newLength " + newLength);
+					//document.getElementById('millength').value=rowLength; 
+					var newLength = document.getElementById('millength').value;
+				
+					//alert("newLength : " + newLength);
+				
+					
+					for (i=0;i<newLength;i++){	
+					
+					
+					
+				
+					              
+                                if(document.getElementById("travelDate_" + i))
+                                  {
+                                  	var travelDate = document.getElementById("travelDate_" + i).value;
+								if(travelDate == "")
+                                {
+									//alert("inside for::::trvlDate::");
+                                                
+                                                document.getElementById("travelDate_" + i).focus();
+                                                demo.initChartist();
+											  
+											    $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter Travel Date for selected row"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                                }
+                           }
+							  if(document.getElementById("travelDesc_" + i))
+                                  {
+                                  	var travelDesc = document.getElementById("travelDesc_" + i).value;
+								if(travelDesc == "")
+                                {
+									//alert("inside for::::trvlDesc::");
+                                               // alert("Enter Travel Description for selected row ");
+                                                document.getElementById("travelDesc_" + i).focus();
+                                                demo.initChartist();
+											    $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter Nature of Expenses for selected row"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                                	}
+                                 }
+                                 if(document.getElementById("ticktno_" + i))
+                                  {
+                                  	var ticktno = document.getElementById("ticktno_" + i).value;
+								if(ticktno == "")
+                                {
+									//alert("inside for::::trvlticktno::");
+                                           //     alert("Enter Bill Id for selected row ");
+                                                document.getElementById("ticktno_" + i).focus();
+                                                demo.initChartist();
+											   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter Bill Id for selected row"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                              	  }
+                            }
+                             if(document.getElementById("travelExp_" + i))
+                                  {
+                                  	var travelExp = document.getElementById("travelExp_" + i).value;
+                                  	
+                              	  if(travelExp == "")
+                                {
+									
+                                                document.getElementById("travelExp_" + i).focus();
+                                                demo.initChartist();
+											   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter Description for Travel"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                              	  }
+                              	  
+                                }
+                                if(document.getElementById("travelAmt_" + i))
+                                  {
+                                  	var travelAmt = document.getElementById("travelAmt_" + i).value;
+								if(travelAmt == "")
+                                {
+									
+                                                document.getElementById("travelAmt_" + i).focus();
+                                                demo.initChartist();
+											    $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter Travel Amount for selected row"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                                	}
+                                 
+								if (isNaN(travelAmt) || travelAmt <= 0  ) 
+								{
+									//alert("Enter a valid Bill Amount value");
+									document.getElementById("travelAmt_" + i).focus();
+									 demo.initChartist();
+											    $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter a valid Bill Amount value"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+                                        return false;
+								}
+							}
+								 
+								
+					}
+				
+								var access = document.getElementById("access").value;
+                                if(access == "")
+                                {
+                                              //alert("Enter Reporting Manager");
+                                              document.getElementById("access").focus();
+                                             demo.initChartist();
+										   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Select the Reporting Manager"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+								return false;
+                                }
+								
+								var empName = document.getElementById("emp_name").value;
+								if(access == empName)
+                                {
+                                             // alert("User cannot approve their own Request, please select valid reporting Manager");
+                                              document.getElementById("access").focus();
+                                            demo.initChartist();
+										   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "User cannot approve their own Request, please select valid reporting Manager"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+								return false;
+                                }
+								
+							
+                             
+                               var tblrow = document.getElementById("millength").value;
+								//var rowCount = tblrow;
+								//alert("tblrow::",tblrow)
+                                if(tblrow == "")
+                                {
+                                               // alert("Enter atleast one record ");
+                                                document.getElementById("tableAddRow").focus();
+                                               demo.initChartist();
+											   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter atleast one record for reimbursement Request"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+											   return false;
+
+                                }
+				            
+				   
+                         
+                            
+                                var total_amount = document.getElementById("amt_payable").value; 
+                                  // alert(totAmt);
+								if (isNaN(total_amount) || total_amount <= 0  ) 
+								{
+									//alert("Enter a valid Bill Amount value");
+									document.getElementById("amt_payable").focus();
+									 demo.initChartist();
+											    $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Enter a valid Bill Amount value"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+                                        return false;
+								}
+
+								var hraccess = document.getElementById("hraccess").value;
+                                if(hraccess == "")
+                                {
+                                           //   alert("Enter Reporting HR");
+                                              document.getElementById("hraccess").focus();
+                                            demo.initChartist();
+										   $.notify({
+													icon: 'fa fa-exclamation-circle',
+													message: "Select the Finance Manager"
+
+													},{
+													type: 'info',
+													timer: 500
+													});
+
+								return false;
+                                }
+								
+
+
+                                var totAmt=0;
+					for (var p=0;p<newLength;p++)
+				{
+					if(document.getElementById("travelAmt_" + p))
+				{
+					var travelAmt = document.getElementById("travelAmt_" + p).value;
+					
+				}	
+				else
+				{
+					
+					newLength1++;
+					travelAmt=0;
+                  
+				}
+				
+				            totAmt=parseInt(totAmt)+parseInt(travelAmt);
+				}
+				document.getElementById("amt_payable").value = totAmt;
+								
+								
+				
+				return true; 
+			}
+
+
+                        
+			function travelDateValidation()
+      {
+            
+                     var radioButton=document.getElementsByName('probPeriod').value;
+                 
+                 alert("radioButton",radioButton);
+      }
+
+			function resetform()
+			{
+
+				document.getElementById("myForm").reset();
+			}
+
+	    </script>
+		<!--start Added by nandhini for travel date-->
+		<script>
+		 $(function () {
+			
+        $("input[name='probPeriod']").click(function () {
+            if ($("#chkYes").is(":checked")) {
+                $("#dvPassport").show();
+				$("#dvPassport1").show();
+            } else {
+				$("#dvPassport1").hide();
+                $("#dvPassport").show();
+            }
+        });
+    });
+		
+		</script>
+
+
+     
+
+	<script type="text/javascript">
+	$(document).ready(function () {
+    $('#addAmt').on('click', function () {
+		//alert("hello");
+		//var oTable1 = document.getElementById('tableAddRow');
+		//var rowLength1 = oTable1.rows.length;
+					//var newLength1 = parseInt(rowLength1)-1;
+					//alert(newLength1);
+					var newLength1=document.getElementById('millength').value; 
+					//alert("rowLength1",rowLength1);
+					var p=0;
+					var totAmt=0;
+					for (p=0;p<newLength1;p++)
+				{
+					if(document.getElementById("travelAmt_" + p))
+				{
+					var travelAmt = document.getElementById("travelAmt_" + p).value;
+					
+				}	
+				else
+				{
+					
+					
+					travelAmt=0;
+                   
+				}
+				
+				            totAmt=parseInt(totAmt)+parseInt(travelAmt);
+				}
+				
+				//alert(totAmt);
+				document.getElementById("amt_payable").value = totAmt;
+
+	});
+	});
+	 </script>
+
+ <script>
+
+      // $(document).ready(function(){
+      // $('#gstno').val("");
+      // });
+     $(document).ready(function() {
+    $('.submit').on('click' , function() {
+        //var selt=$( "#pid" ).val();
+        //var emp_id=$("#emp_id").val();
+       console.log("going");
+
+         $.ajax
+         ({
+             type:'post',
+             url:'/reimbursementModule/initiateRem/uploadMultipleDocument',
+
+             data:{
+                empId:emp_id,
+                projectId:selt
+             },
+             success:function(response,data)
+             {
+                console.log("response",response);
+               
+                $('#gstno').val(response.key);
+              // }
+                $('#project_id').val(selt);
+             }
+         });
+        
+    })
+});
+
+     
+      </script>
+
+      
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.addBtn').on('click', function () {
+        //var trID;
+        //trID = $(this).closest('tr'); // table row ID
+        addTableRow();
+    })
+     $('.addBtnRemove').click(function () {
+        $(this).closest('tr').remove();
+    })
+	
+    var i = 0;
+	
+   
+    function addTableRow()
+    {
+        var tempTr = $('<tr id="tr_' + i +'"><td><input type="text" id="travelDate_' + i + '" name="travelDate_' + i + '" class="form-control" /></td><td><input type="text" maxlength="15" id="ticktno_' + i + '" name="ticktno_' + i + '" class="form-control" /></td><td><select maxlength="15" id="travelDesc_' + i + '" name="travelDesc_' + i + '"class="form-control"><% for (j = 0; j< comm_code_tnu_count; j++)  {%><option  value="<%= comm_code_tnu[j].comm_code_desc %>"> <%= comm_code_tnu[j].comm_code_desc%></option><% };%></select></td><td><input type="text" maxlength="50" id="travelExp_' + i + '" name="travelExp_' + i + '" class="form-control" /></select></td><td><input type="text" maxlength="10" id="travelAmt_' + i + '" name="travelAmt_' + i + '" class="form-control" /></td><td><span class="glyphicon glyphicon-minus addBtnRemove" id="addBtn_' + i + '"></span></td></tr>').on('click', function () {
+          // $(this).closest('tr').remove();
+           $(document.body).on('click', '.addBtnRemove', function (e) {
+               $(this).closest('tr').remove();
+                  });
+               });
+        $("#tableAddRow").append(tempTr)
+     
+		var danishdays = [];
+         //var danishdays1 = [];
+         var leavearray ;
+      var startDate =[]; 
+      var endDate =[];
+      var datesEnabled="";
+       var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+
+
+        $('#travelDate_'+i).pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        disable:totalEnabled
+        });
+      
+		
+		$('#travelDesc_'+i)
+        i++;
+	
+	$('#millength').val(i);
+	
+
+}
+
+});
+</script>
+
+
+		
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+            <% include ../common/logo%>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != 'A1'){ %>
+		<li class="active">
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+           <% if(emp_access == 'L1'||emp_access == 'L2'||emp_access == 'L3'){ %> 
+                     <li><a href="/reimbursementModule/initiateRem/initiateRem"><span style="color:#ff6600">Initiate Reimbursement</span></a></li>
+                     <li><a href="/reimbursementModule/viewClaimReq/viewClaimReq">View All Claims</a></li>
+                     <li><a href="/reimbursementModule/viewClaimApprQueue/viewClaimApprQueue">Approve/Reject</a></li>
+                     <li><a href="/reimbursementModule/reimburseFAQDetails/reimburseFAQDetails">FAQ</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">Approve/Reject</a></li>
+           <% } %>
+  				</ul>
+				</nav>
+                            </div>
+
+                            
+							
+                            <div class="content">
+    <form name="formSubmitOnProjectChange" id="formSubmitOnProjectChange" action="/travelModule/travel/formSubmitOnProjectChange" method="post">
+             <input type="passedPid" id="passedPid" name="passedPid" hidden="true">
+             </form>
+
+
+<script type="text/javascript">
+  
+function submitFormWithPid(){
+
+$('#passedPid').val($('#pid').val());
+//alert($('#passedPid').val())
+document.getElementById("formSubmitOnProjectChange").submit();
+
+
+}
+
+
+</script>
+
+   <!-- <div class="container"  style="width:80 -->
+
+            <form name="myForm" id="myForm" action="/reimbursementModule/initiateRem/rembReq" method="post">
+				<hr/>
+				<h4 class="title">Initiate Reimbursement Request<i class="material-icons">receipt</i></h4>
+				<hr/>				
+									<div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label for="emp_id" style="color:#404040;margin-left: 50px">Employee Id<span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="emp_id" name="emp_id" class="form-control"  value="<%= emp_id%>" readonly="true" placeholder="">
+                                            </div>
+                                        </div>
+					
+					               <div class="col-md-5">
+                                           <div class="form-group">
+                                                <label for="emp_id" style="color:#404040;margin-left: 50px">Employee Name<span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="emp_name" name="emp_name" class="form-control" value="<%= emp_name%>" readonly="true" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Project Id <span style="color:red;font-size: 10pt">*</span></label>
+						                                     <select class="form-control" id="pid" name="pid" style ="margin-left: 50px;width:348px !important" onchange="submitFormWithPid();">
+                                                        
+                                                        <% for (i = 0; i < pid.length; i++) {
+                                                            if(defProjectId==pid[i].project_id)
+                                                            { %>
+                                                              <option  value="<%= pid[i].project_id %>" selected><%= pid[i].project_id %></option>
+                                                            <%}
+                                                            else{
+                                                            %>
+                                                              <option  value="<%= pid[i].project_id %>" ><%= pid[i].project_id %>
+                                                              </option>
+                                                        <% }}; %>
+                                            </select>
+                                            </div>
+                                        </div>
+					
+					
+                                 
+                                     
+
+                                    
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">To be approved by</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="access" name="access" value="<%=Manager_id%>-<%= Manager_name%>" readonly="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+					
+					
+                                    </div>
+                                   
+                                
+							<!--	<div class="row"> -->
+								
+								
+								                       <div class="row">
+                                        
+                                                
+                                                <input type="hidden" style="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="10" id="AdvPaid" name="AdvPaid" class="form-control" value="0" visibility="false">
+                                         
+                                        
+					
+					               <div class="col-md-5">
+                                           <div class="form-group">
+                                                 <label for="hraccess" style="color:#404040;margin-left: 59px">Finance Manager<span style="color:red;font-size: 10pt">*</span></label>
+                                               <select class="form-control" id="hraccess" name="hraccess" style ="margin-left: 59px;width:348px">
+                                                        <option  value="" disabled selected>Finance Manager</option>
+                                                         <% for (i = 0; i < hraccess_count; i++)  {%>
+                                                        <option  value="<%= hraccess[i].emp_name %> :<%= hraccess[i].emp_id %>"> <%= hraccess[i].emp_name %>(<%= hraccess[i].emp_id %>)</option>
+                                                        <% }; %>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+		                           
+                      <div class="container"  style="width:80%;">
+                       <div id="left" >
+ 
+ 
+</div>
+
+
+                      </div>
+                                        
+				    <br>
+					<div id="reimbursementDetails" >
+				
+                                 <hr/>
+                                <h4 class="title">Reimbursement Details </h4>
+								
+                                <hr/>
+
+                                    <div class="row">
+                                     <div class="col-md">
+                                      <table class="table table-bordered table-hover" id="tableAddRow">
+									    <h2 style="margin-top: -20px"><span style="color:red;font-size: 10pt ">*Enter atleast one record</span></h2>
+                                      <thead>
+									
+                                      <tr>
+                                    
+                                      <th style="color:#404040">Bill Date</th>
+                                      <th style="color:#404040">Bill Id</th>
+                                      <th style="color:#404040">Nature of Expenses</th>
+									                    <th style="color:#404040">Description</th>
+                                      <th style="color:#404040">Bill Amount (in INR)</th>
+									  
+									  <th style="width:10px"><span class="glyphicon glyphicon-plus addBtn" id="addBtn_0"></span></th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+									   
+                                      </tbody>
+                                      </table>
+                                      </div>
+                                      </div>
+									  
+									    <input type="hidden"  id="millength" name="millength">
+									
+									<div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                
+                                               <input type="button" name="addAmt" id="addAmt" style="margin-left:185%;padding:1px 13px;height:40px;width:105px" class="btn btn-info btn-fill" style="float: center;" value="Add Amount" onclick="return addAmt();">
+                                            </div>
+                                        </div>
+										 </div>
+										
+									
+									<div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label for="amt_payable" style="color:#404040;margin-left: 50px">Total Amount<span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="amt_payable" name="amt_payable" class="form-control" readonly="true" value=""  placeholder="">
+                                            </div>
+                                        </div>
+					
+					               <div class="col-md-5">
+                                           <div class="form-group">
+                                                <label for="user_remarks" style="color:#404040;margin-left: 50px">Remarks<span style="color:red;font-size: 10pt"></span></label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="50" id="user_remarks" name="user_remarks" class="form-control" value="<%= user_remarks%>"  placeholder="">
+                                            </div>
+                                        </div>
+
+        
+								</div>
+
+                            
+
+ 
+				    <table>
+                        <tr>
+							<td><input type="button" style="margin-left:45%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+							<td><input type="submit" name="test" id="test" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();" ></td>
+						</tr>
+                     </table>
+                                   
+                                </form>
+                           
+			         
+                         
+                    <div class="clearfix"></div>
+				    <br>
+                             
+                        
+                            
+
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
+    </div>
+    
+</div>
+<% include ../common/footer %>
+
+
+</body>
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+        
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+<head>
+		
+	   <% include ../common/header %>
+ 	   <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+	   <title>Project Details</title>
+
+	   <script src="/js/tablej.js" type="text/javascript" charset="utf-8"></script> 
+
+    	   <style>
+		
+			.card .header2row
+        	        {
+ 	                       padding: 15px 15px 0;
+                	}
+
+	
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+			
+			hr 
+			{
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+			table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+			$('input#city').cityAutocomplete();
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+	                        textarea {
+                            resize: none;
+                        }
+	
+    	     </style>
+
+	     <script type="text/javascript">
+
+
+	       $(document).ready(function()
+                {
+                        $('#clientph1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#cname').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+	       $(document).ready(function()
+                {
+                        $('#cid').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#clientaddr1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+	       $(document).ready(function()
+                {
+                        $('#clientaddr2').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+	       $(document).ready(function()
+                {
+                        $('#countryId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#cityId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#clientname1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+	       $(document).ready(function()
+                {
+                        $('#clientph1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#clientname2').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#clientph2').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	       $(document).ready(function()
+                {
+                        $('#gstno').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	      $(document).ready(function()
+                {
+                        $('#rmks').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	      $(document).ready(function()
+                {
+                        $('#pannum').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+	     
+
+
+
+function clearform()
+{
+document.getElementById("myForm").reset();
+}
+
+
+			function formValidations()
+			{
+				var clientph1 = document.getElementById("clientph1").value;
+				var cname = document.getElementById("cname").value;
+				var cid = document.getElementById("cid").value;
+				var clientaddr1 = document.getElementById("clientaddr1").value;
+				var clientaddr2 = document.getElementById("clientaddr2").value;
+				var countryId = document.getElementById("countryId").value;
+				var cityId = document.getElementById("cityId").value;
+				var clientname1 = document.getElementById("clientname1").value;
+				var clientph1 = document.getElementById("clientph1").value;
+				var clientname2 = document.getElementById("clientname2").value;
+				var clientph2 = document.getElementById("clientph2").value;
+				var gstno = document.getElementById("gstno").value;
+				var rmks = document.getElementById("rmks").value;
+				var cemail1 = document.getElementById("cemail1").value;
+				var cemail2 = document.getElementById("cemail2").value;
+
+                                if(cname == "")
+                                {
+                                        document.getElementById("cname").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the customer name"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+                                else
+                                {
+
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("cname").value))
+                                        {
+                                                document.getElementById("cname").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Customer name"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("cname").value="";
+                                                return false;
+                                        }
+
+                                }
+
+                                if(cid == "")
+                                {
+                                        document.getElementById("cid").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the customer Id"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z0-9\s]+$/.test(document.getElementById("cid").value))
+                                        {
+                                                document.getElementById("cid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Customer ID"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("cid").value="";
+                                                return false;
+                                        }
+                                }
+
+                                if(clientaddr1 == "")
+                                {
+
+                                        document.getElementById("clientaddr1").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Fill up the Client Address Line 1"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z0-9#:,./-\s]+$/.test(clientaddr1))
+                                        {
+                                                document.getElementById("clientaddr1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , enter valid Client Address 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientaddr1").value="";
+                                                return false;
+                                        }
+                                }
+
+                                if(clientaddr2 != "")
+                                {
+                                        if (!/^[a-zA-Z0-9#:,./-\s]+$/.test(clientaddr2))
+                                        {
+                                                document.getElementById("clientaddr2").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , enter valid Client Address 2"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientaddr2").value="";
+                                                return false;
+                                        }
+                                }
+
+
+                                if(countryId == "")
+                                {
+                                        document.getElementById("countryId").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Fill up the Country Name"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(countryId))
+                                        {
+                                                document.getElementById("countryId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter Valid Country Name "
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("countryId").value="";
+                                                return false;
+                                        }
+                                }
+
+
+                                if(cityId == "")
+                                {
+                                        document.getElementById("cityId").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Fill up the City Name"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(cityId))
+                                        {
+                                                document.getElementById("cityId").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter Valid City Name "
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("cityId").value="";
+                                                return false;
+                                        }
+                                }
+
+
+
+                                if(clientname1 == "")
+                                {
+                                        document.getElementById("clientname1").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Fill up the Client Name 1"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("clientname1").value))
+                                        {
+                                                document.getElementById("clientname1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter Valid Client Name 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientname1").value="";
+                                                return false;
+
+                                        }
+                                }
+
+
+  				if(cemail1 == "")
+                                {
+                                        document.getElementById("cemail1").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Enter the Client Email Id 1"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+                                else
+                                {
+                                        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.cemail1.value))
+                                        {
+                                        }
+                                        else
+                                        {
+                                                document.getElementById("cemail1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a Valid Client Email Id 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                        	document.getElementById("cemail1").value="";
+                                                return false;
+                                        }
+
+                                }
+
+
+                                if(clientph1 == "")
+                                {
+                                        document.getElementById("clientph1").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Fill up the Client Contact Number 1"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+
+                                }
+                                else
+                                {
+					if (!/^[0-9 \s]+$/.test(document.getElementById("clientph1").value) || (clientph1 < 0)  )
+                                        {
+                                                document.getElementById("clientph1").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid  , Enter a valid Client Contact Number 1"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                        	document.getElementById("clientph1").value="";
+                                                return false;
+                                        }
+                                }
+
+
+
+                                if(clientname2 != "")
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("clientname2").value))
+                                        {
+                                                document.getElementById("clientname2").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter Valid Client Name 2"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("clientname2").value="";
+                                                return false;
+
+                                        }
+                                }
+
+
+                                if(cemail2 != "")
+                                {
+                                        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.cemail2.value))
+                                        {
+                                        }
+                                        else
+                                        {
+                                                document.getElementById("cemail2").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a Valid Client Email Id 2"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                        	document.getElementById("cemail2").value="";
+                                                return false;
+                                        }
+
+                                }
+
+
+
+				if (!/^[0-9 \s]+$/.test(document.getElementById("clientph2").value) || (clientph2 < 0)  )
+                                {
+					if (isNaN(clientph2) || (clientph2 < 0)  )
+                                        {
+                                                document.getElementById("clientph2").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid  , Enter a valid Client Contact Number 2"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+
+
+                                var panNum = document.getElementById("pannum").value;
+                                if(panNum != "")
+                                {
+                                        if (panNum.length < 10)
+                                        {
+                                                document.getElementById("panNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pan Card Number"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("pannum").value="";
+                                                return false;
+                                        }
+
+                                        var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+                                        if(!regpan.test(panNum))
+                                        {
+                                                document.getElementById("panNum").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid Pan Card Number"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("pannum").value="";
+                                                return false;
+
+                                        }
+                                }
+
+
+                                var gstno = document.getElementById("gstno").value;
+                                if(gstno!="")
+                                {
+                                        if (gstno.length < 15)
+                                        {
+                                                document.getElementById("gstno").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid GST Number"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("gstno").value="";
+                                                return false;
+
+                                        }
+
+                                        var reggst= /^[0-9]{2}[(a-z)(A-Z)]{5}\d{4}[(a-z)(A-Z)]{1}\d{1}Z\d{1}?$/;
+                                        if (!reggst.test(gstno))
+                                        {
+                                                document.getElementById("gstno").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid GST Number"
+                                                },{
+                                                type: 'danger',
+                                                timer: 500
+                                                });
+                                                document.getElementById("gstno").value="";
+                                                return false;
+                                        }
+                                }
+
+				return true; 
+			}
+	    </script>
+
+</head>
+<body onload="changeHashOnLoad()">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+ 	<div class="sidebar-wrapper">
+	<% include ../common/logo %>
+
+    	       	<ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                         <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <li class="active">
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                <%}%>
+                </li>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1" ){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" ){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% if( emp_access== 'A1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+               </li>
+            </ul>
+
+	</div>
+    </div>
+    <div class="main-panel">
+            <div class="container-fluid">
+	    <% include ../common/userBar %>
+	    <br>	
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+				<li><a href="/projectModule/projectDetails/customercreation"><span style="color:#ff9933">Customer Details</span></a></li>
+				<li><a href="/projectModule/projectDetails/customermodification">Customer Details Modification</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDetails">Add Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocuments">Project Documents</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocumentsView">Project Documents View</a></li>
+                                <li><a href="/projectModule/projectDetails/projectModification">Modify Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectCopy">Copy Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/milestoneMarking">Milestone Marking</a></li>
+                                <li><a href="/projectModule/projectDetails/projectAllocation">Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewAllocation">View Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewEmpallocation">View Employee Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/ModifydelAllocation">Modify Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/projDealloc">Project De-Allocation</a></li>
+                                <li><a href="/projectModule/childproject/childproject">Add Child Project</a></li>
+				<li><a href="/projectModule/productdetails/productdetails">Add Product Details</a></li>
+				<li><a href="/projectModule/projectDetails/recallmilestonemrak">Recall Milestone</a></li>
+				<li><a href="/projectModule/projectFAQDetails/projectFAQDetails">FAQ</a></li>
+				</ul>
+				</nav>
+                            </div>
+                            <div class="content">
+                                <form name="myForm" id="myForm" action="/projectModule/projectDetails/customercreation" method="post" onsubmit="return formValidations()">
+				<hr/>
+				<h4 class="title">Customer Details        <i class="material-icons right" style="font-size: 30px">people</i></h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cname" style="color:#404040;margin-left: 50px" >Customer Name <span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="cname" name="cname" required  maxlength="30"  class="form-control" placeholder="Customer Name">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cid" style="color:#404040;margin-left: 50px">Customer Id<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="cid" name="cid" required maxlength="5" class="form-control" placeholder="Customer Id">
+                                            </div>
+                                        </div>
+                                   </div>
+
+
+			             <div class="row">
+				    <div class="col-md-5">
+				    <div class="form-group">
+                                    <label for="clientaddr1" class="control-label" style="color:#404040;margin-left: 50px">Client Address Line 1<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;" id="clientaddr1" name="clientaddr1" required maxlength="50" class="form-control" placeholder="Client Address Line 1">
+                                            </div>
+                                        </div>
+
+				    <div class="col-md-5">
+				    <div class="form-group">
+                                             <label for="clientaddr2" class="control-label" style="color:#404040;margin-left: 50px">Client Address Line 2</label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;" id="clientaddr2" name="clientaddr2"  maxlength="50" class="form-control" placeholder="Client Address Line 2">
+                                            </div>
+                                        </div>
+
+
+
+
+					 </div>
+			
+				<div class="row">	
+					<div class="col-md-5">
+                                            <div class="form-group">
+						<label for="countryId" class="control-label" style="color:#404040;margin-left: 50px"> Country Name<span style="color:red;font-size:15px">*</span></label>
+						<input type="text" style ="margin-left: 50px;width:348px;" id="countryId" name="countryId" maxlength="20"  required class="form-control" placeholder="Country Name">
+						</select>
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+						 <label for="cityId" class="control-label" style="color:#404040;margin-left: 50px"> City Name<span style="color:red;font-size:15px">*</span></label>
+						<input type="text" style ="margin-left: 50px;width:348px;" id="cityId" name="cityId" maxlength="20" required class="form-control" placeholder="City Name">
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                 <hr/>
+                                <h4 class="title">Contact Details 1     <i class="material-icons right">call</i></h4>
+                                <hr/>
+ 
+					<div class="row">	
+					    <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientname1" class="control-label" style="color:#404040;margin-left: 50px">Client Name 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="clientname1" name="clientname1" required class="form-control" maxlength="30" placeholder="Client Name 1">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+
+					<div class="row">	
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cemail1" style="color:#404040;margin-left: 50px">Client Email Id 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="email" style ="margin-left: 50px;width:348px;" id="cemail1" name="cemail1" required class="form-control" placeholder="Client Email Id 1">
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientph1" style="color:#404040;margin-left: 50px">Client Contact Number 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="clientph1" name="clientph1" required class="form-control" maxlength="20" placeholder="Client Contact Number 1">
+                                            </div>
+                                        </div>
+                                      </div>
+				   <hr/>
+                                <h4 class="title">Contact Details 2     <i class="material-icons right">call</i></h4>
+                                <hr/>
+ 
+
+					<div class="row">	
+					    <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientname2" class="control-label" style="color:#404040;margin-left: 50px">Client Name 2</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="clientname2" name="clientname2"  class="form-control"  maxlength="30" placeholder="Client Name 2">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cemail2" style="color:#404040;margin-left: 50px">Client Email 2</label>
+                                                <input type="email" style ="margin-left: 50px;width:348px;" id="cemail2" name="cemail2"  class="form-control" maxlength="30" placeholder="Client Email 2">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientph2" style="color:#404040;margin-left: 50px">Client Contact Number 2</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="clientph2" name="clientph2"  class="form-control" maxlength="20" placeholder="Client Contact Number 2">
+                                            </div>
+                                        </div>
+                                      </div>
+
+				   <hr/>
+                                <h4 class="title">Bank Details     <i class="material-icons right">business</i></h4>
+                                <hr/>
+ 
+
+                                     <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">GST Number</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="gstno" name="gstno" maxlength="15"  class="form-control" placeholder="GST Number">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="pannum" style="color:#404040;margin-left: 50px">PAN Number</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;" id="pannum" name="pannum"  maxlength="10" class="form-control" placeholder="PAN Number">
+                                            </div>
+                                        </div>
+                                      </div>
+                               
+				       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+						<textarea id="rmks" name="rmks" style ="margin-left: 50px;width:348px;" maxlength="100"  class="form-control" placeholder="Remarks"></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+					
+                                    <table>
+                                    <tr>
+                                    <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:45%;padding:1px 16px;height:40px;width:100px" value="Add" onclick="return formValidations()"></td>
+                                    <td><input type="button" class="btn btn-info btn-fill" style="margin-left:65%;padding:1px 16px;height:40px;width:100px" value="Clear" onclick="clearform()"></td>
+                                    </tr>
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                </form>
+				<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+
+        <!--  Checkbox, Radio & Switch Plugins -->
+        <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+        <!--  Charts Plugin -->
+        <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+
+
+</html>

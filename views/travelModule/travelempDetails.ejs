@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Travel</title>
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+				.select2-container--open .select2-dropdown--above {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+	  width: 348px;
+		left:-50px;
+}		  
+.select2-container--open .select2-dropdown--below {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 348px;
+    left:-50px;
+} 
+
+
+    	     </style>
+			 <style>
+
+			 .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+			
+			 </style>
+        <script>
+        function changeHashOnLoad()
+        {
+            window.location.href += "#";
+            setTimeout("changeHashAgain()", "50");
+        }
+        function changeHashAgain()
+        {
+            window.location.href += "1";
+        }
+        var storedHash = window.location.hash;
+        window.setInterval(function ()
+        {
+            if (window.location.hash != storedHash)
+        {
+            window.location.hash = storedHash;
+        }
+        }, 50);
+
+        </script>
+			
+        <script type="text/javascript">
+
+        function matchStart(params, data) {
+  // If there are no search terms, return all of the data
+         if ($.trim(params.term) === '') {
+          return data;
+          }
+         else
+         {
+          data: proj_id
+         }
+         return null;
+         }
+
+      $(document).ready(function() {
+        var proj_id=pid;
+        proj_id=proj_id.value
+        $("#pid").select2({
+          matcher: matchStart,
+           });
+         });
+  
+    </script>
+
+<script>
+$(function () {
+
+    $( '#table' ).searchable({
+
+        striped: true,
+        oddRow: { 'background-color': '#f5f5f5' },
+        evenRow: { 'background-color': '#fff' },
+        searchType: 'fuzzy'
+    });
+    });
+</script>
+		
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+                <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+				<nav class="navbar navbar-inverse">
+  				 <ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel">Initiate Travel Request</a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq"><span style="color:#ff6600">View Request</span></a></li>
+                    <li><a href="/travelModule/travel/modifytravelDetailsQueue">Modify Request</a></li>
+					<li><a href="/travelModule/travel/canceltravelDetailsQueue">Cancel Request</a></li>
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue">View Approval Queue</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">View Approval Queue</a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+				</nav>
+                            </div>
+
+                            
+							
+                            <div class="content">
+    
+   <!-- <div class="container"  style="width:80 -->
+           
+
+
+
+
+            
+				<hr/>
+				<h4 class="title">My Requests</h4>
+				<hr/>
+                        
+							<% if(success!="") { %>
+        <div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center" style="padding-top: 20px;">
+             
+         
+             <div><%= success%> </div> 
+          
+           </div>
+       </div> 
+       <% } %>
+<br>
+<br>
+<div class="container"  style="width:100%;">
+
+
+<div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <input type="search" id="search" value="" class="form-control" placeholder="Search here" style="margin-bottom: 28px;">
+        </div>
+ </div>
+
+<div class="col-lg-12">    
+<table class="table table-striped table-bordered table-responsive" id="table">
+<thead>
+<tr>
+<% if(emp_access == 'L2'||emp_access == 'L3'){ %> 
+ <td><h5> Pending for Manager approval </h5></td>
+ <td><h5>Approved by Manager </h5></td>
+ <td> <h5>Rejected by Manager </h5></td>
+ <td><h5>Approved by Finance Manager</h5></td>
+ <td> <h5>Rejected by Finance Manager</h5></td>
+ 
+ <% }%>
+ <% if(emp_access == 'L1'){ %> 
+  <td><h5> Pending for approval </h5></td>
+  <td><h5> Approved by Finance Manager</h5></td>
+   <td><h5> Rejected by Finance Manager</h5></td>
+ <% }%>
+ <td> <h5>Cancelled Requests</h5></td>
+ </tr>
+</thead>
+
+<tbody>
+<% if(emp_access == 'L2'||emp_access == 'L3'){ %> 
+    <% if(maxCount==0) { %> 
+	<tr>
+       <td><h6>No records pending for approval  !!!</h6></td>
+	    <td><h6>No records found !!!</h6></td>
+		 <td><h6>No records found !!!</h6></td>
+		  <td><h6>No records found !!!</h6></td>
+		   <td><h6>No records found !!!</h6></td>
+		   
+		   
+		   
+		 </tr>
+		 
+ <% } else { %> 
+	
+   <% for(i=0;i<maxCount;i++) { %> 
+   
+   
+		
+   <tr>
+    
+   <% if(pendingStatusData.length==0 && i==0) { %> 
+       <td width: 180%><h6>No records pending for approval  !!!</h6></td>
+ <% } 
+ else if(i<pendingStatusData.length){ %>
+
+   <td><a href="/travelModule/travelrequestStatus/requestStatus?id=<%=pendingStatusData[i].req_id%> : <%=pendingStatusData[i].project_id%>" ><%= pendingStatusData[i].req_id %> - <%= pendingStatusData[i].project_id %> </a> <br></td>
+ <% }
+ else{ %> 
+<td></td>
+<% } %> 
+  
+    <% if(approvedData.length ==0 && i==0) { %> 
+       <td width: 180%> <h5>
+ No records found !!!</h5> </td>
+    
+ <% } else if(i<approvedData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=approvedData[i].req_id%> : <%=approvedData[i].project_id%>"><%= approvedData[i].req_id %> - <%= approvedData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+<% } %> 
+   
+     <% if(rejectedData.length ==0 && i==0) { %> 
+       <td     width: 180%> <h5>
+  No records found !!!</h5></td>
+    
+ <% } else if(i<rejectedData.length ){ %>
+   <h5> <td> <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=rejectedData[i].req_id%> : <%=rejectedData[i].project_id%>"  ><%= rejectedData[i].req_id %> - <%= rejectedData[i].project_id %> </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+<% } %>
+    </h5>
+	
+	
+	<% if(confirmData.length ==0 && i==0) { %> 
+       <td width: 180%> <h5>
+  No records pending for Approval !!!</h5></td>
+    
+ <% } else if(i<confirmData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=confirmData[i].req_id%> : <%=confirmData[i].project_id%>"><%= confirmData[i].req_id %> - <%= confirmData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+<% } %> 
+
+  <% if(hrRejectedData.length ==0 && i==0) { %> 
+       <td width: 180%> <h5>
+  No records found !!!</h5></td>
+    
+ <% } else if(i<hrRejectedData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=hrRejectedData[i].req_id%> : <%=hrRejectedData[i].project_id%>"><%= hrRejectedData[i].req_id %> - <%= hrRejectedData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+
+  <% }; %> 
+  
+  
+  </tr>
+<% }; %> 
+<% } %> 
+
+<% } %>
+<% if(emp_access == 'L1'){ %> 
+
+    <% if(maxCount==0) { %> 
+	<tr>
+       <td><h6>No records pending for approval  !!!</h6></td>
+	    <td><h6>No records found !!!</h6></td>
+		  <td><h6>No records found !!!</h6></td>
+		 
+		   
+		 </tr>
+		 
+ <% } else { %> 
+    
+   <% for(i=0;i<maxCount;i++) { %> 
+   
+   <tr>
+    
+   
+  
+    <% if(approvedData.length ==0 && i==0) { %> 
+       <td> <h5>
+			No records found !!!</h5></td>
+    
+	<% } else if(i<approvedData.length ){ %>
+   <td>
+		<a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=approvedData[i].req_id%> : <%=approvedData[i].project_id%>"><%= approvedData[i].req_id %> - <%= approvedData[i].project_id %>  </a> <br></td>
+	<% }  else{ %> 
+
+<td></td>
+<% } %> 
+   
+     
+  
+  
+  <% if(confirmData.length ==0 && i==0) { %> 
+       <td> <h5>
+  No records pending for Approval !!!</h5></td>
+    
+ <% } else if(i<confirmData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=confirmData[i].req_id%> : <%=confirmData[i].project_id%>"><%= confirmData[i].req_id %> - <%= confirmData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+<% } %> 
+
+ <% if(hrRejectedData.length ==0 && i==0) { %> 
+       <td width: 180%> <h5>
+  No records found !!!</h5></td>
+    
+ <% } else if(i<hrRejectedData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=hrRejectedData[i].req_id%> : <%=hrRejectedData[i].project_id%>"><%= hrRejectedData[i].req_id %> - <%= hrRejectedData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+
+  <% }; %> 
+  
+  
+   <% if(cancelledData.length ==0 && i==0) { %> 
+       <td width: 180%> <h5>
+  No records found !!!</h5></td>
+    
+ <% } else if(i<cancelledData.length ){ %>
+   <td>
+   <a href="/travelModule/travelrequestStatus/requestStatusHr?id=<%=cancelledData[i].req_id%> : <%=cancelledData[i].project_id%>"><%= cancelledData[i].req_id %> - <%= cancelledData[i].project_id %>  </a> <br></td>
+   <% } 
+ else{ %> 
+<td></td>
+
+  <% }; %> 
+  </tr>
+<% }; %> 
+<% } %> 
+ 
+</tbody>
+<% } %>
+
+</table>
+</div>
+
+</div>
+
+
+ 
+<!--</div> -->
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	
+    </div>
+	 <% include ../common/footer %>
+</div>
+
+
+
+</body>
+
+    
+
+          
+  
+         <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

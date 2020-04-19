@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+            <title>Invoice Management</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+		<style>
+                        .card .header2row
+                        {
+                                padding: 15px 15px 0;
+                        }
+
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+                        
+			table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+
+			hr 
+			{
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                        }
+
+                        .picker__select--year 
+			{
+                            width: 24.5%;
+                            height: 30%;
+                        }
+
+                        .picker__select--month 
+			{
+                            width: 35%;
+                            height: 30%;
+                        }
+
+
+             </style>
+
+	     <script>
+
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+		{
+			window.location.hash = storedHash;
+		}
+		}, 50);
+
+	    </script>
+
+	    <script type="text/javascript">
+
+               $(window).load(function()
+               {
+                        $('#invDate').pickadate(
+                        {
+                        selectMonths: true,
+                        selectYears: 100,
+			closeOnSelect: true,
+			closeOnClear: true,
+                        format: 'yyyy-mm-dd',
+                        formatSubmit: 'yyyy-mm-dd'
+                        });
+                });
+
+                $(document).ready(function() {
+                $("#my-icon").click(function(){
+                $( '#invDate' ).pickadate("open"),
+                event.stopPropagation(),
+                event.preventDefault()
+                });
+                });
+
+             function goBack()
+             {
+                        window.location.href='/invoiceModule/invoiceDetails/invoiceRaise';
+             }
+
+
+
+                $(document).ready(function()
+                {
+                        $('#billedTo').blur(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#invPO').blur(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#particulars').blur(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#newTax').change(function(e)
+                        {
+                                this.value = parseFloat(this.value).toFixed(2);
+                        });
+                });
+
+
+		$(document).ready(function()
+		{
+			$('.slectOne').on('change', function() 
+			{
+   				$('.slectOne').not(this).prop('checked', false);
+				enablecs();
+			});
+		});
+
+		$(document).ready(function()
+		{
+			document.getElementById("newTax").setAttribute("readonly", true);
+			document.getElementById("aTax").style.display='none';
+		});
+		
+		$(document).ready(function()
+		{
+			var billedTo = document.getElementById("billedTo").value.toUpperCase();
+			document.getElementById("billedTo").value=billedTo;
+			
+			var invPO = document.getElementById("invPO").value.toUpperCase();
+			document.getElementById("invPO").value=invPO;
+
+			var particulars = document.getElementById("particulars").value.toUpperCase();
+			document.getElementById("particulars").value=particulars;
+
+		});
+
+		$(document).ready(function()
+		{
+			var milestoneName       =       document.getElementById("milestoneName").value;
+                        $.ajax({
+                        url:'/invoiceModule/invoiceDetails/percentage?milestoneName='+milestoneName,method:'get',success:function(resp,status){
+                        $('#perhidden').val(resp.key);
+                        }
+                        });
+		});
+
+		function formValidation()
+		{
+
+			var invDate = document.getElementById("invDate").value;
+			if(invDate == "")
+			{
+				//alert("Select the Invoice Date");
+				document.getElementById("invDate").focus();
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Please enter the Invoice Date"
+				},{
+				type: 'info',
+				timer: 500
+				});
+				return false;
+			}
+
+			var billedTo = document.getElementById("billedTo").value;
+			if(billedTo == "")
+			{
+				//alert("Please fill the Billed To Particulars");
+				document.getElementById("billedTo").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please fill the Billed To Particulars Details"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+				return false;
+			}
+			
+			var invPO = document.getElementById("invPO").value;
+			if(invPO == "")
+			{
+				//alert("Enter the Invoice as per Purchase Order Number");
+				document.getElementById("invPO").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please enter the Invoice as per Purchase Order Number"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+				return false;
+			}
+                        
+			var particulars = document.getElementById("particulars").value;
+			if(particulars == "")
+			{
+				//alert("Enter The Particulars");
+				document.getElementById("particulars").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please enter The Particulars"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+				return false;
+			}
+
+			if((myForm.yiTax.checked == false)&&(myForm.niTax.checked == false))
+			{
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please Select Either Yes/No to Calculate Tax"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+			}
+			
+			var yiTax = document.getElementById("yiTax").checked;
+			var newTax = document.getElementById("newTax").value;
+			if(yiTax == true)
+			{
+				if(newTax == "")
+				{
+                                        document.getElementById("newTax").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please Enter the Tax Percentage"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+				}
+			}
+
+			return true;
+		}
+
+		function resetform()
+		{
+			document.getElementById("myForm").reset();
+
+		}
+
+                function perTotal()
+                {
+			var yiTax = document.getElementById("yiTax").checked;
+			if(yiTax == true)
+			{
+				var newTax = document.getElementById("newTax").value;
+				if(newTax != "")
+				{	
+					var regex = /^\d+(\.\d{0,10})?$/g;
+					if (!regex.test(newTax))
+					{
+						document.getElementById("newTax").focus();
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Please Enter a valid Tax Percentage"
+						},{
+						type: 'info',
+						timer: 500
+						});
+						document.getElementById("newTax").value="";
+						return false;
+					}
+
+					if(newTax > 100)
+					{
+						document.getElementById("newTax").focus();
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Invalid , Tax Percentage Cannot Be Greater than 100"
+						},{
+						type: 'info',
+						timer: 500
+						});
+						document.getElementById("newTax").value="";
+						return false;
+					}
+
+
+					var taxPer = document.getElementById("newTax").value;
+					var amount = document.getElementById("amt").value;
+					var tax = (amount * taxPer) / 100;
+					var total = parseFloat(tax) + parseFloat(amount)
+					total = total.toFixed(2);
+					document.getElementById("total").value = total;
+				}
+				else
+				{
+					document.getElementById("total").value = "";
+				}
+				
+			}
+
+                }
+	
+		function enablecs()
+		{
+			var yiTax = document.getElementById("yiTax");
+                        var niTax = document.getElementById("niTax");
+			var amt = document.getElementById("amt").value;
+
+			if(yiTax.checked)
+			{
+				document.getElementById("aTax").style.display='block';
+				document.getElementById("newTax").removeAttribute("readonly");
+				document.getElementById("newTax").focus();
+				document.getElementById("total").value="";
+			}
+
+                        if(niTax.checked)
+                        {
+                                document.getElementById("aTax").style.display='none';
+				document.getElementById("newTax").value="";
+				document.getElementById("total").value=amt;
+                        }
+
+			if((niTax.checked == false)&&(yiTax.checked == false))
+			{
+                                document.getElementById("aTax").style.display='none';
+				document.getElementById("total").value="";
+				document.getElementById("newTax").value="";
+			}
+
+
+		}
+
+
+</script>
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li class="active">
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+       <div class="container-fluid">
+           <% include ../common/userBar %>
+            <br>
+         <div class="content">
+           <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                            <div class="content">
+				<form name="myForm" id="myForm" action="/invoiceModule/invoiceDetails/addfpusdInv" method="post">
+				<hr/>
+				<h4 class="title" style ="margin-left: 350px;">Invoice Generation     <i class="material-icons right">note</i></h4>
+				<hr/>
+
+
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label for="pid" style="color:#404040;margin-left: 50px">Project Id <span style="color:red;font-size: 10pt">*</span></label>
+					 <input type="text" readonly class="form-control" style ="margin-left: 50px;width:348px" id="pid" name="pid" value="<%= pid %>">
+                                      </div>
+                                   </div>
+
+				   <div class="col-md-5">
+				      <div class="form-group">
+				    	<div class="datepicker">
+				    	<table>
+						<tr>
+						<label for="invDate" style="color:#404040;margin-left: 50px">Invoice Date  (YYYY-MM-DD) <span style="color:red;font-size: 10pt">*</span></label>
+						<td><input type="text" readonly class="form-control" style ="margin-left: 50px;width:348px" placeholder="Billing Date" id="invDate" name="invDate"></td>
+						<td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+				    		</tr>
+				    	</table>
+			            	</div>
+			              </div>
+			      	    </div>
+                              </div>
+
+
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label for="billedTo" style="color:#404040;margin-left: 50px">Billed To <span style="color:red;font-size: 10pt">*</span></label>
+					<td><textarea rows="8" cols="30" style ="margin-left: 50px;width:348px;resize: none" maxlength="200" name="billedTo" id="billedTo" placeholder="Enter details with Client GSTIN no"><%= customer_class %>&#13;&#10;<%= address_1 %>&#13;&#10;<%= address_2 %>&#13;&#10;<%= country %>&#13;&#10;<%= city %>&#13;&#10;<%= pincode%></textarea></td>
+                                      </div>
+                                   </div>
+
+				   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label for="invPO" style="color:#404040;margin-left: 50px">Invoice as per Purchase Order Number <span style="color:red;font-size: 10pt">*</span></label>
+					 <input type="text" style ="margin-left: 50px;width:348px;" id="invPO" name="invPO" class="form-control" placeholder="Enter your text (max 15 aplhanumeric) + GRN NO" value="<%= invPO %>" maxlength="40">
+                                      </div>
+                                   </div>
+				</div>	
+
+
+			<div class="row">
+                             <div class="col-md-5">
+                                  <div class="form-group">
+                                        <label for="milestoneName" style="color:#404040;margin-left: 50px">Milestone Name<span style="color:red;font-size: 10pt">*</span></label>
+				<textarea rows="8" readonly cols="20" style ="margin-left: 50px;width:348px;resize: none;height:48px" name="milestoneName" maxlength="50" id="milestoneName"><%= milestoneName %></textarea>
+					 <input type="hidden" id="perhidden" name="perhidden" class="form-control">
+                                  </div>
+                             </div>
+
+			   <div class="col-md-5">
+			      <div class="form-group">
+				 <label for="particulars" style="color:#404040;margin-left: 50px">Particulars <span style="color:red;font-size: 10pt">*</span></label>
+				<td><textarea rows="8" cols="30" maxlength="150" style ="margin-left: 50px;width:348px;resize: none" name="particulars" maxlength="200" id="particulars" placeholder="Enter The Particulars"></textarea></td>
+			      </div>
+			   </div>
+                       </div>
+
+			<div class="row">
+			   <div class="col-md-5">
+			      <div class="form-group">
+				 <label for="per" style="color:#404040;margin-left: 50px">Milestone Percentage <span style="color:red;font-size: 10pt">*</span></label>
+				<input type="text" readonly style ="margin-left: 50px;width:348px;" id="per" name="per" maxlength="3" class="form-control" value="<%= per %>">
+			      </div>
+			   </div>
+
+
+			  <div class="col-md-5">
+			      <div class="form-group">
+				 <label for="amt" style="color:#404040;margin-left: 50px">Milestone Amount <span style="color:red;font-size: 10pt">*</span></label>
+				 <input type="text" readonly style ="margin-left: 50px;width:348px;" id="amt" name="amt" maxlength="20" class="form-control" value="<%= amt %>" >
+			      </div>
+			   </div>
+			   </div>
+
+			<div class="row">
+			  <div class="col-md-5">
+			      <div class="form-group">
+				<label for="ttax" style="color:#404040;margin-left: 50px">Include Tax ? <span style="color:red;font-size: 10pt">*</span></label>
+				<br/>
+				<table>
+				<tr>
+				<td><label for="yiTax" style="color:#404040;margin-left: 50px">Yes</label><td>
+				<td><input type="checkbox" value="yiTax" style ="width:15.5px" name="yiTax" id="yiTax" class="slectOne" ></td>
+				<td><label for="niTax" style="color:#404040;margin-left: 50px">No</label><td>
+				<td><input type="checkbox" value="niTax" style ="width:15.5px" name="niTax" id="niTax" class="slectOne"></td>
+				<tr>
+				</table>
+			      </div>
+			   </div>
+
+			  <div class="col-md-5" id="aTax">
+			     <div class="form-group">
+				 	<label for="newTax" style="color:#404040;margin-left: 50px">Tax Percentage (%) <span style="color:red;font-size: 10pt">*</span></label>
+				 	<input type="text" style ="margin-left: 50px;width:348px;" id="newTax" name="newTax" class="form-control" onblur="perTotal();">
+			     </div>
+			 </div>
+		      </div>
+
+			<div class="row">
+			   <div class="col-md-5">
+			      <div class="form-group">
+				 <label for="total" style="color:#404040;margin-left: 50px">Total Amount Recievable<span style="color:red;font-size: 10pt">*</span></label>
+				 <input type="text" readonly style ="margin-left: 50px;width:348px;" id="total" name="total" maxlength="20" class="form-control" value="<%= total %>">
+			      </div>
+			   </div>
+
+			    <div class="col-md-5">
+				 <div class="form-group">
+					<label for="raisedBy" style="color:#404040;margin-left: 50px">Raised By <span style="color:red;font-size: 10pt">*</span></label>
+					      <select readonly class="form-control" id="raisedBy" name="raisedBy" style ="margin-left: 50px;width:348px">
+                                                        <option value="<%= raisedBy %>" selected> <%= raisedBy_desc %></option>
+                                              </select>
+				  </div>
+			    </div>
+			</div>
+
+			<div class="row">
+			    <div class="col-md-5">
+				<div class="form-group">
+					<label for="desig" style="color:#404040;margin-left: 50px">Designation<span style="color:red;font-size: 10pt">*</span></label>
+					      <select readonly class="form-control" id="desig" name="desig" style ="margin-left: 50px;width:348px">
+                                                        <option value="<%= desig %>" selected> <%= desig_desc %></option>
+                                              </select>
+
+				</div>
+			    </div>
+			
+			      <div class="col-md-5">
+				 <div class="form-group">
+					<label for="gstin" style="color:#404040;margin-left: 50px">GSTIN </label>
+					<input type="text" style ="margin-left: 50px;width:348px;" id="gstin" name="gstin"  class="form-control" value="29AACCN0302P1ZF" readonly>
+				    </div>
+			      </div>
+			</div>
+
+			    <div class="row">
+				<div class="col-md-5">
+				    <div class="form-group">
+					<label for="panNo" style="color:#404040;margin-left: 50px">PAN No.</label>
+					<input type="text" style ="margin-left: 50px;width:348px;" id="panNo" name="panNo"  class="form-control" value="AACCN0302P" readonly>
+				    </div>
+				</div>
+			    </div>
+                                         <input type="hidden" id="invNum" name="invNum" value="<%= invNum %>">
+                                         <input type="hidden" id="invsrl" name="invsrl" value="<%= invsrl %>">
+				    <table>
+                                    <tr>
+				    <br>
+                                    <td><input type="button" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Back" onclick="goBack();"></td>
+                                    <td><input type="button" style="margin-left:70%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+                                                <td><input type="submit" name="test" id="test" style="margin-left:90%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidation()"></td>
+                                    </tr>
+                                    </table>
+                                    <div class="clearfix"></div>
+				    <br>
+				    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<% include ../common/footer %>
+    </div>
+</body>
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+   <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+</html>

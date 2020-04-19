@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>E-Docket</title>
+
+	<style>
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+		 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+	</style>
+	<script>
+	function ValidationEvent()
+	{
+		var magYear	=	document.getElementById("magYear").value;
+		if(magYear == "")
+                {
+                        //alert("Select the Year");
+			demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Select the Year"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        document.getElementById("magYear").focus();
+                        return false;
+                }
+
+		var d = new Date();
+		var currYear = d.getFullYear();
+		if(magYear > currYear)
+		{
+			//alert("Selected Year should be less than or equal to Current Year");
+			demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Selected Year should be less than or equal to Current Year"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+			document.getElementById("magYear").focus();
+			return false;
+		}
+
+		var magQuarter     =       document.getElementById("magQuarter").value;
+                if(magQuarter == "")
+                {
+                        //alert("Select the Quarter");
+			demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Select the Quarter"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+                        document.getElementById("magQuarter").focus();
+                        return false;
+                }
+		var filename    = document.getElementById("uploadDoc").value;
+		if(filename == "")
+		{
+			//alert("Select the File");
+			demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Select the File"
+                        },{
+                        type: 'danger',
+                        timer: 500
+                        });
+			document.getElementById("uploadDoc").focus();
+			return false;
+		}
+		else if(filename != "")
+		{
+			var exten = filename.slice(-4);
+			if(exten != ".pdf" && exten != ".PDF")
+			{
+				//alert("Please upload only pdf file");
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Please upload only pdf file"
+				},{
+				type: 'danger',
+				timer: 500
+				});
+				document.getElementById("uploadDoc").focus();
+				return false;
+			}
+			var fileUpload = document.getElementById("uploadDoc");
+			if (typeof (fileUpload.files) != "undefined")
+			{
+				var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
+				if(size > 30720)
+				{
+					//alert("Document Size should be less than 30 MB");
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Document Size should be less than 30 MB"
+					},{
+					type: 'danger',
+					timer: 500
+					});
+					document.getElementById("uploadDoc").focus();
+					return false;
+				}
+			}
+			else
+			{
+				alert("This browser does not support HTML5.");
+			}
+		}
+		return true;
+	}
+
+	function resetform()
+	{
+		document.getElementById("magazineUploadForm").reset();
+	}
+	function onLoadCalc()
+	{
+		var currentYr = new Date().getFullYear();
+		var max = currentYr + 1;
+		var min = 2016;
+		var select = document.getElementById('magYear');
+
+		for (var i = min; i<=max; i++)
+		{
+		    var opt = document.createElement('option');
+		    opt.value = i;
+		    opt.innerHTML = i;
+		    select.appendChild(opt);
+		}
+	}
+
+</script>
+
+</head>
+<body onload="changeHashOnLoad();onLoadCalc();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+      
+        <div class="sidebar-wrapper">
+            <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li class="active">
+                    <a href="/cmsModule/cms/cms">
+			<i class="fa fa-file-text" aria-hidden="true"></i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+	</div>
+    </div>
+
+
+<div class="main-panel">
+<div class="container-fluid">
+        <% include ../common/userBar %>
+<br>
+
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" style="color:#669999">
+			<li><a href="/cmsModule/cms/cmsUploadAdmin">Upload Documents</a></li>
+			<li><a href="/cmsModule/cms/cmsApprAdmin">Approval Pending</a></li>
+			<li><a href="/cmsModule/cms/cmsViewAdmin">View Documents</a></li>
+			<% if(emp_access == "A1"){%>
+				<li><a href="/cmsModule/cms/policyUploadAdmin">Upload Policy Docs</a></li>
+			<% } %>
+			<li><a href="/cmsModule/cms/policyViewAdmin">View Policy Docs</a></li>
+			<% if(emp_access == "A1"){%>
+                                <li><a href="/cmsModule/cms/magazineUploadAdmin"><span style="color:#ff6600">Upload Magazines</span></a></li>
+                        <% } %>
+			<li><a href="/cmsModule/cms/magazineViewAdmin">View Magazines</a></li>
+			<li><a href="/cmsModule/cmsFAQDetails/cmsFAQDetails">FAQ</a></li>
+			</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+			<form name="magazineUploadForm" id="magazineUploadForm" action="/cmsModule/cms/magazineUploadPostAdmin" method="post" enctype="multipart/form-data">
+			<hr/>
+				<h4 class="title">Upload Magazines <i class="fa fa-upload" aria-hidden="true"></i></h4>
+			<hr/>
+
+				<div class="row">
+				   <div class="col-md-5">
+					<div class="form-group">
+						<label style="color:#404040;">Year <span style="color:red;font-size: 10pt">*</span></label>
+						<select class="form-control" id="magYear" name="magYear" >
+							<option value="">Select the Year</option>
+						</select>
+                                        </div>
+                                   </div>
+
+				   <div class="col-md-5">
+                                        <div class="form-group">
+                                                <label style="color:#404040;">Quarter <span style="color:red;font-size: 10pt">*</span></label>
+                                                <select class="form-control" id="magQuarter" name="magQuarter" >
+                                                        <option value="">Select the Quarter</option>
+                                                        <option value="Q1">Q1</option>
+                                                        <option value="Q2">Q2</option>
+                                                        <option value="Q3">Q3</option>
+                                                        <option value="Q4">Q4</option>
+                                                </select>
+                                        </div>
+                                   </div>
+                                </div>
+
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+				      	<label for="uploadDoc" style="color:#404040;">Upload Document <span style="color:red;font-size: 10pt">*</span></label>
+					<input type="file" id="uploadDoc" name="uploadDoc" class="form-control" accept=".pdf">
+				      </div>
+                                   </div>
+                                </div>
+				<br>
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+					<input type="button" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="resetform()">
+					<input type="submit" name="magUplAdm" id="magUplAdm" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return ValidationEvent()">
+                                      </div>
+                                   </div>
+                                </div>
+                                <div class="clearfix"></div>
+			</form>	
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+    </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

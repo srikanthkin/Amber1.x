@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Report Module</title>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+	<!-- Compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  	<!-- Compiled and minified JavaScript -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<style>
+
+        .stylish-panel
+        {
+                padding: 20px 0;
+                text-align: center;
+        }
+
+        .stylish-panel > div > div
+        {
+                padding: 10px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.6);
+                transition: 0.5s;
+        }
+
+        .stylish-panel > div:hover > div
+        {
+                margin-top: -10px;
+                transition: 0.9s;
+        }
+
+	.stylish-panel > div:hover img 
+	{
+    		border-radius: 50%;
+    		transform: rotate(360deg);
+    		transform: rotate(360deg);
+    		transform: rotate(360deg);
+    		transform: rotate(360deg);
+    		transform: rotate(360deg);
+	}
+
+	.fa-5x
+	{
+		font-size:7.0em;
+	}
+
+	.huge
+	{
+		font-size:1.5em;
+	}
+
+	.less
+	{
+		font-size:1.0em;
+	}
+
+	</style>
+
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+		$( '#table' ).searchable({
+		striped: true,
+		oddRow: { 'background-color': '#f5f5f5' },
+		evenRow: { 'background-color': '#fff' },
+		searchType: 'default'
+		});
+		});
+
+	</script>
+
+
+	<script>
+	
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+			{
+				window.location.hash = storedHash;
+			}
+		}, 50);
+
+	</script>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+        <div style="margin-left:150px" class="fixed-action-btn horizontal" title="Back To Previous Page">
+        <a class="btn btn-floating pulse btn-large blue" href='/admin-dashboard/adminDashboard/admindashboard'>
+        <i class="large material-icons">arrow_back</i>
+        </a>
+        </div>
+
+    <div class="main-panel">
+           <% include ../common/userBar %>
+            <br>
+        <div class="content">
+            <div class="container-fluid">
+		<br>
+		<br>
+		<br>
+		 <div class="row" style="width: 950px;margin-left:100px;">
+                    <div class="col-lg-4 col-md-8">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+		   		<div class="row stylish-panel">
+                                    <div class="col-xs-12" style="height:109px;">
+                                        <i class="fa fa fa-arrow-circle-down fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="less">Compact <br/>Download</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/reportModule/reportDetails/reportCompChoose">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-8">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                <div class="row stylish-panel">
+                                    <div class="col-xs-12" style="height:109px;">
+                                        <i class="fa fa-download fa-5x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="less">Bulk <br/>Download</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/reportModule/reportDetails/reportBulkChoose">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+		    <!-- Closing of Row tag -->
+                    </div>
+
+
+</body>
+</html>

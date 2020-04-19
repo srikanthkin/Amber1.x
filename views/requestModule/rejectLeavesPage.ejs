@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Leave Requests</title>
+   <% include ../common/header %>
+   <% include ../common/scripts %>
+   <% include ../common/styles %>
+
+    <style>
+           .card .header2row
+           {
+                        padding: 15px 15px 0;
+           }
+
+           .picker__select--year
+            {
+                    width: 24.5%;
+                    height: 30%;
+            }
+
+           .picker__select--month
+            {
+                    width: 35%;
+                    height: 30%;
+            }
+
+            table, tr, td
+            {
+                border: 0px;
+                padding: 2px;
+            }
+
+            table
+            {
+                border-spacing: 0px;
+            }
+
+            hr
+            {
+                border: none;
+                height: 1px;
+                color: #333;
+                background-color: #333;
+            }
+
+            .navbar .navbar-reverse
+            {
+                 display: inline-block;
+                 float: none;
+                 vertical-align: top;
+                 width: auto;
+            }
+
+            .navbar .navbar-collapse
+            {
+                 text-align: center;
+            }
+
+            textarea
+            {
+                resize: none;
+            }
+
+    </style>
+
+
+
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+function changeHashAgain()
+{
+window.location.href += "1";
+}
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+<script type="text/javascript">
+
+      function resetform()
+      {
+
+        document.getElementById("myForm").reset();
+      }
+</script>
+<script type="text/javascript">
+function formValidations()
+      {
+
+        var leave_type = document.getElementById("leave_type").value;
+         
+                                if(leave_type == "")
+                                {
+
+                                  document.getElementById("leave_type").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Select the leave type"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+
+          var fromDate = document.getElementById("fromDate").value;
+                                if(fromDate == "")
+                                {
+
+                                  document.getElementById("fromDate").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Select the from Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+      var toDate = document.getElementById("toDate").value;
+                                if(toDate == "")
+                                {
+
+                                  document.getElementById("toDate").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Select the to Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+    var apply_to = document.getElementById("apply_to").value;
+         
+                                if(apply_to == "")
+                                {
+
+                                  document.getElementById("apply_to").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Select the approver"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+         var desc = document.getElementById("desc").value;
+         
+                               if(desc.length<1)
+                                {
+
+                                  document.getElementById("desc").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Enter the Reason"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+
+        var available_leaves = document.getElementById("available_leaves").value;
+        var availed_leaves = document.getElementById("availed_leaves").value;
+        
+
+         
+         if(parseInt(availed_leaves)>parseInt(available_leaves)){
+           demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Number of availed leaves cannot be greater than the available leaves"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+         }
+        
+      }
+
+
+</script>
+
+<script type="text/javascript">
+  function showHide(){
+var desc = document.getElementById("desc").value;
+         
+                               if(desc.length<1)
+                                {
+
+                                  document.getElementById("desc").focus();
+                  demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-exclamation-circle',
+              message: "Enter the Remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                  return false;          
+        }
+        else {
+
+                var desc1 = document.getElementById("desc").value;
+        }
+
+    
+  }
+
+
+      
+
+</script>
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li >
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li class="active">
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li>
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+    <div class="main-panel">
+       <div class="container-fluid">
+          <% include ../common/userBar %>
+           <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+                                        <ul class="nav navbar-nav" style="color:#669999">
+                                        <% if(emp_access != "A1") {%>
+                                            <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+                                            <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+					    <li><a  href="/requestModule/approveLeaves/approveLeaves"><span style="color:#ff6600">Approve/Reject Leaves</span></a></li>
+                                    	    <li><a href="/requestModule/applyLeave/empspecficLeaveBalance">Leave Balance</a></li>
+					    <li><a href="/requestModule/applyLeave/reportingListBalance">Team Leave Balance</a></li>
+                                            <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+                                            <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+                                        <% } else { %>
+                                            <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+                                            <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+					    <li><a  href="/requestModule/approveLeaves/approveLeaves"><span style="color:#ff6600">Approve/Reject Leaves</span></a></li>
+                                            <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+                                            <li><a href="/requestModule/applyLeave/markLeave">Mark Leave</a></li>
+					    <li><a href="/requestModule/applyLeave/unmarkLeave">UnMark Leave</a></li>
+					    <li><a href="/requestModule/applyLeave/viewEmpLeave">View Employee Leave Data</a></li>
+					    <li><a href="/requestModule/applyLeave/EmployeeLeaveBalance">View Employee Leave Balance</a></li>
+                                            <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+                                        <% } %>
+					</ul>
+				</nav>
+        <br>
+	<div class="container"  style="width:100%;">
+	<form name="myForm" id="myForm" action="/requestModule/approveLeaves/rejectLeaves" method="post">
+	<hr>
+	<h4 class="title" >Reject Leave   </h4>
+	<hr>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id</label>
+
+
+						<input type="text" readonly style ="margin-left: 50px;width:348px" id="emp_id" name="emp_id" class="form-control" value="<%=leaveData[0].emp_id %>">
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Employee Name</label>
+						<input type="text" readonly style ="margin-left: 50px;width:348px" id="emp_name" name="emp_name" class="form-control" value="<%=leaveData[0].emp_name %>">
+                                            </div>
+                                        </div>
+
+                                        </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Leave Type</label>
+
+                                                
+    <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%=leaveData[0].comm_code_desc %></div>
+    
+    
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Applied No Of Days</label>
+            <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%= leaveData[0].availed_leaves%></div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+
+
+
+           <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">From Date</label>
+
+                                                 
+       <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%= leaveData[0].from_date.toDateString()%></div>
+        
+    
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">To Date</label>
+            <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%= leaveData[0].to_date.toDateString()%></div>
+                                            </div>
+                                        </div>
+
+                                        </div>    
+
+
+                                                   <div class="row" style="display:none;">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="leave_id">leave_id</label>
+
+    <input type="text" style ="width:348px" id="leave_id" maxlength="4" name="leave_id" value="<%=leave_id%>" readonly class="form-control" placeholder="">                                                 
+       
+        
+    
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="leaves">Leaves</label>
+                                                <input type="text" style ="width:348px" id="leaves" maxlength="4" name="leaves" value="<%=leaves%>" readonly class="form-control" placeholder="">
+            
+                                            </div>
+                                        </div>
+
+                                        </div>    
+                                         <div class="row" style="display:none;">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="leave_type">leave_type</label>
+
+    <input type="text" style ="width:348px" id="leave_type" maxlength="4" name="leave_type" value="<%=leaveData[0].leave_type %>" readonly class="form-control" placeholder="">                                                 
+       
+        
+    
+                                            </div>
+                                        </div>
+
+
+                                        </div>    
+
+
+              <div class="row">
+                                       
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Reason</label>
+            <div class="form-control" readonly style ="margin-left: 50px;width:348px;text-transform: uppercase"><%= leaveData[0].reason%></div>
+                                            </div>
+                                        </div>
+
+                                 <div class="col-md-5">
+        <div class="form-group">
+           <table>
+                                                <tr><label style="color:#404040;margin-left: 50px" for="desc">Remarks<span style="color:red;font-size: 10pt">*</span></label>
+       <td> <textarea id="desc"  name="desc" rows="2" cols="46" style="margin-left: 50px;" maxlength="100"></textarea></td></tr></table>
+</div>
+</div>
+                                        </div>    
+
+                                           
+ 
+
+
+
+
+    <table id="hideButtons">
+            <tr>
+                                    <td><button class="btn btn-info btn-fill" style="color:blue;margin-left:45%;height:40px;width:100px" onclick="return showHide();"><span style="color:white">Reject</span></td>
+                                    <td><a href="/requestModule/approveLeaves/approveLeaves" class="btn btn-info btn-fill" style="margin-left:70%;width:100px;"><span style="color:white">Back</span></td>
+                                    
+            </tr>
+            </table>
+	    <br>
+	    <br>
+
+                        </form>
+</div>
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<% include ../common/footer %>
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+  <!--  Charts Plugin -->
+  <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="/js/light-bootstrap-dashboard.js"></script>
+
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="/js/demo.js"></script>
+<% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

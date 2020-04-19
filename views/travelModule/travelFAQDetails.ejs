@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Travel</title>
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		
+			
+			.navbar .navbar-reverse 
+			{
+  				display: inline-block;
+  				float: none;
+  				vertical-align: top;
+			}
+
+			.navbar .navbar-collapse 
+			{
+  				text-align: center;
+			}
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+			hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+				.select2-container--open .select2-dropdown--above {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+	  width: 348px;
+		left:-50px;
+}		  
+.select2-container--open .select2-dropdown--below {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 348px;
+    left:-50px;
+} 
+
+
+    	     </style>
+			  <style>
+
+			 .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+			
+			 </style>
+
+	
+	
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+                <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+	    <div class="col">
+                        <div class="card">
+                            <div class="header">
+                              
+
+
+        <nav class="navbar navbar-inverse">
+                 <ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel">Initiate Travel Request</a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq">View Request</a></li>
+                    
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue">View Approval Queue</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">View Approval Queue</a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails"><span style="color:#ff6600">FAQ</span></a></li>
+                </ul>
+                </nav>
+                            </div>
+                            <div class="content">
+      
+              <hr/>
+        <h4 class="title">Travel Request FAQs</h4>
+        <hr/>
+        
+<br>
+	<p>Here are just some of our most commonly asked questions. </p>	
+<br>
+   
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#p">
+				<h4 class="panel-title">
+				Q1.How do I raise Travel request?         
+				</h4>
+				</a>
+				</div>
+				
+			</div>
+		</div>
+		<div id="p" class="panel-collapse collapse">
+			<div class="panel-body" style="margin-top: -20px;">
+				<p>All employees have access to raise travel request iff employee is allocated to travel onsite on particular project.
+					Under "Initiate Travel request" menu user can raise a request by entering valid inputs.
+				</p>
+
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#q">
+				<h4 class="panel-title">
+				Q2.Is a Travel Request required in order to travel?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+		<div id="q" class="panel-collapse collapse">
+			<div class="panel-body" style="margin-top: -20px;">
+				<p>Yes,one must raise a request to travel onsite since it has to be authorized by respective reporting manager and higher authorities.
+				</p>
+
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#r">
+				<h4 class="panel-title">
+				Q3.Whom do I contact for assistance?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+		<div id="r" class="panel-collapse collapse">
+			<div class="panel-body" style="margin-top: -20px;">
+				<p>Once the raised request approved by your Manager, kindly contact Financial Head for further booking process.
+				</p>
+
+			</div>
+		</div>
+	</div>
+	
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#s">
+				<h4 class="panel-title">
+				Q4.Where do am I able to review the requests raised by me?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+    <div id="s" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Employee is allowed to view the requests raised by them categorized by status(pending or approved or rejected) which is stored under "View Request" menu option.
+		</p>
+
+      </div>
+    </div>
+	</div>
+   <div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#s1">
+				<h4 class="panel-title">
+				Q5.Can I modify my travel request initiated?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+    <div id="s1" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Employee is allowed to modify his/her travel request which fall in the catagory of the status pending,approved by manager or confirmed by Finance.
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#s2">
+				<h4 class="panel-title">
+				Q6.Can I cancel my travel request initiated?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+    <div id="s2" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Employee is allowed to cancel his/her travel request which fall in the catagory of the status pending,approved by manager or confirmed by Finance.
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+		<div class="panel">
+			<div class="panel-heading" style="background-color: lightgrey;">
+				  <div class="submenuhead" >
+				<a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#s3">
+				<h4 class="panel-title">
+				Q7.Whether approval is required after modification/cancellation of requests?        
+				</h4>
+				</a>
+				</div>
+			</div>
+		</div>
+    <div id="s3" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Yes ,further approval is required if he/she Modifys any of the requests and in case of Cancel further approval is requried only when user cancels requests that falls in the category of status Confirmed by Finance.The notification of each action will be forwarded to respective approval authorities.
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+		  <div class="submenuhead" >
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#t">
+		 <h4 class="panel-title">
+         Q8.Can I re-call the request which has been rejected by higher authorities?        
+         
+		  </h4>
+        </a>
+       </div>
+	   </div>
+    </div>
+    <div id="t" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>No, new request has to be raised.
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+  </div>
+</div></div>
+
+</div>
+</div>
+</div>
+
+
+
+
+ 
+</div>
+ <% include ../common/footer %>
+</div>
+
+
+</body>
+
+    
+
+ <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+               
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

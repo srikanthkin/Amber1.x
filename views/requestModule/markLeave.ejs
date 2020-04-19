@@ -1,0 +1,1603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  	   <title>Leave Requests</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+    <style>
+
+           .card .header2row
+           {
+                        padding: 15px 15px 0;
+           }
+
+           .picker__select--year 
+	    {
+		    width: 24.5%;
+		    height: 30%;
+            }
+            
+           .picker__select--month 
+	    {
+		    width: 35%;
+		    height: 30%;
+            }
+
+	    table, tr, td
+	    {
+	    	border: 0px;
+	    	padding: 2px;
+	    }
+
+	    table
+	    {
+		border-spacing: 0px;
+	    }
+
+	    hr 
+	    {
+		border: none;
+		height: 1px;
+		color: #333;
+		background-color: #333;
+	    }
+
+            .navbar .navbar-reverse
+            {
+                 display: inline-block;
+                 float: none;
+                 vertical-align: top;
+                 width: auto;
+            }
+
+            .navbar .navbar-collapse
+            {
+                 text-align: center;
+            }
+
+	    textarea 
+	    {
+   		resize: none;
+	    }
+
+    </style>
+
+
+	<script>
+
+		function changeHashOnLoad()
+		{
+		window.location.href += "#";
+		setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+		window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+		if (window.location.hash != storedHash)
+		{
+		window.location.hash = storedHash;
+		}
+		}, 50);
+
+	</script>
+
+<script type="text/javascript">
+
+      function resetform()
+      {
+        document.getElementById("myForm").reset();
+      }
+
+      $(document).ready(function() 
+      {
+		var curr_date = new Date();
+		var curr_year = curr_date.getFullYear();
+
+		$('#fromDate').pickadate(
+       	 	{
+        		selectMonths: true,
+        		selectYears: 1,
+        		format: 'yyyy-mm-dd',
+        		formatSubmit: 'yyyy-mm-dd',
+         		// An integer (positive/negative) sets it relative to today.
+         		min: new Date(curr_year,0,1),
+  			// `true` sets it to today. `false` removes any limits.
+         		max: new Date(curr_year,11,31),
+        	});
+      });
+      
+
+
+      $(document).ready(function() {
+      $("#my-icon1").click(function(){
+      $( '#fromDate' ).pickadate("open"),
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+  
+      $(document).ready(function() 
+      {
+		var curr_date = new Date();
+		var curr_year = curr_date.getFullYear();
+
+
+	        $('#toDate').pickadate(
+		{
+			selectMonths: false,
+			selectYears: 0,
+			format: 'yyyy-mm-dd',
+			formatSubmit: 'yyyy-mm-dd',
+         		// An integer (positive/negative) sets it relative to today.
+         		min: new Date(curr_year,0,1),
+  			// `true` sets it to today. `false` removes any limits.
+         		max: new Date(curr_year,11,31),
+		});
+      });
+
+      $(document).ready(function() {
+      $("#my-icon2").click(function(){
+      $( '#toDate' ).pickadate("open"),
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+
+
+</script>
+<script type="text/javascript">
+
+
+      function formValidations()
+      {
+		var leave_type = document.getElementById("leave_type").value;
+		if(leave_type == "")
+		{
+			 document.getElementById("leave_type").focus();
+			 demo.initChartist();
+			 $.notify({
+			 icon: 'fa fa-exclamation-circle',
+			 message: "Please select the Leave type"
+			 },{
+			 type: 'info',
+			 timer: 500
+			 });
+			 return false;          
+		}
+
+		if((leave_type!= "RL")&&(leave_type!= "EL"))
+		{
+                        var emp_id = document.getElementById("emp_id").value;
+                        if(emp_id == "")
+                        {
+                                 document.getElementById("session").focus();
+                                 demo.initChartist();
+                                 $.notify({
+                                 icon: 'fa fa-exclamation-circle',
+                                 message: "Please select the Employee Id"
+                                 },{
+                                 type: 'info',
+                                 timer: 500
+                                 });
+                                 return false;
+                        }
+
+
+                        var session = document.getElementById("session").value;
+                        if(session == "")
+                        {
+                                 document.getElementById("session").focus();
+                                 demo.initChartist();
+                                 $.notify({
+                                 icon: 'fa fa-exclamation-circle',
+                                 message: "Please select the Session Type"
+                                 },{
+                                 type: 'info',
+                                 timer: 500
+                                 });
+                                 return false;
+                        }
+                        else
+                        {
+                                if(session == "HD")
+                                {
+                                        var sessiontime = document.getElementById("sessiontime").value;
+                                        if(sessiontime == "")
+                                        {
+                                                 document.getElementById("sessiontime").focus();
+                                                 demo.initChartist();
+                                                 $.notify({
+                                                 icon: 'fa fa-exclamation-circle',
+                                                 message: "Please select the Session Time"
+                                                 },{
+                                                 type: 'info',
+                                                 timer: 500
+                                                 });
+                                                 return false;
+                                        }
+                                }
+                        }
+
+			var fromDate = document.getElementById("fromDate").value;
+			if(fromDate == "")
+			{
+				 document.getElementById("fromDate").focus();
+				 demo.initChartist();
+				 $.notify({
+				 icon: 'fa fa-exclamation-circle',
+				 message: "Please select the From Date to avail Leave"
+				 },{
+				 type: 'info',
+				 timer: 500
+				 });
+				 return false;          
+			}
+
+			var toDate = document.getElementById("toDate").value;
+			if(toDate == "")
+			{
+				document.getElementById("toDate").focus();
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Please select the To Date to avail Leave"
+				},{
+				type: 'info',
+				timer: 500
+				});
+				return false;          
+			}
+
+			var apply_to = document.getElementById("apply_to").value;
+			if(apply_to == "")
+			{
+				document.getElementById("apply_to").focus();
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Please select the Apply To Option"
+				},{
+				type: 'info',
+				timer: 500
+				});
+				return false;          
+			}
+
+			var desc = document.getElementById("desc").value;
+			if(desc.length<1)
+			{
+				document.getElementById("desc").focus();
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Please enter the Leave Description"
+				},{
+				type: 'info',
+				timer: 500
+				});
+				return false;          
+			}	
+
+			var available_leaves = document.getElementById("available_leaves").value;
+			var availed_leaves = document.getElementById("availed_leaves").value;
+		
+			if(parseFloat(availed_leaves)>parseFloat(available_leaves))
+			{
+				demo.initChartist();
+				$.notify({
+				icon: 'fa fa-exclamation-circle',
+				message: "Number of availed leaves cannot be greater than the available leaves"
+				},{
+				type: 'danger',
+				timer: 500
+				});
+				return false;          
+			}
+
+		}
+
+                if(leave_type == "EL")
+                {
+                        var emp_id = document.getElementById("emp_id").value;
+                        if(emp_id == "")
+                        {
+                                 document.getElementById("session").focus();
+                                 demo.initChartist();
+                                 $.notify({
+                                 icon: 'fa fa-exclamation-circle',
+                                 message: "Please select the Employee Id"
+                                 },{
+                                 type: 'info',
+                                 timer: 500
+                                 });
+                                 return false;
+                        }
+
+			var session = document.getElementById("session").value;
+			if(session == "")
+			{
+				 document.getElementById("session").focus();
+				 demo.initChartist();
+				 $.notify({
+				 icon: 'fa fa-exclamation-circle',
+				 message: "Please select the Session Type"
+				 },{
+				 type: 'info',
+				 timer: 500
+				 });
+				 return false;
+			}
+			else
+			{
+				if(session == "HD")
+				{
+					var sessiontime = document.getElementById("sessiontime").value;
+					if(sessiontime == "")
+					{
+						 document.getElementById("sessiontime").focus();
+						 demo.initChartist();
+						 $.notify({
+						 icon: 'fa fa-exclamation-circle',
+						 message: "Please select the Session Time"
+						 },{
+						 type: 'info',
+						 timer: 500
+						 });
+						 return false;
+					}
+				}
+			}
+
+
+                        var fromDate = document.getElementById("fromDate").value;
+                        if(fromDate == "")
+                        {
+                                 document.getElementById("fromDate").focus();
+                                 demo.initChartist();
+                                 $.notify({
+                                 icon: 'fa fa-exclamation-circle',
+                                 message: "Please select the From Date to avail Leave"
+                                 },{
+                                 type: 'info',
+                                 timer: 500
+                                 });
+                                 return false;
+                        }
+
+                        var toDate = document.getElementById("toDate").value;
+                        if(toDate == "")
+                        {
+                                document.getElementById("toDate").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the To Date to avail Leave"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+                        var apply_to = document.getElementById("apply_to").value;
+                        if(apply_to == "")
+                        {
+                                document.getElementById("apply_to").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Apply To Option"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+                        var desc = document.getElementById("desc").value;
+                        if(desc.length<1)
+                        {
+                                document.getElementById("desc").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please enter the Leave Description"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+                        var available_leaves = document.getElementById("available_leaves").value;
+                        var availed_leaves = document.getElementById("availed_leaves").value;
+                        if(parseFloat(availed_leaves)>parseFloat(available_leaves))
+                        {
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Number of availed leaves cannot be greater than the available leaves"
+                                },{
+				type: 'danger',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+                        if(parseFloat(availed_leaves) > 10)
+                        {
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Cannot Avail More than 10 Leaves at a Time"
+                                },{
+				type: 'danger',
+                                timer: 500
+                                });
+                                return false;
+                        }
+                }
+
+
+		if(leave_type == "RL")
+		{
+                        var leave_type1 = document.getElementById("leave_type1").value;
+                        if(leave_type1 == "")
+                        {
+                                document.getElementById("leave_type1").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Leave Type"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+
+                        var emp_id1 = document.getElementById("emp_id1").value;
+                        if(emp_id1 == "")
+                        {
+                                 document.getElementById("emp_id1").focus();
+                                 demo.initChartist();
+                                 $.notify({
+                                 icon: 'fa fa-exclamation-circle',
+                                 message: "Please select the Employee Id"
+                                 },{
+                                 type: 'info',
+                                 timer: 500
+                                 });
+                                 return false;
+                        }
+
+
+                        var res_leave = document.getElementById("res_leave").value;
+                        if(res_leave == "")
+                        {
+                                document.getElementById("res_leave").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select any of the Restricted Leave Type"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+                        var apply_to1 = document.getElementById("apply_to1").value;
+                        if(apply_to1 == "")
+                        {
+                                document.getElementById("apply_to1").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Apply To option"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+
+
+			var desc1 = document.getElementById("desc1").value;
+                        if(desc1.length<1)
+                        {
+                                document.getElementById("desc1").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please Enter the Leave Reason"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+		}
+	
+		return true;
+      }
+
+	function changeTo()
+	{
+		jQuery("#toDateDiv").css("display","block");
+    		document.getElementById("toDate").value="";
+    		document.getElementById("availed_leaves").value="0";
+  		
+		var from_$input = $('#fromDate').pickadate(),
+    		from_picker = from_$input.pickadate('picker')
+		var to_$input = $('#toDate').pickadate(),
+    		to_picker = to_$input.pickadate('picker')
+
+		// Check if there’s a “from” or “to” date to start with.
+		if ( from_picker.get('value') ) 
+		{
+  			to_picker.set('min', from_picker.get('select'))
+		}
+
+		if ( to_picker.get('value') ) 
+		{
+  			from_picker.set('max', to_picker.get('select'))
+		}
+
+		// When something is selected, update the “from” and “to” limits.
+		from_picker.on('set', function(event) 
+		{
+  			if ( event.select ) 
+			{
+    				to_picker.set('min', from_picker.get('select'))    
+  			}
+  			else if ( 'clear' in event ) 
+			{
+    				to_picker.set('min', false)
+  			}
+		})
+	}
+
+	function avail_leaves()
+	{
+		var leave_id = document.getElementById("leave_type").value;
+
+		if(leave_id == "RL")
+		{
+			document.getElementById("leave_row").style.display='none';
+			document.getElementById("available_leaves_div").style.display='none';
+			document.getElementById("from_date_div").style.display='none';
+			document.getElementById("toDateDiv").style.display='none';
+			document.getElementById("apply_to_div").style.display='none';
+			document.getElementById("availed_leaves_div").style.display='none';
+			document.getElementById("reason_div").style.display='none';
+			document.getElementById("aval_lvs_qtr").style.display='none';
+			document.getElementById("session_to_div").style.display='none';
+			document.getElementById("emp_to_div").style.display='none';
+			document.getElementById("leave_row1").style.display='block';
+			document.getElementById("emp_to_div1").style.display='block';
+			document.getElementById("leave_type1").value='RL';
+			document.getElementById("new_div").style.display='block';
+		}
+		else
+		{
+			var session = document.getElementById("session").value;
+			var emp_id = document.getElementById("emp_id").value;
+			if(emp_id !="")
+			{
+				if(session != "")
+				{
+					document.getElementById("sessiontime").value="";
+					document.getElementById("available_leaves").value="0";
+					document.getElementById("fromDate").value="";
+					document.getElementById("toDate").value="";
+					document.getElementById("apply_to").value="";
+					document.getElementById("availed_leaves").value="0";
+					document.getElementById("quater_leaves").value="0";
+					document.getElementById("borr_leaves").value="0";
+					document.getElementById("desc").value="";
+					
+					document.getElementById("leave_row1").style.display='none';
+					document.getElementById("new_div").style.display='none';
+					document.getElementById("emp_to_div1").style.display='none';
+					document.getElementById("available_leaves_div").style.display='none';
+					document.getElementById("toDateDiv").style.display='none';
+					document.getElementById("availed_leaves_div").style.display='block';
+					document.getElementById("aval_lvs_qtr").style.display='block';
+					document.getElementById("session_to_div").style.display='block';
+					document.getElementById("emp_to_div").style.display='block';
+					document.getElementById("from_date_div").style.display='block';
+					document.getElementById("apply_to_div").style.display='block';
+					document.getElementById("reason_div").style.display='block';
+					
+					$.ajax({
+							url:'/requestModule/applyLeave/adminmark?leave_id='+leave_id+'&emp_id='+emp_id,
+							method:'get',
+							success:function(resp,status)
+							{
+								if(status=="success")
+								{
+									document.getElementById("available_leaves_div").style.display='block';
+									$('#available_leaves').val(resp.key);
+
+									if(leave_id == "EL")
+									{
+										$('#quater_leaves').val(resp.key1);
+										var quater_leaves = document.getElementById("quater_leaves").value;	
+										if(quater_leaves == "")
+										{
+											document.getElementById("quater_leaves").value="0";	
+										}
+										$('#allocated_leaves').val(resp.key2);
+									}
+									else
+									{
+										$('#quater_leaves').val(resp.key);
+									}
+								}
+							}
+					     });
+				}
+                                else
+                                {
+                                        document.getElementById("session").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please select the Session Type"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        document.getElementById("leave_type").value="";
+                                        return false;
+                                }
+                        }
+                        else
+                        {
+                                document.getElementById("emp_id").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Employee Id First"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                document.getElementById("session").value="";
+                                document.getElementById("leave_type").value="";
+                                return false;
+                        }
+
+		}
+  	}
+
+
+        function avail_leaves1()
+        {
+
+                var leave_id = document.getElementById("leave_type1").value;
+
+                if(leave_id == "RL")
+                {
+                        document.getElementById("leave_type1").value='RL';
+			document.getElementById("aval_lvs_qtr").style.display='none';
+			document.getElementById("session_to_div").style.display='none';
+			document.getElementById("emp_to_div").style.display='none';
+			document.getElementById("emp_to_div1").style.display='block';
+                        document.getElementById("new_div").style.display='block';
+                }
+                else
+                {
+                	document.getElementById("leave_row").style.display='block';
+			document.getElementById("aval_lvs_qtr").style.display='block';
+			document.getElementById("availed_leaves_div").style.display='block';
+			document.getElementById("session_to_div").style.display='block';
+			document.getElementById("emp_to_div").style.display='block';
+			document.getElementById("emp_to_div1").style.display='none';
+                	document.getElementById("leave_type").value=leave_id;
+			
+			var session = document.getElementById("session").value;
+			var emp_id = document.getElementById("emp_id").value;
+			if(emp_id !="")
+			{
+				if(session != "")
+				{
+						document.getElementById("sessiontime").value="";
+						document.getElementById("available_leaves").value="0";
+						document.getElementById("fromDate").value="";
+						document.getElementById("toDate").value="";
+						document.getElementById("apply_to").value="";
+						document.getElementById("availed_leaves").value="0";
+						document.getElementById("quater_leaves").value="0";
+						document.getElementById("borr_leaves").value="0";
+						document.getElementById("desc").value="";
+
+					       $.ajax({
+							url:'/requestModule/applyLeave/calculateLeaves?leave_id='+leave_id,
+							method:'get',
+							success:function(resp,status)
+							{
+								if(status=="success")
+								{
+									document.getElementById("available_leaves_div").style.display='block';
+									$('#available_leaves').val(resp.key);
+									if(leave_id == "EL")
+									{
+										var quater_leaves = "0";
+										document.getElementById("quater_leaves").value=quater_leaves;
+										$('#quater_leaves').val(resp.key1);
+										
+										var quater_leaves = document.getElementById("quater_leaves").value;	
+										if(quater_leaves == "")
+										{
+											document.getElementById("quater_leaves").value="0";	
+										}
+										
+										$('#allocated_leaves').val(resp.key2);
+									}
+									else
+									{
+										$('#quater_leaves').val(resp.key);
+									}
+								}
+							}
+						   });
+				}
+				else
+				{
+					document.getElementById("session").focus();
+					demo.initChartist();
+					$.notify({
+					icon: 'fa fa-exclamation-circle',
+					message: "Please select the Session Type"
+					},{
+					type: 'info',
+					timer: 500
+					});
+					document.getElementById("leave_type").value="";
+					return false;
+				}
+			}
+                        else
+                        {
+                                document.getElementById("emp_id").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Employee Id First"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                document.getElementById("session").value="";
+                                document.getElementById("leave_type").value="";
+                                return false;
+                        }
+
+			document.getElementById("session_to_div").style.display='block';
+                        document.getElementById("from_date_div").style.display='block';
+                        document.getElementById("apply_to_div").style.display='block';
+                        document.getElementById("reason_div").style.display='block';
+                        document.getElementById("leave_row1").style.display='none';
+                        document.getElementById("new_div").style.display='none';
+                        document.getElementById("available_leaves_div").style.display='none';
+                        document.getElementById("toDateDiv").style.display='none';
+                        document.getElementById("availed_leaves_div").style.display='none';
+                }
+        }
+
+
+	function calcBorrow()
+	{
+
+			var leave_type = document.getElementById("leave_type").value;
+                        var availed_leaves = document.getElementById("availed_leaves").value;
+                        var quater_leaves = document.getElementById("quater_leaves").value;
+
+
+			if(leave_type == "EL")
+			{
+				if(parseFloat(quater_leaves) < parseFloat(availed_leaves))
+				{
+					if(parseFloat(quater_leaves) < 0)
+					{
+						var borr_leaves = parseFloat(availed_leaves) - parseFloat(quater_leaves);	
+						document.getElementById("borr_leaves").value=borr_leaves;
+					}
+					else
+					{
+						var borr_leaves = parseFloat(availed_leaves) - parseFloat(quater_leaves);	
+						document.getElementById("borr_leaves").value=borr_leaves;
+					}
+				}
+
+                                if(parseFloat(availed_leaves) > parseFloat(quater_leaves))
+                                {
+                                        if(parseFloat(quater_leaves) < 0)
+                                        {
+                                                var borr_leaves = parseFloat(availed_leaves) - parseFloat(quater_leaves);
+                                                document.getElementById("borr_leaves").value=borr_leaves;
+                                        }
+                                        else
+                                        {
+						var borr_leaves = parseFloat(availed_leaves) - parseFloat(quater_leaves);
+                                                document.getElementById("borr_leaves").value=borr_leaves;
+                                        }
+                                }
+
+
+				if(parseFloat(availed_leaves) == parseFloat(quater_leaves))
+				{
+					var borr_leaves = "0";
+					document.getElementById("borr_leaves").value=borr_leaves;
+				}
+
+			}			
+			else
+			{
+				var borr_leaves = "0";
+				document.getElementById("borr_leaves").value=borr_leaves;
+			}
+	}
+
+	function sessionTime()
+	{
+
+		var session = document.getElementById("session").value;
+		var emp_id = document.getElementById("emp_id").value;
+		var sessiontime = document.getElementById("sessiontime").value;
+
+		if(emp_id != "")
+		{
+			if(session == "HD")
+			{
+				document.getElementById("sessionTime").style.display='block';
+				avail_leaves();
+			}
+			else
+			{
+				document.getElementById("sessiontime").value="";
+				document.getElementById("sessionTime").style.display='none';
+				avail_leaves();
+			}
+		}
+		else
+		{
+                                document.getElementById("emp_id").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Please select the Employee Id First"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                document.getElementById("session").value="";
+                                document.getElementById("leave_type").value="";
+                                return false;
+		}
+
+	}
+
+	function emp_change()
+	{
+				avail_leaves();
+	}
+
+
+  	function calc()
+	{
+		jQuery("#availed_leaves_div").css("display","block");
+     		var fromDate = document.getElementById("fromDate").value;
+      		var toDate = document.getElementById("toDate").value;
+      		var fromDate1 = new Date(fromDate);
+      		var toDate1 = new Date(toDate);
+        	fromDate1.setHours(0, 0, 0, 0);
+        	toDate1.setHours(0, 0, 0, 0);
+        	var noOdDays = (toDate1 - fromDate1)/(1000 * 24 * 60 * 60);
+        	noOdDays = noOdDays+1;
+      		var count =   getBusinessDatesCount(fromDate1,toDate1);
+		noOdDays = noOdDays - count ;
+        	var daysCount;
+        	//document.getElementById("availed_leaves").value=noOdDays;
+
+		$.ajax({
+		url:'/requestModule/applyLeave/calculateDays?fromDate='+fromDate+'&toDate='+toDate,
+		method:'get',
+		success:function(resp,status)
+		{
+			if(status=="success")
+			{
+				var msg_received=[];
+				msg_received=resp;
+				var msg1=msg_received[0];
+				daysCount = resp;
+				noOdDays = noOdDays - daysCount ;
+
+				var session = document.getElementById("session").value;
+				var fromDate = document.getElementById("fromDate").value;
+				var toDate = document.getElementById("toDate").value;
+				if(session!= "")
+				{
+					if(session == "HD")
+					{
+						if(fromDate != toDate)
+						{
+							document.getElementById("toDate").focus();
+							demo.initChartist();
+							$.notify({
+							icon: 'fa fa-exclamation-circle',
+							message: "From Date and To Date must be same in order to avail Half Day Leave."
+							},{
+							type: 'danger',
+							timer: 500
+							});
+							document.getElementById("toDate").value="";
+							return false;
+						}
+						else
+						{
+							document.getElementById("availed_leaves").value="0.5";
+						}			
+					}
+					else
+					{
+						document.getElementById("availed_leaves").value=noOdDays;
+					}	
+				}
+			
+				var leave_type = document.getElementById("leave_type").value;
+				var availed_leaves = document.getElementById("availed_leaves").value;
+				
+				if(leave_type == "SL")
+				{
+					if(availed_leaves > 4)
+					{
+						document.getElementById("sickMarquee").style.display='block';
+						calcBorrow();
+					}
+					else
+					{
+						document.getElementById("sickMarquee").style.display='none';
+						calcBorrow();
+					}
+				}
+				else
+				{
+					calcBorrow();
+
+				}
+			}
+
+		}
+  		});
+  	}
+
+
+
+	Date.prototype.addDays = function(days) 
+	{
+    		var date = new Date(this.valueOf())
+    		date.setDate(date.getDate() + days);
+    		return date;
+	}
+
+        function getBusinessDatesCount(startDate, endDate) 
+	{
+    		var count = 0;
+    		var curDate = startDate;
+    		while (curDate <= endDate) 
+		{
+        		var dayOfWeek = curDate.getDay();
+        		var isWeekend = (dayOfWeek == 6) || (dayOfWeek == 0); 
+        		if(isWeekend)
+           		count++;
+        		curDate = curDate.addDays(1);
+    		}
+    		return count;
+	}
+
+	function loadavaildate()
+	{
+		var res_leave = document.getElementById("res_leave").value;
+		
+		if(res_leave != "")
+		{
+				document.getElementById("availed_leaves1").value="1";
+
+				var leave_id = document.getElementById("leave_type1").value;
+
+				$.ajax({
+						url:'/requestModule/applyLeave/calculateLeaves1?leave_id='+leave_id,
+						method:'get',
+						success:function(resp,status)
+						{
+							if(status=="success")
+							{
+								var msg_received=[];
+								msg_received=resp;
+								var msg1=msg_received[0];
+								noOfLeaves = resp;
+								// noOdDays = noOdDays - daysCount ;
+								document.getElementById("available_leaves_div").style.display='block';
+								document.getElementById("available_leaves1").value=noOfLeaves;
+							}
+						}
+					});
+		}
+		else
+		{
+			document.getElementById("availed_leaves1").value="";
+
+			var leave_id = document.getElementById("leave_type1").value;
+
+			$.ajax({
+					url:'/requestModule/applyLeave/calculateLeaves1?leave_id='+leave_id,
+					method:'get',
+					success:function(resp,status)
+					{
+						if(status=="success")
+						{
+							var msg_received=[];
+							msg_received=resp;
+							var msg1=msg_received[0];
+							noOfLeaves = resp;
+							// noOdDays = noOdDays - daysCount ;
+							document.getElementById("available_leaves_div").style.display='block';
+							document.getElementById("available_leaves1").value=noOfLeaves;
+						}
+					}
+				});
+		}
+	}
+
+
+</script>
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li >
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li class="active">
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li>
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav" style="color:#669999">
+					<% if(emp_access != "A1") {%>
+					    <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+					    <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+					    <li><a href="/requestModule/approveLeaves/approveLeaves">Approve/Reject Leaves</a></li>
+                                    	    <li><a href="/requestModule/applyLeave/empspecficLeaveBalance">Leave Balance</a></li>
+					    <li><a href="/requestModule/applyLeave/reportingListBalance">Team Leave Balance</a></li>
+					    <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+					    <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+					<% } else { %>
+                                            <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+                                            <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+                                            <li><a href="/requestModule/approveLeaves/approveLeaves">Approve/Reject Leaves</a></li>
+                                            <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+                                            <li><a href="/requestModule/applyLeave/markLeave"><span style="color:#ff6600">Mark Leave</span></a></li>
+					    <li><a href="/requestModule/applyLeave/unmarkLeave">UnMark Leave</a></li>
+					    <li><a href="/requestModule/applyLeave/viewEmpLeave">View Employee Leave Data</a></li>
+					    <li><a href="/requestModule/applyLeave/EmployeeLeaveBalance">View Employee Leave Balance</a></li>
+                                            <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+					<% } %>
+					</ul>
+        			</nav>
+				<div>
+        			<br>
+  				<div class="container"  style="width:100%;">
+				<form name="myForm" id="myForm" action="/requestModule/applyLeave/markpostLeave" method="post">
+				<hr>
+				<h4 class="title">Mark Leave </h4>
+				<hr>
+
+                                <div class="row" id="emp_to_div">
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <table>
+                                                        <tr>
+                                                                <label for="emp_id" style="color:#404040;">Employee Id  <span style="color:red;font-size: 10pt">*</span></label>
+                                                                <td>
+								<select class="form-control" style ="width:340px" id="emp_id" name="emp_id"  placeholder="Enter the Employee Id"/ onchange="emp_change();">
+								<% if(emp_details_count != "0") {%>
+								<option value="" selected disabled>Employee Id</option>
+								<% for (i = 0; i < emp_details_count; i++)  {%>
+								<option value="<%= emp_details[i].emp_id %>"> <%= emp_details[i].emp_id %> - <%= emp_details[i].emp_name %> </option>
+								<% } %>
+								<% } else { %>
+								<option value="" selected disabled>No Records Found</option>
+								<% } %>
+								</select>
+
+                                                                </td>
+                                                        </tr>
+                                                        </table>
+                                                </div>
+                                        </div>
+                                        </div>
+
+
+				<div class="row" id="session_to_div">
+					<div class="col-md-5">
+						<div class="form-group">
+							<table>
+							<tr>
+								<label for="session" style="color:#404040;">Session Type  <span style="color:red;font-size: 10pt">*</span></label>
+								<td>
+								<select class="form-control" style ="width:340px" id="session" name="session" onchange="sessionTime();">
+								<option value="" selected disabled>Session Type</option>
+								<option value="FD">Full Day</option>
+								<option value="HD">Half Day</option>
+								</select>
+								</td>
+							</tr>
+							</table>
+						</div>
+					</div>
+
+
+                                        <div class="col-md-5" id="sessionTime" style="display:none">
+                                                <div class="form-group">
+                                                        <table>
+                                                        <tr>
+                                                                <label for="sessiontime" style="color:#404040;">Session Time<span style="color:red;font-size: 10pt">*</span></label>
+                                                                <td>
+                                                                <select class="form-control" style ="width:340px" id="sessiontime" name="sessiontime" >
+                                                                <option value="" selected disabled>Session Time</option>
+                                                                <option value="S1S2">Session 1</option>
+                                                                <option value="S3S4">Session 2</option>
+                                                                </select>
+                                                                </td>
+                                                        </tr>
+                                                        </table>
+                                                </div>
+                                        </div>
+
+
+
+				</div>
+
+				<div class="row" id="leave_row">
+				<div class="col-md-5">
+				<div class="form-group">
+ 				<table>
+ 				<tr>
+                                    <label for="leave_type" style="color:#404040;">Leave Type <span style="color:red;font-size: 10pt">*</span></label>
+                            	<td><select class="form-control" onchange="avail_leaves();" style ="width:340px" id="leave_type" name="leave_type"  placeholder="Enter the Employee Id"/>
+            			<option value="" selected disabled>Leave Type</option>
+              			<% for (i = 0; i < leaveConfigData.length; i++)  {%>
+            			<option value="<%= leaveConfigData[i].leave_type %>"> <%=leaveConfigData[i].description %> </option>
+            			<% }; %>
+        			</select>
+                                <input type="hidden" id="allocated_leaves" name="allocated_leaves">
+				</td>
+				</tr>
+				</table>
+				</div>
+				</div>
+
+ 					<div class="col-md-5" id="available_leaves_div" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="available_leaves" style="color:#404040;">Total Available Leaves</label>
+                                                <input type="text" style ="width:348px" id="available_leaves" maxlength="4" name="available_leaves" readonly class="form-control" placeholder="Available Leaves">
+                                            </div>
+                                        </div>
+					</div>
+				
+
+				<div class="row" id="from_date_div" style="display:none">
+					<div class="col-md-5">
+
+
+                                            <div class="form-group">
+                                            <div class="datepicker">
+              <table>
+                                                <tr><label style="color:#404040;" for="fromDate">From date <span style="color:red;font-size: 10pt">*</span></label>
+                                              <td><input type="date"  class="form-control" onchange="changeTo();" style ="width:340px" placeholder="Select Date" id="fromDate" name="fromDate"></td>
+            <td><span id="my-icon1" class="glyphicon glyphicon-calendar"></span></td>
+              </tr>
+              </table>
+                                                </div>
+                                            </div>
+
+</div>
+<div class="col-md-5" id="toDateDiv" style="display: none;">
+                                              <div class="form-group">
+                                            <div class="datepicker">
+              <table>
+                                                <tr><label style="color:#404040;" for="toDate">To date <span style="color:red;font-size: 10pt">*</span></label>
+                                              <td><input type="date"  class="form-control" onchange="calc();" style ="width:340px" placeholder="Select Date" id="toDate" name="toDate"></td>
+            <td><span id="my-icon2" class="glyphicon glyphicon-calendar"></span></td>
+              </tr>
+              </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+        
+        
+        <div class="row" id="apply_to_div" style="display:none">
+      <div class="col-md-5">
+<div class="form-group">
+ <table>
+ <tr>
+                                <label for="apply_to" style="color:#404040;">Apply To <span style="color:red;font-size: 10pt">*</span></label>
+                            <td>    <select class="form-control" style ="width:340px" id="apply_to" name="apply_to" placeholder="Enter the Employee Id"/>
+            
+            <option value="" selected disabled>Approver</option>
+            <option value="<%= eid %>" > <%= eid %> - <%= ename %></option>
+            
+        </select></td></tr></table>
+</div>
+</div>
+
+ 					<div class="col-md-5" id="availed_leaves_div" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="availed_leaves" style="color:#404040;">Applied No Of Days</label>
+                                                <input type="text" style ="width:348px" id="availed_leaves" maxlength="4" name="availed_leaves" value="0" readonly class="form-control" placeholder="Applied No Of Days">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+                                	<div class="row" id="aval_lvs_qtr" style="display:none">
+                                        <div class="col-md-5" >
+                                            <div class="form-group">
+                                                <label for="avail_el_quater" style="color:#404040;">Available Leaves for this Quarter</label>
+                                                <input type="text" style ="width:348px" id="quater_leaves" value="0" name="quater_leaves" readonly class="form-control" placeholder="Available Leaves for this Quarte">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5" >
+                                            <div class="form-group">
+                                                <label for="avail_el_quater" style="color:#404040;">Leaves Borrowed from upcoming Quarter</label>
+                                                <input type="number" style ="width:348px" id="borr_leaves" value="0" name="borr_leaves" readonly class="form-control" placeholder="Leaves Borrowed from next Quarter">
+                                            </div>
+                                        </div>
+                                 </div>
+
+
+                                         <div class="row">
+
+<div class="col-md-5" id="reason_div" style="display:none">
+        <div class="form-group">
+           <table>
+                                                <tr><label style="color:#404040;" for="desc">Reason<span style="color:red;font-size: 10pt">*</span></label>
+       <td> <textarea id="desc"  name="desc" rows="3" cols="45" maxlength="100"></textarea></td></tr></table>
+	<br>
+</div>
+</div>
+</div>
+
+
+<!-- New Logic -->
+
+				<div id="new_div" style="display: none;">
+                                <div class="row" id="emp_to_div1" style="display:none">
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <table>
+                                                        <tr>
+                                                                <label for="emp_id1" style="color:#404040;">Employee Id  <span style="color:red;font-size: 10pt">*</span></label>
+                                                                <td>
+                                                                <select class="form-control" style ="width:340px" id="emp_id1" name="emp_id1"  placeholder="Enter the Employee Id"/ >
+                                                                <% if(emp_details_count != "0") {%>
+                                                                <option value="" selected disabled>Employee Id</option>
+                                                                <% for (i = 0; i < emp_details_count; i++)  {%>
+                                                                <option value="<%= emp_details[i].emp_id %>"> <%= emp_details[i].emp_id %> - <%= emp_details[i].emp_name %> </option>
+                                                                <% } %>
+                                                                <% } else { %>
+                                                                <option value="" selected disabled>No Records Found</option>
+                                                                <% } %>
+                                                                </select>
+
+                                                                </td>
+                                                        </tr>
+                                                        </table>
+                                                </div>
+                                        </div>
+                                        </div>
+
+                                <div class="row" id="leave_row1">
+                                <div class="col-md-5">
+                                <div class="form-group">
+                                <table>
+                                <tr>
+                                <label for="leave_type" style="color:#404040;">Leave Type <span style="color:red;font-size: 10pt">*</span></label>
+                                <td><select class="form-control" onchange="avail_leaves1();" style ="width:340px" id="leave_type1" name="leave_type1">
+                                <option value="" selected disabled>Leave Type</option>
+                                <% for (i = 0; i < leaveConfigData.length; i++)  {%>
+                                <option value="<%= leaveConfigData[i].leave_type %>"> <%=leaveConfigData[i].description %> </option>
+                                <% }; %>
+                                </select>
+                                </td>
+                                </tr>
+                                </table>
+                                </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                <div class="form-group">
+                                <label for="res_leave" style="color:#404040;">List of Restricted Leaves <span style="color:red;font-size: 10pt">*</span></label>
+                                <td><select class="form-control" style ="width:340px" id="res_leave" name="res_leave" onchange="loadavaildate();">
+				<% if(holiday_count != "0") {%>
+                                <option value="">List of Restricted Leaves</option>
+                                <% for (i = 0; i < holiday_count; i++)  {%>
+                                <option value="<%= holiday_list[i].sel_date %>"><%= holiday_list[i].description %> </option>
+                                <% } %>
+				<option value="B">Birthday</option>	
+				<% } else { %>
+                                <option value="">List of Restricted Leaves</option>
+				<option value="B">Birthday</option>	
+                                <% } %>
+                                </select>
+
+                                            </div>
+                                        </div>
+                                        </div>
+
+        <div class="row">
+      <div class="col-md-5">
+<div class="form-group">
+ <table>
+ <tr>
+                                <label for="apply_to1" style="color:#404040;">Apply To <span style="color:red;font-size: 10pt">*</span></label>
+                            <td>    <select class="form-control" style ="width:340px" id="apply_to1" name="apply_to1"  placeholder="Enter the Employee Id"/>
+
+            <option value="">Approver</option>
+		<option value="<%= eid %>" > <%= eid %> - <%= ename %></option>
+
+        </select></td></tr></table>
+</div>
+</div>
+
+      <div class="col-md-5">
+<div class="form-group">
+<label for="availed_leaves1" style="color:#404040;">Availed Leaves</label>
+<input type="text" style ="width:348px" id="availed_leaves1" maxlength="4" name="availed_leaves1" readonly class="form-control" placeholder="Availed Leaves">
+<input type="hidden" id="available_leaves1" name="available_leaves1">
+</div>
+</div>
+</div>
+
+
+<div class="row">
+<div class="col-md-5">
+        <div class="form-group">
+           <table>
+                                                <tr><label style="color:#404040;" for="desc1">Reason<span style="color:red;font-size: 10pt">*</span></label>
+       <td> <textarea id="desc1"  name="desc1" rows="3" cols="45" maxlength="100" ></textarea></td></tr></table>
+</div>
+</div>
+</div>
+</div>
+
+			<div id="sickMarquee" style="display:none">
+			<marquee behavior="alternate"><p style="color:red">* Submit your Medical Certificate in case your Sick Leave exceeds more than 4 Days</p></marquee>
+			</div>
+
+                        <table>
+            <tr>
+                                    <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:1px;padding:1px 16px;height:40px;width:100px" value="Apply" onclick="return formValidations()"></td>
+                                    <td><input type="button" class="btn btn-info btn-fill" style="margin-left:3px;padding:1px 16px;height:40px;width:100px" value="Clear" onclick="resetform()"></td>
+            </tr>
+            </table>
+		<br>
+		<br>
+                     	<div class="clearfix"></div> 
+                        </form>
+			    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+  <!--  Charts Plugin -->
+  <script src="/js/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="/js/bootstrap-notify.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="/js/light-bootstrap-dashboard.js"></script>
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="/js/demo.js"></script>
+
+  <% if(success!="") { %>
+       
+	<script type="text/javascript">
+        
+	$(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+
+        </script>
+  <%}%>
+
+  <% if(error!="") { %>
+
+      <script type="text/javascript">
+
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+
+      </script>
+
+   <%}%>
+
+</html>

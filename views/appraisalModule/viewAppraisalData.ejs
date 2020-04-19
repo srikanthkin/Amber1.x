@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Appraisal System</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+
+                .navbar .navbar-reverse
+                {
+                        display: inline-block;
+                        float: none;
+                        vertical-align: top;
+                        width: auto;
+                }
+
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr {
+                        border: none;
+                        height: 1px;
+                        color: #333;
+                        background-color: #333;
+                   }
+
+                ul.topnav
+                {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                overflow: hidden;
+                                background-color: #333;
+                }
+
+                ul.topnav li
+                {
+                        float: left;
+                }
+
+                ul.topnav li a
+                {
+                        display: block;
+                        color: white;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                }
+
+                ul.topnav li a:hover:not(.active)
+                {
+                        background-color: #111;
+                }
+
+                ul.topnav li a.active
+                {
+                        background-color: #4CAF50;
+                }
+
+                ul.topnav li.right
+                {
+                        float: right;
+                }
+                @media screen and (max-width: 600px)
+                {
+                        ul.topnav li.right,
+                        ul.topnav li {float: none;}
+                }
+
+                .picker__select--year {
+                    width: 24.5%;
+                    height: 30%;
+                }
+                .picker__select--month {
+                    width: 35%;
+                    height: 30%;
+                }
+
+             </style>
+
+
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+function changeHashAgain()
+{
+window.location.href += "1";
+}
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+
+</head>
+
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != "F1"){%>
+                <li class="active">
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav" style="color:#669999">
+					<li><a href="/appraisalModule/viewAppraisal/viewAppraisal">View Previous Appraisals</span></a></li>
+					<li><a  href="/appraisalModule/doAppraisal/doAppraisal">Do Self Appraisal</a></li>
+					<li><a  href="/appraisalModule/approveAppraisal/approveAppraisal">Approve Appraisals</a></li>
+					<% if(emp_access == 'A1'){ %>
+					<li><a href="/appraisalModule/viewAppraisalData/viewAppraisalData"><span style="color:#ff6600">View Appraisal Data</span></a></li>
+					<li><a href="/appRenovated/createAppData/createAppData">View KPI</a></li>
+					<% } %> 
+					<li><a href="/appraisalModule/appraisalFAQDetails/appraisalFAQDetails">FAQ</a></li>
+					</ul>
+				</nav>
+
+
+
+       
+<br>
+                                <hr/>
+                                <h4 class="title">View Appraisal Data   </h4>
+                                <hr/>
+				<br>
+
+<div class="container"  style="width:100%;">
+
+ <form name="myForm" id="myForm" action="/appraisalModule/viewAppraisalData/viewAppraisalDataSearch" method="post">
+                                <label for="emp_id" style="color:#404040;">Employee Name <span style="color:red;font-size: 10pt">*</span></label>
+                                <select class="form-control" style ="width:340px" id="emp_id" name="emp_id" required placeholder="Enter the Employee Id"/>
+            
+            <option value="">Employee Name</option>
+            <% for (i = 0; i < empData.length; i++)  {%>
+            <option value="<%= empData[i].emp_id %>"> <%=empData[i].emp_name %></option>
+            <% }; %>
+        </select>
+
+<br>
+         <label for="month" style="color:#404040;">Appraisal Month</label>
+                                <select class="form-control" style ="width:340px" id="month" name="month"  placeholder="select the month"/>
+            
+            <option value="">Month</option>
+          
+            <option value="JAN">January</option>
+            <option value="FEB">February</option>
+            <option value="MAR">March</option>
+            <option value="APR">April</option>
+            <option value="MAY">May</option>
+            <option value="JUN">June</option>
+            <option value="JUL">July</option>
+            <option value="AUG">August</option>
+            <option value="SEP">September</option>
+            <option value="OCT">October</option>
+            <option value="NOV">November</option>
+            <option value="DEC">December</option>
+            
+          
+        </select>
+
+        <br>
+         <label for="year" style="color:#404040;">Appraisal Year</label>
+                                <select class="form-control" style ="width:340px" id="year" name="year"  placeholder="select the year"/>
+            
+            <option value="">Year</option>
+          
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            
+          
+        </select>
+
+                        <br>
+                        <br>
+                        <table>
+                        <tr>
+                                <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:1px;padding:1px 16px;height:40px;width:110px" value="Search"></td>
+                                <td><input type="button" class="btn btn-info btn-fill" style="margin-left:5px;padding:1px 16px;height:40px;width:110px" value="Clear" onclick="reload()"></td>
+
+                        </tr>
+                        </table>
+                      
+                        <br>
+                        <br>
+                        </form>
+
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<% include ../common/footer %>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+
+</html>

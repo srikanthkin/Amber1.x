@@ -1,0 +1,206 @@
+<html>
+<body>
+<%- include ../partials/adminHeader.ejs %>
+
+ <link rel="stylesheet" type="text/css" href="/css/table.css">
+<script src="/js/tablej.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script type="text/javascript">
+
+ $(document).ready(function(){
+
+        $('#myTable').DataTable({
+        "order":[[0,'asc'],[1,'asc']]
+          });
+      });
+
+
+      function preventBack(){
+        window.history.forward();
+      }setTimeout("preventBack()",0);
+      window.onunload=function(){null};
+      
+    </script>
+  
+            <form  id="view_distgroupform_submit" action="/distribute-groups/distributeGroups/distviewgroup" method="post" style="display: none;">
+       <input type="text" name="d_group_idv" id="d_group_idv" value="">
+       <input type="text" name="d_group_descv" id="d_group_descv" value="">
+     </form>
+
+  <form  id="edit_distgroupform_submit" action="/distribute-groups/distributeGroups/editgroup" method="post" style="display: none;">
+       <input type="text" name="d_group_ide" id="d_group_ide" value="">
+       <input type="text" name="d_group_desce" id="d_group_desce" value="">
+      
+     </form>
+
+     <form  id="remove_distgroupform_submit" action="/distribute-groups/distributeGroups/removegroup" method="post" style="display: none;">
+       <input type="text" name="d_group_idr" id="d_group_idr" value="">
+       <input type="text" name="d_group_descr" id="d_group_descr" value="">
+     </form>
+
+     
+		 <form  action="/distribute-groups/distributeGroups/filtergroup" method="post">
+          
+            <div class="row pos1300">
+			 
+         <label class="large-font">Distribution Groups
+                </label>
+            </div>
+
+          <div class="col m1315"> <a class="waves-effect waves-light btn signout z-depth-3" id="toggle"><i class="material-icons left">filter_list</i>Filters</a> </div>
+          <div class="col m131">
+            <div class="target" style="display:none">
+              <div class="log"></div>
+              <div class="row pos12">
+                <div class="input-field col s610">
+                  <input id="icon_prefix" type="text" name="group_id" class="validate">
+                  <label class="small-font" for="icon_prefix">Group Id</label>
+                </div>
+                <div class="input-field col s610">
+                  <input id="icon_telephone" type="tel" name="group_desc" class="validate">
+                  <label class="small-font" for="icon_telephone">Group Description</label>
+                </div>
+              </div>
+            <div class="row pos570">
+            <div class="col"> 
+              <button type="submit" class="waves-effect waves-light btn signout z-depth-3" >Filter Result
+               </div>            
+            </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+
+            </form>
+
+
+   
+
+            <div class="row pos11">
+            <div class="col s106">            
+              <table id="myTable" class="bordered" style="font-weight: 100;font-weight: 100; width: 50%;">
+                <thead class="listinghead">
+                  <tr>
+				 
+                    <th data-field="select"></th>
+                    <th data-field="groupid">Group Id</th>
+                    <th data-field="groupdesc">Group Description</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable"> 
+<% var i=0 %>
+<% groups.forEach(function(use) {%>
+<%i++%>
+
+
+  <tr id="<%= use.group_id%>" class="content"> 
+     <td> <input type="radio" name="groupid" id="groupid<%=use.group_id%>" value="<%=use.group_id%>" class="edit"
+                   <% if(i==1) { %> checked <% } %>  required/>
+
+	 <label for="groupid<%=use.group_id %>"></label>
+
+	  <input type="text" name="groupid" id="groupid<%=use.group_id%>" value="<%=use.group_name%>" hidden>
+      <input type="text" name="groupdesc" id="groupdesc<%=use.group_id%>" value="<%=use.group_desc%>" hidden>
+
+     <td id="groupid<%= use.group_id %>"><%= use.group_id %></td>
+     <td id="groupdesc<%= use.group_desc %>" name="groupdesc" ><%= use.group_desc %></td>
+     
+</tr>
+
+<% }); %>
+
+</tbody>  
+</table>
+</div>
+</div>
+
+					
+
+<div class="row">
+  <div class="col s1"></div>
+  <div class="col s58"> 
+  <a class="waves-effect waves-light btn signout z-depth-3 " href="javascript:view_distgroup_submit()"><i class="material-icons left">visibility</i>View Group</a> 
+  <a class="waves-effect waves-light btn signout z-depth-3 modal-trigger" onClick="edit_distgroup_submit()">
+    <i class="material-icons left">mode_edit</i>Edit Group</a> 
+  <a class="waves-effect waves-light btn signout z-depth-3 modal-trigger" href="#modal22" onclick="myFunction22('modal22')"><i class="material-icons left">delete</i>Remove Group</a> </div>
+</div>
+
+<ul class="collapsible pos59" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header clickon"><i class="material-icons">add_box</i>
+      <label class="clickon">Add A Group
+        <label>
+    </div>
+    
+
+    <div class="collapsible-body">
+      <div class="row">
+        <div class="col s5 m10 pos23">
+          <div class="card white" style="height:auto !important;">
+            <div class="row pos13">
+              <label class="large-font">
+                <p align="left">
+                  <br>Add A Group</p>
+              </label>
+              <form action="/distribute-groups/distributeGroups/registergroup" method="post">
+                <div class="row">
+                  <div class="input-field col s6 pos19"> <i class="material-icons prefix">perm_identity</i>
+                    <input id="icon_prefix" name="groupid" type="text" class="validate">
+                    <label for="icon_prefix">Group Id</label>
+                  </div>
+                  <div class="input-field col s6 pos19"> <i class="material-icons prefix">account_circle
+                  </i>
+                    <input id="icon_telephone" name="groupdesc" type="text" class="validate">
+                    <label for="icon_telephone">Group Description</label>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="row col pos52" style="margin-left: -106px;">
+                    <button type="submit" class="waves-effect waves-light btn signout" style="margin-left: 338px;"><i class="material-icons left">add_box</i>Confirm Addition 
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+ 
+
+
+
+<div id="modal22" class="modal modal-fixed-footer22">
+ <div class="row pos139">
+   <a href="#!" class=" modal-action modal-close"><i class="material-icons medium left modal-action modal-close">close</i></a>
+ </div> 
+            <div class="row pos351">
+              <label class="large-font"><p align="left"><br>Remove User</p></label>
+            </div>
+          
+      <div class="row pos352">
+       
+            <p class="content1" align="center">Please note that this action is irreversible<br><br><br></p>
+            </div>
+        
+        <div class="row col pos353">
+        <!--added for buttons-->
+              <button   onclick="remove_distgroup()" class="waves-effect waves-light btn signout z-depth-3" 
+                /><i class="material-icons left">delete</i>Confirm Removal
+            </div>
+        </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include ../partials/footer.ejs %>
+
+
+

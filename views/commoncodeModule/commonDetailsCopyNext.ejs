@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+           <title>Common Code Module</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+			
+		.navbar .navbar-reverse 
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+			width: auto;
+		}
+
+		.navbar .navbar-collapse 
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+		
+		hr 
+		{
+			border: none;
+			height: 1px;
+			color: #333; 
+			background-color: #333; 
+	        }
+
+		ul.topnav 
+		{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #333;
+		}
+
+		ul.topnav li 
+		{
+			float: left;
+		}
+
+		ul.topnav li a 
+		{
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		ul.topnav li a:hover:not(.active) 
+		{
+			background-color: #111;
+		}
+
+		ul.topnav li a.active 
+		{
+			background-color: #4CAF50;
+		}
+
+		ul.topnav li.right 
+		{
+			float: right;
+		}
+
+		@media screen and (max-width: 600px)
+		{
+			ul.topnav li.right,
+			ul.topnav li {float: none;}
+		}
+
+		.picker__select--year {
+		    width: 24.5%;
+		    height: 30%;
+		}
+		.picker__select--month {
+		    width: 35%;
+		    height: 30%;
+		}
+
+		.fa-5x
+		{
+			font-size:1.5em;
+		}
+
+		.search
+		{
+			color:black;
+		}
+
+
+    	     </style>
+             
+	     <script>
+
+                function changeHashOnLoad()
+                {
+                       window.location.href += "#";
+                       setTimeout("changeHashAgain()", "50");
+                }
+
+                function changeHashAgain()
+                {
+                       window.location.href += "1";
+                }
+
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                    if (window.location.hash != storedHash)
+                    {
+                       window.location.hash = storedHash;
+                    }
+                }, 50);
+
+	     </script>
+
+        <script>
+
+                $(document).ready(function()
+                {
+                        $('#code_id').blur(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+                        $('#comm_code_id').blur(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+                $(document).ready(function()
+                {
+			var code_id = document.getElementById("code_id").value;
+	
+			if(code_id != "FIN" && code_id != "MAIL" && code_id !="HR")
+			{
+                        	$('#comm_code_desc').blur(function()
+                        	{
+                                	$(this).val($(this).val().toUpperCase());
+                        	});
+			}
+			else
+			{
+                        	$('#comm_code_desc').blur(function()
+                        	{
+                                	$(this).val($(this).val().toLowerCase());
+                        	});
+			}
+                });
+
+        </script>
+
+
+	<script type="text/javascript">
+
+			function formValidations()
+			{
+				var code_id = document.getElementById("code_id").value;
+				var comm_code_id = document.getElementById("comm_code_id").value;
+				var comm_code_desc = document.getElementById("comm_code_desc").value;
+
+                                if(code_id == "")
+                                {
+                                        document.getElementById("code_id").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please enter the Code ID"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+                                if(comm_code_id == "")
+                                {
+                                        document.getElementById("comm_code_id").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please enter the Common Code ID"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+
+
+                                if(comm_code_desc == "")
+                                {
+                                        document.getElementById("comm_code_desc").focus();
+                                        demo.initChartist();
+                                        $.notify({
+                                        icon: 'fa fa-exclamation-circle',
+                                        message: "Please enter the Common Code Description"
+                                        },{
+                                        type: 'info',
+                                        timer: 500
+                                        });
+                                        return false;
+                                }
+				return true;
+			}
+
+                function resetform()
+                {
+                        document.getElementById("myForm").reset();
+
+                }
+
+                function goBack()
+                {
+                        window.location.href='/commoncodeModule/commonDetails/commonDetailsCopy';
+                }
+
+
+                        
+	</script>
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <div class="main-panel">
+       <div class="container-fluid">
+       <% include ../common/userBar %>
+       <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+				<nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav" style="color:#669999">
+		    		<% if(emp_access == 'A1'){ %>
+    				<li><a href="/commoncodeModule/commonDetails/commonDetails">Add Common Code</a></li>
+    				<li><a href="/commoncodeModule/commonDetails/commonDetailsCopy"><span style="color:#ff6600">Copy Common Code</span></a></li>
+    				<li><a href="/commoncodeModule/commonDetails/commonDetailsModify">Modify Common Code</a></li>
+    				<li><a href="/commoncodeModule/commonDetails/commonDetailsView">View Common Code</a></li>
+    				<li><a href="/commoncodeModule/commonDetails/commonDetailsDelete">Delete Common Code</a></li>
+				<li><a href="/commoncodeModule/commonDetails/commoncodeFAQDetails">FAQ</a></li>
+				<%}%>
+  				</ul>
+				</nav>
+                            </div>
+                            <div class="content">
+                                <form name="myForm" id="myForm" action="/commoncodeModule/commonDetails/copytotbl" method="post">
+				<hr/>
+				<h4 class="title">Copy Common Code     <i class="material-icons right">content_copy</i></h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+				    	<table>
+					   <tr>
+                                                <label style="color:#404040;margin-left: 50px">Code ID <span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="text" readonly style ="margin-left: 50px;width:348px" id="code_id" maxlength="4" name="code_id" value="<%= code_id %>" class="form-control" placeholder="Code Id"></td>
+					   </tr>
+				    	</table>
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+						<table>
+						   <tr>
+                                                	<label style="color:#404040;margin-left: 50px">Common Code ID <span style="color:red;font-size: 10pt">*</span></label>
+                                                	<td><input type="text" style ="margin-left: 50px;width:348px" id="comm_code_id" name="comm_code_id" class="form-control" placeholder="Common Code ID" value="<%= comm_code_id %>" maxlength="4"></td>
+						   </tr>
+				    		</table>
+                                            </div>
+                                         </div>
+                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Common Code Description <span style="color:red;font-size: 10pt">*</span></label>
+<textarea rows="8" cols="30" style ="margin-left: 50px;width:348px;resize: none" maxlength="250" name="comm_code_desc" id="comm_code_desc" placeholder="Common Code Description"><%= comm_code_desc %></textarea>
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+				    <br>
+				    <table>
+                                       <tr>
+                                    		<td><input type="button" name="test" id="test" style="margin-left:45%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Back" onclick="goBack();"></td>
+                                    		<td><input type="submit" name="test" id="test" style="margin-left:47%;padding:1px 16px;height:40px;width:120px" class="btn btn-info btn-fill" style="float: center;" value="Copy Code" onclick="return formValidations()"></td>
+	                            		<td><input type="button" style="margin-left:65%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+				      </tr>
+                                    </table>
+                                    <div class="clearfix"></div>
+				    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ../common/footer %>
+</div>
+
+</body>
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+   <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+</html>

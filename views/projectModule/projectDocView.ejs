@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Project Details</title>
+
+	<style>
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+	</style>
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style="background-color: transparent;color: #006666">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+        <div class="sidebar-wrapper">
+            <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li class="active">
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li class="active">
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+<div class="main-panel">
+<div class="container-fluid">
+	<% include ../common/userBar %>
+<br>
+
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header2row">
+                     <nav class="navbar navbar-inverse">
+                        <ul class="nav navbar-nav" style="color:#669999">
+		<% if( emp_access!= 'F1'){ %>
+			<li><a href="/projectModule/projectDetails/customercreation">Customer Details</a></li>
+			<li><a href="/projectModule/projectDetails/customermodification">Customer Details Modification</a></li>
+                        <li><a href="/projectModule/projectDetails/projectDetails">Add Project Details</a></li>
+			<li ><a href= "/projectModule/projectDetails/projectDocuments">Project Documents</a></li>
+		<% } %>
+                        <li><a href="/projectModule/projectDetails/projectDocumentsView"><span style="color:#ff9933">Project Documents View</span></a></li>
+		<% if( emp_access!= 'F1'){ %>
+                        <li><a href="/projectModule/projectDetails/projectModification">Modify Project Details</a></li>
+                        <li><a href="/projectModule/projectDetails/projectCopy">Copy Project Details</a></li>
+			<li ><a href="/projectModule/projectDetails/milestoneMarking">Milestone Marking</a></li>
+                        <li><a href="/projectModule/projectDetails/projectAllocation">Project Allocation</a></li>
+			<li><a href="/projectModule/projectDetails/viewAllocation">View Project Allocation</a></li>
+			<li><a href="/projectModule/projectDetails/viewEmpallocation">View Employee Allocation</a></li>
+                        <li><a href="/projectModule/projectDetails/ModifydelAllocation">Modify Allocation</a></li>
+                        <li><a href="/projectModule/projectDetails/projDealloc">Project De-Allocation</a></li>
+			<li><a href="/projectModule/childproject/childproject">Add Child Project</a></li>
+			<li><a href="/projectModule/productdetails/productdetails">Add Product Details</a></li>
+			<li><a href="/projectModule/projectDetails/recallmilestonemrak">Recall Milestone</a></li>
+			<li><a href="/projectModule/projectFAQDetails/projectFAQDetails">FAQ</a></li>
+		<% } %>
+
+			</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+			<hr/>
+				<h4 class="title">View Documents     <i class="fa fa-files-o" aria-hidden="true"></i></h4>
+			<hr/>
+			 <% if(sowLen != 0 || poLen != 0 || mileLen != 0 || cloLen != 0 || fbLen != 0 || aLen != 0) {%>
+				<div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label style="color:#404040;">Project Id</label>
+					<input type="text" id="projId" name="projId" readOnly=true class="form-control" value="<%=project[0].cid%> - <%=project[0].project_id%>"/>
+                                      </div>
+                                   </div>
+
+				   <div class="col-md-5">
+                                      <div class="form-group">
+                                         <label style="color:#404040;">Document Type</label>
+					 <% if(docType == 'ALL') {%>
+					 	<input type="text" id="docType" name="docType" readOnly=true class="form-control" value="ALL"/>
+					 <% } else if(docType == 'SOW') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Signed SOW"/>
+					 <% } else if(docType == 'PO') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Purchase Order"/>
+					 <% } else if(docType == 'MileStone') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Milestone Sign off Documents"/>
+					 <% } else if(docType == 'Closure') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Project Closure document"/>
+					 <% } else if(docType == 'FeedBack') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Customer Feedback Form"/>
+					 <% } else if(docType == 'Attendance') {%>
+                                                <input type="text" id="docType" name="docType" readOnly=true class="form-control" value="Signed Attendance sheet"/>
+                                         <% } %>
+                                      </div>
+                                   </div>
+
+				   <div class="col-md-2">
+					<div class="form-group">
+					<label style="color:#404040;"></label><br>
+					<a class="btn btnLink" title="Back To Previous Page" href='/projectModule/projectDetails/projectDocumentsView'>
+					<i class="fa fa-arrow-left" aria-hidden="true"></i>
+					</a>
+					</div>
+
+				   </div>
+
+                                </div>
+				<% if(sowLen != 0 && (docType == 'ALL' || docType == 'SOW')) {%>
+				  <label style="color:#404040;"><u>Signed SOW</u></label>
+				  <ol>
+				      <% for (i = 0; i < sowLen; i++)  {%>
+					<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=sowDocs[i]%>&projId=<%=projId%>" target="_blank"><%=sowDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (sowLen == 0 && docType == 'SOW') {%>
+                                        <label style="color:#404040;">No records found </label>
+                                        <br>
+				<% } %>
+
+				<% if(poLen != 0 && (docType == 'ALL' || docType == 'PO')) {%>
+				  <label style="color:#404040;"><u>Purchase Order</u></label>
+				  <ol>
+				      <% for (i = 0; i < poLen; i++)  {%>
+					<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=poDocs[i]%>&projId=<%=projId%>" target="_blank"><%=poDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (poLen == 0 && docType == 'PO') {%>
+					<label style="color:#404040;">No records found </label>
+					<br>
+				<% } %>
+
+				
+				<% if(mileLen != 0 && (docType == 'ALL' || docType == 'MileStone')) {%>
+				  <label style="color:#404040;"><u>Milestone</u></label>
+				  <ol>
+				      <% for (i = 0; i < mileLen; i++)  {%>
+					<li style="color:#404040;"><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=mileDocs[i]%>&projId=<%=projId%>" target="_blank"><%=mileDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (mileLen == 0 && docType == 'MileStone') {%>
+                                        <label style="color:#404040;">No records found </label>
+                                        <br>
+				<% } %>
+
+				<% if(cloLen != 0 && (docType == 'ALL' || docType == 'Closure')) {%>
+				  <label style="color:#404040;"><u>Closure</u></label>
+				  <ol>
+				      <% for (i = 0; i < cloLen; i++)  {%>
+					<li style="color:#404040;"><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=cloDocs[i]%>&projId=<%=projId%>" target="_blank"><%=cloDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (cloLen == 0 && docType == 'Closure') {%>
+                                        <label style="color:#404040;">No records found </label>
+                                        <br>
+				<% } %>
+
+				<% if(fbLen != 0 && (docType == 'ALL' || docType == 'FeedBack')) {%>
+				  <label style="color:#404040;"><u>Customer Feedback</u></label>
+				  <ol>
+				      <% for (i = 0; i < fbLen; i++)  {%>
+					<li style="color:#404040;"><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=fbDocs[i]%>&projId=<%=projId%>" target="_blank"><%=fbDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (fbLen == 0 && docType == 'FeedBack') {%>
+                                        <label style="color:#404040;">No records found </label>
+                                        <br>
+				<% } %>
+
+				<% if(aLen != 0 && (docType == 'ALL' || docType == 'Attendance')) {%>
+				  <label style="color:#404040;"><u>Attendance</u></label>
+				  <ol>
+				      <% for (i = 0; i < aLen; i++)  {%>
+					<li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+					<a href="/projectModule/projectDetails/projectViewAdmin?id=<%=aDocs[i]%>&projId=<%=projId%>" target="_blank"><%=aDocs[i]%></a>
+					</span></li>
+				      <% }; %>
+				  </ol>
+				  <br/>
+				<% } else if (fbLen == 0 && docType == 'Attendance') {%>
+                                        <label style="color:#404040;">No records found </label>
+                                        <br>
+				<% } %>
+
+			<% } else { %>
+				<label style="color:#404040;">No records found </label>
+				<br>
+			<% } %>
+			<div class="clearfix"></div>
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+    </div>
+        <% include ../common/footer %>
+</div>
+
+
+</body>
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

@@ -1,0 +1,22 @@
+nohup: ignoring input
+ReferenceError: /home/portal/central/views/projectModule/childproject.ejs:1170
+    1168|                                                         <option value="" selected disabled>Delivery Manager</option>
+    1169|                                                                   <% for (i = 0; i < delname_count; i++)  {%>
+ >> 1170|                                                                   <option value="<%= delid[i].emp_id %>"> <%=delname[i].emp_name %> - <%= delid[i].emp_id %></option>
+    1171|                                                                               <% }; %>
+    1172| 
+    1173|                                                                 </select>
+
+delname is not defined
+    at eval (eval at compile (/home/portal/central/node_modules/ejs/lib/ejs.js:524:12), <anonymous>:80:25)
+    at returnedFn (/home/portal/central/node_modules/ejs/lib/ejs.js:555:17)
+    at tryHandleCache (/home/portal/central/node_modules/ejs/lib/ejs.js:203:34)
+    at View.exports.renderFile [as engine] (/home/portal/central/node_modules/ejs/lib/ejs.js:412:10)
+    at View.render (/home/portal/central/node_modules/express/lib/view.js:128:8)
+    at tryRender (/home/portal/central/node_modules/express/lib/application.js:640:10)
+    at EventEmitter.render (/home/portal/central/node_modules/express/lib/application.js:592:3)
+    at ServerResponse.render (/home/portal/central/node_modules/express/lib/response.js:971:7)
+    at /home/portal/central/routes/projectModule/childproject.js:128:7
+    at /home/portal/central/node_modules/pg-pool/index.js:32:7
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)
+    at process._tickDomainCallback (internal/process/next_tick.js:128:9)

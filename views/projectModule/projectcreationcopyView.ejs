@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <title>Project Details</title>
+        <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+             <style>
+
+                        .card .header2row
+                        {
+                               padding: 15px 15px 0;
+                        }
+
+
+                        .navbar .navbar-reverse
+                        {
+                                display: inline-block;
+                                float: none;
+                                vertical-align: top;
+                        }
+
+                        .navbar .navbar-collapse
+                        {
+                                text-align: center;
+                        }
+
+                          table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+
+                        hr
+                        {
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+
+                        .picker__select--year
+                        {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+
+                        .picker__select--month
+                        {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+                        textarea
+                        {
+                            resize: none;
+                        }
+		.no-space-break{
+                            white-space:nowrap;
+                          }
+
+             </style>
+
+<script>
+$(function () {
+            $("body").on('click keypress', function () {
+                ResetThisSession();
+            });
+        });
+
+
+    var timeInSecondsAfterSessionOut =300; // change this to change session time out (in seconds).
+        var secondTick = 0;
+
+        function ResetThisSession() {
+            secondTick = 0;
+        }
+
+        function StartThisSessionTimer() {
+            secondTick++;
+            var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).toFixed(0); // in minutes
+        timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only
+
+            $("#spanTimeLeft").html(timeLeft);
+
+                 if(timeLeft==5){
+                      //  window.alert("Session will expire if you are inactive")
+                $('#AutoSignoutmodal').modal('show');
+                        }
+
+             if (secondTick > timeInSecondsAfterSessionOut) {
+               clearTimeout(tick);
+                window.location = "/logoutModule/logout/logout";
+                return;
+            }
+            tick = setTimeout("StartThisSessionTimer()", 1000);
+        }
+
+        StartThisSessionTimer();
+</script>
+
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+
+
+function changeHashAgain()
+{
+window.location.href += "1";
+
+}
+
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+	     <script>
+
+				  $(window).load(function()
+                                {
+                                        $('#projclosuredate').pickadate(
+                                        {
+                                        selectMonths: true,
+                                        selectYears: 100,
+                                        format: 'yyyy-mm-dd',
+                                        formatSubmit: 'yyyy-mm-dd',
+					closeOnSelect: true,
+					closeOnClear: true
+                                        });
+                                });
+                                $(document).ready(function() {
+                                $("#my-icon4").click(function(){
+                                $( '#projclosuredate' ).pickadate("open"),
+                                event.stopPropagation(),
+                                event.preventDefault()
+                                });
+                                });
+
+            $(document).ready(function()
+                {
+                        $('#clientaddr1').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#clientaddr2').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#countryId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#cityId').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#rmks').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+            $(document).ready(function()
+                {
+                        $('#pincode').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+            $(document).ready(function()
+                {
+                        $('#perloc').change(function()
+                        {
+                                $(this).val($(this).val().toUpperCase());
+                        });
+                });
+
+	    </script>
+
+<script>
+function goBack()
+{
+        window.location.href='/projectModule/projectDetails/projectCopy';
+
+}
+</script>
+
+
+
+</head>
+<body onload="changeHashOnLoad()">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+           <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                         <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <li class="active">
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                <%}%>
+                </li>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1" ){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" ){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% if( emp_access== 'A1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+               </li>
+            </ul>
+
+    	</div>
+    </div>
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+                <div class="content">
+                        <div class="container-fluid">
+                                <div class="row">
+                        <div class="col">
+                                <div class="card">
+                                <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav">
+                                <li><a href="/projectModule/projectDetails/customercreation">Customer Details</a></li>
+				<li><a href="/projectModule/projectDetails/customermodification">Customer Details Modification</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDetails">Add Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocuments">Project Documents</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocumentsView">Project Documents View</a></li>
+                                <li><a href="/projectModule/projectDetails/projectModification">Modify Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectCopy"><span style="color:#ff9933">Copy Project Details</span></a></li>
+                                <li><a href="/projectModule/projectDetails/milestoneMarking">Milestone Marking</a></li>
+                                <li><a href="/projectModule/projectDetails/projectAllocation">Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewAllocation">View Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewEmpallocation">View Employee Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/ModifydelAllocation">Modify Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/projDealloc">Project De-Allocation</a></li>
+				<li><a href="/projectModule/childproject/childproject">Add Child Project</a></li>
+				<li><a href="/projectModule/productdetails/productdetails">Add Product Details</a></li>
+				<li><a href="/projectModule/projectDetails/recallmilestonemrak">Recall Milestone</a></li>
+				<li><a href="/projectModule/projectFAQDetails/projectFAQDetails">FAQ</a></li>
+  				</ul>
+				</nav>
+                            </div>
+                            <div class="content">
+				<hr/>
+				<label style="color:blue;font-size: 15px;margin-left:210px"  for="message" id="mesage"><%=message%>  <i class="material-icons right">check_box</i></label>
+				<hr/>
+				<br>
+				
+                                <form name="myForm" action="/projectModule/projectDetails/projectcrecopyView" method="post" onsubmit="return formValidations()">
+				<hr/>
+				<h4 class="title">Project Details     <i class="material-icons right">work</i></h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cid" style="color:#404040;margin-left: 50px">Customer Id<span style="color:red;font-size:15px">*</span></label>
+ 						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cid" readonly  name="cid" required>
+							<% if (cid != "") {%>
+                                                        <option value="<%=cid%>"> <%=cid%></option>
+                                                        <% } else { %>
+							<option value="" selected disabled>Customer ID</option>
+							<% } %>
+
+
+
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="delmgr" style="color:#404040;margin-left: 50px">Delivery Manager<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="delmgr" readonly  name="delmgr" required style="width:259px;height:40px">
+						      <% if (delmgr != "") {%>
+                                                        <option value="<%=delmgr%>"> <%=delmgr%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Delivery Manager</option>
+                                                        <% } %>
+
+ 
+								</select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                      </div>
+
+			             <div class="row">
+                                      					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="paymenttype" style="color:#404040;margin-left: 50px">Payment Type<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="paymenttype" readonly  name="paymenttype" onChange="javascript:return projectdis(this);"  required style="width:259px;height:40px">
+
+							<% if (paymenttype != "") {%>
+                                                        <option value="<%=paymenttype%>"> <%=paymenttype%></option>
+                                                        <% } else { %>
+							<option value="" selected disabled>Payment Type</option>
+							<% } %>
+
+                                                </select>
+                                            </div>
+                                        </div>
+					  <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="classid" style="color:#404040;margin-left: 50px">Customer Class<span style="color:red;font-size:15px">*</span></label>
+						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="classid" readonly name="classid"   onChange="javascript:return newclassid(this);" required >
+
+                                                        <% if (classid != "") {%>
+                                                        <option value="<%=classid%>"> <%=classid%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Customer Class</option>
+                                                        <% } %>
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+<div id="classiddetails" style="display:none;">
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cusclassid" style="color:#404040;margin-left: 50px">Customer Class Id<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cusclassid" maxlength="3" name="cusclassid"  class="form-control" placeholder="Customer Class Id">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Cusclassdesc" style="color:#404040;margin-left: 50px">Customer Class Description<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Cusclassdesc" name="Cusclassdesc"  class="form-control" placeholder="Customer Class Description">
+                                            </div>
+                                        </div>
+                                 </div>
+       </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projectsize" style="color:#404040;margin-left: 50px">Project Team Size<span style="color:red;font-size:15px">*</span></label>
+						<select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projectsize"  readonly name="projectsize" required onChange="javascript:return projsize(this);"  style="width:259px;height:40px;text-transform:uppercase">
+
+                                                        <% if (projectsize != "") {%>
+                                                        <option value="<%=projectsize%>" selected><%=projectsize%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Team Size</option>
+                                                        <% } %>
+                                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="small-font" for="projmgr" style="color:#404040;margin-left: 50px">Project Manager<span style="color:red;font-size:15px">*</span></label>
+						 <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projmgr" name="projmgr" required  readonly style="width:259px;height:40px;text-transform:uppercase">
+
+                                                        <option value="<%=projectmgr%>"> <%=projectmgr%> </option>
+                                                                </select>
+
+                                            </div>
+                                        </div>
+                                 </div>
+
+					 <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projtype" style="color:#404040;margin-left: 50px">Project Type<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projtype"  name="projtype" required readonly style="width:259px;height:40px">
+
+                                                      <% if (projtype != "") {%>
+                                                        <option value="<%=projtype%>"> <%=projtype%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Type</option>
+                                                        <% } %>
+								</select>
+
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="projcur" style="color:#404040;margin-left: 50px">Project Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <br>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projcur"  name="projcur" readonly required style="width:259px;height:40px">
+						    <% if (projcur != "") {%>
+                                                        <option value="<%=projcur%>"> <%=projcur%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Currency</option>
+                                                        <% } %>
+								</select>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                 </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+						<table>
+                                            <tr>    <label for="projsdate" style="color:#404040;margin-left: 50px">Start Date(YYYY-MM-DD)<span style="color:red;font-size:15px">*</span></label>
+                                                <td><input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projsdate" name="projsdate" required readonly value="<%=projsdate %>" class="form-control" placeholder="Start Date"></td>
+						</tr>
+					</table>
+                                            </div>
+                                        </div>
+                                        
+					<div class="col-md-5">
+                                            <div class="form-group">
+					<table>
+                                               <tr> <label for="projcdate" style="color:#404040;margin-left: 50px">End Date(YYYY-MM-DD)<span style="color:red;font-size:15px">*</span></label>
+                                               <td> <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="projcdate" name="projcdate" required value="<%=projcdate %>" readonly  class="form-control" placeholder="End Date"></td>
+					          </tr>
+                                        </table>
+                                            </div>
+                                        </div>
+                                 </div>
+ 
+
+					 <div class="row">
+
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="rateamt" class="control-label" style="color:#404040;margin-left: 50px">Convertion Rate<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="rateamt" name="rateamt" maxlength="16" readonly value="<%=rateamt%>"required class="form-control" placeholder="Convertion Rate">
+                                            </div>
+                                        </div>
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="ponumber" class="control-label" style="color:#404040;margin-left: 50px">Po Number</label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="ponumber" name="ponumber"  readonly value="<%=ponumber%>" maxlength="15" class="form-control" placeholder="Po Number">
+                                            </div>
+                                        </div>
+
+								</div>
+								 
+                                       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+                                                <textarea id="rmks" name="rmks" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="100"  class="form-control" readonly  placeholder="Remarks"><%=rmks%></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                 <hr/>
+                                <h4 class="title">Billing Details <i class="material-icons right">chrome_reader_mode</i></h4>
+                                <hr/>
+                                     <div class="row">
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="clientaddr1" class="control-label" style="color:#404040;margin-left: 50px">Address Line 1<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr1" name="clientaddr1" maxlength="50" readonly  value="<%=clientaddr1%>" required class="form-control" placeholder="Address Line 1">
+                                            </div>
+                                        </div>
+
+                                    <div class="col-md-5">
+                                    <div class="form-group">
+                                             <label for="clientaddr2" class="control-label" style="color:#404040;margin-left: 50px"> Address Line 2</label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr2" name="clientaddr2" maxlength="50" readonly value="<%=clientaddr2%>"  class="form-control" placeholder="Address Line 2">
+                                            </div>
+                                        </div>
+                                        </div>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="countryId" class="control-label" style="color:#404040;margin-left: 50px"> Country Name<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="countryId" name="countryId" required value="<%=countryId%>" readonly  maxlength="30" class="form-control" placeholder="Country Name">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                 <label for="cityId" class="control-label" style="color:#404040;margin-left: 50px"> City Name<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="cityId" name="cityId" required maxlength="30" value="<%=cityId%>" readonly  class="form-control" placeholder="City Name">
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="pincode" class="control-label" style="color:#404040;margin-left: 50px">Pin Code/Zip Code</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="pincode" name="pincode"  maxlength="15" value="<%=pincode%>" readonly class="form-control" placeholder="Pin Code/Zip Code">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                 <hr/>
+                                <h4 class="title">Perdiem Details     <i class="material-icons right">euro_symbol</i></h4>
+                                <hr/>
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perloc" style="color:#404040;margin-left: 50px">Project Location<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perloc" required  name="perloc"   class="form-control" readonly value="<%=perloc%>" maxlength="20" placeholder="Project Location">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdiumamt" style="color:#404040;margin-left: 50px">Perdiem Amount Per day<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perdiumamt" required maxlength="16"  name="perdiumamt" readonly  maxlength="16" value="<%=perdiumamt%>"  class="form-control" placeholder="Perdiem Amount Per day">
+                                            </div>
+                                        </div>
+                                </div>
+
+                                        <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perprocurr" style="color:#404040;margin-left: 50px">Perdiem Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="perprocurr" name="perprocurr" required readonly  style="width:259px;height:40px">
+
+                                                    <% if (perprocurr != "") {%>
+                                                        <option value="<%=perprocurr%>"> <%=perprocurr%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Project Currency</option>
+                                                        <% } %>
+
+                                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+
+       
+                                 <hr/>
+                                <h4 class="title">Project Budget Details     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Projbud" style="color:#404040;margin-left: 50px">Project Budget<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Projbud" name="Projbud" maxlength="16"  value="<%=Projbud%>" readonly onBlur="javascript:return budgetcalc(this);" required class="form-control" placeholder="Project Budget">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="targmar" style="color:#404040;margin-left: 50px">Target Margin Percentage<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="targmar" name="targmar" value="<%=targmar%>" readonly maxlength="5" onBlur="javascript:return budgetcalc(this);" required class="form-control" placeholder="Target Margin Percentage">
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Totalbud" style="color:#404040;margin-left: 50px">Total Budget<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="Totalbud"  name="Totalbud" required value="<%=Totalbud%>" readonly  class="form-control" placeholder="Total Budget">
+                                            </div>
+                                        </div>
+                                </div>
+                        <hr/>
+
+
+
+                              <h4 class="title">Components Of Budget     <i class="material-icons right">work</i></h4>
+                                <hr/>
+		<table>
+				<tr>
+				<td>
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salary" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Salary<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="salary" name="salary" maxlength="16" class="form-control" readonly  value="<%=salary%>"  placeholder="Salary">
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label  for="salarycurr" class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 50px">Salary Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="salarycurr" readonly  name="salarycurr"  required >
+							<% if (salarycurr != "") {%>
+								<option value="<%=salarycurr%>"> <%=salarycurr%> </option>
+								<% } else { %>
+                                                        <option value="" selected disabled>Salary Currency</option>
+                                                                              <% } %>
+                                                                </select>
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salrate"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="salrate" name="salrate" maxlength="16"  readonly value="<%=salrate%>"  class="form-control" placeholder="Rate">
+
+                                            </div>
+                                        </div>
+				</td>
+
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="salconamt"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="salconamt" name="salconamt" maxlength="16" readonly value="<%=salconamt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+				</td>
+
+
+
+                                        </div>
+				</tr>
+				</table>
+
+                                <table>
+				<tr>
+				<td>    
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdium" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Perdiem<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="perdium" name="perdium" maxlength="16"  class="form-control" value="<%=perdium%>"  readonly   placeholder="Perdiem">
+                                            </div>
+                                        </div>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perdiemamtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Perdiem Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="perdiemamtcurr" name="perdiemamtcurr" required readonly  style="width:259px;height:40px">
+							<% if (perdiemamtcurr != "") {%>
+							<option value="<%=perdiemamtcurr%>"> <%=perdiemamtcurr%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Perdiem Currency</option>
+                                                                              <% } %>
+                                                                </select>
+                                            </div>
+                                        </div>
+				</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perrate"  class="no-space-break col-md-2 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="perrate" name="perrate" maxlength="16" value="<%=perrate%>" readonly   class="form-control" placeholder="Rate">
+                                            </div>
+                                        </div>
+                                        </td>
+
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="perconamt"  class="no-space-break col-md-2 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="perconamt" name="perconamt" maxlength="16"  readonly value="<%=perconamt%>"  class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+                                </div>
+				</tr>
+				</table>
+			
+
+
+				<table>
+				<tr>
+				<td>
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travel" class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 50px">Travel<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="travel" name="travel" maxlength="16"  class="form-control" readonly  value="<%=travel%>"  placeholder="Travel">
+                                            </div>
+                                        </div>
+				</td>
+
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travelamtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Travel Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="travelamtcurr" name="travelamtcurr" required readonly   style="width:259px;height:40px">
+
+							 <% if (travelamtcurr != "") {%>
+                                                        <option value="<%=travelamtcurr%>"> <%=travelamtcurr%> </option>
+                                                        <% } else { %>
+                                                        <option value="" selected disabled>Travel Currency</option>
+                                                                              <% } %>
+
+                                                                </select>
+
+                                            </div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="travelrate"  class="no-space-break col-md-5 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="travelrate" name="travelrate" maxlength="16" value="<%=travelrate%>" readonly   class="form-control" placeholder="Rate">
+                                            </div>
+                                        </div>
+					</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="traconamt"  class="no-space-break col-md-8 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="traconamt" name="traconamt" maxlength="16" readonly value="<%=traconamt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+				</div>
+				</tr>
+				</table>				
+
+                               <table>
+				<tr>
+				<td>     
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="other" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Others<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:250px;text-transform:uppercase" id="other" name="other" maxlength="16"  readonly  class="form-control" value="<%=other%>"  placeholder="Others">
+					</div>
+                                        </div>
+				</td>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="otheramtcurr" class="no-space-break col-md-5 required" style="color:#404040;margin-left: 50px">Others Currency<span style="color:red;font-size:15px">*</span></label>
+                                                <select class="form-control" style ="margin-left: 50px;width:180px;text-transform:uppercase" id="otheramtcurr" name="otheramtcurr" required readonly  style="width:259px;height:40px">
+                                                    <% if (otheramtcurr != "") {%>
+                                                        <option value="<%=otheramtcurr%>"> <%=otheramtcurr%> </option>
+									<% } else { %>
+									<option value="" selected disabled>Others Currency</option>
+                                                                              <% } %>
+                                                                </select>
+                                            </div>
+                                        </div>
+				<td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="otherrate"  class="no-space-break col-md-5 required" style="color:#404040;margin-left: 10px;width:200px">Rate<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 10px;width:180px;text-transform:uppercase" id="otherrate" name="otherrate" maxlength="16" value="<%=otherrate%>" readonly class="form-control"  placeholder="Rate">
+                                            </div>
+                                        </div>
+				</td>
+
+                                <td>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="othconamt"  class="no-space-break col-md-5 required"  style="color:#404040;margin-left: 1px;width:200px">Converted amount<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 3px;width:200px;text-transform:uppercase" id="othconamt" name="othconamt" maxlength="16" readonly value="<%=othconamt%>" class="form-control" placeholder="Converted amount">
+
+                                            </div>
+                                        </div>
+                                </td>
+
+                                </div>
+				</tr>
+				</table>
+
+
+<div id="fixedpricelicdetails" style="display:none;">
+			<hr/>
+                                <h4 class="title"> License details  <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="module" style="color:#404040;margin-left: 50px">Modules Included</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="module" name="module" value="<%=module %>" readonly  class="form-control" placeholder="Modules Included">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nousers" style="color:#404040;margin-left: 50px">Number of users</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="nousers" name="nousers" value="<%=nousers %>" readonly  class="form-control" placeholder="Number of users">
+                                            </div>
+                                        </div>
+                                </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="nobranch" style="color:#404040;margin-left: 50px">Number of branches</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="nobranch" name="nobranch"  value="<%=nobranch %>" readonly  class="form-control" placeholder="Number of branches">
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+
+</div>
+
+
+<div id="milstonedetails" style="display:none;">
+                                 <hr/>
+                                <h4 class="title">Milestone Details     <i class="material-icons right">work</i></h4>
+                                <hr/>
+
+                                    <div class="row">
+                                     <div class="col-md">
+                                      <table class="table table-bordered table-hover" id="tableAddRow1">
+                                      <thead>
+                                      <tr>
+                                      <th>Milstone Name</th>
+                                      <th>Expected Date</th>
+                                      <th>Capture Percentage</th>
+                                      <th>Direct Amount</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+					<% for (i = 0; i < milcount; i++)  {%>
+					<tr>
+					<td><label for="markname" id="markname_' + <%=i%> + '"><%=milname_arr[i]%></label>
+                                      </td>	
+					 <td><label for="markexpdate" id="markexpdate_' + <%=i%> + '"> <%= milDate_arr[i]%> </label>
+                                      </td>
+					<td><input  type="text" style="background-color: transparent;border: 0px solid;height: 20px;width: 40px;color: #969696" for="markcapper" id="markcapper_' + <%=i%> + '" value="<%=caper_arr[i]%>" readonly >
+                                      </td>
+
+					<td><input  type="text" style="background-color: transparent;border: 0px solid;color: #969696"  for="markdiramt" id="markamtdir_<%=i%>" value="<%=diramt_arr[i]%>" readonly>
+                                      </td>
+					</tr>
+					<%}%>
+                                      </tbody>
+                                      </table>
+                                      </div>
+                                      </div>
+                                      </div>
+<input type="button" class="btn btn-info btn-fill" style="margin-left:35%;padding:1px 16px;height:40px;width:100px" value="Close" onclick="goBack();">
+				<div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ../common/footer %>
+</div>
+
+
+</body>
+</html>

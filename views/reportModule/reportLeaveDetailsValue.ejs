@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+            <title>Report Module</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+          
+		<style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+                .navbar .navbar-reverse
+                {
+                        display: inline-block;
+                        float: none;
+                        vertical-align: top;
+                }
+
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr
+                {
+                        border: none;
+                        height: 1px;
+                        color: #333;
+                        background-color: #333;
+                }
+
+                ul.topnav
+                {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                overflow: hidden;
+                                background-color: #333;
+                }
+
+                ul.topnav li
+                {
+                        float: left;
+                }
+
+                ul.topnav li a
+                {
+                        display: block;
+                        color: white;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                }
+
+                ul.topnav li a:hover:not(.active)
+                {
+                        background-color: #111;
+                }
+
+                ul.topnav li a.active
+                {
+                        background-color: #4CAF50;
+                }
+
+                ul.topnav li.right
+                {
+                        float: right;
+                }
+                @media screen and (max-width: 600px)
+                {
+                        ul.topnav li.right,
+                        ul.topnav li {float: none;}
+                }
+
+                .picker__select--year
+                {
+                    width: 24.5%;
+                    height: 30%;
+                }
+
+                .picker__select--month
+                {
+                    width: 35%;
+                    height: 30%;
+                }
+
+             </style>
+
+	     <script>
+
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+		{
+			window.location.hash = storedHash;
+		}
+		}, 50);
+
+	      </script> 
+
+             <script type="text/javascript">
+
+                function goBack()
+                {
+                        window.location.href='/reportModule/reportDetails/reportBulkChoose';
+                }
+
+                function resetform()
+                {
+                        document.getElementById("myForm").reset();
+                }
+
+        	function changeTo()
+        	{
+			var from_$input = $('#fromDate').pickadate(),
+			from_picker = from_$input.pickadate('picker')
+			var to_$input = $('#toDate').pickadate(),
+			to_picker = to_$input.pickadate('picker')
+
+			// Check if there’s a “from” or “to” date to start with.
+			if ( from_picker.get('value') )
+			{
+				to_picker.set('min', from_picker.get('select'))
+			}
+
+			if ( to_picker.get('value') )
+			{
+				from_picker.set('max', to_picker.get('select'))
+			}
+
+			// When something is selected, update the “from” and “to” limits.
+			from_picker.on('set', function(event)
+			{
+				if ( event.select )
+				{
+					to_picker.set('min', from_picker.get('select'))
+				}
+				else if ( 'clear' in event )
+				{
+					to_picker.set('min', false)
+				}
+			})
+        	}
+
+	     </script>
+
+	     <script type="text/javascript">
+
+		$(document).ready(function()
+		{
+
+			var danishdays = [];
+			var leavearray ;
+
+			<% for (i = 0; i < holidayData.length; i++)  {%>
+			var leaveDate =[];
+
+			leaveDate [<%=0%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getFullYear()%>
+			leaveDate [<%=1%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getMonth()%>
+			leaveDate [<%=2%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getDate()%>
+			danishdays[<%=i%>]  =leaveDate;
+
+			<% }; %>
+
+			danishdays[<%=holidayData.length%>] = 1;
+			danishdays[<%=holidayData.length + 1%>] = 7;
+
+			$('#fromDate').pickadate(
+			{
+				selectMonths: true,
+				selectYears: 1,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				disable: danishdays,
+				// An integer (positive/negative) sets it relative to today.
+				// `true` sets it to today. `false` removes any limits.
+				max: false
+			});
+		});
+
+	        $(document).ready(function() {
+	        $("#my-icon").click(function(){
+	        $( '#fromDate' ).pickadate("open"),
+	        event.stopPropagation(),
+	        event.preventDefault()
+	        });
+	        });
+
+	      $(document).ready(function()
+	      {
+			var danishdays = [];
+			var leavearray ;
+			var d = new Date();
+			var yearValue = d.getFullYear();
+
+			<% for (i = 0; i < holidayData.length; i++)  {%>
+			var leaveDate =[];
+			leaveDate [<%=0%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getFullYear()%>
+			leaveDate [<%=1%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getMonth()%>
+			leaveDate [<%=2%>] = <%=new Date(holidayData[i].sel_date.toDateString()).getDate()%>
+			danishdays[<%=i%>]  =leaveDate;
+			<% }; %>
+
+			danishdays[<%=holidayData.length%>] = 1;
+			danishdays[<%=holidayData.length + 1%>] = 7;
+
+			$('#toDate').pickadate(
+			{
+				selectMonths: true,
+				selectYears: 0,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd',
+				disable: danishdays,
+				max: [yearValue,11,31]
+			});
+	      });
+
+	      $(document).ready(function() {
+	      $("#my-icon1").click(function(){
+	      $( '#toDate' ).pickadate("open"),
+	      event.stopPropagation(),
+	      event.preventDefault()
+	      });
+	      });
+
+
+            </script>
+
+
+
+            <script type="text/javascript">
+
+	    function formValidations()
+	    {
+
+		var reportType = document.getElementById("reportType").value;
+		var leaveType = document.getElementById("leaveType").value;
+		var fromDate = document.getElementById("fromDate").value;
+		var toDate = document.getElementById("toDate").value;
+
+
+		if(leaveType == "")
+		{
+                         document.getElementById("leaveType").focus();
+                         demo.initChartist();
+                         $.notify({
+                         icon: 'fa fa-exclamation-circle',
+                         message: "Please select the Leave type"
+                         },{
+                         type: 'info',
+                         timer: 500
+                         });
+                         return false;
+		}
+
+		if(fromDate == "")
+		{
+                         document.getElementById("fromDate").focus();
+                         demo.initChartist();
+                         $.notify({
+                         icon: 'fa fa-exclamation-circle',
+                         message: "Please select the From Date"
+                         },{
+                         type: 'info',
+                         timer: 500
+                         });
+                         return false;
+
+		}
+
+		if(toDate == "")
+		{
+                         document.getElementById("toDate").focus();
+                         demo.initChartist();
+                         $.notify({
+                         icon: 'fa fa-exclamation-circle',
+                         message: "Please select the To Date"
+                         },{
+                         type: 'info',
+                         timer: 500
+                         });
+                         return false;
+
+		}
+		
+		return true;
+	    }
+
+            </script>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li class="active">
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+<div class="main-panel">
+       <div class="container-fluid">
+           <% include ../common/userBar %>
+            <br>
+         <div class="content">
+           <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                            <div class="content">
+				<hr/>
+				<h4 class="title">Download Bulk - Employee's Leave Details with Inputs</h4>
+				<hr/>
+				<form name="myForm" id="myForm" action="/reportModule/reportDetails/reportValue" method="post">
+				<br>
+                                <div class="row">
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                            <label style="color:#404040;margin-left: 50px" for="reportType">Report Type<span style="color:red;font-size: 10pt">*</span></label>
+					    <input type="reportType" class="form-control" value="Bulk" readonly placeholder="Report Type" id="reportType" name="reportType" style ="margin-left: 50px;width:348px">
+                                            </div>
+                                        </div>
+
+
+                                   <div class="col-md-5">
+                                      <div class="form-group">
+                                            <label style="color:#404040;margin-left: 50px" for="leaveType">Leave Type<span style="color:red;font-size: 10pt">*</span></label>
+                                            <select class="form-control" id="leaveType" name="leaveType" style ="margin-left: 50px;width:348px">
+                                		  <option value="" selected disabled>Type of Leave</option>
+                                		  <option value="ALL">All Leave Types</option>
+						  <% for (i = 0; i < leaveConfigData.length; i++)  {%>
+                                		  <option value="<%= leaveConfigData[i].leave_type %>"> <%=leaveConfigData[i].description %> </option>
+                                		  <% }; %>
+                                             </select>
+                                            </div>
+                                        </div>
+                                   </div>
+
+
+                                <div class="row">
+ 					<div class="col-md-5">
+                                            <div class="form-group">
+                                            <div class="datepicker">
+                                            <table>
+                                                <tr><label style="color:#404040;margin-left: 50px" for="fromDate">From Date  (YYYY-MM-DD) <span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="text" readonly class="form-control" style ="margin-left: 50px;width:348px" placeholder="From Date" id="fromDate" name="fromDate" onchange="changeTo();"></td>
+                                                <td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                            <div class="datepicker">
+                                            <table>
+                                                <tr><label style="color:#404040;margin-left: 50px" for="toDate">To Date  (YYYY-MM-DD) <span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="text" readonly class="form-control" style ="margin-left: 50px;width:348px" placeholder="To Date" id="toDate" name="toDate"></td>
+                                                <td><span id="my-icon1" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                    <table>
+                                       <tr>
+                                       <br>
+                                                <td><input type="button" name="back" id="back" style="margin-left:50%;padding:1px 16px;height:40px;width:110px" class="btn btn-info btn-fill" style="float: center;" value="Back" onclick="return goBack()"></td>
+                                                <td><input type="submit" name="test" id="test" style="margin-left:50%;padding:1px 16px;height:40px;width:110px" class="btn btn-info btn-fill" style="float: center;" value="Pick Report" onclick="return formValidations()"></td>
+                                                <td><input type="button" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform()"></td>
+                                      </tr>
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <% include ../common/footer %>
+</div>
+</body>
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+
+</html>

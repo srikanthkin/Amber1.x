@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Leave Requests</title>
+   <% include ../common/header %>
+   <% include ../common/scripts %>
+   <% include ../common/styles %>
+   <!-- Data Tables -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+   <style>
+
+                        .navbar .navbar-reverse
+                        {
+                                display: inline-block;
+                                float: none;
+                                vertical-align: top;
+                        }
+
+                        .navbar .navbar-collapse
+                        {
+                                text-align: center;
+                        }
+
+                        hr
+                        {
+                                border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+                        .glyphicon
+                        {
+                                font-size: 25px;
+                        }
+
+                        .inner-addon
+                        {
+                                position: relative;
+                        }
+
+                        .inner-addon .glyphicon
+                        {
+                                position: absolute;
+                                padding: 10px;
+                                pointer-events: none;
+                        }
+
+                        .left-addon .glyphicon
+                        {
+                                left:  0px;
+                        }
+
+                        .right-addon .glyphicon
+                        {
+                                right: 0px;
+                        }
+
+                        .left-addon input
+                        {
+                                padding-left:  30px;
+                        }
+
+                        .right-addon input
+                        {
+                                padding-right: 30px;
+                        }
+
+                        *
+                        {
+                                box-sizing: border-box;
+                        }
+
+                        #example
+                        {
+                          border-collapse: collapse;
+                          width: 100%;
+                          border: 2px solid #ddd;
+                          font-size: 13px;
+                        }
+
+                        #example th
+                        {
+                                text-align: left;
+                                padding: 16px;
+                                background-color:grey;
+                                color:white;
+                        }
+
+                        #example td
+                        {
+                                text-align: left;
+                                padding: 16px;
+                        }
+
+
+                        #example tr
+                        {
+                                border-bottom: 1px solid #ddd;
+                        }
+
+                        #example tr.header, #example tr:hover
+                        {
+                                background-color: grey;
+                        }
+
+                        td
+                        {
+                                background-color:white;
+                                cursor: pointer;
+                        }
+
+                        th
+                        {
+                                background-color:#112553;
+                                color:#fff;
+                                cursor: pointer;
+                        }
+
+                        .btn
+                        {
+                                cursor: pointer;
+                        }
+
+                        textarea
+                        {
+                                resize: none;
+                        }
+
+	</style>
+
+<script>
+	function changeHashOnLoad()
+	{
+	window.location.href += "#";
+	setTimeout("changeHashAgain()", "50");
+	}
+	function changeHashAgain()
+	{
+	window.location.href += "1";
+	}
+	var storedHash = window.location.hash;
+	window.setInterval(function ()
+	{
+	if (window.location.hash != storedHash)
+	{
+	window.location.hash = storedHash;
+	}
+	}, 50);
+</script>
+
+        <script>
+
+                $(document).ready(function()
+                {
+                    $('#example').DataTable(
+                    {
+                        "pagingType": "full_numbers"
+                    });
+                } );
+
+        </script>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li >
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li class="active">
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li>
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+                <div class="content">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+                                <ul class="nav navbar-nav" style="color:#669999">
+				<% if(emp_access != "A1") {%>
+				    <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+				    <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+				    <li><a href="/requestModule/approveLeaves/approveLeaves">Approve/Reject Leaves</a></li>
+                                    <li><a href="/requestModule/applyLeave/empspecficLeaveBalance">Leave Balance</a></li>
+				    <li><a href="/requestModule/applyLeave/reportingListBalance">Team Leave Balance</a></li>
+				    <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+				    <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+				<% } else { %>
+				    <li><a href="/requestModule/applyLeave/applyLeave">Apply Leave</a></li>
+				    <li><a href="/requestModule/viewLeave/viewLeave">View/Cancel Leaves</a></li>
+				    <li><a href="/requestModule/approveLeaves/approveLeaves">Approve/Reject Leaves</a></li>
+				    <li><a href="/holidaysModule/holidays/viewHolidaysLeave">View Holidays</a></li>
+				    <li><a href="/requestModule/applyLeave/markLeave">Mark Leave</a></li>
+				    <li><a href="/requestModule/applyLeave/unmarkLeave"><span style="color:#ff6600">UnMark Leave</span></a></li>
+				    <li><a href="/requestModule/applyLeave/viewEmpLeave">View Employee Leave Data</a></li>
+				    <li><a href="/requestModule/applyLeave/EmployeeLeaveBalance">View Employee Leave Balance</a></li>
+				    <li><a href="/requestModule/leaveFAQDetails/leaveFAQDetails">FAQ</a></li>
+				<% } %>
+          			</ul>
+        			</nav>
+				</div>
+                            <div class="content">
+                                <hr/>
+				<h4 class="title">Un-Mark Leaves</h4>
+                                <hr/>
+                                <br>
+                            <div style="overflow-x:auto;">
+                            <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                <thead>
+				<tr>
+					<th>Employee Details</th>
+					<th>Leave Type</th>
+					<th>From Date</th>
+					<th>To Date</th>
+					<!--<th>Reason</th>-->
+					<th>No of Days</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+	  
+				<tbody>
+				<% if(leaveData.length !=0) { %>
+				<% for(var i=0;i<leaveData.length;i++) { %>
+				  <tr>
+				  <td style="text-align: left;"> <%= leaveData[i].emp_name %></td>
+				  
+				    <td style="text-align: left;"><%= leaveData[i].comm_code_desc%></td>
+				  
+				    <td style="text-align: left;"> <%= leaveData[i].from_date.getFullYear() %>-<%= leaveData[i].from_date.getMonth()+1 %>-<%= leaveData[i].from_date.getDate() %></td>
+				    <td style="text-align: left;"> <%= leaveData[i].to_date.getFullYear() %>-<%= leaveData[i].to_date.getMonth()+1 %>-<%= leaveData[i].to_date.getDate() %></td>
+				   
+				   <!--<td style="text-align: left;"> <%= leaveData[i].reason %></td>-->
+				   <td> <%= leaveData[i].availed_leaves %></td>
+				   <% if(leaveData[i].app_flg == "Y") {%>
+				   <td> Approved </td>
+				   <% } else { %>
+				   <td> Pending </td>
+				   <% } %>
+				   
+				   <td> <!--<a href="/requestModule/approveLeaves/approveAppliedLeavesPage?id=<%= leaveData[i].leave_id %>&leaves=<%= leaveData[i].availed_leaves %>"><i class="fa fa-check" title="Approve Leave" aria-hidden="true"></i>-->
+				    <a href="/requestModule/applyLeave/unmarkLeavePage?id=<%= leaveData[i].leave_id %>&leaves=<%= leaveData[i].availed_leaves %>&employee_id=<%= leaveData[i].emp_id %>&employee_name=<%= leaveData[i].emp_name %>"><i class="fa fa-times" title="Cancel Leave" aria-hidden="true"></i>
+				   </td>
+				  </tr>
+				  
+				<% }; %>
+     				<% } else { %>
+                                        <tr>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                                <td><div>No Records Found</div></td>
+                                        </tr>
+                                <% } %>
+                                </tbody>
+                                </table>
+                                <br>
+                                <br>
+                                <br>
+				</div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy; 2017 <a href="http://www.nurture.co.in">Nurture Software Solutions Pvt Ltd</a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+  <!--  Charts Plugin -->
+  <script src="/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="/js/light-bootstrap-dashboard.js"></script>
+
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="/js/demo.js"></script>
+<% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>
+
+

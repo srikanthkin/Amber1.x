@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="/images/full_logo_transparent.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Content Management System</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width" />
+
+	
+
+	<!-- Custom CSS -->
+	<link href="/css/sb-admin.css" rel="stylesheet">
+
+	<!-- Morris Charts CSS -->
+	<link href="/css/plugins/morris.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!-- Bootstrap core CSS     -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Animation library for notifications   -->
+	<link href="/css/animate.min.css" rel="stylesheet"/>
+
+	<!--  Light Bootstrap Table core CSS    -->
+	<link href="/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+	<!--  CSS for Demo Purpose, don't include it in your project     -->
+	<link href="/css/demo.css" rel="stylesheet" />
+
+	<!--     Fonts and icons     -->
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+	<link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/modernAlert.min.js"></script>
+        <script>
+        $(function () {
+                    $("body").on('click keypress', function () {
+                        ResetThisSession();
+                    });
+                });
+
+
+            	var timeInSecondsAfterSessionOut = 300; // change this to change session time out (in seconds).
+                var secondTick = 0;
+
+                function ResetThisSession() {
+                    secondTick = 0;
+                }
+
+                function StartThisSessionTimer() {
+                    secondTick++;
+                    var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).toFixed(0); // in minutes
+                timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only
+
+                    $("#spanTimeLeft").html(timeLeft);
+
+                         if(timeLeft==5){
+                              //  window.alert("Session will expire if you are inactive")
+                        $('#AutoSignoutmodal').modal('show');
+                                }
+
+                     if (secondTick > timeInSecondsAfterSessionOut) {
+                       clearTimeout(tick);
+                        window.location = "/logoutModule/logout/logout";
+                        return;
+                    }
+                    tick = setTimeout("StartThisSessionTimer()", 1000);
+                }
+
+                StartThisSessionTimer();
+        </script>
+
+	<script>
+		//modernAlert();
+		function changeHashOnLoad()
+                {
+                     window.location.href += "#";
+                     setTimeout("changeHashAgain()", "50");
+                }
+
+                function changeHashAgain()
+                {
+                  window.location.href += "1";
+                }
+
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                        if (window.location.hash != storedHash)
+                        {
+                                window.location.hash = storedHash;
+                        }
+                }, 50);
+	</script>
+	<style>
+		body
+		{
+			background-image: url("/images/loginbg.jpg");
+		}
+		.navbar .navbar-reverse
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse
+		{
+			text-align: center;
+		}
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr
+		{
+			border: none;
+			height: 1px;
+			color: #333;
+			background-color: #333;
+		}
+		 /* visited link */
+                a:visited {
+                    color: purple;
+                }
+
+                /* mouse over link */
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+
+                /* selected link */
+                a:active {
+                    color: hotpink;
+                }
+	</style>
+
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar"  style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+	<!--	<img src="/images/full_logo_transparent.png" alt="logo" width="100" height="80" />-->
+                <a href="#" class="simple-text" style="font-size: 25px;font-weight: 900;">
+                   Nurture&nbsp<span style="color: #ff9933">Portal</span>
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li class="active">
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != 'A1'){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+            </ul>
+    	</div>
+    </div>
+
+<div class="main-panel">
+<div class="container-fluid">
+	<nav class="navbar navbar-default navbar-fixed" style="height:55px;background-color:#202020;border-radius: 3px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        <li class="">
+
+                                <a class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="/images/profile/<%=emp_id%>.jpg" alt="logo"  style="border-radius: 30px;" width="60" height="60">&nbsp&nbsp<span style="text-transform:uppercase"><%=emp_name%></span>
+                                <span class="fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                               <li><a href="/logoutModule/logout/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                                </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+<br>
+
+   <div class="content">
+      <div class="container-fluid">
+         <div class="row">
+	    <div class="col">
+	       <div class="card">
+                  <div class="header">
+                     <nav class="navbar navbar-inverse" style="background-color: #3a214c;background: linear-gradient(#12234b,#0a0a0a)">
+                        <ul class="nav navbar-nav" data-color="#FFFFFF">
+			<li><a href="/appraisalModule/viewAppraisal/viewAppraisal">View Previous Appraisals</a></li>
+            <li><a  href="/appraisalModule/doAppraisal/doAppraisal">Do Self Appraisal</a></li>
+          
+          <li><a  href="/appraisalModule/approveAppraisal/approveAppraisal">Approve Appraisals</a></li>
+          
+              <% if(emp_access == 'A1'){ %>
+            <li><a href="/appraisalModule/viewAppraisalData/viewAppraisalData">View Appraisal Data</a></li>
+            <% } %>
+			<li><a href="/appraisalModule/appraisalFAQDetails/appraisalFAQDetails"><span style="color:#ff6600">FAQ</span></a></li>
+			</ul>
+		     </nav>
+		  </div>
+		  <div class="content">
+			<h4 class="title">Appraisal Form FAQs</h4>
+        <hr/>
+        
+<br>
+	<p>Here are just some of our most commonly asked questions. </p>	
+<br>
+   
+   <div>
+    <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#a">
+          Q1. when should we do the self appraisal?
+         
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="a" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Self appraisal has to be done on end of every month. You will be able to do self appraisal for the current month and previuos two months.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#b">
+         Q2. What should i give in remarks in self appraisal?       
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="b" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>You can give remarks which justifies your self rating.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#c">
+         Q3. What should i give in remarks in approval of appraisal?      
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="c" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>	You can give remarks which justifies your rating given against the self rating done by the employee.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#d">
+         Q4. Where can I see the submitted appraisal data?   
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="d" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>	You can see the submitted appraisal data in the view appraisal link.
+			Based on the current status of your appraisal it will appear under respective listings.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#e">
+         Q5. what happens when i forward the appraisal to another manager?
+       
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="e" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>The appraisal data submitted by the employee will be forwarded for the selected manager for approval.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#f">
+         Q6. When can i expect my appraisal to be approved?     
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="f" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>	Approval of your appraisal is based on your approving manager. If it is approved you can see it under the approved list. Your manager can also forward your appraisal to another manager for approving.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#g">
+         Q7. What happens after approval by manager?       
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="g" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Once approved, you have an option to either accept or reject the appraisal. 
+		   If approved , the appraisal process comes to closure.
+           If rejected , the appraisal data will be notified to HR and manager and then post discussion it can be brought to a closure.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#g">
+         Q8.What is KPI?       
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="g" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>Key Performance Indicators.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+	<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#g">
+         Q9.What is weightage?      
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="g" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>For each KPI there is a weightage defined respective to the designation and the rating is calculated based on that.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+	
+		<div>
+	 <div class="panel">
+    <div class="panel-heading" style="background-color: lightgrey;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" class="collapsed" href="https://www.intrepidtravel.com/us/contact-us/frequently-asked-questions#g">
+         Q10.What is View appraisal data ? (applicable for HR)      
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="g" class="panel-collapse collapse">
+      <div class="panel-body" style="margin-top: -20px;">
+        <p>You can search all the appraisal data for a specific employee.<br>
+		</p>
+
+      </div>
+    </div>
+	</div>
+				
+		  </div>
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy; 2017 <a href="http://www.nurture.co.in" target="_blank">Nurture Software Solutions Pvt Ltd</a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="/js/chartist.min.js"></script>
+
+	<!--  Notifications Plugin    -->
+	<script src="/js/bootstrap-notify.js"></script>
+
+	<!--  Google Maps Plugin    -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="/js/demo.js"></script>
+
+
+    <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'pe-7s-gift',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

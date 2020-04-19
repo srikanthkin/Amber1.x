@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+	   <title>Project Details</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+	<script src="/js/tablej.js" type="text/javascript" charset="utf-8"></script>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+
+                .navbar .navbar-reverse
+                {
+                        display: inline-block;
+                        float: none;
+                        vertical-align: top;
+                        width: auto;
+                }
+
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr {
+                        border: none;
+                                height: 1px;
+                                color: #333;
+                                background-color: #333;
+                        }
+
+
+                        .navbar .navbar-reverse
+                        {
+                                display: inline-block;
+                                float: none;
+                                vertical-align: top;
+                        }
+
+                        .navbar .navbar-collapse
+                        {
+                                text-align: center;
+                        }
+
+                          table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+
+                        .picker__select--year
+                        {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+
+                        .picker__select--month
+                        {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+                        textarea {
+                            resize: none;
+                        }
+
+             </style>
+
+<script>
+$(function () {
+            $("body").on('click keypress', function () {
+                ResetThisSession();
+            });
+        });
+
+
+    var timeInSecondsAfterSessionOut =300; // change this to change session time out (in seconds).
+        var secondTick = 0;
+
+        function ResetThisSession() {
+            secondTick = 0;
+        }
+
+        function StartThisSessionTimer() {
+            secondTick++;
+            var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).toFixed(0); // in minutes
+        timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only
+
+            $("#spanTimeLeft").html(timeLeft);
+
+                 if(timeLeft==5){
+                      //  window.alert("Session will expire if you are inactive")
+                $('#AutoSignoutmodal').modal('show');
+                        }
+
+             if (secondTick > timeInSecondsAfterSessionOut) {
+               clearTimeout(tick);
+                window.location = "/logoutModule/logout/logout";
+                return;
+            }
+            tick = setTimeout("StartThisSessionTimer()", 1000);
+        }
+
+        StartThisSessionTimer();
+</script>
+
+<script>
+function changeHashOnLoad()
+{
+window.location.href += "#";
+setTimeout("changeHashAgain()", "50");
+}
+
+function changeHashAgain()
+{
+window.location.href += "1";
+}
+
+var storedHash = window.location.hash;
+window.setInterval(function ()
+{
+if (window.location.hash != storedHash)
+{
+window.location.hash = storedHash;
+}
+}, 50);
+</script>
+
+<script>
+function goBack()
+{
+        window.location.href='/projectModule/projectDetails/customermodification';
+
+}
+</script>
+
+
+</head>
+<body onload="changeHashOnLoad()">
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+ 	<div class="sidebar-wrapper">
+		        <% include ../common/logo %>
+    	      <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                         <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <li class="active">
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                <%}%>
+                </li>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1" ){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" ){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% if( emp_access== 'A1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+                <li>
+                   <% if(emp_access != 'A1'){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+               </li>
+            </ul>
+
+	</div>
+    </div>
+    <div class="main-panel">
+    <div class="container-fluid">
+    <% include ../common/userBar %>
+    <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+  				<ul class="nav navbar-nav">
+				<li><a href="/projectModule/projectDetails/customercreation">Customer Details</a></li>
+				<li><a href="/projectModule/projectDetails/customermodification"><span style="color:#ff9933">Customer Details Modification</span></a></li>
+                                <li><a href="/projectModule/projectDetails/projectDetails">Add Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocuments">Project Documents</a></li>
+                                <li><a href="/projectModule/projectDetails/projectDocumentsView">Project Documents View</a></li>
+                                <li><a href="/projectModule/projectDetails/projectModification">Modify Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/projectCopy">Copy Project Details</a></li>
+                                <li><a href="/projectModule/projectDetails/milestoneMarking">Milestone Marking</a></li>
+                                <li><a href="/projectModule/projectDetails/projectAllocation">Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewAllocation">View Project Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/viewEmpallocation">View Employee Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/ModifydelAllocation">Modify Allocation</a></li>
+                                <li><a href="/projectModule/projectDetails/projDealloc">Project De-Allocation</a></li>
+				<li><a href="/projectModule/childproject/childproject">Add Child Project</a></li>
+				<li><a href="/projectModule/productdetails/productdetails">Add Product Details</a></li>
+				<li><a href="/projectModule/projectDetails/recallmilestonemrak">Recall Milestone</a></li>
+				<li><a href="/projectModule/projectFAQDetails/projectFAQDetails">FAQ</a></li>
+				</ul>
+				</nav>
+                            </div>
+                            <div class="content">
+				<hr/>
+                                <label style="color:blue;font-size: 15px;margin-left:210px"  for="message" id="mesage"><%=message%> <i class="material-icons right">check_box</i></label>
+				<hr/>
+                                <br>
+                                <form name="myForm" id="myForm" action="/projectModule/projectDetails/customermodview" method="post" onsubmit="return formValidations()">
+
+				<hr/>
+				<h4 class="title">Customer Details<i class="material-icons right">people</i></h4>
+				<hr/>
+
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cname" style="color:#404040;margin-left: 50px" >Customer Name <span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="cname" name="cname" required readonly  maxlength="30" value="<%=cname%>" class="form-control" placeholder="Customer Name">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cid" style="color:#404040;margin-left: 50px">Customer Id<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="cid" name="cid" required readonly maxlength="4" value="<%=cid%>" class="form-control" placeholder="Customer Id">
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+			             <div class="row">
+				    <div class="col-md-5">
+				    <div class="form-group">
+                                             <label for="clientaddr1" class="control-label" style="color:#404040;margin-left: 50px">Client Address Line 1<span style="color:red;font-size:15px">*</span></label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr1" name="clientaddr1" readonly required maxlength="50" value="<%=clientaddr1%>" class="form-control" placeholder="Client Address Line 1">
+                                            </div>
+                                        </div>
+
+				    <div class="col-md-5">
+				    <div class="form-group">
+                                             <label for="clientaddr2" class="control-label" style="color:#404040;margin-left: 50px">Client Address Line 2</label>
+                                             <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="clientaddr2" name="clientaddr2" readonly  maxlength="50" value="<%=clientaddr2%>"  class="form-control" placeholder="Client Address Line 2">
+                                            </div>
+                                        </div>
+
+
+
+
+					 </div>
+			
+				<div class="row">	
+					<div class="col-md-5">
+                                            <div class="form-group">
+						<label for="countryId" class="control-label" style="color:#404040;margin-left: 50px"> Country Name<span style="color:red;font-size:15px">*</span></label>
+						<input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="countryId" name="countryId" readonly maxlength="20" value="<%=countryId%>"  required class="form-control" placeholder="Country Name">
+						</select>
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+						 <label for="cityId" class="control-label" style="color:#404040;margin-left: 50px"> City Name<span style="color:red;font-size:15px">*</span></label>
+						<input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase;text-transform:uppercase" id="cityId" name="cityId" maxlength="20" readonly value="<%=cityId%>" required class="form-control" placeholder="City Name">
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                 <hr/>
+                                <h4 class="title">Contact Details 1     <i class="material-icons right">call</i></h4>
+                                <hr/>
+ 
+					<div class="row">	
+					    <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientname1" class="control-label" style="color:#404040;margin-left: 50px">Client Name 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="clientname1" name="clientname1" required class="form-control" readonly value="<%=clientname1%>" maxlength="30" placeholder="Client Name 1">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+
+					<div class="row">	
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cemail1" style="color:#404040;margin-left: 50px">Client Email Id 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="email" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cemail1" name="cemail1" required class="form-control" readonly value="<%=cemail1%>" placeholder="Client Email Id 1">
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientph1" style="color:#404040;margin-left: 50px">Client Contact Number 1<span style="color:red;font-size:15px">*</span></label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="clientph1" name="clientph1" required class="form-control" readonly value="<%=clientph1%>" maxlength="20" placeholder="Client Contact Number 1">
+                                            </div>
+                                        </div>
+                                      </div>
+				   <hr/>
+                                <h4 class="title">Contact Details 2     <i class="material-icons right">call</i></h4>
+                                <hr/>
+ 
+
+					<div class="row">	
+					    <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientname2" class="control-label" style="color:#404040;margin-left: 50px">Client Name 2</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="clientname2" name="clientname2"  class="form-control" readonly value="<%=clientname2%>" maxlength="30" placeholder="Client Name 2">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="cemail2" style="color:#404040;margin-left: 50px">Client Email 2</label>
+                                                <input type="email" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="cemail2" name="cemail2"  class="form-control" maxlength="30" readonly value="<%=cemail2%>" placeholder="Client Email 2">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="clientph2" style="color:#404040;margin-left: 50px">Client Contact Number 2</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="clientph2" name="clientph2"  class="form-control" maxlength="20" readonly value="<%=clientph2%>" placeholder="Client Contact Number 2">
+                                            </div>
+                                        </div>
+                                      </div>
+
+				   <hr/>
+                                <h4 class="title">Bank Details     <i class="material-icons right">business</i></h4>
+                                <hr/>
+ 
+
+                                     <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">GST Number</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="gstno" name="gstno" maxlength="15"  class="form-control" readonly value="<%=gstno%>" placeholder="GST Number">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="pannum" style="color:#404040;margin-left: 50px">PAN Number</label>
+                                                <input type="text" style ="margin-left: 50px;width:348px;text-transform:uppercase" id="pannum" name="pannum"  maxlength="10" class="form-control" readonly value="<%=pannum%>" placeholder="PAN Number">
+                                            </div>
+                                        </div>
+                                      </div>
+                               
+				       <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+						<textarea id="rmks" name="rmks" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="100"  class="form-control" readonly placeholder="Remarks"><%=rmks%></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+					
+<input type="button" class="btn btn-info btn-fill" style="margin-left:35%;padding:1px 16px;height:40px;width:100px" value="Close" onclick="goBack();">
+
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<% include ../common/footer %>
+</div>
+
+
+</body>
+</html>

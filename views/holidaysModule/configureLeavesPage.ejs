@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Configure Leaves</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+
+                .navbar .navbar-reverse
+                {
+                        display: inline-block;
+                        float: none;
+                        vertical-align: top;
+                        width: auto;
+                }
+
+                .navbar .navbar-collapse
+                {
+                        text-align: center;
+                }
+
+                table, tr, td
+                {
+                    border: 0px;
+                    padding: 2px;
+                }
+
+                table
+                {
+                        border-spacing: 0px;
+                }
+
+                hr {
+                        border: none;
+                        height: 1px;
+                        color: #333;
+                        background-color: #333;
+                   }
+
+                ul.topnav
+                {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                overflow: hidden;
+                                background-color: #333;
+                }
+
+                ul.topnav li
+                {
+                        float: left;
+                }
+
+                ul.topnav li a
+                {
+                        display: block;
+                        color: white;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                }
+
+                ul.topnav li a:hover:not(.active)
+                {
+                        background-color: #111;
+                }
+
+                ul.topnav li a.active
+                {
+                        background-color: #4CAF50;
+                }
+
+                ul.topnav li.right
+                {
+                        float: right;
+                }
+
+                @media screen and (max-width: 600px)
+                {
+                        ul.topnav li.right,
+                        ul.topnav li {float: none;}
+                }
+
+                .picker__select--year {
+                    width: 24.5%;
+                    height: 30%;
+                }
+                .picker__select--month {
+                    width: 35%;
+                    height: 30%;
+                }
+
+             </style>
+
+             <script>
+
+                function changeHashOnLoad()
+                {
+                       window.location.href += "#";
+                       setTimeout("changeHashAgain()", "50");
+                }
+
+                function changeHashAgain()
+                {
+                       window.location.href += "1";
+                }
+
+                var storedHash = window.location.hash;
+                window.setInterval(function ()
+                {
+                    if (window.location.hash != storedHash)
+                    {
+                       window.location.hash = storedHash;
+                    }
+                }, 50);
+
+             </script>
+
+
+<script type="text/javascript">
+
+      function resetform()
+      {
+
+        document.getElementById("myForm").reset();
+      }
+
+     
+$(document).ready(function() {
+      
+        $('#doc').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 6,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+         // An integer (positive/negative) sets it relative to today.
+         min: 1,
+  // `true` sets it to today. `false` removes any limits.
+         max: false
+        });
+      });
+
+      $(document).ready(function() {
+      $("#my-icon").click(function(){
+      $( '#doc' ).pickadate("open"),
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+
+</script>
+
+
+  <script type="text/javascript">
+  function formValidations()
+  {
+                var leaveType = document.getElementById("leave_type").value;
+                if(leaveType == "")
+                {
+                        document.getElementById("leave_type").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Enter the leaveType"
+                        },{
+                        type: 'info',
+                        timer: 500
+                        });
+                        return false;
+                }
+
+                var configyears = document.getElementById("configyears").value;
+                if(configyears == "")
+                {
+                        document.getElementById("configyears").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Please Select the year for configuration"
+                        },{
+                        type: 'info',
+                        timer: 500
+                        });
+                        return false;
+                }
+
+                var nod = document.getElementById("nod").value;
+                if(nod == "")
+                {
+                        document.getElementById("nod").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Enter the allocated number of days"
+                        },{
+                        type: 'info',
+                        timer: 500
+                        });
+                        return false;
+                }
+
+                var cnod = document.getElementById("cnod").value;
+                if(cnod=="")
+                {
+                        document.getElementById("cnod").focus();
+                        demo.initChartist();
+                        $.notify({
+                        icon: 'fa fa-exclamation-circle',
+                        message: "Enter the number of days for carry forward"
+                        },{
+                        type: 'info',
+                        timer: 500
+                        });
+                        return false;
+                }
+
+                if(cnod!="" &&  nod != "")
+                {
+                        if(parseInt(cnod) > parseInt(nod))
+                        {
+                                document.getElementById("cnod").focus();
+                                demo.initChartist();
+                                $.notify({
+                                icon: 'fa fa-exclamation-circle',
+                                message: "Carry forward days cannot be greater than the allocated number of days"
+                                },{
+                                type: 'info',
+                                timer: 500
+                                });
+                                return false;
+                        }
+                }
+      }
+
+      function modalOpen()
+      {
+                document.getElementById("submit_params").click()
+      }
+
+</script>
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li >
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li class="active">
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li>
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+    <div class="main-panel">
+            <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+                <div class="content">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+                                <nav class="navbar navbar-inverse">
+                                        <ul class="nav navbar-nav" style="color:#669999">
+                                          <li><a href="/holidaysModule/holidays/viewHolidays">View/Remove Holidays</a></li>
+                                          <li><a href="/holidaysModule/holidays/viewWorkingDays">View/Remove Working Days</a></li>
+                                          <li><a href="/holidaysModule/holidays/holidays">Add Holiday/Working Day</a></li>
+           				  <li><a href="/holidaysModule/holidays/configureLeavesPage"><span style="color:#ff6600">Configure Leaves</span></a></li>
+                                          <li><a href="/holidaysModule/holidays/viewLeaveTypes">View Leave Data</a></li>
+                                        </ul>
+                                </nav>
+
+                                <div class="container"  style="width:100%;">
+                                <br>
+                                <div>
+                                <hr>
+                                <h4 class="title">Configure Leaves</h4>
+                                <hr>
+				<form name="myForm" id="myForm" action="/holidaysModule/holidays/configureLeaves" method="post">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                  <label for="leave_type" style="color:#404040;">Leave Type <span style="color:red;font-size: 10pt">*</span></label>
+                            			<select class="form-control"  style ="width:348px;" id="leave_type" name="leave_type"  placeholder="Enter the Employee Id"/>
+							<option value="">Leave Type</option>
+							<% for (i = 0; i < rowData.length; i++)  {%>
+							<option value="<%= rowData[i].comm_code_id %>-<%=rowData[i].comm_code_desc %>"> <%=rowData[i].comm_code_desc %> </option>
+							<% }; %>
+        					</select>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="leave_type" style="color:#404040;">Configure for Year <span style="color:red;font-size: 10pt">*</span></label>
+                                                <select class="form-control"  style ="width:348px;" id="configyears" name="configyears">
+							<option value="">Configure Years</option>
+							<option value="<%= current_date.getFullYear() %>"><%= current_date.getFullYear() %></option>
+							<option value="<%= current_date.getFullYear() + 1 %>"><%= current_date.getFullYear() + 1 %></option>
+							<option value="<%= current_date.getFullYear() + 2 %>"><%= current_date.getFullYear() + 2 %></option>
+							<option value="<%= current_date.getFullYear() + 3 %>"><%= current_date.getFullYear() + 3 %></option>
+							<option value="<%= current_date.getFullYear() + 4 %>"><%= current_date.getFullYear() + 4 %></option>
+        					</select>
+
+                                            </div>
+                                        </div>
+
+
+
+                  </div>
+
+
+
+                   <div class="row">
+                                          <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;">Number of Days <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="number"  min="1" max="365" style ="width:348px" id="nod" maxlength="2" name="nod" class="form-control" placeholder="No of Days">
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+                                           <div class="row">
+
+                                          <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;">Carry Forward Number of Days <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="number"  min="0" max="99" style ="width:348px" id="cnod" maxlength="2" name="cnod" class="form-control" placeholder="No of Days">
+                                            </div>
+                                        </div>
+                                        </div>
+                      
+                        <table>
+            <tr>
+                                     <td><input type="submit" class="btn btn-info btn-fill" style="margin-left:1px;padding:1px 16px;height:40px;width:100px" value="Submit" id="submit_params" name="submit_params"  onclick="return formValidations();"></td>
+                                    <td><input type="button" class="btn btn-info btn-fill" style="margin-left:5px;padding:1px 16px;height:40px;width:100px" value="Clear" onclick="resetform()"></td>
+
+            </tr>
+            </table>
+
+            <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Submit</h4>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to proceed with updating the data ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-default" >Submit</button>
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+                      
+                        </form>
+	    <br>
+	    <br>
+
+
+ 
+</div>
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<% include ../common/footer %>
+    </div>
+</div>
+
+
+</body>
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+  <!--  Charts Plugin -->
+  <script src="/js/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="/js/bootstrap-notify.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="/js/light-bootstrap-dashboard.js"></script>
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+  <script src="/js/demo.js"></script>
+  
+  <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+   <%}%>
+</html>

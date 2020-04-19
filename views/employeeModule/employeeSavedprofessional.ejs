@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+<head>
+           <title>Employee Details</title>
+           <% include ../common/header %>
+           <% include ../common/scripts %>
+           <% include ../common/styles %>
+
+        <style>
+
+                .card .header2row
+                {
+                        padding: 15px 15px 0;
+                }
+
+		.navbar .navbar-reverse 
+		{
+			display: inline-block;
+			float: none;
+			vertical-align: top;
+		}
+
+		.navbar .navbar-collapse 
+		{
+			text-align: center;
+		}	
+
+		table, tr, td
+		{
+		    border: 0px;
+		    padding: 2px;
+		}
+
+		table
+		{
+			border-spacing: 0px;
+		}
+
+		hr 
+		{
+			border: none;
+			height: 1px;
+			color: #333; 
+			background-color: #333; 
+		}
+
+		ul.topnav
+		{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #333;
+		}
+
+		ul.topnav li
+		{
+			float: left;
+		}
+
+		ul.topnav li a
+		{
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		ul.topnav li a:hover:not(.active)
+		{
+			background-color: #111;
+		}
+
+		ul.topnav li a.active
+		{
+			background-color: #4CAF50;
+		}
+
+		ul.topnav li.right
+		{
+			float: right;
+		}
+
+		@media screen and (max-width: 600px)
+		{
+			ul.topnav li.right,
+			ul.topnav li {float: none;}
+		}
+
+		.picker__select--year 
+		{
+		    width: 24.5%;
+		    height: 30%;
+		}
+
+		.picker__select--month 
+		{
+		    width: 35%;
+		    height: 30%;
+		}
+
+
+    	     </style>
+
+	     <script>
+	
+		function changeHashOnLoad()
+		{
+			window.location.href += "#";
+			setTimeout("changeHashAgain()", "50");
+		}
+
+		function changeHashAgain()
+		{
+			window.location.href += "1";
+		}
+
+		var storedHash = window.location.hash;
+		window.setInterval(function ()
+		{
+			if (window.location.hash != storedHash)
+			{
+				window.location.hash = storedHash;
+			}
+		}, 50);
+
+		</script>
+
+             	<script type="text/javascript">
+
+			$(document).ready(function()
+			{
+				$('#empName').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+                        $(document).ready(function()
+                        {
+                                $('#email').change(function()
+                                {
+                                        $(this).val($(this).val().toLowerCase());
+                                });
+                        });
+		
+			$(document).ready(function()
+			{
+				$('#preEmp').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+			$(document).ready(function()
+			{
+				$('#preEmp2').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+			$(document).ready(function()
+			{
+				$('#preEmp3').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+			$(document).ready(function()
+			{
+				$('#preEmp4').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+			$(document).ready(function()
+			{
+				$('#preEmp5').change(function()
+				{
+					$(this).val($(this).val().toUpperCase());
+				});
+			});
+
+			$(document).ready(function()
+			{
+				$('#salary').change(function(e)
+				{
+					var regex = /^\d+(\.\d{0,10})?$/g;
+					if (!regex.test(this.value))
+					{
+						document.getElementById("salary").focus();
+						demo.initChartist();
+						$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: "Invalid , Enter a valid value for Gross Salary Per Month with 2 Decimals"
+						},{
+						type: 'info',
+						timer: 500
+						});
+						this.value = '';
+						return false;
+					}
+					else
+					{
+						this.value = parseFloat(this.value).toFixed(2);
+					}
+				});
+			});
+			
+			$(window).load(function()
+			{
+				$('#jDate').pickadate(
+				{
+				max:true,
+				selectMonths: true,
+				selectYears: 100,
+                                closeOnSelect: true,
+                                closeOnClear: true,
+				format: 'yyyy-mm-dd',
+				formatSubmit: 'yyyy-mm-dd'
+				});
+			});
+
+			$(document).ready(function() {
+			$("#my-icon").click(function(){
+			$( '#jDate' ).pickadate("open"),
+			event.stopPropagation(),
+			event.preventDefault()
+			});
+			});
+
+			$( document ).ready(function() 
+			{
+    				if ($(input[name='preem'] ).val() == "Y") {
+            			$('#yes').show();
+        		} 
+			else 
+			{
+            			$('#yes`').hide(); 
+        		}
+			});
+
+                        function formValidations()
+                        {
+                                var empid = document.getElementById("empid").value;
+                                if(empid != "")
+                                {
+                                        var empid = document.getElementById("empid").value;
+                                        if(empid.length < 4)
+                                        {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter a Valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                        var validsen = /^\d{1,4}?$/;
+                                        if (validsen.test(empid)==false)
+                                        {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter a Valid Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+                                else
+                                {
+                                                document.getElementById("empid").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Employee Id"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                }
+
+                                var empName = document.getElementById("empName").value;
+                                if(empName == "")
+                                {
+                                                document.getElementById("empName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Employee Name"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                else
+                                {
+                                        if (!/^[a-zA-Z\s]+$/.test(document.getElementById("empName").value))
+                                        {
+                                                document.getElementById("empName").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Employee Name Should Contain Only Letters"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                }
+
+
+                                var email = document.forms["myForm"]["email"].value;
+                                if(email != "")
+                                {
+                                        var atpos = email.indexOf("@");
+                                        var dotpos = email.lastIndexOf(".");
+                                        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)
+                                        {
+                                                document.getElementById("email").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Not a valid E-Mail address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                        if(email.indexOf('@nurture\.co\.in') < 0)
+                                        {
+                                                document.getElementById("email").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Not a valid Nurture E-Mail address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                        }
+
+                                }
+                                else
+                                {
+
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter The Email Address"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                document.getElementById("email").focus();
+                                                return false;
+
+                                }
+                                var empAccess = document.getElementById("empAccess").value;
+                                if(empAccess == "")
+                                {
+                                                document.getElementById("empAccess").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Select the Employee Access For the Employee"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var jDate = document.getElementById("jDate").value;
+                                if(jDate == "")
+                                {
+                                              document.getElementById("jDate").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Joining Date"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                var desig = document.getElementById("desig").value;
+                                if(desig == "")
+                                {
+                                                document.getElementById("desig").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Select The Employee Designation"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var empClass = document.getElementById("empClass").value;
+                                if(empClass == "")
+                                {
+                                                document.getElementById("empClass").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter The Employee Classification Details"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+                                var salary = document.getElementById("salary").value;
+                                if(salary != "")
+                                {
+                                        if(salary.length < 6)
+                                        {
+                                                document.getElementById("salary").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter a Valid Salary Amount"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+
+                                        var regex = /^\d+(\.\d{0,2})?$/g;
+                                        if (!regex.test(salary))
+                                        {
+                                                document.getElementById("salary").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Invalid , Enter a valid value for Gross Salary Per Month with 2 Decimals"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                        }
+                                }
+                                else
+                                {
+                                                document.getElementById("salary").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Enter the Salary Details"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+
+                                }
+
+
+                                var sal_curr = document.getElementById("sal_curr").value;
+                                if(sal_curr == "")
+                                {
+                                                document.getElementById("sal_curr").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Select the Salary Currency for the Employee"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+
+
+                                var rptMan = document.getElementById("rptMan").value;
+                                if(rptMan == "")
+                                {
+                                                document.getElementById("rptMan").focus();
+                                                demo.initChartist();
+                                                $.notify({
+                                                icon: 'fa fa-exclamation-circle',
+                                                message: "Select the Reporting Manager for the Employee"
+                                                },{
+                                                type: 'info',
+                                                timer: 500
+                                                });
+                                                return false;
+                                }
+                                var test = document.querySelector('input[name = "preem"]:checked').value;
+                                if(test == "Y")
+                                {
+
+                                        var preExpyear = document.getElementById("preExpyear").value;
+                                        if(preExpyear == "")
+                                        {
+                                                 document.getElementById("preExpyear").focus();
+                                                 demo.initChartist();
+                                                 $.notify({
+                                                 icon: 'fa fa-exclamation-circle',
+                                                 message: "Enter the Previous Experience in Years"
+                                                 },{
+                                                 type: 'info',
+                                                 timer: 500
+                                                 });
+                                                 return false;
+
+                                        }
+                                        else
+                                        {
+
+                                                if (isNaN(preExpyear))
+                                                {
+                                                        document.getElementById("preExpyear").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Enter a Valid Previous Experience in Years"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                                var preExpmonth = document.getElementById("preExpmonth").value;
+                                                var preEmp = document.getElementById("preEmp").value;
+                                                if (( preExpyear == 0 )||( preExpyear >= 1 ))
+                                                {
+                                                        if(preExpmonth == "")
+                                                        {
+                                                                document.getElementById("preExpmonth").focus();
+                                                                demo.initChartist();
+                                                                $.notify({
+                                                                icon: 'fa fa-exclamation-circle',
+                                                                message: "Enter The Previous Employment in Months"
+                                                                },{
+                                                                type: 'info',
+                                                                timer: 500
+                                                                });
+                                                                return false;
+                                                        }
+                                                }
+
+                                                if (( preExpyear >= 1 ) || (preExpmonth > 0))
+                                                {
+                                                        if(preEmp == "")
+                                                        {
+                                                                document.getElementById("preEmp").focus();
+                                                                demo.initChartist();
+                                                                $.notify({
+                                                                icon: 'fa fa-exclamation-circle',
+                                                                message: "Enter The Previous Employer In Chronological Order"
+                                                                },{
+                                                                type: 'info',
+                                                                timer: 500
+                                                                });
+                                                                return false;
+                                                        }
+                                                        else
+                                                        {
+                                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("preEmp").value))
+                                                                {
+                                                                        document.getElementById("preEmp").focus();
+                                                                        demo.initChartist();
+                                                                        $.notify({
+                                                                        icon: 'fa fa-exclamation-circle',
+                                                                        message: "Previous Employer In Chronological Order Should Contain Only Letters"
+                                                                        },{
+                                                                        type: 'info',
+                                                                        timer: 500
+                                                                        });
+                                                                        return false;
+                                                                }
+                                                        }
+                                                }
+                                        }
+
+                                        var preEmp2 = document.getElementById("preEmp2").value;
+                                        if(preEmp2 != "")
+                                        {
+
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("preEmp2").value))
+                                                {
+                                                        document.getElementById("preEmp2").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Previous Employer Two Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+
+
+                                        var preEmp3 = document.getElementById("preEmp3").value;
+                                        if(preEmp3 != "")
+                                        {
+
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("preEmp3").value))
+                                                {
+                                                        document.getElementById("preEmp3").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Previous Employer Three Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+
+                                        var preEmp4 = document.getElementById("preEmp4").value;
+                                        if(preEmp4 != "")
+                                        {
+
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("preEmp4").value))
+                                                {
+                                                        document.getElementById("preEmp4").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Previous Employer Four Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+
+                                                        return false;
+                                                }
+                                        }
+                                        var preEmp5 = document.getElementById("preEmp5").value;
+                                        if(preEmp5 != "")
+                                        {
+
+                                                if (!/^[a-zA-Z\s]+$/.test(document.getElementById("preEmp5").value))
+                                                {
+                                                        document.getElementById("preEmp5").focus();
+                                                        demo.initChartist();
+                                                        $.notify({
+                                                        icon: 'fa fa-exclamation-circle',
+                                                        message: "Previous Employer Five Should Contain Only Letters"
+                                                        },{
+                                                        type: 'info',
+                                                        timer: 500
+                                                        });
+                                                        return false;
+                                                }
+                                        }
+                                }
+                                return true;
+                        }
+
+		   function showId()
+		   {
+			var preem = document.querySelector('input[name = "preem"]:checked').value;
+
+			if(preem == "Y")
+			{
+
+				document.getElementById("yes").style.display = "block";
+			}
+			else
+			{
+				document.getElementById("yes").style.display = "none";
+
+			}
+		   }
+
+		   function resetform()
+		   {
+
+			document.getElementById("myForm").reset();
+		   }
+
+		   function resetform1()
+		   {
+
+			document.getElementById("myForm1").reset();
+		   }
+
+	           function goBack()
+	           {
+		        window.location.href='/employeeModule/employeeDetails/employeeSavedDetails';
+	           }
+
+
+		   function showGrade()
+		   {
+			var desig = document.getElementById("desig").value;
+
+                                if((desig=="T"))
+                                {
+                                        document.getElementById("empClass").value="A1";
+                                }
+
+                                if((desig=="SE"))
+                                {
+                                        document.getElementById("empClass").value="A2";
+                                }
+
+                                if((desig=="IC")||(desig=="SSE"))
+                                {
+                                        document.getElementById("empClass").value="B1";
+                                }
+
+                                if((desig=="SA")||(desig=="AC"))
+                                {
+                                        document.getElementById("empClass").value="B2";
+                                }
+
+                                if((desig=="FC")||(desig=="ML"))
+                                {
+                                        document.getElementById("empClass").value="C1";
+                                }
+
+                                if((desig=="TL"))
+                                {
+                                        document.getElementById("empClass").value="C2";
+                                }
+
+                                if((desig=="TS")||(desig=="DS"))
+                                {
+                                        document.getElementById("empClass").value="D1";
+                                }
+
+                                if((desig=="PM")||(desig=="ST")||(desig=="SM"))
+                                {
+                                        document.getElementById("empClass").value="D2";
+                                }
+
+                                if((desig=="SP")||(desig=="KM")||(desig=="PC"))
+                                {
+                                        document.getElementById("empClass").value="E1";
+                                }
+
+                                if((desig=="DM"))
+                                {
+                                        document.getElementById("empClass").value="E2";
+                                }
+
+                                if((desig=="AM")||(desig=="AVP"))
+                                {
+                                        document.getElementById("empClass").value="F1";
+                                }
+
+                                if((desig=="VP")||(desig=="DR"))
+                                {
+                                        document.getElementById("empClass").value="F2";
+                                }
+
+                                if((desig=="SVP"))
+                                {
+                                        document.getElementById("empClass").value="G1";
+                                }
+
+                                if((desig=="CEO"))
+                                {
+                                        document.getElementById("empClass").value="H";
+                                }
+
+                   }
+
+		</script>
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+        <div class="sidebar-wrapper">
+        <% include ../common/logo %>
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+                        <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+
+                <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+                        <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+                        <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+
+                <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+                        <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+                        <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+                <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+                        <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+                <%}%>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %>
+                    <a href="/travelModule/travel/travel">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>
+                    <a href="/travelModule/travel/travelHrReqQueue">
+                        <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+                <% } %>
+
+                <% if( emp_access== 'F1'){ %>
+                <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+                        <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}else{%>
+                    <a href="/reimbursementModule/initiateRem/reimburseHrReqQueue">
+                        <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+                   <%}%>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="main-panel">
+    <div class="container-fluid">
+                <% include ../common/userBar %>
+                <br>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header2row">
+				<nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav" style="color:#669999">
+					<% if(emp_access == 'A1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeDetails">Add Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsModify">Modify Professional Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsView">View Employee's Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeApprovalDetails">Verify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeSavedDetails"><span style="color:#ff6600">Verify Migrated Professional Details</span></a></li>
+					<li><a href="/employeeModule/employeeDetails/migApprovalDetails">Verify Migrated Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access != 'A1' && emp_access != 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod">Modify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+
+					<% if(emp_access == 'F1'){ %>
+					<li><a href="/employeeModule/employeeDetails/employeeAddpersonal">Add Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewUser">View Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalMod">Modify Personal Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeDetailsViewFin">View Employee's Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeePersonalModFin">Update Employee's Bank Details</a></li>
+					<li><a href="/employeeModule/employeeDetails/employeeFAQDetails">FAQ</a></li>
+					<%}%>
+					</ul>
+				</nav>
+                                <br>
+                                <form name="myForm" id="myForm" action="/employeeModule/employeeDetails/verifySaved" method="post">
+				<hr/>
+				<h4 class="title">Professional Details     <i class="material-icons right">work</i></h4>
+				<hr/>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" readonly id="empid" name="empid" class="form-control" value="<%= empid %>" maxlength="4" style ="margin-left: 50px;width:348px">
+                                            </div>
+                                        </div>
+
+
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empName">Employee Name <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" id="empName" name="empName" class="form-control" value="<%=empName %>" maxlength="100" style ="margin-left: 50px;width:348px">
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="email">Email <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" id="email" readonly name="email" class="form-control" placeholder="Email" value="<%=email %>" maxlength="50" style ="margin-left: 50px;width:348px">
+                                            </div>
+                                        </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empAccess">Employee Access <span style="color:red;font-size: 10pt">*</span></label>
+                                                <br>
+                                                <select class="form-control" id="empAccess" name="empAccess" style ="margin-left: 50px;width:348px">
+							<% if(empAccess!=""){%>
+ 							<option value="<%= empAccess %>"><%= empAccess_desc %></option>
+                                                        <% for (i = 0; i < comm_code_empAccess_count; i++)  {%>
+                                                        <% if(empAccess != comm_code_empAccess[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_empAccess[i].comm_code_id %>"> <%= comm_code_empAccess[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                        <% } else { %>
+							<option value="" disabled selected> Select The Employee Access</option>
+                                                        <% } %>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+						<div class="datepicker">
+	                                            <table>
+                                                	<tr><label style="color:#404040;margin-left: 50px" for="jDate">Joining Date  (YYYY-MM-DD) <span style="color:red;font-size: 10pt">*</span></label>
+                                                	<td><input type="text" readonly value="<%=jDate %>" style ="margin-left: 50px;width:348px" id="jDate" name="jDate" class="form-control" placeholder="Joining Date"></td>
+							<td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+							</tr>
+                                            	    </table>
+                                            	</div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="desig">Designation <span style="color:red;font-size: 10pt">*</span></label>
+						   <select class="form-control" id="desig" name="desig" style ="margin-left: 50px;width:348px" onchange="return showGrade();">
+							<% if(desig!=""){%>
+                                                        <option value="<%= desig %>"><%= desig_desc %></option>
+                                                        <% for (i = 0; i < comm_code_desig_count; i++)  {%>
+                                                        <% if(desig != comm_code_desig[i].comm_code_id) { %>
+                                                        <option value="<%= comm_code_desig[i].comm_code_id %>"> <%= comm_code_desig[i].comm_code_desc %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                        <% } else { %>
+							<option value="" disabled selected> Select The Employee Designation</option>
+                                                        <% } %>
+                                                   </select>
+					    </div>
+                                        </div>
+                                </div>
+				
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empClass">Employee Classification <span style="color:red;font-size: 10pt">*</span></label>
+                                                 <select class="form-control" id="empClass" name="empClass" style ="margin-left: 50px;width:348px" maxlength="2">
+						
+							<% if(empClass!=""){%>
+                                                        <option value="<%= empClass %>"><%= empClass %></option>
+                                                        <option value="A1">A1</option>
+                                                        <option value="A2">A2</option>
+                                                        <option value="B1">B1</option>
+                                                        <option value="B2">B2</option>
+                                                        <option value="C1">C1</option>
+                                                        <option value="C2">C2</option>
+                                                        <option value="D1">D1</option>
+                                                        <option value="D2">D2</option>
+                                                        <option value="E1">E1</option>
+                                                        <option value="E2">E2</option>
+                                                        <option value="F1">F1</option>
+                                                        <option value="F2">F2</option>
+                                                        <option value="G1">G1</option>
+                                                        <option value="H">H</option>
+                                                        <% } else { %>
+							<option value="" disabled selected> Select The Employee Classification</option>
+                                                        <% } %>
+						</select>
+
+                                            </div>
+                                        </div>
+
+                                       <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="salary">Gross Salary Per Month <span style="color:red;font-size: 10pt">*</span></label>
+                                                <input type="text" id="salary" name="salary" value="<%=salary %>" maxlength="17" class="form-control" placeholder="Salary" style ="margin-left: 50px;width:348px; text-align:right">
+                                            </div>
+                                       </div>
+                                </div>
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+						    <label style="color:#404040;margin-left: 50px">Salary Currency <span style="color:red;font-size: 10pt">*</span></label>
+						    <select class="form-control" id="sal_curr" name="sal_curr" style ="margin-left: 50px;width:348px">
+								<option value="" disabled selected>Select the Salary Currency</option>
+								<% for (i = 0; i < sal_curr_count; i++)  {%>
+								<option value="<%= sal_curr[i].comm_code_id %>"> <%= sal_curr[i].comm_code_id %> - <%= sal_curr[i].comm_code_desc %></option>
+								<% }; %>
+						    </select>
+					</div>
+				  </div>
+					
+					<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="rptMan">Reporting Manager <span style="color:red;font-size: 10pt">*</span></label>
+                                                   <select class="form-control" id="rptMan" name="rptMan" style ="margin-left: 50px;width:348px">
+							<% if(rptMan != "") {%>
+                                                        <option value="<%= rptMan %>"> <%= rptMan %> - <%= rptMan_desc %></option>
+                                                        <% for (i = 0; i < comm_code_rptMan_count; i++)  {%>
+                                                        <% if(rptMan != comm_code_rptMan[i].emp_id) { %>
+                                                        <option value="<%= comm_code_rptMan[i].emp_id %>"> <%= comm_code_rptMan[i].emp_id %> - <%= comm_code_rptMan[i].emp_name %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                        <% } else { %>
+                                                        <option value="" disabled selected>Select The Reporting Manager</option>
+                                                        <% } %>
+
+                                                   </select>
+                                            </div>
+                                        </div>
+                                  </div>
+				
+
+				<div class="row">
+				    <tr> 
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                                <label style="color:#404040;margin-left: 50px" for="probPeriod">Probation Period <span style="color:red;font-size: 10pt">*</span></label><br>
+                                                <% if(probPeriod == "Y"){%>
+                                                <input style ="margin-left: 50px;" type="radio" name="probPeriod" value="Y" checked="checked" /> Yes&nbsp;&nbsp;
+                                                <input style ="margin-left: 50px;" type="radio" name="probPeriod" value="N"> No
+                                                <%} else {%>
+                                                <input style ="margin-left: 50px;" type="radio" name="probPeriod" value="Y"> Yes&nbsp;&nbsp;
+                                                <input style ="margin-left: 50px;" type="radio" name="probPeriod" value="N" checked="checked" /> No
+                                                <%}%>
+                                        </div>
+                                   </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                                <label style="color:#404040;margin-left: 50px" >Previous Experience <span style="color:red;font-size: 10pt">*</span></label><br>
+						<% if(preem == "N") {%>
+                                                <input type="radio" style ="margin-left: 50px;" id="preem0" name="preem" value="N" checked="checked" required onchange="return showId();"> No&nbsp;&nbsp;
+                                                <input type="radio" style ="margin-left: 50px;" id="preem1" name="preem" value="Y" onchange="return showId();"> Yes
+						<%}%>
+						
+						<% if(preem == "Y") {%>
+                                                <input type="radio" style ="margin-left: 50px;" id="preem0" name="preem" value="N" required onchange="return showId();"> No&nbsp;&nbsp;
+                                                <input type="radio" style ="margin-left: 50px;" id="preem1" name="preem" value="Y" checked="checked" onchange="return showId();"> Yes
+						<%}%>
+
+						<% if(preem == "") {%>
+                                                <td><input type="radio" style ="margin-left: 50px;" id="preem0" name="preem" value="N" required onchange="return showId();"> No&nbsp;&nbsp;</td>
+                                                <td><input type="radio" style ="margin-left: 50px;" id="preem1" name="preem" value="Y" onchange="return showId();"> Yes</td>
+                                                <%}%>
+                                        </div>
+                                        </div>
+				    </tr> 
+                                </div>
+
+                                <br>
+				<div id="yes" class="onlyif">
+                                <hr>
+                                <h4 class="title">Experience Details     <i class="material-icons right">work</i></h4>
+                                <hr>
+				<div class="row">
+					<div class="col-md-5">
+                                            <div class="form-group">
+						<table>
+                                                <tr><label style="color:#404040;margin-left: 50px" for="preExp">Previous Experience In (Years And Months) <span style="color:red;font-size: 10pt">*</span></label>
+                                                <td>
+                                                <select class="form-control" id="preExpyear" name="preExpyear" style ="margin-left: 50px;width:149px">
+						<% if(preExpyear != "") {%>
+                                                <option value="<%= preExpyear %>" selected><%= preExpyear %></option>
+                                                <% for (i = 1; i < 60; i++)  {%>
+						<% if(preExpyear != i) {%>
+                                                <option value="<%= i %>"> <%= i %></option>
+                                                <% } %>
+                                                <% }; %>
+						<% } else { %>
+						<option value="" disabled selected>Years</option>
+						<% } %>
+                                                </select>
+                                                </td>
+
+                                                <td>
+                                                <select class="form-control" id="preExpmonth" placeholder="Months" name="preExpmonth" style ="margin-left: 50px;width:149px" >
+							<% if(preExpmonth != "") {%>
+                                                        <option value="<%= preExpmonth %>" selected><%= preExpmonth %></option>
+							<% for (i = 0; i < 12; i++)  {%>
+							<% if(preExpmonth != i) {%>
+							<option value="<%= i %>"><%= i %></option>
+							<%}%>	
+							<%};%>
+							<% } else { %>
+							<option value="" disabled selected>Months</option>
+							<% } %>
+                                                </select>
+                                                </td>
+                                                </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+					<div class="col-md-5">
+				  		<div class="form-group">
+                                                	<label id="preEmpLabel" style="color:#404040;margin-left: 50px" for="preEmp">Previous Employment In Chronological Order</label>
+							<input type="text" value="<%= preEmp %>" style ="margin-left: 50px;width:348px" id="preEmp" name="preEmp" class="form-control" placeholder="Previous Employer One" maxlength="50">
+                                            </div>
+                                        </div>
+                                  </div>
+					
+
+				<div class="row">
+					<div class="col-md-5">
+				  		<div class="form-group">
+                                                	<label id="preEmp2Label" style="color:#404040;margin-left: 50px" for="preEmp2">Previous Employer Two</label>
+							<input type="text" value="<%= preEmp2 %>" style ="margin-left: 50px;width:348px" id="preEmp2" name="preEmp2" class="form-control" placeholder="Previous Employer Two" maxlength="50">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <label id="preEmp3Label" style="color:#404040;margin-left: 50px">Previous Employer Three</label>
+							<input type="text" value="<%= preEmp3 %>" style ="margin-left: 50px;width:348px" id="preEmp3" name="preEmp3" class="form-control" placeholder="Previous Employer Three" maxlength="50">
+                                                </div>
+                                        </div>
+                                </div>
+
+
+				<div class="row">
+                                        <div class="col-md-5">
+                                                <div class="form-group">
+                                                        <label id="preEmp4Label" style="color:#404040;margin-left: 50px">Previous Employer Four</label>
+							<input type="text" value="<%= preEmp4 %>" style ="margin-left: 50px;width:348px" id="preEmp4" name="preEmp4" class="form-control" placeholder="Previous Employer Four" maxlength="50">
+                                                </div>
+                                        </div>
+
+                                 <div class="col-md-5">
+                                        <div class="form-group">
+                                                        <label id="preEmp5Label" style="color:#404040;margin-left: 50px">Previous Employer Five</label>
+							<input type="text" value="<%= preEmp5 %>" style ="margin-left: 50px;width:348px" id="preEmp5" name="preEmp5" class="form-control" placeholder="Previous Employer Five" maxlength="50">
+                                                </div>
+                                         </div>
+                                </div>
+                                </div>
+				    <br>
+				    <table>
+				    <tr>	
+					 <td><input type="button" name="back" id="back" style="margin-left:50%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Back" onclick="goBack();"></td>
+                                                <td><input type="submit" name="test" id="test" style="margin-left:55%;padding:1px 16px;height:40px;width:120px" class="btn btn-info btn-fill" style="float: center;" value="Verify Profile" onclick="return formValidations();"></td>
+				    <td><input type="button" style="margin-left:90%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Clear" onclick="return resetform();"></td>
+				    </tr>	
+				    </table>
+                                    <div class="clearfix"></div>
+				<br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+	<% include ../common/footer %>
+</div>
+
+</body>
+    <!--   Core JS Files   -->
+    <!--   for date field add this   -->
+    <!--<script src="/js/bootstrap.min.js" type="text/javascript"></script>-->
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="/js/bootstrap-checkbox-radio-switch.js"></script>
+    <!--  Charts Plugin -->
+    <script src="/js/chartist.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="/js/bootstrap-notify.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="/js/light-bootstrap-dashboard.js"></script>
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="/js/demo.js"></script>
+   <% if(success!="") { %>
+       <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+    <%}%>
+    <% if(error!="") { %>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      demo.initChartist();
+      $.notify({
+      icon: 'fa fa-exclamation-circle',
+      message:"<b><%= error %></b>"
+      },{
+         type: 'danger',
+         timer: 500
+      });
+      });
+      </script>
+     <%}%>
+</html>

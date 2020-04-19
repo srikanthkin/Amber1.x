@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+
+  
+<head>
+	    <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Travel</title>
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		
+      
+      .navbar .navbar-reverse 
+      {
+          display: inline-block;
+          float: none;
+          vertical-align: top;
+      }
+
+      .navbar .navbar-collapse 
+      {
+          text-align: center;
+      }
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+      hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+                      .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+						.modal-backdrop.in{
+							opacity: 0.5;
+							z-index: -1;
+						}
+
+           </style>
+		   <script type="text/javascript">
+	<% if(emp_access != 'F1'){%>
+	$(window).load(function()
+	{
+		$(document).ready(function(){
+		     if(parseInt(<%=availableAmount%>)<parseInt(<%=thresholdAmt%>)){
+				// alert("modalshow");
+			   jQuery("#testApp").hide();	 
+               jQuery("#modalshow").show();
+               
+              }
+              else
+              {
+
+                $("#modalshow").hide();
+                $("#approve").show();
+              }
+		});			  
+			    });
+			   <%}%>
+			   </script>
+			  
+			   <% if(emp_access == 'F1'){ %>
+<% if(modify_flg == 'Y'&&free_text_1!=''){ %>
+<% if(free_text_1!= null){ %>
+    <script>
+	
+	$(window).load(function()
+			{
+				
+				 $(document).ready(function() {
+					 $("#id1").hide();
+					  $("#id2").hide();
+					 $("#test11").hide();
+					 $("#test21").hide();
+					
+			
+		
+			});
+				 });
+					 </script>
+			   <%}}}%>
+
+    
+<script>
+		$(document).ready(function (){
+			
+        $("input[name='probPeriod']").click(function () {
+            if ($("#refund").is(":checked")){
+                $("#amtRefundDiv").show();
+				$("#amtrfd1").show();
+				$("#tcktDetails").show();
+				$("#costChkBgt").hide();
+				$("#test11").hide();
+				$("#test21").hide();
+				$("#id3").hide();
+				      
+            }else if ($("#payExtra").is(":checked")){
+				$("#amtRefundDiv").hide();
+				$("#amtrfd1").hide();
+				$("#tcktDetails").show();
+				$("#costChkBgt").show();
+				 $("#id1").show();
+					  $("#id2").show();
+					  $("#id3").show();
+				$("#test11").show();
+				$("#test21").show();
+				
+			}
+			});		
+			});
+			
+	
+			</script>
+		
+         <script type="text/javascript">
+
+         $(document).ready(function() {
+            
+            $(".confirm").attr('disabled',true);
+            $("#costChk").hide();
+            $("#costChkSucc").hide();
+            var cost=$( "#free_text_1" ).val();
+            
+            $("#chkbudget").click(function() {
+                 var cost=parseInt($( "#free_text_1" ).val());
+
+                 var project_id=$( "#project_id" ).val();
+                var approver_id=$("#approver_id").val();
+
+                var emp_access=$("#emp_access").val();
+                var amount_refunded=$("#amount_refunded").val();
+				var modify_flg=$("#modify_flg").val();
+					var prevCost=$("#prevCost").val();
+                 if(cost=="" || isNaN(cost))
+                 {
+                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the cost"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+ 
+                 }
+                else{  
+            
+         
+            $.ajax
+         ({
+             type:'post',
+             url:'/travelModule/approveReq/checkbudget',
+
+             data:{
+                cost:cost,
+                project_id:project_id,
+                approver_id:approver_id,
+                emp_access:emp_access,
+				amount_refunded:amount_refunded,
+                prevCost:prevCost,
+				modify_flg:modify_flg
+				
+             },
+             success:function(response,data)
+             {
+                console.log("response",response);
+                //console.log("cost",cost);
+                if(cost>parseInt(response.key))
+                {
+                  $(".confirm").attr('disabled',true); 
+                  $("#costChk").show();
+				          $("#costChkSucc").hide();
+						      $("#available_budget").val(response.key);
+                 }
+                 else if(cost<=parseInt(response.key))
+                 {
+					 $(".confirm").attr('disabled',false); 
+					        $("#costChk").hide();
+                  $("#costChkSucc").show();
+                 }
+                  $("#free_text_1").val(cost);     
+                 } 
+               
+               
+             });
+
+       }
+     
+     
+      });    
+
+});
+
+            
+             
+            
+        </script>
+	     <script type="text/javascript">
+
+		function approveform()
+		{
+			
+			document.getElementById("empid").value="";
+			document.getElementById("empName").value="";
+			document.getElementById("req_id").value="";
+			document.getElementById("project_id").value="";
+			
+			document.getElementById("from_location").value="";
+			document.getElementById("to_location").value="";
+			document.getElementById("from_date").value="";
+			document.getElementById("to_date").value="";
+			document.getElementById("remarks").value="";
+			
+			return false;
+		}
+
+		function reload()
+		{
+			location.reload();
+		}
+
+	     </script>
+		 
+		  <script type="text/javascript">
+
+    function updateAmount()
+    {
+      var pnr_number = document.getElementById("pnr_number").value;
+      if(pnr_number == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("pnr_number").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the PNR Number"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                } 
+				var ticket_number = document.getElementById("ticket_number").value;
+      if(ticket_number == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("ticket_number").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Ticket Number"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                } 
+				var amount_refunded = document.getElementById("amount_refunded").value;
+      if(amount_refunded == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("amount_refunded").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Refunded Amount value"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                } 
+				  var hr_remarks = document.getElementById("hr_remarks").value;
+      if(hr_remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("hr_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+			return true;
+	}			
+ </script>					
+       <script type="text/javascript">
+
+    function formRemarks()
+    {
+      var remarks = document.getElementById("app_remarks").value;
+      if(remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("app_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Remarks field"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                } 
+			
+                 
+	 if(parseInt(<%=availableAmount%>)<parseInt(<%=thresholdAmt%>)){
+		 
+		   $("#Signoutmodal1").modal('show');
+	
+				  }  
+        return true; 
+      
+    }
+
+       </script>
+	    <script type="text/javascript">
+
+    function formRemarksRej()
+    {
+      var remarks = document.getElementById("app_remarks").value;
+      if(remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("app_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Remarks field"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+                
+	 
+        
+        return true; 
+      
+    }
+
+       </script>
+	   <script type="text/javascript">
+
+    function finRemarksRej()
+    {
+      var hr_remarks = document.getElementById("hr_remarks").value;
+      if(hr_remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("hr_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Finance Remarks field"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+                
+	 
+        
+        return true; 
+      
+    }
+
+       </script>
+	      <script type="text/javascript">
+
+    function forward()
+    {
+     
+         var hr_remarks = document.getElementById("hr_remarks").value;
+      if(hr_remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("hr_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+        return true; 
+      
+    }
+
+       </script>
+	   <script type="text/javascript">
+
+    function formPnrTckVal()
+    {
+      var pnr_number = document.getElementById("pnr_number").value;
+      if(pnr_number == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("pnr_number").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the PNR Number"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+                var ticket_number = document.getElementById("ticket_number").value;
+      if(ticket_number == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("ticket_number").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Ticket Number"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+	 
+         var hr_remarks = document.getElementById("hr_remarks").value;
+      if(hr_remarks == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("hr_remarks").focus();
+                                                demo.initChartist();
+      $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+        return true; 
+      
+    }
+
+       </script>
+		 <% if(emp_access == 'F1'){ %> 
+
+         <% if (approver_remarks=="") { %>
+                              <script>
+                //alert("hi");
+                $(document).ready(function(){
+                                   jQuery('#apprmks1').hide();    
+                  });
+                               </script>
+                               <% } %>
+							     <% } %>
+
+		 <% if (to_date=="") { %>
+                              <script>
+                //alert("hi");
+                $(document).ready(function(){
+                                   jQuery('#tentDate').hide();    
+                  });
+                               </script>
+                               <% } %>
+							   
+			 <% if (remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+			    $(document).ready(function(){
+                 $("#rmks").hide();
+				   });
+                               </script>
+                               <% } %>
+
+
+
+</head>
+<body onload="changeHashOnLoad();">
+<div class="wrapper">
+<div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+                <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+			<div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="header">
+                            <nav class="navbar navbar-inverse">
+              <ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel">Initiate Travel Request</a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq">View Request</a></li>
+                   
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue"><span style="color:#ff6600">View Approval Queue</span></a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue"><span style="color:#ff6600">View Approval Queue</span></a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+                </nav>
+                      
+                            </div>
+							   <div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center" style="padding-top: 20px;">
+             
+         
+             <div><%= success%> </div> 
+          
+           </div>
+       </div>
+ <div class="content">
+  <form name="myForm" id="Approve" action="/travelModule/approveReq/approve" method="post">
+    <hr/>     
+                               <h4 class="title">Approve/Reject
+							    
+								
+								</h4>
+                     <hr/>
+					  <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px;"  for="req_id">Request Id</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="req_id" name="req_id" value="<%-req_id%>"/>
+                                            </div>
+                                        </div>
+                                  
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empid">Employee Id</label>
+						
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empid" name="empid" value="<%-empid%>" />
+                                            
+											</div>
+										</div>
+                                      </div>
+									   <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="empname">Employee Name</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empname" name="empname" value="<%-empname%>" />
+                                           </div>  
+                                        </div>
+										
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="project_id">Project Id</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="project_id" name="project_id" value="<%-project_id%>" />
+                                            
+                                        </div>
+                                    </div>
+									</div>
+									
+									<div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="from_location">From Location</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="from_location" name="from_location" value="<%-from_location%>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="to_location">To Location</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="to_location" name="to_location" value="<%-to_location%>" />
+                                            </div>
+                                        </div>
+                                </div>
+                                   <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="from_date">From Date</label>
+						
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="from_date" name="from_date" value= "<%-from_date.toDateString()%>" />
+                                            </div>
+                                        </div>
+										
+										 <% if(to_date != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="tentDate">
+                                                <label style="color:#404040;margin-left: 50px" for="to_date">To Date</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="to_date" name="to_date" value="<%-to_date.toDateString()%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+                                 </div>
+								 
+								  <div class="row">
+								
+										 <% if(emp_access != 'F1'){ %> 
+										<div class="col-md-5">
+                                            <div class="form-group" id="apprmks">
+                                                <label style="color:#404040;margin-left: 50px" for="availableAmount">Available Amount</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="50" id="availableAmount" name="availableAmount" readonly="true" value= "<%-availableAmount%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+								
+										<% if(emp_access == 'L2'||emp_access == 'L3'||emp_access == 'F1'){ %>
+										<% if(approver_id != 'NA'){ %>
+								 <div class="col-md-5">
+                                            <div class="form-group" id="remarks">
+                                                <label style="color:#404040;margin-left: 50px" for="approver_id">Approved By</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true"  id="approver_id" name="approver_id" value="<%-mgrName%>" />
+                                          </div>
+                                        </div>
+										<% } %>
+										 <% } %> 
+									</div>
+									 
+									 <div class="row">
+								<% if(emp_access != 'F1'){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="apprmks">
+                                                <label style="color:#404040;margin-left: 50px" for="app_remarks">Approver Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="50" id="app_remarks" name="app_remarks" value= "" />
+                                            </div>
+                                        </div>
+										<% } %>
+										
+                                   
+									<% if(remarks != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label style="color:#404040;margin-left: 50px" for="remarks">Employee Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="remarks" name="remarks" value= "<%-remarks%>" />
+                                            </div>
+                                        </div>
+										 <% } %>
+										 
+             
+									 
+                                 										 
+										 <% if(emp_access == 'F1'){ %>
+								<% if(approver_remarks != null){ %>
+									<% if(approver_remarks !=''){ %>
+									
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="apprmks1">
+                                                <label style="color:#404040;margin-left: 50px" for="approver_remarks">Approver Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="approver_remarks" name="approver_remarks" value= "<%-approver_remarks%>" />
+                                            </div>
+                                        </div>
+						
+								<% }} %>
+										 <% } %>   
+									
+									
+										
+									</div>
+									
+
+                  <% if(emp_access != 'L3'){ %> 
+                    <% if(modify_flg == 'Y'&&free_text_1!=''){ %>
+                    <% if(modify_flg=='Y'&&free_text_1!=null){ %> 
+                     <div class="row">
+								 <% if(free_text_1 != null ){ %> 
+										    <% if(free_text_1 != ''){ %> 
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="ticket_Amount">Booked Ticket Fare</label>
+                               <input type="text" class="form-control" style ="margin-left: 50px;width:348px"  id="ticket_Amount" name="ticket_Amount" value= "<%=free_text_1%>" readonly="true"/>
+                                            </div>
+                                        </div>
+								 <% }} %>  
+                     </div>
+                     <% if(emp_access == 'F1'){ %>
+						<div class="row">
+								
+								<div class="col-md-12">
+                                        	<!--<label style="color:#404040;margin-left: 64px" for="probPeriod">Probation Period <span style="color:red;font-size: 10pt">*</span></label> <br> -->
+                                        	<input style ="margin-left: 64px;" type="radio" name="probPeriod" id="refund" value="R" checked="checked"/>Refund Amount&nbsp;&nbsp;
+                                        	<input style ="margin-left: 64px;" type="radio" name="probPeriod" id="payExtra" value="P">Pay Extra Amount&nbsp;&nbsp;
+											
+                                        </div>
+								</div>
+					 
+					 <div class="row" id="amtrfd1">
+                
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="amount_refunded">Amount Refunded</label>
+                               <input type="text" class="form-control" style ="margin-left: 50px;width:348px"  id="amount_refunded" name="amount_refunded" value= ""/>
+                                            </div>
+                                        </div>
+										
+										 
+                     </div>
+                     
+					<% }} }}%>
+					  <% if(emp_access == 'F1'){ %> 
+									 <div class="row" id="tcktDetails">
+									  
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="pnr_number">PNR Number</label>
+                               <input type="text" class="form-control" style ="margin-left: 50px;width:348px"  id="pnr_number" name="pnr_number" value= "" />
+                                            </div>
+                                        </div>
+										<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="ticket_number">Ticket Number</label>
+                               <input type="text" class="form-control" style ="margin-left: 50px;width:348px"  id="ticket_number" name="ticket_number" value= ""/>
+                                            </div>
+                                        </div>
+										   
+										  
+                     </div>	
+					 
+					  <% } %>  
+						<div class="row">
+								<% if(emp_access == 'F1'){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="hr_remarks">Finance Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase" maxlength="50" id="hr_remarks" name="hr_remarks" value= "" />
+                                            </div>
+                                        </div>
+										<% } %>
+								</div>	<% if(emp_access == 'F1'){ %>
+								<% if(modify_flg == 'Y'&&free_text_1!=''){ %>
+                    <% if(modify_flg=='Y'&&free_text_1!=null){ %> 
+					  <div class="row" id="amtRefundDiv">
+                
+                                        
+										 <div class="col-md-1">
+                                          <div class="form-group">
+                                                   <input type="submit" name="refundAmt" id="refundAmt" style="margin-left:85%;padding:1px 9px;height:40px;width:121px;margin-top: 24px;" class="btn btn-info btn-fill" style="float: center;" value="Update Amount" onclick="return updateAmount();"  >
+                                              </div> 
+                                          
+                                              </div> 
+										
+                     </div>
+								<% }}} %>  	 
+										  <div class="row" id="costChkBgt">
+									    <% if(emp_access == 'F1'){ %> 
+										
+										               <div class="col-md-5" id="id1">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="free_text_1">Cost</label>
+						                <input type="text" class="form-control" style ="margin-left: 50px;width:235px" id="free_text_1" name="free_text_1" placeholder="Enter the Cost" value="" />
+												 <p style="color:black;font-size: 15px;padding-left: 55px;">
+                               <span>*</span> please check the project budget
+                            </p>
+							
+                                            </div>
+                                            
+                                       </div> 
+
+                                         <div class="col-md-1" id="id2">
+                                          <div class="form-group">
+                                                   <input type="button" name="chkbudget" id="chkbudget" style="margin-left:-189%;padding:1px 9px;height:40px;width:100px;margin-top: 24px;" class="btn btn-info btn-fill" style="float: center;" value="checkbudget" >
+                                              </div> 
+                                          
+                                              </div> 
+                                              
+                                              
+
+										 <% } %> 
+                     <div class="col-md-5">
+                                            <div class="form-group">
+                                               
+            <input type="hidden" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="empaccess" name="empaccess" value= "<%-emp_access%>" />
+            <input type="hidden" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="emp_access" name="emp_access" value= "<%-empaccess%>" />
+            <input type="hidden" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="prevCost" name="prevCost" value= "<%-free_text_1%>" />
+			<input type="hidden" class="form-control" style ="margin-left: 50px;width:348px" readonly="true" id="modify_flg" name="modify_flg" value= "<%-modify_flg%>" />
+          
+                                            </div>
+                                        </div>
+									</div>
+									
+									<div class="row" id="id3">
+										 <div class="col-md-1" id="costChk" style="display: block;width: 297px;left: -93px;bottom: -36px;color: green;">
+                                          <div class="form-group">
+                                          <p style="color:red;margin-left: 143px; width: 265px; margin-top:-45px;">Travel budget overshot</p>
+										   
+										   <label style="color:#404040;margin-left: 140px ;width: 265px;" for="available_budget">Available balance(in INR)</label>
+										   <td><input type="text" name="available_budget" id="available_budget" readonly="true" style="margin-left:52%;padding:1px 16px;height:40px;width:100px" class="form-control" style="float: center;" value="" ></td>
+                       <% if(empaccess != 'L1'||empaccess != 'L2'||empaccess != 'L2'){ %> 
+										   <td><input type="submit" name="test" id="test"  style="margin-left:96%;padding:1px 16px;height:40px;width:100px;margin-top: -61px;" class="btn btn-info btn-fill" style="float: center;" value="Forward" onclick="return forward();" ></td>
+                        <% } %>
+                                          </div> 
+                                              </div> 
+                                              <div class="col-md-1" id="costChkSucc" style="display: block;width: 297px;left: -93px;bottom: -36px;color: green;">
+                                          <div class="form-group">
+                                          <p style="color:red;margin-left: 153px; width: 345px; margin-top:-56px;">Kindly proceed with booking</p>
+                                          </div> 
+                                              </div> 
+									                  </div>
+													 
+								            <div class="modal fade " id="Signoutmodal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog cascading-modal" role="document">
+          <!--Content-->
+                                    <div class="modal-content">
+                                    <div class="modal-body">
+                                    <div class="text-center">
+                                   <h4>Available Balance is less than Threshold Amount. Do you want to Approve?</h4>
+                                   </div>
+                                   </div>
+               <!--Footer-->
+                                   <div class="modal-footer justify-content-center">
+                                    <input type="submit" class="btn secondary-color" id="approve" name="approve" value="Approve">
+                                   
+                                 <button class="btn btn-outline-primary-modal waves-effect" id="close" data-dismiss="modal" style="border: 2px solid #aa66cc;color: #aa66cc!important; background-color: transparent;margin-top: -1px;">No, stay</button>
+                                 </div>
+                                </div>
+          <!--/.Content-->
+                                 </div>
+                                  </div>
+													 
+													
+									 <table>
+                                       <tr>
+                                      <% if(emp_access == 'L1'||emp_access == 'L2'||emp_access == 'L3'){ %> 
+									    <% if(parseInt(availableAmount)<parseInt(thresholdAmt)){ %>
+	                            		<td><input type="button" style="margin-left:49%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" name="modalshow" id="modalshow" value="Approve" onclick="return formRemarks();"></td>
+                                         <% } %>
+										<td><input type="submit" style="margin-left:49%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" name="testApp" id="testApp" value="Approve" onclick="return formRemarks();"></td>
+                                       
+                                        
+	                            		<td><input type="submit" name="test" id="test" style="margin-left:59%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Reject" onclick="return formRemarksRej();"></td>
+                                        <% } %>
+
+                                         
+										 <% if(modify_flg=='Y'||modify_flg=='N') { %>
+                                         <% if(free_text_1 ==''||free_text_1 == null){ %>
+                                         <% if(emp_access == 'F1' && empaccess !='L1'){ %> 
+                                        <td><input type="submit" name="test" id="test" class="confirm" style="margin-left:50%;padding:1px 16px;height:40px;width:100px; margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Confirm" onclick="return formPnrTckVal();"></td>
+										<td><input type="submit" name="test" id="test" style="margin-left:65%;padding:1px 16px;height:40px;width:100px ;margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Cancel" onclick="return finRemarksRej();"></td>
+										 
+                                        <% }} }%>
+                                        <% if(modify_flg =='Y'&& free_text_1!=''){ %>
+                                        <% if(modify_flg=='Y'&&free_text_1!=null){ %>
+                                         <% if(emp_access == 'F1'){ %>
+                                            
+                                              <td><input type="submit" name="test11" id="test11" style="margin-left:50%;padding:1px 16px;height:40px;width:100px; margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Confirm" onclick="return formPnrTckVal();"></td>
+											   <td><input type="submit" name="test21" id="test21" style="margin-left:65%;padding:1px 16px;height:40px;width:100px ;margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Cancel" ></td>
+                                    
+											 
+                                            <% }}} %>
+                                            <% if(empaccess =='L1' && modify_flg=='N'){ %>
+                                            <td><input type="submit" name="test22" id="test22" class="confirm" style="margin-left:37%;padding:1px 16px;height:40px;width:134px; margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Confirm" ></td>
+											<td><input type="submit" name="test" id="test" style="margin-left:65%;padding:1px 16px;height:40px;width:100px ;margin-top:50px;" class="btn btn-info btn-fill" style="float: center;" value="Cancel" ></td>
+                                            <% } %>
+                                            
+										   
+										   
+                                     </tr>
+                                    </table>	
+									<%if(modifiedListData.length != 0){%>
+									 <div id="view_history">
+													   <table class="table table-striped table-bordered table-responsive" style="    margin-top: 25px;
+;">
+<thead>
+<tr>
+    <td>MODIFY DATE</td>
+    <td>FROM DATE</td>
+    <td>TO DATE</td>
+    <td>FROM LOCATION</td>
+    <td>TO LOCATION</td>
+	<td>PNR NO</td>
+	<td>TICKET NO</td>
+	<td>REMARKS</td>
+	<td>STATUS</td>
+</tr>
+</thead>
+<% for (i = 0; i < modifiedListData.length; i++) {%>
+<tr>
+    <td><%=modifiedListData[i].lchg_time.toDateString()%></td>
+    <td><%=modifiedListData[i].from_date.toDateString()%></td> 
+	<% if(modifiedListData[i].to_date == '' ||modifiedListData[i].to_date == null){%>
+    <td>-</td>
+	<% } else{%>
+	
+		 <td><%=modifiedListData[i].to_date.toDateString()%></td>
+	<% } %>
+     <td><%=modifiedListData[i].from_location%></td>
+    <td><%=modifiedListData[i].to_location%></td>
+	<% if(modifiedListData[i].pnr_number == '' ||modifiedListData[i].pnr_number == null){%>
+	<td>-</td>
+	<% }else{ %>
+	<td><%=modifiedListData[i].pnr_number%></td>
+	<% } %>
+	<% if(modifiedListData[i].ticket_number == ''||modifiedListData[i].ticket_number == null){%>
+	<td>-</td>
+	<% }else{ %>
+	<td><%=modifiedListData[i].ticket_number%></td>
+	<% } %>
+	<td><%=modifiedListData[i].remarks%></td>
+	<% if(modifiedListData[i].request_status == 'MOD'){%>
+	<td>Resubmitted</td>
+	<% } %>
+	<% if(modifiedListData[i].request_status == 'SUB'){%>
+	<td>Submitted</td>
+	<% } %>
+</tr>
+
+ <% } %>
+</table>
+</div>
+	 <% } %>							 <div class="clearfix"></div>	
+									 <br>
+										 
+								
+  </form>
+ </div>
+							</div>
+							</div>
+							</div>
+							</div>
+			
+			
+	 </div>		
+	 
+</div>
+ <% include ../common/footer %>
+</body>
+
+    
+ <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+               
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+</html>

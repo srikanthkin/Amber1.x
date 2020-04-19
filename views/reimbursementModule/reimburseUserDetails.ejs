@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+	   <title>Reimburse Details</title>
+           
+    <style>
+    
+            
+      
+      .navbar .navbar-reverse 
+      {
+          display: inline-block;
+          float: none;
+          vertical-align: top;
+      }
+
+      .navbar .navbar-collapse 
+      {
+          text-align: center;
+      }
+       .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+      hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+
+
+           </style>
+          <script type="text/javascript">
+          $(window).load(function()
+      {
+           $("#signature").hide();
+         });
+          </script>
+ <% if (user_remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+          $(document).ready(function(){
+                 $("#rmks").hide();
+           });
+                               </script>
+                               <% } %>
+
+   <% if (manager_remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+          $(document).ready(function(){
+                 $("#manrmks").hide();
+           });
+                               </script>
+                               <% } %>  
+
+   <% if (hr_remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+          $(document).ready(function(){
+                 $("#hrrmks").hide();
+           });
+                               </script>
+                               <% } %>  
+                  
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#test1").click(function downloadAsImg(){
+    $("#signature").show();
+var toBeDownloadedContent = document.getElementById('welcome');
+domtoimage.toJpeg(toBeDownloadedContent, { quality: 1,bgcolor: '#fff' })
+    .then (function (dataUrl) {
+        var domImage = new Image('p', 'pt', 'a4');
+        domImage.src = dataUrl;
+        var doc = new jsPDF();
+        doc.text(10, 100, '')
+        doc.addImage(domImage, 'JPEG', 15,40,180,180);
+        doc.save('ReimbursementForm.pdf');       
+        })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+});
+});
+</script>
+            
+
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+     <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="sidebar-wrapper">
+              <% include ../common/logo%>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+      <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+        <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+      <i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+    
+    <% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+      <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+    <%}%>
+    
+    <% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+    <% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+      <i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+    <%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+      <i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+  
+    <% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+      <i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+      <i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+    <% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+      <i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+    <%}%>
+
+    <% if(emp_access != 'A1'){ %>
+                <li>
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/travel/travelHrReqQueue">
+      <i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+    <% } %>
+
+
+    <% if( emp_access== 'F1'){ %>
+    <li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+      <i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+    </li>
+    <% } %>
+
+    <% if(emp_access != 'A1'){ %>
+    <li class="active">
+       <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+      <i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+       <%}%>
+                </li>
+    <% } %>
+
+            </ul>
+      </div>
+    </div>
+
+    <div class="main-panel">
+ <div class="container-fluid">
+       <% include ../common/userBar %>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+       
+
+              <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav" style="color:#669999">
+                    <% if(emp_access == 'L1'||emp_access == 'L2'||emp_access == 'L3'){ %>
+                     <li><a href="/reimbursementModule/initiateRem/initiateRem">Initiate Reimbursement</a></li>
+                     <li><a href="/reimbursementModule/viewClaimReq/viewClaimReq"><span style="color:#ff6600">View All Claims</span></a></li>
+                    <li><a href="/reimbursementModule/viewClaimApprQueue/viewClaimApprQueue">Approve/Reject</a></li>
+            <li><a href="/reimbursementModule/reimburseFAQDetails/reimburseFAQDetails">FAQ</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">Approve/Reject</a></li>
+           <% } %>
+                </ul>
+                </nav>
+
+                            </div>
+             
+                            <div class="content">
+    
+   <!-- <div class="container"  style="width:80 -->
+            
+            <form name="myForm" id="myForm" action="/reimbursementModule/initiateRem/reuploadBills" method="post">
+             
+            <div id="welcome">
+       <hr/>
+        <h4 class="title">My Request<span style="font-size: 18px;
+    color: red;">&nbsp;&nbsp;&nbsp;&nbsp;Request Id:<%=remburse_id%></span></h4>
+        <hr/>
+
+         <input type="hidden" id="remb_id" name="remb_id" value="<%-remburse_id%>">
+                               
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Employee Id</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="empid" name="empid" value="<%= empid%>" readOnly class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                       <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Employee name</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="emp_name" name="emp_name" value="<%= emp_name%>" disabled="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+          
+                                    </div>
+                                   
+                                
+               
+                           <div class="row">           
+                                  <div class="col-md-5">
+                                            <div class="form-group" id="dvPassport">
+                                            
+                                            <label style="color:#404040;margin-left: 50px">Project Id</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="projectId" name="projectId" value="<%= project_id%>" disabled="true" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                      
+ 
+                                    
+                                        <div class="col-md-5" >
+                                             <div class="form-group" id="tentDate">
+                                           
+                                             <label style="color:#404040;margin-left: 50px">Reporting Manager</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="repMgr" name="repMgr" value="<%= reporting_mgr%>" disabled="true" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+											 
+                                        </div> 
+                               
+                
+                <div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Finance Manager Name</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="hrId" name="hrId" value="<%= hr_name%>" disabled="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+          
+                         <div class="col-md-5">
+											<% if(advance_amt != '0'){ %>
+                                           <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Advance Amount</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="advAmt" name="advAmt" value="<%= advance_amt%>" disabled="true" class="form-control" placeholder="">
+                                            </div>
+											<% } %>
+                                        </div>
+                                    </div>
+                            
+								    <div class="row" >   
+                                    <% if(net_amt_payable != null){ %>
+                             
+                                     
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Claim Amount(in INR)</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="net_amt_payable" name="net_amt_payable" value="<%= net_amt_payable%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                                <% } %>
+								<% if(user_remarks != null){ %>
+                             <%if(user_remarks != ''){ %>
+                                     
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks1">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="remarks" name="remarks" value="<%= user_remarks%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+										           
+                                    <% } %>
+                                   <% } %>
+                                 </div>
+                                  
+                                   <div class="row" >
+                                  <% if(settlement_amount != null){ %>
+                                  
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Settlement Amount</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="settlement_amt" name="settlement_amt" value="<%=settlement_amount%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                                         
+                                         <% } %>
+                                 <% if(settlement_remarks != null){ %>
+                                  
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">settlement_remarks</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="settlement_remarks" name="settlement_remarks" value="<%=settlement_remarks%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                                         
+                                         <% } %>
+                                 </div>
+                                       
+
+                               
+                                   
+                                    <div class="row" >
+                                     <% if(manager_remarks != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="manrmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Manager Remarks</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="manremarks" name="manremarks" value="<%= manager_remarks%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                                          
+                                                 <% } %>
+                                          <% if(hr_remarks != null){ %>
+                               
+                                   
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="hrrmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Finance Manager Remarks</label>
+                             <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="hrremarks" name="hrremarks" value="<%= hr_remarks%>" disabled="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                                                             
+                                      <% } %>
+                                </div>
+                                           
+
+                                 
+
+                           <table class="table table-striped table-bordered table-responsive">
+<thead>
+<tr>
+    <td>BILL DATE</td>
+    <td>BILL ID</td>
+    <td>NATURE OF EXPENSES</td>
+    <td>DESCRIPTION</td>
+    <td>BILL AMOUNT</td>
+</tr>
+</thead>
+<% for (i = 0; i < billData.length; i++) {%>
+<tr>
+    <td><%=billData[i].bill_date.toDateString()%></td>
+    <td><%=billData[i].bill_id %></td> 
+    <td><%=billData[i].nature_of_expenses %></td>
+     <td><%=billData[i].remarks%></td>
+    <td><%=billData[i].ticket_amt %></td>
+</tr>
+<% } %>
+
+</table>
+                                        
+            <br>
+
+                <div class="row">
+          
+                              <div class="col-sm-6">
+        <% if(billLen != 0) {%>
+          <label style="color:#404040;"><u>Bills uploaded</u></a></label>
+          <ol>
+              <% for (i = 0; i < billLen; i++)  {%>
+          
+           <li><span style="width:100%; word-wrap:break-word; display:inline-block;">
+          <a href="/reimbursementModule/reimburseUserDetails/viewBillsUpload?id=<%= empid%>:<%=remburse_id%>:<%=billDocs[i]%>" onclick="clicked<%=i%>=true" id="billlink<%=i%>" name="billlink<%=i%>" target="_blank"><%=billDocs[i]%></a>
+          <a href="/reimbursementModule/reimburseUserDetails/downloadBillsUpload?id=<%= empid%>:<%=remburse_id%>:<%=billDocs[i]%>"><i class="material-icons right" style="color: black;">file_download</i></a></span></li>
+             
+              <% }; %>
+          </ol>
+          <br/>
+        <% } %>
+            </div>
+               
+                         <div class="col-md-5" id="signature">
+                          <div class="form-group">
+                          <label for="signature" style="color:#404040;margin-left:270px;font-size:medium;">Signature</label>           
+                           </div>
+                          </div>
+                          
+            </div>
+           
+                                   
+               <% if(billLen == 0) {%>
+               <% if(hr_status == 'confirmed' && settlement_paid_flg == 'N') {%>
+            <input type="submit" name="test" id="test" style="margin: 1%;" class="btn btn-info btn-fill" style="float: center;" value="Upload supporting bills" >
+               <% } %>
+              <% } %>
+                         
+              </div>       
+
+               <% if(status=='approved' && hr_status == 'pending') {%>           
+              <input type="button" name="test1" id="test1" style="margin: 1%;" class="btn btn-info btn-fill" style="float: center;" value="download as PDF" >
+               <% } %>
+              <div class="clearfix"></div>
+            <br>
+                                </form>
+
+
+ 
+<!--</div> -->
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+      
+    </div>
+    <% include ../common/footer %>
+</div>
+
+
+</body>
+
+    
+ <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'fa fa-exclamation-circle',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+
+        
+
+</html>

@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <% include ../common/header %>
+        <% include ../common/scripts %>
+        <% include ../common/styles %>
+        <title>Travel</title>
+		<style>
+       .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    width: 348;
+    margin-left: 50px;
+    position: relative;
+    vertical-align: middle;
+  }
+        		
+      .navbar .navbar-reverse 
+      {
+          display: inline-block;
+          float: none;
+          vertical-align: top;
+      }
+
+      .navbar .navbar-collapse 
+      {
+          text-align: center;
+      }
+
+                        table, tr, td
+                        {
+                            border: 0px;
+                            padding: 2px;
+                        }
+
+                        table
+                        {
+                                border-spacing: 0px;
+                        }
+                        
+      hr {
+                                border: none;
+                                height: 1px;
+                                color: #333; 
+                                background-color: #333; 
+                           }
+				 .picker__select--year {
+                            width: 24.5%;
+                            height: 30%;
+                        }
+                        .picker__select--month {
+                            width: 35%;
+                            height: 30%;
+                        }
+
+			 </style>
+           
+                    
+
+            <!--Start Added by nandhini for  Remarks-->
+                                   <% if (to_date=="") { %>
+                              <script>
+                //alert("hi");
+                $(document).ready(function(){
+                                   jQuery('#tentDate').hide();    
+                  });
+                               </script>
+                               <% } %>
+                 
+        
+              <% if (remarks=="") { %>
+                              <script>
+                //alert("hELLO");
+               //document.getElementById("rmks").style.visibility = "hidden";
+          $(document).ready(function(){
+                 $("#rmks").hide();
+           });
+                               </script>
+                               <% } %>        
+     <!--End Added by nandhini for  Remarks-->
+
+
+     <script type="text/javascript">
+       
+      $(document).ready(function() {
+      $("#my-icon").click(function(){
+      $( '#travelDate' ).pickadate("open"),
+
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+       </script>
+        <script>
+      $(document).ready(function() {
+      $("#my-icon1").click(function(){
+      $( '#tenDate' ).pickadate("open"),
+      event.stopPropagation(),
+      event.preventDefault()
+      });
+      });
+          </script>
+          <script>
+                  
+			function formValidations()
+			{
+				var pid = document.getElementById("pid").value;
+                                if(pid == "")
+                                {
+                                                //alert("Allot the Project Id for the employee");
+                                                document.getElementById("pid").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Allot the Project Id for the employee"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				
+				       
+
+                   
+                    
+
+                    
+				var travelDate = document.getElementById("travelDate").value;
+                                if(travelDate == "")
+                                {
+                                              //alert("Enter the Travel Date");
+                                              document.getElementById("travelDate").focus();
+                                             demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the Travel Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+                       var travelDate = document.getElementById("travelDate").value;
+                    // if(travelDate < currentDate)    
+                    // {
+                    //              alert("Travel Date cannot be greater than today's date");
+                    //                           document.getElementById("travelDate").focus();
+                    //                           return false;
+                    // }  
+          
+                 var radioButton=document.getElementById("chkYes").checked;
+                
+                  //alert(radioButton);
+                  if(radioButton == true)
+                
+				         {
+                  //alert("hello");
+                 var tenDate = document.getElementById("tenDate").value;
+                                if(tenDate == "")
+                                {
+                                              //alert("Enter the  Tentative Date");
+                                              document.getElementById("tenDate").focus();
+                                              demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the  Tentative Date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+                    //             if(tenDate < currentDate)    
+                    // {
+                    //              alert("Tentative Date cannot be greater than today's date");
+                    //                           document.getElementById("tenDate").focus();
+                    //                           return false;
+                    // }  
+				 			 
+				if( travelDate > tenDate){
+                                   //alert("Travel date is greater than tentative date");
+                                   demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Travel date is greater than tentative return date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                         }
+					
+            			 }
+
+				var from_location = document.getElementById("from_location").value;
+                                if(from_location == "")
+                                {
+                                                //alert("Select The From Location");
+                                                document.getElementById("from_location").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the From location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				var to_location = document.getElementById("to_location").value;
+                                if(to_location == "")
+                                {
+                                               // alert("Select The To Location");
+                                                document.getElementById("to_location").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the To location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+                //var toLocation = document.getElementById("toLoc").value;
+                //var fromLocation = document.getElementById("fromLoc").value;
+                              if(to_location == fromLoc)
+                                {
+                                              // alert("both to and from loc are same");
+                                               // document.getElementById("toLoc").focus();
+                                               // demo.initChartist();
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Both  From and To location cannot be same"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+
+
+
+               var regex = new RegExp("[0-9]+$");
+
+                if(regex.test(from_location))
+                                {
+                                            // alert("Please enter only alphabets");
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Only characters are allowed in From Location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+                   return false;
+              }      
+
+               
+                if(regex.test(to_location))
+                                {
+                                
+                         //  alert("Please enter only alphabets");
+                
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Only characters are allowed in To Location"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                }   
+                
+  
+				var remarks = document.getElementById("remarks").value;
+                                if(remarks == "")
+                                {
+                                               // alert("Select The To Location");
+                                                document.getElementById("remarks").focus();
+                                                demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Enter the remarks"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                }
+				return true; 
+			}
+                        
+     </script>
+<% if(emp_access == 'L2'||emp_access == 'L3'){ %> 
+     <script type="text/javascript">
+
+       $(document).ready(function(){
+
+         var danishdays = [];
+         //var danishdays1 = [];
+         var leavearray ;
+      var startDate =[]; 
+      var endDate =[];
+      var datesEnabled="";
+       var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+
+                                  var year = new Date("<%=from_date	%>").getFullYear();
+                                  console.log(year)
+                                  var Month = (new Date("<%=from_date%>").getMonth())+1;
+                                  console.log(Month)
+                                  var day = new Date("<%=from_date%>").getDate();
+                                  console.log(day)
+                                  if(day<10){
+                                  day='0'+day;
+                                  } 
+                                  if(Month<10){
+                                  Month='0'+Month;
+                                  } 
+
+                                  var newdate=year+'-'+Month+'-'+day;
+                                  
+                               
+                                    
+       var orderdate = $('#travelDate').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        disable:totalEnabled
+        });
+         dpicker = orderdate.pickadate('picker');
+         dpicker.set('select', newdate);
+});
+ </script>
+ <% } %>
+ <% if(emp_access == 'L2'||emp_access == 'L3'){ %> 
+ <% if(to_date!=null){ %>
+ <script type="text/javascript">       
+ $(document).ready(function(){
+
+      var danishdays = [];
+         //var danishdays1 = [];
+      var leavearray ;
+      var startDate =[]; 
+      var endDate =[];
+      var datesEnabled="";
+       var totalEnabled=[true];
+                                        <% for (i = 0; i < resultList.length; i++)  {%>
+
+startDate[<%=i%>]=[<%=new Date(resultList[i].project_allocation_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].project_allocation_date.toDateString()).getDate()%>]
+
+endDate[<%=i%>]=[<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getFullYear()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getMonth()%>,<%=new Date(resultList[i].emp_project_relieving_date.toDateString()).getDate()%>]
+
+                                      danishdays[<%=i%>]  = {'from':startDate[<%=i%>],'to': endDate[<%=i%>]}; 
+
+                                        <% }; %>  
+            
+                                        danishdays.forEach(function(ele){
+                                        totalEnabled.push(ele);
+
+                                        });
+
+        
+                                  var year = new Date("<%=to_date%>").getFullYear();
+                                  console.log(year)
+                                  var Month = (new Date("<%=to_date%>").getMonth())+1;
+                                  console.log(Month)
+                                  var day = new Date("<%=to_date%>").getDate();
+                                  console.log(day)
+                                  if(day<10){
+                                  day='0'+day;
+                                  } 
+                                  if(Month<10){
+                                  Month='0'+Month;
+                                  } 
+
+                                  var newdate=year+'-'+Month+'-'+day;
+                                  
+                                 
+       var orderdate = $('#tenDate').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        disable:totalEnabled
+        });
+        
+       
+         dpicker = orderdate.pickadate('picker');
+         dpicker.set('select', newdate);
+          
+ });
+   
+     </script>
+ <% }} %>
+ 
+<% if(emp_access == 'L1'){ %> 
+
+ <script type="text/javascript">
+  $(document).ready(function(){
+ console.log("inside")
+                                  var year = new Date("<%=from_date.toDateString()%>").getFullYear();
+                                  console.log(year)
+                                  var Month = (new Date("<%=from_date.toDateString()%>").getMonth())+1;
+                                  console.log(Month)
+                                  var day = new Date("<%=from_date.toDateString()%>").getDate();
+                                  console.log(day)
+                                  if(day<10){
+                                  day='0'+day;
+                                  } 
+                                  if(Month<10){
+                                  Month='0'+Month;
+                                  } 
+
+                                  var newdate=year+'-'+Month+'-'+day;
+                                  
+                               
+                                    
+       var orderdate = $('#travelDate').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        
+        });
+         dpicker = orderdate.pickadate('picker');
+         dpicker.set('select', newdate);
+});
+ </script>
+ <% } %>
+ <% if(emp_access == 'L1'){ %> 
+ <% if(to_date!=null){ %>
+ <script type="text/javascript">
+  $(document).ready(function(){
+
+                                  var year = new Date("<%=to_date.toDateString()%>").getFullYear();
+                                  console.log(year)
+                                  var Month = (new Date("<%=to_date.toDateString()%>").getMonth())+1;
+                                  console.log(Month)
+                                  var day = new Date("<%=to_date.toDateString()%>").getDate();
+                                  console.log(day)
+                                  if(day<10){
+                                  day='0'+day;
+                                  } 
+                                  if(Month<10){
+                                  Month='0'+Month;
+                                  } 
+
+                                  var newdate=year+'-'+Month+'-'+day;
+                                  
+                                 
+       var orderdate = $('#tenDate').pickadate(
+        {
+        selectMonths: true,
+        selectYears: 4,
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        closeOnSelect: true,
+        
+        });
+        
+       
+         dpicker = orderdate.pickadate('picker');
+         dpicker.set('select', newdate);
+       });
+ </script>
+<% }} %>
+
+ <script>
+ function formValidations()
+      {
+        var travelDate = document.getElementById("travelDate").value;
+        var tenDate = document.getElementById("tenDate").value;
+        if( travelDate > tenDate){
+                                   //alert("Travel date is greater than tentative date");
+                                   demo.initChartist();
+
+          $.notify({
+              icon: 'pe-7s-gift',
+              message: "Travel date is greater than tentative return date"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+                         return false;
+                                         }
+      }
+ </script>
+ 
+</head>
+<body onload="changeHashOnLoad();">
+
+<div class="wrapper">
+    <div class="sidebar" style ="background-color: transparent;color: #006666">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+    	<div class="sidebar-wrapper">
+                <% include ../common/logo %>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin-dashboard/adminDashboard/admindashboard">
+			<i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+ 		    <% if(emp_access == "A1"){%>
+                    <a href="/employeeModule/employeeDetails/employeeDetails">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}else{%>
+                    <a href="/employeeModule/employeeDetails/employeeAddpersonal">
+			<i class="material-icons">person</i>
+                        <p>Employee Details</p>
+                    </a>
+                    <%}%>
+                </li>
+		
+		<% if(emp_access == "L1" || emp_access == "L2" ){%>
+                <li>
+                    <a href="/projectModule/projectDetails/customercreation">
+			<i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+		<%}%>
+		
+		<% if(emp_access == "F1"){%>
+                <li>
+                    <a href="/projectModule/projectDetails/projectDocumentsView">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Project Module</p>
+                    </a>
+                </li>
+                <%}%>
+
+		<% if(emp_access != "F1"){%>
+                <li>
+                   <a href="/appraisalModule/viewAppraisal/viewAppraisal">
+			<i class="material-icons">thumbs_up_down</i>
+                        <p>Appraisal Module</p>
+                    </a>
+                </li>
+		<%}%>
+
+                <li>
+                    <a href="/cmsModule/cms/cms">
+			<i class="material-icons">file_upload</i>
+                        <p>E-Docket</p>
+                    </a>
+                </li>
+	
+		<% if(emp_access == "N1"){%>
+                <li>
+                    <a href="/assetModule/assetDetails/assetDetails">
+			<i class="material-icons">phonelink</i>
+                        <p>Asset Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<li >
+                    <a href="/requestModule/applyLeave/applyLeave">
+			<i class="material-icons">event</i>
+                        <p>Leave Requests</p>
+                    </a>
+                </li>
+
+		<% if(emp_access == "A1" || emp_access == "F1"){%>
+                <li>
+                    <a href="/holidaysModule/holidays/viewHolidays">
+			<i class="material-icons">date_range</i>
+                        <p>Holiday Management</p>
+                    </a>
+                </li>
+		<%}%>
+
+		<% if(emp_access != "A1"){ %>
+                <li class="active">
+                   <% if(emp_access != "F1"){ %> 
+                    <a href="/travelModule/travel/travel">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                  <%}else{%>   
+                    <a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">
+			<i class="material-icons">flight</i>
+                        <p>Travel Requests</p>
+                    </a>
+                   <% } %>
+                </li>
+		<% } %>
+
+
+		<% if( emp_access== 'F1'){ %>
+		<li>
+                    <a href="/invoiceModule/invoiceDetails/chooseinvoiceDetails">
+			<i class="material-icons">storage</i>
+                        <p>Invoice Management</p>
+                    </a>
+		</li>
+		<% } %>
+
+		<% if(emp_access != "A1"){ %>
+		<li>
+		   <% if(emp_access != "F1" ){ %>
+                    <a href="/reimbursementModule/initiateRem/initiateRem">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}else{%>
+                    <a href="/reimbursementModule/viewClaimFinQueue/viewClaimFinQueue">
+			<i class="material-icons">receipt</i>
+                        <p>Claims</p>
+                    </a>
+		   <%}%>
+                </li>
+		<% } %>
+
+            </ul>
+    	</div>
+    </div>   
+
+    <div class="main-panel">
+ <div class="container-fluid">
+        <% include ../common/userBar %>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="card">
+                            <div class="header">
+       
+
+              <nav class="navbar navbar-inverse">
+               <ul class="nav navbar-nav" style="color:#669999">
+                <% if(emp_access != 'F1'){ %> 
+                    <li><a href="/travelModule/travel/travel">Initiate Travel Request</span></a></li>
+                    <li><a href="/travelModule/viewTravelReq/viewTravelReq"><span style="color:#ff6600">View Request</span></a></li>
+                    
+                     <li><a href="/travelModule/viewTravelApprQueue/viewTravelApprQueue">View Approval Queue</a></li>
+                <% } %>
+               <% if(emp_access == 'F1'){ %> 
+            <li><a href="/travelModule/viewTravelFinQueue/viewTravelFinQueue">View Approval Queue</a></li>
+           <% } %>
+		    <li><a href="/travelModule/travelFAQDetails/travelFAQDetails">FAQ</a></li>
+                </ul>
+                </nav>
+
+                            </div>
+							 <div class="row flashrow " style="margin-left: 30px;">
+       <div class="col s11 a sucdisplay center"  style="padding-top: 20px;">
+             
+         
+             <div><%= success%> </div> 
+          
+           </div>
+       </div> 
+             
+                            <div class="content">
+    
+   <!-- <div class="container"  style="width:80 -->
+
+            <form name="myForm" id="myForm" action="/travelModule/travel/travelReq" method="post">
+       <hr/>
+        <h4 class="title">My Request<span style="font-size: 18px;
+    color: red;">&nbsp;&nbsp;&nbsp;&nbsp;Request Id:<%=req_id%></span></h4>
+        <hr/>			
+									
+                               
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Project Id</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="projectId" name="projectId" value="<%= project_id%>" readonly="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                       <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">Employee name</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="emp_name" name="emp_name" value="<%= emp_name%>" readonly="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+          
+                                    </div>
+                                   
+                                
+               
+                           <div class="row">           
+                                  <div class="col-md-5">
+                                            <div class="form-group" id="dvPassport">
+                                             <div class="datepicker">
+                                            <table>
+                                                <tr><label style="color:#404040;margin-left: 50px">Travel Date<span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="date" class="form-control" style ="margin-left: 50px;width:348px;    background-color: #FFFFFF;" placeholder="Travel Date" id="travelDate" name="travelDate" value="<%= from_date%>"></td>
+                                                <td><span id="my-icon" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                     
+                                    <% if(to_date != null){ %>
+                                        <div class="col-md-5" >
+                                             <div class="form-group" id="tentDate">
+                                            <div class="datepicker">
+                                
+                                                 <table>
+                                                <tr><label style="color:#404040;margin-left: 50px">Tentative Return Date<span style="color:red;font-size: 10pt">*</span></label>
+                                                <td><input type="date" class="form-control" style ="margin-left: 50px;width:348px;    background-color: #FFFFFF;" placeholder="Tentative Return Date" id="tenDate" name="tenDate" value="<%= to_date%>"></td>
+                                                <td><span id="my-icon1" class="glyphicon glyphicon-calendar"></span></td>
+                                            </tr>
+                                            </table>
+                                            </div>
+                                                </div>
+                                            </div>
+                       <% } %>
+                                        </div> 
+                               
+                
+                <div class="row">
+                                        <div class="col-md-5">
+                                             <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">From Location</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="from_location" name="from_location" value="<%= from_location%>"  class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+          
+                         <div class="col-md-5">
+                                           <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px">To Location</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="to_location" name="to_location" value="<%= to_location%>"  class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                              
+        <div class="row" >
+    <% if(pnr_number != null){ %>
+	<% if(pnr_number != ''){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" >
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">PNR Number</label>
+            <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="pnr_number" name="pnr_number" value="<%= pnr_number%>" readOnly="true" class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+	<% } }%>
+					  <% if(ticket_number != null){ %>
+					   <% if(ticket_number != ''){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" >
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Ticket Number</label>
+            <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="ticket_number" name="ticket_number" value="<%= ticket_number%>" readOnly="true"  class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+					  <% }} %>
+                                        </div>               
+                      
+       
+                       <% if(emp_access == 'L2'||emp_access == 'L3'||emp_access == 'L1'){ %>
+                          
+                   
+                            
+        
+                            <div class="row" id="approval">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="gstno" style="color:#404040;margin-left: 50px">Approver</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="gstno" name="gstno" value="<%= empName%>" readOnly="true" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+										<% if(free_text_1 != ''){ %>
+											<% if(free_text_1 != null){ %>
+										 <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="ticketfare" style="color:#404040;margin-left: 50px">Booked Ticket Fare</label>
+                                                <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="ticketfare" name="ticketfare" value="<%= free_text_1%>" readOnly="true" class="form-control">
+                                            </div>
+                                        </div>
+										<% }} %>
+                                 </div>
+								 <div class="row">
+					  <% if(approver_remarks != ''){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="apprmks">
+                                                <label style="color:#404040;margin-left: 50px" for="app_remarks">Approver Remarks</label>
+            <input type="text" class="form-control" style ="margin-left: 50px;width:348px;text-transform:uppercase"  id="app_remarks" name="app_remarks" value= "<%=approver_remarks%>" readonly="true"/>
+                                            </div>
+                                        </div>
+										 <% } %>    
+					   <% if(hr_remarks){ %>
+					   
+								<div class="col-md-5">
+                                            <div class="form-group">
+                                                <label style="color:#404040;margin-left: 50px" for="hr_remarks">Finance Remarks</label>
+						<input type="text" class="form-control" style ="margin-left: 50px;width:348px;text-transform: uppercase;"  id="hr_remarks" name="hr_remarks" value= "<%-hr_remarks%>" readOnly="true" />
+                                            </div>
+                                        </div>
+					   <%  }%>
+                  </div>
+                           <% } %>
+                                  <div class="row" >
+    <% if(remarks != null){ %>
+                                        <div class="col-md-5">
+                                            <div class="form-group" id="rmks">
+                                                <label for="rmks" style="color:#404040;margin-left: 50px">Remarks</label>
+            <input type="text" style="margin-left: 50px;width:348px;text-transform:uppercase" id="remarks" name="remarks" value="<%= remarks%>"  class="form-control" placeholder="">
+                                          
+                                            </div>
+                                        </div>
+                     <% } %>
+                                        </div>
+         <input type="hidden" id="modify_flg" name="modify_flg" value="<%= modifyFlg%>"  class="form-control" Visibility="false" placeholder="">
+          <input type="hidden" id="req_id" name="req_id" value="<%=req_id%>"  class="form-control" Visibility="false" placeholder="">                              
+
+                                        
+            <br>
+            <table>
+                        <tr>
+                         <% if(pendingFlg == 'p'){ %>
+              <td><input type="submit" name="test5" id="test5" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+               
+             <% } else if(pendingFlg == 'h'){ %>
+              <td><input type="submit" name="test3" id="test3" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+              <% }else if(pendingFlg == ''){%>
+               <td><input type="submit" name="test4" id="test4" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+               
+               <% }else if(pendingFlg == 'AP'){%>
+               <td><input type="submit" name="test1" id="test1" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+               
+               <% }else if(pendingFlg == 'HR'){%>
+               <td><input type="submit" name="test2" id="test2" style="margin-left:85%;padding:1px 16px;height:40px;width:100px" class="btn btn-info btn-fill" style="float: center;" value="Submit" onclick="return formValidations();"></td>
+               <% } %>
+            </tr>
+                     </table>
+           
+                                    <div class="clearfix"></div>
+            <br>
+
+                                </form>
+
+
+ 
+<!--</div> -->
+     
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+	 <% include ../common/footer %>
+</div>
+
+
+</body>
+
+   
+ <% if(success!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= success %></b>"
+
+            },{
+                type: 'info',
+                timer: 500
+            });
+
+        });
+        </script>
+        <%}%>
+
+         <% if(error!="") { %>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+                demo.initChartist();
+
+                $.notify({
+                icon: 'pe-7s-gift',
+                message:"<b><%= error %></b>"
+
+            },{
+                type: 'danger',
+                timer: 500
+            });
+
+        });
+        </script>
+<%}%>
+
+        
+</html>
